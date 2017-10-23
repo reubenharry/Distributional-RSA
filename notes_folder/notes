@@ -1,0 +1,1134 @@
+The Stack:
+
+Presentation:
+
+	metaphor: similarity is not enough:
+		john is an animal: complex example tho
+
+			so failure of the similarity null model
+
+		draw the qud rsa example with vectors
+
+	word and object:
+		world knowledge IS language knowledge:
+			we're using glove for WORLD knowledge:
+				it's our semantics
+
+Main:
+
+
+
+	must do:
+		robust categorical: list results
+		noncat: robust for sheep and shark. then experiment further.
+		unit tests, git work, clean up: add lit review for leon, notes divided into todos and meeting notes in separate files, write up added in separate folder, remove junk.
+		s2, new l1, paraphrase, identification: readd euclidean nearest neighbours
+
+
+
+	checking l1 distribution
+
+	implement: paraphrase
+
+	implement: identification
+
+	noncat:
+
+
+	more substantive predication
+
+	models of context: adding some vectors
+
+	check null models more
+
+	qud analogy: we still have an equivalence class: so it is sthe same as qud rsa
+
+	add distance moved for noncat
+
+	retry paraphrase: perhaps just with more words: should work better
+
+
+
+	open both notebooks, local and server, manually merge, write stuff in each.
+
+	give adjective examples that are intuitive
+
+	get gitignore working, so that git add is git add .
+
+	is burn in in right order?????
+		ALSO YOU FORGOT QUD BURN IN for cat l1
+
+	first get categorical working. then animals run. then non-categorical try. then plotting.
+
+	list of things to do before leaving:
+		write s2, write new model,
+
+	find out what a good 2d mixing time is, 50? 300? WRITE THESE OBSERVATIONS DOWN IN YOUR NOTEBOOK:
+
+		solution for notebook sharing: only change it on the server, and push it
+		for notebook:
+			projections, quick runs, s1
+
+	make animals unit test to run before each commit
+
+	check continuous on 2d
+
+	note: size of sigma1 seems to have big effect on stability of inference
+
+	try: subject is at origin, subject is lawyer: key tests of the system, once it works
+
+	vocab lists for verbal predication: 2nd order manner verbs, and nearby adjectives
+	noun noun compounds
+
+
+	debug the matrix issue from an S1 level
+	check non vectorized s1, and check its stability
+
+	check replicability at cat: larger vecs, larger sig1, mean_vecs/pca
+	try to get working noncat
+	run animals with something that works - reduce number of things printed
+	frequency weighting a little
+	TRY: lawyer instead of human
+
+	try pig: for different things: greedy, dirty
+
+	she is a painting, time is a mirror, karma is a bitch, he is a phoenix,john is an asshole: what happens if you try this, john is a postman
+
+	set sigma1 to average variance
+
+	are there hmcs in edward that have two variables?
+
+	rerun the preprocessing
+
+	noncategorical:
+		would be good to get histograms:
+
+	play with step size for categorical
+
+	check agreement of vectorized and nonvectorized s1
+
+	RETRY multidimensional stuff
+
+
+	measure world movement along adjectives: done, actually: but inspect: for noncat l1
+
+	run full set of animal examples
+
+	revisit multidimensional quds: sanity check the code thing
+
+	how difficult would it be for us to do cosine distance at s1?
+
+	think more about the vector space: how to use in a way that isn't extrinsic: how to learn a space which would be good for our task:
+
+		i think a neural l0 would be crucial for improved performance
+
+	jupyter notebook:
+
+		do tsne in a notebook
+		do comparison of cosine distance, projection distance, and s1, and l1: visual information is good.
+
+	try the larger version of the 300d glove: from common crawl: probably good
+
+	refine_vectors: FIX: the indexing is wrong: recopy
+
+	multiple quds, in principle, should help with world inference AND qud inference(?)
+
+	s1: examine it more carefully: write stuff down: notebook of sanity checks
+
+	sanity check the weighting: make sure it makes virtually no change
+
+
+	fix mean issue
+
+	investigate weighting: i'm suspicious of it: have a look at weighted quds and utts
+
+
+	geometric investigations
+
+	nlp for qud and utterance choices:
+		e.g. quds weighted by coocurrence with subject
+		nouns found from: a is like a b
+
+
+
+	#find optimal hyperparameters and optimize l1 to run huge size inference. if this is too slow, consider returning to noncategorical l1
+		#retry noncategorical l1: see what results are like: should be interesting to compare
+
+		consider averaging first and see if it makes a difference
+		consider multideinseion quds then averaging them
+		CRUCIAL: check what kind of metric you're using
+
+	full inference:
+		10, 0.1, 300, mean_vecs, 0.1,0.1
+		consider incorporating sigmas into model: not now though
+
+	#access corpora and perform tests:
+
+		make identification and paraphrase modules in the obvious ways
+
+
+	#find a verbal metaphor set: e.g. 100 verbs as predicates, and also a noun-noun compound set
+
+	#write a nearest neighbour finder: takes vec matrix and vec. try adding literal paraphrase software: use normal projection func, and
+
+	#detensorflowify recovery and s2: check equivalence: i've kept in tf but employed memory saving measures
+
+	build rudimentary s2: in terms of qualitative coolness, metaphor generation is probably the ideal
+
+For meeting:
+
+	human subject training
+
+	noun-noun compounds
+
+	my plan for organization: a single file for shared todos, separate worklog
+
+	what do we think of weighting the utterances by cosine dist to subject
+		OR: having a language model in our system: surely not a bad idea
+
+	discuss exactly what should be in paper, and timeframe: map out next steps:
+
+	bring up the grefenstette
+
+
+	what does our model without quds look like
+
+	show him the tautology examples
+
+
+	the invertibility error with multidim non cat
+
+	fix the maths in paper
+
+	consider the alternative s2
+
+	the cosine distance language model for s0
+
+		it seems to me that we should present our model as solving the failings of null model and other models:
+			we need to identify these
+				ideally, we would want a procedural way of generating examples that are model is going to be good at
+	the type of example that should beat the null model:
+				exists a predicate foo st for ``A is a B'', A is foo and B is foo, but there is a better way of expressing the fooness, OR: there is a better interpretation for saying A is a B:
+
+
+
+
+
+	raise with leon: it doesn't seem that our qud vectors are doing what we thought (e.g. opposites are often close), but nevertheless, the model works. why? in spite of this, or something else?
+
+	do paper details with leon
+
+	multidimensional noncategorical: recovering topics
+
+
+	we gain a lot of insight by looking at the results of noncat/cat l1 for the paraphrase when the direction of the qud is negative: tells us a lot about the information being encoded here
+
+	i think we should have the qud adjectives as possible utterances, or at least some kind of literal adjectives:
+
+		this would work mainly for the multidimensional qud:
+			we'd need to take tensor product to lift 1d adjectives to the right space
+
+	think about how people create notion of literal predicate
+
+	should we have a language model for quds: i.e. select set of quds
+
+	presented stuff to dan and ciyang: useful feedback
+
+	questions: should we expect that all the top quds are gonna be close? ah, this IS the multimodality question
+
+	is there a way of framing our qud projection as losing information?
+
+	do we want a P(q|w)?
+
+	ciyang's null model
+	ciyang's commutativity question
+
+	note that people will pick literal topics for quds and not use them metaphorically:
+
+		e.g. human is sheep: blind: scores high because of connotations of blindness:
+
+			somehow people reconstruct non metaphorical or nonconnotative vectors
+
+	raise the following issue: the hyperparameters that give high variance on one animal, don't for another
+
+	multimodal dist: how should we address this? multiple dimensions needed?
+		on one run:
+			((['awkward'], 0.1051881), 'world on qud: ', array([ 0.05888079]), 'distance moved along qud: ', array([-0.30778488]))
+			((['graceful'], 0.067862615), 'world on qud: ', array([ 0.09671567]), 'distance moved along qud: ', array([-0.20449647]))
+		on another:
+			((['dependent'], 0.09421657), 'world on qud: ', array([ 0.29139331]), 'distance moved along qud: ', array([-0.33060439]))
+			((['ugly'], 0.073422313), 'world on qud: ', array([ 0.16937484]), 'distance moved along qud: ', array([-0.22072442]))
+			((['loyal'], 0.051788382), 'world on qud: ', array([ 0.11679697]), 'distance moved along qud: ', array([-0.08039966]))
+			((['dirty'], 0.050215513), 'world on qud: ', array([ 0.17441342]), 'distance moved along qud: ', array([-0.24081523]))
+			((['annoying'], 0.039069057), 'world on qud: ', array([ 0.21870073]), 'distance moved along qud: ', array([-0.04366301]))
+			((['playful'], 0.037821427), 'world on qud: ', array([ 0.16596647]), 'distance moved along qud: ', array([-0.14092475]))
+			((['light'], 0.036884002), 'world on qud: ', array([ 0.21046128]), 'distance moved along qud: ', array([-0.29524304]))
+			((['hard'], 0.035868917), 'world on qud: ', array([ 0.17367413]), 'distance moved along qud: ', array([-0.45187491]))
+			((['nonviolent'], 0.029552754), 'world on qud: ', array([ 0.13884717]), 'distance moved along qud: ', array([-0.29275785]))
+			((['inelastic'], 0.029048476), 'world on qud: ', array([ 0.03441374]), 'distance moved along qud: ', array([-0.11343076]))
+			((['foolish'], 0.024012281), 'world on qud: ', array([ 0.07429275]), 'distance moved along qud: ', array([-0.12737596]))
+			((['slimy'], 0.023885204), 'world on qud: ', array([ 0.1489547]), 'distance moved along qud: ', array([ 0.00792461]))
+			((['smooth'], 0.021482), 'world on qud: ', array([ 0.21514665]), 'distance moved along qud: ', array([-0.18838598]))
+			((['mean'], 0.020599034), 'world on qud: ', array([ 0.2025601]), 'distance moved along qud: ', array([-0.49988267]))
+			((['smart'], 0.02050123), 'world on qud: ', array([ 0.14835235]), 'distance moved along qud: ', array([-0.19623643]))
+			((['unfree'], 0.020327464), 'world on qud: ', array([ 0.04990179]), 'distance moved along qud: ', array([ 0.18915454]))
+			((['scaly'], 0.020138174), 'world on qud: ', array([ 0.11913702]), 'distance moved along qud: ', array([ 0.04745667]))
+			((['cold'], 0.019236811), 'world on qud: ', array([ 0.18856691]), 'distance moved along qud: ', array([-0.31084584]))
+			((['loud'], 0.018599164), 'world on qud: ', array([ 0.15711016]), 'distance moved along qud: ', array([-0.09926606]))
+			((['scary'], 0.018001424), 'world on qud: ', array([ 0.05704108]), 'distance moved along qud: ', array([-0.21975184]))
+			((['smelly'], 0.01740383), 'world on qud: ', array([ 0.19418059]), 'distance moved along qud: ', array([ 0.15478929]))
+			((['bouncy'], 0.017179552), 'world on qud: ', array([ 0.05400125]), 'distance moved along qud: ', array([ 0.2009236]))
+			((['agreeable'], 0.017059309), 'world on qud: ', array([ 0.0405658]), 'distance moved along qud: ', array([ 0.05512533]))
+			((['unhappy'], 0.015851574), 'world on qud: ', array([ 0.21313731]), 'distance moved along qud: ', array([-0.17434202]))
+			((['fierce'], 0.014219203), 'world on qud: ', array([ 0.11720736]), 'distance moved along qud: ', array([-0.3161889]))
+			((['quiet'], 0.01341106), 'world on qud: ', array([ 0.09309165]), 'distance moved along qud: ', array([-0.25650862]))
+			((['sly'], 0.012928638), 'world on qud: ', array([ 0.08206269]), 'distance moved along qud: ', array([ 0.03225941]))
+			((['dumb'], 0.012471624), 'world on qud: ', array([ 0.16820973]), 'distance moved along qud: ', array([-0.00036166]))
+			((['stupid'], 0.012423304), 'world on qud: ', array([ 0.11160823]), 'distance moved along qud: ', array([-0.22893019]))
+			((['dangerous'], 0.012373962), 'world on qud: ', array([ 0.23234215]), 'distance moved along qud: ', array([-0.5018643]))
+			((['majestic'], 0.011218608), 'world on qud: ', array([-0.2393363]), 'distance moved along qud: ', array([-0.27478177]))
+			((['fat'], 0.011137011), 'world on qud: ', array([ 0.2268524]), 'distance moved along qud: ', array([-0.0627109]))
+			((['idle'], 0.01059174), 'world on qud: ', array([ 0.00816816]), 'distance moved along qud: ', array([-0.06811752]))
+			((['independent'], 0.010520134), 'world on qud: ', array([ 0.16904359]), 'distance moved along qud: ', array([-0.41041242]))
+			((['weak'], 0.0095147956), 'world on qud: ', array([ 0.18302566]), 'distance moved along qud: ', array([-0.29852541]))
+			((['artless'], 0.0093379421), 'world on qud: ', array([ 0.02345071]), 'distance moved along qud: ', array([ 0.3099598]))
+
+	data to consider:
+		for "shark":
+			on step size 0.25, we get:
+				((['predator'], 0.31707504), 'world on qud: ', array([ 0.57881312]), 'distance moved along qud: ', array([ 0.17234433]))
+				((['tame'], 0.076633692), 'world on qud: ', array([ 0.26352696]), 'distance moved along qud: ', array([ 0.12865882]))
+				((['slimy'], 0.067053482), 'world on qud: ', array([ 0.31489313]), 'distance moved along qud: ', array([ 0.17386303]))
+				((['sighted'], 0.062990852), 'world on qud: ', array([ 0.38156432]), 'distance moved along qud: ', array([ 0.08525111]))
+				((['nocturnal'], 0.051018141), 'world on qud: ', array([ 0.40354798]), 'distance moved along qud: ', array([ 0.11595545]))
+				((['ferocious'], 0.039722681), 'world on qud: ', array([ 0.51204471]), 'distance moved along qud: ', array([ 0.15094491]))
+		but for sheep, we get:
+
+			((['dependent'], 0.047082067), 'world on qud: ', array([ 0.56460644]), 'distance moved along qud: ', array([-0.05739126]))
+			((['dry'], 0.044643227), 'world on qud: ', array([ 0.2079078]), 'distance moved along qud: ', array([-0.01022328]))
+			((['native'], 0.035398878), 'world on qud: ', array([ 0.43509477]), 'distance moved along qud: ', array([-0.02007747]))
+			((['inelastic'], 0.031508509), 'world on qud: ', array([ 0.09233393]), 'distance moved along qud: ', array([-0.05551058]))
+			((['scary'], 0.029343523), 'world on qud: ', array([ 0.24633628]), 'distance moved along qud: ', array([-0.03045665]))
+			((['hungry'], 0.024157245), 'world on qud: ', array([ 0.38953949]), 'distance moved along qud: ', array([-0.01729308]))
+			((['ugly'], 0.023196135), 'world on qud: ', array([ 0.37069109]), 'distance moved along qud: ', array([-0.01940817]))
+
+		to increase variance, we can lower step size and decrease sigma2, but while this works ok for sheep, it does bad things for "shark": predator drops to the bottom
+
+	two word cases: l1 appears not to suffice:
+
+		THE RESULTS OF L1 INFERENCE FOR: subject=human and predicate=shark
+
+		((['predator'], 0.80885714), 'world on qud: ', array([ 0.5939057]), 'distance moved along qud: ', array([ 0.1874369]))
+		((['swims'], 0.19114314), 'world on qud: ', array([ 0.23195722]), 'distance moved along qud: ', array([ 0.11951864]))
+		Running categorical RSA with 3 possible utterances and 2 possible quds.
+		Mean centered=False and pca_removal=False
+
+		2 (2,)
+		(50,) listener world 50
+		(2, 3) (2, 1)
+		1000/1000 [100%] Elapsed: 4s | Acceptance Rate: 0.697
+		THE RESULTS OF L1 INFERENCE FOR: subject=human and predicate=fish
+
+		((['predator'], 0.69491249), 'world on qud: ', array([ 0.44872555]), 'distance moved along qud: ', array([ 0.04225676]))
+		((['swims'], 0.30508706), 'world on qud: ', array([ 0.17622779]), 'distance moved along qud: ', array([ 0.0637892]))
+		Running categorical RSA with 3 possible utterances and 2 possible quds.
+		Mean centered=False and pca_removal=False
+
+	the null model
+
+	two word examples don't actually work
+
+	rounding errors, and the results for s1: [[  5.00000000e-01   6.94399529e-12   5.00000000e-01]
+ [  1.38879967e-11   1.38879967e-11   1.00000000e+00]]: why isn't "shark" a good thing to say to convey "swims"?
+
+	do we need a rationality parameter? this might be important
+
+	thinking about literal meaning: john is a postman: should we include ``postman'' as a qud?
+
+	conventionalized metaphor is a real worry
+
+	why is everything similar in non categorical
+
+	also: conceptual combination literature: https://arxiv.org/pdf/1305.5753.pdf:
+
+	https://link.springer.com/chapter/10.1007/978-3-319-28675-4_14
+
+	fix projection code in main: write a vectorized debug projector
+
+
+	null models: s2: generation: might be pretty easy, actually. find fooling cases
+
+
+
+	check ordering of adjectives under projection
+
+	how to make identification module
+
+	check if shark is a good qud for "human is a shark": in some sense, it shouldn't be: this is tantamount to literalness detection
+
+	perhaps broaden to similes: easier to find, by searching: is like a
+
+	s2
+
+	results:
+
+		do we really need mean_vecs: what should we expect here?
+
+		results(mean_vecs=False,pca_remove_top_dims=False,sig1=1.0,sig2=10.0,vec_length=50,freq_weight=1.0,qud_weight=1.0) gives similar results for different animals
+
+		mean_vecs=False,pca_remove_top_dims=False,sig1=10.0,sig2=1.0,vec_length=50,freq_weight=0.0,qud_weight=0.0: good results for shark, bad for sheep
+		bad: mean_vecs50sigs1.010.01.00.0
+
+		interesting ones:
+
+			plain50sigs1.01.00.00.0: good performance
+
+			mean_vecs50sigs10.010.00.01.0: bad performance
+			mean_vecs50sigs10.010.00.00.0: literalistic
+			plain50sigs10.010.00.01.0: great for sheep, terrible for shark
+
+
+			mean_vecs50sigs1.010.00.01.0
+			mean_vecs50sigs1.010.00.00.0
+			plain50sigs1.010.00.01.0
+			plain50sigs1.010.00.00.0
+			mean_vecs50sigs1.01.00.01.0
+			mean_vecs50sigs1.01.00.00.0: what makes inelastic good here?
+
+
+
+Sanity Checks:
+	#check order when zipping, check alignment of freqs etc
+	#make sure frequencies and utterances share same indexes
+
+	#ensure no change when removing the weighting altogether: debug the change
+
+	#DEBUG: categorical l1 gives very slightly different results when frequency scores are not added and when they are but first multiplied by freq_weight=0: why? only slight, but why?
+
+Things to Try:
+
+	think about ways to get productive unseen metaphors in real text: e.g.
+
+	#bagging the words in the rest of a sentence and averaging: then doing the metaphor approach between the target word and the rest.
+
+	#consider using wordnet in a more principled way, in order to generate a set of possible utterances and quds in an unsupervised manners
+
+	#try low-d pca: run this in refine vecs and test on animals: 30, 20, 10, 2
+
+	#ground truth phrases: write code to count number of occurences of a phrase. find an adjective noun phrase. do glove computation with it.
+
+	#try adding the quds (or at least, some set of adjectives, or more generally predicates) to the possible utterances: for multidimensional cases. (ensure new matrix formulation for quds is good):
+		we would hope this enhances performance on l1 AND s2
+
+Longer Term:
+
+	holy grail: a character based model which can say things which are metaphorical, and multimodally understand metaphor
+
+	#inference on the vectors too
+
+	#retry non-categorical l1, particularly for noun-noun inference
+
+List of metaphors to try:
+
+	John is a brick.
+	John waded through the data.
+	John is bitter.
+	The news is bitter.
+	He had a stormy
+	The news hit him like thunder.
+	John had a fertile imagination.
+	This light is warm.
+	he was spewing speeches
+	GREAT: zebra crossing: is this a metaphor? have a think: yes:
+	the news is exploding
+	the man is bubbling with rage
+	connotation and convention: cunt vs pussy as a metaphor
+	nam is a buttress
+	she is a painting
+	the flames dance
+	time flies
+	this deal is fishy
+	``HELICOPTER BLANKET
+the modification of BLANKET by HELICOPTER generates associate properties
+such as “water proof”, “camouflage”, and “made of canvas”, a phenomenon
+which present theories struggle to account for (Wilkenfeld and Ward, 2001), and
+so is sometimes viewed as evidence for non-compositional semantics''
+
+		copula metaphor is a conventionalized thing, but phenomenon is more general:
+
+
+Done:
+
+	try some new animals on settings that are good: tick
+	push this file: tick
+	check cosine distances of quds to sheep and shark: tick
+	consider more samples, try burn in: tick
+
+
+Work Log:
+
+	6/7/17:
+
+		aims: get consistent runs on categorical l1 with animals:
+			subaims:
+				identify necessary mixing time
+				identify which side is burn in
+				identify other hyperparameters
+
+			plan organization:
+				rebuild code from old commit:
+
+					try pulling in the most recent "main": only do this once i have unit tests
+
+					work out what changed:
+						possibilities:
+							last half of l1
+							burn in
+							the vectors
+
+		report:
+			results seem stable across runs after 1000 samples, no burn in, for step size 0.25, sigma1 = 1, sigma2 = 0.1
+
+			frequency weight may be useful
+
+		next time:
+			get this run or similar in notebook:
+				((['predator'], 0.065256864), 'world on qud: ', array([ 0.15518461]), 'distance moved along qud: ', array([ 0.0135452]))
+				((['unfree'], 0.059590645), 'world on qud: ', array([-0.04118325]), 'distance moved along qud: ', array([-0.00371499]))
+				((['ferocious'], 0.03294263), 'world on qud: ', array([ 0.16788079]), 'distance moved along qud: ', array([ 0.00363357]))
+				((['fierce'], 0.026597392), 'world on qud: ', array([ 0.1784542]), 'distance moved along qud: ', array([ 0.00832029]))
+				((['scary'], 0.023002904), 'world on qud: ', array([ 0.09160726]), 'distance moved along qud: ', array([-0.01020799]))
+
+			the toy example doesn't work:
+				why?
+
+	7/7/17:
+
+		the null model is good: closest things to the averaged vectors of the subject and predicate:
+
+			but not that good: this for sheep and lion respectively:
+
+				[('wild', 0.35265192911535903), ('small', 0.39094945052944341), ('blind', 0.39932974255783027), ('large', 0.40631461030241411), ('safe', 0.43316725672847134), ('native', 0.44096822328494722), ('dangerous', 0.45732190555020935), ('free', 0.48568254627178198), ('huge', 0.49318297201322625), ('dependent', 0.5021279361897335), ('soft', 0.5054332553865557), ('hungry', 0.50738436653524621), ('mean', 0.50866964778585921), ('strong', 0.51040228355052819), ('fast', 0.51966052251786743), ('hard', 0.52565000993097022), ('clean', 0.5352690801825597), ('full', 0.53954760694099146), ('slow', 0.544660857606591), ('exotic', 0.54817753984870943), ('cold', 0.55304490264973083), ('hairless', 0.56226999192068905), ('big', 0.5921270544907935), ('beautiful', 0.59512078210353148), ('happy', 0.59945661258714411), ('nocturnal', 0.59990633228413515), ('heavy', 0.60136386892842619), ('fat', 0.60342407139233489), ('predator', 0.60665932053907812), ('dry', 0.61876756555248158), ('independent', 0.61917506546430445), ('light', 0.61921368152516609), ('pretty', 0.64032860589727414), ('friendly', 0.64182030317347771), ('angry', 0.64727319452573151), ('furry', 0.65308082627803787), ('weak', 0.66496488035989665), ('wet', 0.66624284947395718), ('hot', 0.67132640908237029), ('fierce', 0.6720982777161999), ('dirty', 0.67336015516089232), ('stupid', 0.69347024795855972), ('thin', 0.69402360038055233), ('smooth', 0.70109170238432161), ('ugly', 0.7030749139090029), ('cute', 0.70680001715511831), ('wise', 0.71141019306019404), ('ferocious', 0.71152344386674216), ('inferior', 0.71569615860771785), ('sighted', 0.7195496713659022), ('diurnal', 0.72068045511341228), ('funny', 0.72630447541450205), ('nonviolent', 0.73619609214298842), ('loud', 0.73852925620727872), ('quiet', 0.73958493050046514), ('smart', 0.74207221730924822), ('lazy', 0.74446347880685126), ('striped', 0.74788589030147712), ('noisy', 0.74799860399420237), ('playful', 0.75823613672539081), ('busy', 0.75995870564436152), ('annoying', 0.76979138700816185), ('tame', 0.77886727718952364), ('scary', 0.77946461033330183), ('fluffy', 0.79027540880076275), ('unhappy', 0.79416603823678455), ('graceful', 0.80538052647815261), ('nice', 0.81638958643289272), ('foolish', 0.8164279833728989), ('relaxed', 0.82465055120013564), ('dumb', 0.82556668049310089), ('loyal', 0.83010920379921693), ('fragrant', 0.83577257810282946), ('awkward', 0.83585804214180304), ('wooly', 0.84741421167149833), ('scaly', 0.85097580131845763), ('smelly', 0.85397919921833532), ('idle', 0.86613080649798257), ('slimy', 0.8679860744722887), ('inelastic', 0.90350153033700176), ('sly', 0.93035872422398547), ('majestic', 0.93676151538357066), ('quacking', 0.9658927420472101), ('bouncy', 0.97339751460768187), ('unfriendly', 0.97352234622874068), ('unattractive', 0.98101948959925789), ('disloyal', 1.0103141651662451), ('agreeable', 1.0514617268173081), ('unfree', 1.06978025769406), ('humorless', 1.0943941775235446), ('artless', 1.1347195203383875), ('jumpy', 1.2352001342096388)]
+
+				[('blind', 0.38405461976163091), ('large', 0.39647889171761286), ('huge', 0.39944286169703758), ('small', 0.40469105982996001), ('wild', 0.40736560770983887), ('strong', 0.4292791337233629), ('full', 0.4354971741117466), ('light', 0.45702222645431712), ('mean', 0.47166086775264615), ('dangerous', 0.48213358520751859), ('big', 0.48333317609410198), ('beautiful', 0.49201520100712648), ('safe', 0.50004011298484174), ('free', 0.51622437836712298), ('hard', 0.53037193371166214), ('clean', 0.53074339367673118), ('soft', 0.53736234305769348), ('happy', 0.54979744970951971), ('native', 0.55149754470701373), ('furry', 0.56054472795145283), ('hungry', 0.56292830094119695), ('predator', 0.56560115098112007), ('independent', 0.56746761401133683), ('exotic', 0.56866172234172441), ('cold', 0.58136253429155049), ('wise', 0.58501752900737758), ('heavy', 0.59188533297178969), ('fast', 0.5976443952067827), ('dependent', 0.60856196976557952), ('friendly', 0.61171585880231549), ('pretty', 0.61189015029244032), ('dirty', 0.61241659543718718), ('weak', 0.63179770831773585), ('nocturnal', 0.63353012481849791), ('fierce', 0.63891653391512371), ('ugly', 0.64375818104374738), ('slow', 0.64445651261952519), ('fat', 0.64910192803772659), ('ferocious', 0.67199604094628396), ('thin', 0.6735194790712502), ('scary', 0.67676418237112834), ('smooth', 0.67973021246249998), ('cute', 0.68100161189036268), ('stupid', 0.68406621998870065), ('hot', 0.6881452168235197), ('smart', 0.68998117721963581), ('quiet', 0.6991392818001354), ('majestic', 0.70391394468677859), ('funny', 0.70549868965818396), ('angry', 0.70572604371906245), ('playful', 0.71306423592095225), ('loud', 0.71725863262252365), ('hairless', 0.72312040034358471), ('nice', 0.73967891184159074), ('striped', 0.74301209372596999), ('graceful', 0.74304753437948845), ('sighted', 0.74674654784302663), ('nonviolent', 0.75835351907206072), ('diurnal', 0.7685649004797831), ('tame', 0.77218648207700069), ('dry', 0.77285071906833425), ('loyal', 0.77879252082106032), ('dumb', 0.78161842466725728), ('inferior', 0.78517226833187714), ('wet', 0.78972856022636528), ('foolish', 0.79041765674171383), ('noisy', 0.79840657296219719), ('busy', 0.80888008347086937), ('lazy', 0.81743453419903833), ('fluffy', 0.81760761029368401), ('sly', 0.82865326446849419), ('awkward', 0.83980091662940848), ('relaxed', 0.85182189316311419), ('slimy', 0.8525449218722797), ('unhappy', 0.85576952855064459), ('scaly', 0.86040424344813227), ('annoying', 0.86086633796203371), ('wooly', 0.86315770873872877), ('fragrant', 0.86688595710193328), ('smelly', 0.92348497129097074), ('bouncy', 0.95800623713190936), ('unfriendly', 0.98350063969445323), ('idle', 1.0078350555484656), ('unattractive', 1.0116137203644762), ('inelastic', 1.0208784141107079), ('disloyal', 1.0624235053886377), ('quacking', 1.0697798610756624), ('unfree', 1.1088625457169061), ('humorless', 1.1183816049793776), ('agreeable', 1.1186855938410973), ('artless', 1.2324521941206301), ('jumpy', 1.2724095318350792)]
+				Running categorical RSA with 34 possible utterances and 92 possible quds.
+
+		inspect: how close the subject and predicate are under the qud
+
+			DATA:
+
+				lawyer is a shark:
+					((['dangerous'], 0.039663061), 'world on qud: ', array([ 0.34068544]), 'distance moved along qud: ', array([ 0.06259693]))
+					((['humorless'], 0.031908773), 'world on qud: ', array([-0.08485446]), 'distance moved along qud: ', array([-0.01432898]))
+					((['happy'], 0.031043358), 'world on qud: ', array([ 0.35091237]), 'distance moved along qud: ', array([ 0.00182558]))
+
+				nurse is a shark:
+					((['sighted'], 0.046410456), 'world on qud: ', array([ 0.34424823]), 'distance moved along qud: ', array([ 0.01486301]))
+					((['lazy'], 0.024727911), 'world on qud: ', array([ 0.50198923]), 'distance moved along qud: ', array([ 0.04221527]))
+
+
+			to report in notebook:
+				projection properties, cosine properties
+				null model failure: say reason why
+
+				properties we want:
+					world dependence:
+						show lawyer vs human
+
+			we find that there is now significant variance in the noncategorical. results also differ between animals.
+
+			stable? and if so, at what sample size? unclear when stable
+
+		for next time:
+			unit tests: in a file called tests.py:
+				s1 and l1 unit testing.
+
+			see how short you can get a stable non-categorical
+			run huge inference, perhaps with weighting
+
+	8/7/17:
+
+		null model considerations: lion is good case where my model has success over the null model: for majestic
+
+		work out best animal set:
+			theory: 50d is much easier inference, which makes up for low quality vectors. check stability of 300
+
+			decrease step size and increase number of steps: decrease sigma2 and slightly increase sigma 1:
+
+			mystery: sighted and blind: where are these coming from? how on earth to debug
+
+			investigate whether adding adjectives to the poss_utts improves matters
+
+			have a good reason for using remove_top_dims: run with and without in your main run.
+
+			test your write_file stuff
+
+			unique listify adjs and nouns!!!
+
+			try full noncat with paraphrase etc
+			try cat with working paraphrase
+
+
+	9/7/17:
+
+			still unclear what good hyperparams are: get good ones for wolf and ant and zebra
+			DO YOUR UNIT TEST
+
+			antonyms are close in angle in vector space
+
+		    display_results(subject='human',predicate='bear',mean_vecs=True,pca_remove_top_dims=True,sig1=10.0,sig2=0.05, qud_weight=0.0,freq_weight=0.0,categorical=True,vec_length=50,vec_type="glove.6B.")
+
+		 NEXT TIME:
+
+		    discover effect of frequency weighting
+		    discover effect of larger noun search
+
+		    notebookify hyperparams:
+		    	sigma 1:
+		    	sigma 2:
+		    	freq weight:
+		    	qud weight:
+		    	dimensionality:
+		    	learning rate:
+		    	possible utterances:
+
+
+
+		    try to find success with zebra, over null model.
+		    try to find some more successful cases that are productive:
+		    	the worker is a horse, the runner is a horse, time flying
+
+		    	cases that should be good:
+		    		runner is like a horse
+		    		lawyer is a horse: insult
+		    		men are horses
+
+		    dependency relations: a sort of qud type thing
+
+		    context solutions: discuss with seb
+
+		    getting in touch with dan j / chris m
+
+		    continue on the determination front. be extra organized. stick to small vectors for now:
+
+		    	seems like big ones might be much better, but leave it for now please
+
+	10/7/17:
+
+		have changed subject from human to man, to mimic real language
+
+		semi-toy examples:
+			non-categorical with large noun set, but then observe distance to:
+				fluffy vs dependent:
+					see which is closer under null model too:
+
+						DO: look through full list to solve this
+
+
+
+
+
+		NEXT TIME:
+
+			results:
+					number of utterances seems to effect stability of inference: more is better
+					frequency weighting?
+
+		come up with proof for your hypothesis that categorical model is multimodal:
+			run 20 inferences, all of same thing, saved to same file
+
+
+			retry for shark as sanity check: set it up in notebook
+
+			check the word lists: consider language model
+
+			tree example: display_results(subject='man',predicate=animal,mean_vecs=True,pca_remove_top_dims=True,sig1=20.0,sig2=0.05, qud_weight=0.0,freq_weight=0.0,categorical=False,vec_length=50,vec_type="glove.6B."$e.6B.",out_file="animals_pca.txt",sample_number = 10000,adjectives=['wooden','stable','strong'],nouns=og_nouns+og_adjectives+animals)
+
+			make an installation package for the jupyter notebook and data:
+				you need the data, as zipped dictionaries
+				the nltk stuff: but i think this is already incorporated
+
+
+			improve the logging capabilities
+			do the rest of the cleanup: after first merge solution
+
+			three examples:
+				prior on world affects thing
+				unlikely given knowledge of utterance: man is a tree:
+
+
+			kati:
+				website, best way to run bunch of tests
+
+
+
+			the type of example that should beat the null model:
+				exists a predicate foo st for ``A is a B'', A is foo and B is foo, but there is a better way of expressing the fooness, OR: there is a better interpretation for saying A is a B:
+
+
+			consider the other cases:
+				red wall vs red apple
+				bread knife, bread pudding:
+					hmm, these are too conventional though:
+						try: frog man,
+			refactor code so that you pickle the results and can play with them after
+
+
+				easiest way to run a bunch of models and look at stability
+
+			seems like our model might be able to handle tautologies:
+				the law is the law:
+					where does this move you????
+						this works for toy example
+				NOPE: leon points out that this shouldn't work for us
+
+			devise a way of looking at world movement and using this for your model instead:
+				what are the words with respect to which we move most:
+					this might be really good
+						do i need to normalize for this?
+
+			try:
+				1. beating a null model at ordering animals by viciousness:
+					this would be s2 generation with a qud. could be cool to try
+				2. multidim
+				3. world movement: measure distance moved towards each world (eucl and cos): which is greatest?
+			for now: multidim, world movement
+
+			for kati: fix web staying open issue; get remote sublime
+
+
+
+		DO:
+
+				current language model is totally unrealistic: i'm just throwing in words at random: unsurprising that it is too noisy
+
+
+				try multidim on large qud set: with pickle:
+					fix pickle
+
+				try:
+					set of domain free metaphors: in notes, and use "a is like b" in coca
+					try to beat animal set: hard
+					try verb set
+
+
+
+
+				extensions of concepts are given by metaphor: mouth is the factoring out of context for mouths
+
+				findings:
+
+					"SIGs 1&2: 0.001 0.01
+					step_size 0.0005
+					utt weight, qud weight 1.0 0.0"
+						this is stable, but bad results.
+
+				the words which are constant depend on the predicate AND subject: chestnut for sheep, red for tree (on these params):
+					BUT: they remain constant across size of qud and utterance set
+							neither freq weight nor qud_weight is the cause
+
+					NOTE: if i pick uncommon poss_utts and quds, this diminishes chestnut
+
+					dimensions? gets rid of chestnut
+
+					pca: gets rid of chestnut
+
+
+				try selecting only a tenth of combined quds
+				try animals on animal set
+				try smalling
+				detection fixing: just pick two examples in notebook and tune it to work: SIMPLE
+				BUILD ON the success with cat
+				cleanup: write input object, fix saving and get a functional setup, clean tensorflow_rsa and helperfunctions
+				make sig2 depend on the number of arguments: some log function of it:
+					IDEA: mainly depends on number of utts: should be 1 over the number of poss utts OR QUDS?, times...
+						EXPERIMENT
+					as number of quds increase, sample size should increase:
+						should be: 20 times the sqrt of number of quds
+				commute the world movement: important 
+				get answers and reweight them: try with short run first
+				respond to leon, commit, fix identification: not sure why it's failing
+					only bother pushing if stable: find stable. save stable: see saved
+				try large categorical, but with hyperparams such that top weighting occurs and is consistent:
+					try quds, or world movement being lang model suggestions, or baseline suggestions:
+						SHORT RUNS FOR GOD'S SAKE
+				try without mean_vecs
+				explore hypothesis:
+					noncat is still not stable/multimodal:
+						test stability
+						hypothesis: multidim has improved stability: i believe this was shown: confirm:
+							if true, v good:
+								DO: push on improving multidim/onedim once stable
+				jupyter notebook to fix world movement and do tests: return to jupyter: review eval accomplishments: some good stuff there
+				fix then try categorical multidim
+				get back to the python notebook: best results came from here: focus on short runs
+				beautification of results: sorting the null model, comparing with null model, cos dist stuff
+					using language model to reweight
+				try nouns as quds: might look better: abstract concepts etc
+				experiment:
+					ask people to judge which is a better topic:
+						gold labelling
+				try adding back the animals: if this improves it, you have a good case for working on the language model
+				should we use trivial qud prior generally? should we adjust learning rate and so on?
+				
+				find the noncat that worked sort of on sheep: replicate and strengthen: easy
+				rewrite nearest neighbours so it isn't intolerably slow. work out correct version
+				
+				GOOD idea: maybe the projections should be considered as latent in a further generative model
+						THOUGHT: can glove really provide a world model? e.g. no temporality for predicates
+				egs:
+					DO: !! good knife vs good musician vs good chair
+					he lost his temper/mind, that killed him: WITH CONTEXT (also: he died):
+					context: try: whore,clown,pinata
+					try categorical on a new domain, e.g. friendship is a prison, life is a journey, time
+
+
+				noun-noun compounds: buckethead, butterknife vs butter fingers, lemon quartz vs lemon rind:
+				attempt classification task using small set of categories and the compounds
+				try doing mean second as well
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+todo:
+
+					top of stack:
+
+										rating metaphors: the man is a wok
+
+										check that type is correct on tf_l1_baseline l65
+
+										test baseline model for metaphors that are surprising or informative
+										see if google has research grant
+
+						for paper:
+							discuss methods of testing world movement
+							discuss the fact that the quds have two dimensions, and that this makes them more expressive
+
+
+						work out why s2 runs are so janky: do l1 runs and test
+
+						get better set of possible utterances and see if helps
+						set up an s2 and s2 baseline and get code slick: fun and easy to do this
+
+
+						undo triple vectorization. 
+						do unit tests properly, multiple place, unvectorized numpy
+						figure out a solution for instances of low quality
+
+						noncat model maybe now stabilizable: definitely worth trying this!!!!
+						REIMPLEMENT UNIT TEST:
+							do comparison with sane tf thing. then later with numpy
+						TRY animals to see how we're doing
+						GO THROUGH TODOS and lean
+						
+						see if 1d l1 can be good with totally fixed set of quds.
+							stable?
+							asymmetric?
+							explain weird words
+
+						world movement for whole set of adjs and nouns: more telling
+
+
+
+						do iden:
+							if not working: revert to old working one. use current script.
+
+							consider using fixed set of quds and poss utts: most common etc
+
+						SGHMC: consult leon
+
+						l1:
+							launder output:
+								add world movement cases: consider huge set of comparanda since this is easy here 
+								50 metaphors, each with top 5 ranked words for each: in dict
+								remove duplicates after looking at full set
+								try adding qud words to possutts given that quds are 2d anyway
+							controls:	
+								easy examples thrown in to each, second question is fully artificial
+
+						laundering:
+							memoize the s2, so that you build a single dictionary of word to l1:
+								you can then lookup whatever you want:
+									do it for 1000 words
+							make sure you're using good baseline: i doubt i can beat it
+
+						debugging:
+							redoing unit tests
+						cleanup
+
+						experiment
+							postprocessing and pipeline
+
+
+					variational:
+
+						try to find lower bound on sample size and run size
+						try and find params such that increasing run and sample size (separately) won't change results
+						try full size run on 1d
+						consider much lower sig2
+						retrive the really good results for "book is a hug" etc
+						full size vectors
+						small possuttandqud set until stable
+
+					careful examination of the behaviour of the model:
+
+						symmetry problem:
+
+							make sure subject remains constant
+
+							set up very simple small case
+
+						can i get surprisingly good results with arbitrary utterances?
+
+					world_movement:
+
+						for an l1 without quds at all: seems important
+
+					pipeline for l1_results with data laundering:
+
+						GOOD: consider reintroducing adjectives into possible utterances
+
+						fix the set of quds, so that it doesn't vary between metaphors: large would be good
+
+						fix sorting at l1 level so that it happens before exponentiation
+						fix the launder: try removing the bad words and then renormalizing
+						try removing them before the inference entirely too
+
+						investigate how much L0 world movement changes from case to case
+
+						consider even further whittling: pos tag and remove comparatives, etc
+	
+					new uses of model:
+
+						sort quds by their kullback leibler divergence on the l1 distributions they induce
+
+						finding the metaphors that are most dependent on the possible utterance set
+
+						GREAT: use your model to find the words which are bad to say without qud, but good for the given qud:	but marginalize over quds or something
+
+						GREAT: have s2 disutilize a secondary qud n-tuple: so you find a metaphor that's good at expressing foo but DOESN'T express bar:
+					
+							could we use this to find ways attributes of sharks which man is a shark doesn't convey?
+
+								we should try to use trivial model here to find literal words
+
+						for a given metaphor: calculate l1 and then search words with as similar a distribution as possible
+
+						bayes world query: if foo is a good qud, what's a similar qud?
+
+
+
+					metaphor detection:
+
+						OH: forget the comparison, just see if you can get bigger or smaller values of the trivial qud score for the actual utterance, consistently
+
+						try fixed set of abstract adjs for quds
+
+					s2:
+
+						figure out what fools the baseline (make the baseline)
+
+						tune hypermarams for 300 glove
+
+						build memo dict
+						
+						alt_s2 with the trivial qud antiscoring yields intersting insight
+
+						try out downgrading for literalness: see what happens
+
+					debugging:
+
+						new git test: compare numpy and tf s1s, i guess
+
+						why the HELL did the 1 qud s2 model work?!?!?!
+
+						why are the baseline model and the nearest quds different?
+
+						check effect of including pred in quds
+
+						try putting rationality back up
+
+						investigate possibility that model is symmetric, with possutts and quds fixed
+
+						solve: why is building is an oven evenly uniform?
+
+					writeup:
+
+						incorporate into paper: the multiply expressive metaphor: a key theoretical contribution: the inference works best by far when the metaphor has multiple dimensions
+
+					cleanup:
+						fix baseline
+						remove unused code in helperfunctions and tf_rsa
+						write setup script
+
+					experiment:
+
+						scrape 50 metaphors from COCA: do by hand: take first 50 under some principled filtering
+
+						pipeline from model to csv:
+							e.g. "The man is a lion.", [royal,brave], [silly,wild]
+
+						text for experiment
+
+						html for experiment
+
+						mechanical turk setup
+
+										
+
+
+
+				for leon:
+
+					discuss new uses of model above
+
+					world_movement:
+
+						i have implemented l0 world movement: all the floating words appear here: [('various', -0.0017817508783463567), ('latest', -0.0017368873265579423), ('special', -0.0016571416963913827), ('entire', -0.001603475460596654), ('beloved', -0.0015934709734450351), ('
+						traditional', -0.0015734207892391875), ('mysterious', -0.001538864848251195)...]
+
+						we should consider what an l1 without qud inference would yield, re. world movement
+
+						world movement finding: when world movement DOES work, world appears to move in direction of good topics, regardless of polarity: e.g. "spacious" for room is an oven:
+
+					s2:
+
+						alt_s2: explain and show good results
+
+						we can also minimize probability of certain things: i.e. negative utilities: for example: don't say a word that will lead l1 to value the trivial qud: 
+						this would be GREAT for making sure the expression is metaphorical.
+
+
+					other:
+	
+						why not add speaker world to possible utterances in s1, thus having a null utterance
+
+						isolating ways in which the dynamics of rsa are benefiting us: trying to make an algorithm that finds cases of clear explaining away
+
+						why not variational inference?
+
+						quantum computing with democritus, quantum prob for rsa
+
+
+						example: love is a poison: (['magical', 'poisonous', 'strange'], 0.0033887667),(['dangerous', 'mysterious', 'poisonous'], 0.12664874)
+
+					experiment writeup:
+
+					rsa logic and semantics: proofs of its behaviour
+
+				upshot:
+
+					improve choice of possible utterances for s1, by conditioning on qud
+					put back the checks
+					try no qud model and its world movement
+					what is trivial favoured word
+
+					try norming the trivial model vectors
+
+				leon:
+
+					variation based on possible utterance is a mixed bag:
+						the furthest words by cosine distance, if 2, gives even results completely
+						the nearest 100 gives same as nearest 2
+					can i hand pick metaphors?
+					KEY: why are both negative and positive movement in world movement representative of good words?
+					nb.
+					memoized s2 
+
+				s2 results: fertile, boring:
+					[('marshland', -1.3751153743694662), ('material', -1.7215099132488607), ('country', -1.7650174892376302), ('riverbed', -2.0681323802898763), ('greenery', -2.068263033671224), ('earth', -2.068263033671224), ('flat', -4.3480682170818685), ('crescent', -5.289160708231771), ('edge', -16.53417966727718), ('hillside', -30.467304209513507), ('cotton', -32.44647214774593), ('topsoil', -34.9303512371014), ('wheat', -79.9664726055096), ('continent', -111.16993329886897), ('surface', -128.16463086966976), ('land', -177.2338752544354), ('ground', -187.97380445365414), ('acre', -205.96289441947445), ('swamp', -206.61787793998226), ('flood', -228.36618421439633), ('meadow', -258.32783887748224), ('farm', -274.86482618216974), ('countryside', -283.06941602591974), ('sand', -302.0826911724041), ('grounds', -307.71361158256036), ('grassland', -314.54854200248224), ('grass', -331.27989576224786), ('vegetation', -344.7136421001385), ('floodplain', -350.6247749126385), ('landscape', -357.577777842326), ('fruit', -366.72346876029474), ('watershed', -371.402240732951), ('grain', -374.8567390239666), ('crop', -376.44188306693536), ('plateau', -380.30870435599786), ('estuary', -381.6289558208416), ('forest', -387.6516303813885), ('valley', -403.443256357951), ('silt', -419.66124341849786), ('coastline', -438.0427436626385), ('cattle', -480.0674323833416), ('mineral', -482.50169752006036), ('basin', -489.2064704692791), ('desert', -496.21565626029474), ('pasture', -627.2867622173261), ('rainfall', -665.6706123149823), ('river', -727.0879707134198), ('terrain', -897.4184150493573), ('soil', -1333.5843086040447), ('farmland', -1643.8697089946697)]
+
+
+				leon upshot:
+
+					look at larger set for l0 movement, use euclidean
+					do it 
+
+					check that target qud receives more probability with larger set
+
+				chris meeting:
+
+					some results: l1, s2
+					have given up on identification
+					here's what experiment is going to look like
+					what venues are good for publication?
+					what is expected for qp (expecting publication to diverge from qp)
+
+					upshot:
+
+						use corpus metaphor :, use AN phrase data, try doing identiciation as: on average: trivial ranks higher for literal: mean reciprocal rank, try pilot with controls; consider adding the give people words to choose: meeting chris on wednesday week; two weeks from now: experiment 2 pilot; validate that same corpus can be used for both
+
+
+
+				noah:
+					common knowledge
+					presupposition
+					deep learning stuff with captioning
+
+				chris:
+
+					key knowledge: qud is polarity agnostic
+
+				leon:
+					
+					detection results
+					aiming for linguistics conferences
+
+					later:
+						SGHMC: consult leon
+						variational
+						intention as lifted variable
+						deep learning ideas for image captioning
+
+					upshot:
+						get good run back
+						unit check tf_s1
+						get l0 projection movement
+						try having quds be most frequent, independent of pred, but not necessarily SUBJ 
+						variational
+						revert to old tf_rsa
+						write separate tf_s1, and import it into tf_l1
+						use list of five to tune: abstract to tuning file: easy
+							man is lion, woman is rose, man is shark, room is furnace, love is poison
+						think about qud captioning model
+						think about intention modelling, and politeness
+
+				leon:
+					3 properties of the model we should consider:
+						even if v high prob mass on first thing, good on following:  
+								[(['hushed', 'lewd'], 0.95859522), (['fashionable', 'lewd'], 0.01060579), (['complimentary', 'hushed'], 0.009977784), (['comparable', 'fashionable'], 0.0039999997), (['elegant', 'mere'], 0.0039999997), (
+								['fashionable', 'pricey'], 0.0033974373), (['mere', 'reminiscent'], 0.0019999999), (['proverbial', 'reminiscent'], 0.0019999999), (['fashionable', 'proverbial'], 0.0017737927), (['fashionable', 'hushed'], 0.0011394526), (['pricey', 'proverbial'], 0.0004521847), (['claustrophobic', 'fashioned'], 0.00022360102), (['claustrophobic', 'odd'], 0.00022360102), (['fashioned', 'intimate'], 0.00022360102), (['fashi
+								oned', 'odd'], 0.00022360102), (['claustrophobic', 'intimate'], 0.00022360058), (['fashioned', 'typical'], 0.00022359121), (['intimate', 'typical'], 0.00022351445)
+
+						there must be SOME way that polarity is represented as a function of worlds and quds, otherwise the model surely couldn't work: what is the most abstract possible relationship?
+
+					why do we have to take samples at all? surely just a lossy procedure at this point?
+
+					just using the adjectives as alternatives
+
+					upshot:
+
+						verify the expressivity point about adjectives: 
+
+				chris:
+
+					note that the model isn't good at getting the right direction of movement along the QUD
+					how to convey the true task: choosing a good topic, not just a paraphrase: either direction of polarity
+
+

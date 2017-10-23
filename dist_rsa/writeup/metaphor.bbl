@@ -1,0 +1,703 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{bergen}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Bergen}{B.}%
+     {Leon}{L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Goodman}{G.}%
+     {Noah~D}{N.~D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley Online Library}%
+  }
+  \strng{namehash}{BLGND1}
+  \strng{fullhash}{BLGND1}
+  \field{labelyear}{2015}
+  \field{sortinit}{B}
+  \field{number}{2}
+  \field{pages}{336\bibrangedash 350}
+  \field{title}{The strategic use of noise in pragmatic reasoning}
+  \field{volume}{7}
+  \field{journaltitle}{Topics in cognitive science}
+  \field{year}{2015}
+\endentry
+
+\entry{black}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Black}{B.}%
+     {Max}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {The Oxford University Press}%
+  }
+  \strng{namehash}{BM1}
+  \strng{fullhash}{BM1}
+  \field{labelyear}{1955}
+  \field{sortinit}{B}
+  \field{booktitle}{Proceedings of the Aristotelian Society}
+  \field{number}{1}
+  \field{pages}{273\bibrangedash 294}
+  \field{title}{XII-METAPHOR}
+  \field{volume}{55}
+  \field{year}{1955}
+\endentry
+
+\entry{chomsky2002syntactic}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Chomsky}{C.}%
+     {Noam}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Walter de Gruyter}%
+  }
+  \strng{namehash}{CN1}
+  \strng{fullhash}{CN1}
+  \field{labelyear}{2002}
+  \field{sortinit}{C}
+  \field{title}{Syntactic structures}
+  \field{year}{2002}
+\endentry
+
+\entry{coecke2010mathematical}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Coecke}{C.}%
+     {Bob}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Sadrzadeh}{S.}%
+     {Mehrnoosh}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Clark}{C.}%
+     {Stephen}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{CBSMCS1}
+  \strng{fullhash}{CBSMCS1}
+  \field{labelyear}{2010}
+  \field{sortinit}{C}
+  \field{title}{Mathematical foundations for a compositional distributional
+  model of meaning}
+  \field{journaltitle}{arXiv preprint arXiv:1003.4394}
+  \field{year}{2010}
+\endentry
+
+\entry{davidson}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Davidson}{D.}%
+     {Donald}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {University of Chicago Press}%
+  }
+  \strng{namehash}{DD1}
+  \strng{fullhash}{DD1}
+  \field{labelyear}{1978}
+  \field{sortinit}{D}
+  \field{number}{1}
+  \field{pages}{31\bibrangedash 47}
+  \field{title}{What metaphors mean}
+  \field{volume}{5}
+  \field{journaltitle}{Critical inquiry}
+  \field{year}{1978}
+\endentry
+
+\entry{frank2012predicting}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Frank}{F.}%
+     {Michael~C}{M.~C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Goodman}{G.}%
+     {Noah~D}{N.~D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {American Association for the Advancement of Science}%
+  }
+  \strng{namehash}{FMCGND1}
+  \strng{fullhash}{FMCGND1}
+  \field{labelyear}{2012}
+  \field{sortinit}{F}
+  \field{number}{6084}
+  \field{pages}{998\bibrangedash 998}
+  \field{title}{Predicting pragmatic reasoning in language games}
+  \field{volume}{336}
+  \field{journaltitle}{Science}
+  \field{year}{2012}
+\endentry
+
+\entry{golland2010game}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Golland}{G.}%
+     {Dave}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Liang}{L.}%
+     {Percy}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Klein}{K.}%
+     {Dan}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {Association for Computational Linguistics}%
+  }
+  \strng{namehash}{GDLPKD1}
+  \strng{fullhash}{GDLPKD1}
+  \field{labelyear}{2010}
+  \field{sortinit}{G}
+  \field{booktitle}{Proceedings of the 2010 conference on empirical methods in
+  natural language processing}
+  \field{pages}{410\bibrangedash 419}
+  \field{title}{A game-theoretic approach to generating spatial descriptions}
+  \field{year}{2010}
+\endentry
+
+\entry{goodman}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Goodman}{G.}%
+     {Noah~D}{N.~D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Stuhlm{\"u}ller}{S.}%
+     {Andreas}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley Online Library}%
+  }
+  \strng{namehash}{GNDSA1}
+  \strng{fullhash}{GNDSA1}
+  \field{labelyear}{2013}
+  \field{sortinit}{G}
+  \field{number}{1}
+  \field{pages}{173\bibrangedash 184}
+  \field{title}{Knowledge and implicature: Modeling language understanding as
+  social cognition}
+  \field{volume}{5}
+  \field{journaltitle}{Topics in cognitive science}
+  \field{year}{2013}
+\endentry
+
+\entry{grefenstette2013category}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Grefenstette}{G.}%
+     {Edward}{E.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GE1}
+  \strng{fullhash}{GE1}
+  \field{labelyear}{2013}
+  \field{sortinit}{G}
+  \field{title}{Category-theoretic quantitative compositional distributional
+  models of natural language semantics}
+  \field{journaltitle}{arXiv preprint arXiv:1311.1539}
+  \field{year}{2013}
+\endentry
+
+\entry{grice}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Grice}{G.}%
+     {H~Paul}{H.~P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GHP1}
+  \strng{fullhash}{GHP1}
+  \field{labelyear}{1975}
+  \field{sortinit}{G}
+  \field{pages}{41\bibrangedash 58}
+  \field{title}{Logic and conversation}
+  \field{journaltitle}{1975}
+  \field{year}{1975}
+\endentry
+
+\entry{kao}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Kao}{K.}%
+     {Justine~T}{J.~T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bergen}{B.}%
+     {Leon}{L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Goodman}{G.}%
+     {Noah}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KJTBLGN1}
+  \strng{fullhash}{KJTBLGN1}
+  \field{labelyear}{2014}
+  \field{sortinit}{K}
+  \field{booktitle}{CogSci}
+  \field{title}{Formalizing the Pragmatics of Metaphor Understanding.}
+  \field{year}{2014}
+\endentry
+
+\entry{kintsch}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Kintsch}{K.}%
+     {Walter}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{KW1}
+  \strng{fullhash}{KW1}
+  \field{labelyear}{2000}
+  \field{sortinit}{K}
+  \field{number}{2}
+  \field{pages}{257\bibrangedash 266}
+  \field{title}{Metaphor comprehension: A computational theory}
+  \field{volume}{7}
+  \field{journaltitle}{Psychonomic Bulletin \& Review}
+  \field{year}{2000}
+\endentry
+
+\entry{lahav}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lahav}{L.}%
+     {Ran}{R.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{LR1}
+  \strng{fullhash}{LR1}
+  \field{labelyear}{1989}
+  \field{sortinit}{L}
+  \field{number}{3}
+  \field{pages}{261\bibrangedash 279}
+  \field{title}{Against compositionality: the case of adjectives}
+  \field{volume}{57}
+  \field{journaltitle}{Philosophical studies}
+  \field{year}{1989}
+\endentry
+
+\entry{lakoff2008metaphors}{book}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Lakoff}{L.}%
+     {George}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Johnson}{J.}%
+     {Mark}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {University of Chicago press}%
+  }
+  \strng{namehash}{LGJM1}
+  \strng{fullhash}{LGJM1}
+  \field{labelyear}{2008}
+  \field{sortinit}{L}
+  \field{title}{Metaphors we live by}
+  \field{year}{2008}
+\endentry
+
+\entry{mikolov2013distributed}{inproceedings}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Mikolov}{M.}%
+     {Tomas}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Sutskever}{S.}%
+     {Ilya}{I.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chen}{C.}%
+     {Kai}{K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Corrado}{C.}%
+     {Greg~S}{G.~S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dean}{D.}%
+     {Jeff}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{MT+1}
+  \strng{fullhash}{MTSICKCGSDJ1}
+  \field{labelyear}{2013}
+  \field{sortinit}{M}
+  \field{booktitle}{Advances in neural information processing systems}
+  \field{pages}{3111\bibrangedash 3119}
+  \field{title}{Distributed representations of words and phrases and their
+  compositionality}
+  \field{year}{2013}
+\endentry
+
+\entry{neal2011mcmc}{article}{}
+  \true{moreauthor}
+  \name{author}{1}{}{%
+    {{}%
+     {Neal}{N.}%
+     {Radford~M}{R.~M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{NRM+1}
+  \strng{fullhash}{NRM+1}
+  \field{labelyear}{2011}
+  \field{sortinit}{N}
+  \field{pages}{113\bibrangedash 162}
+  \field{title}{MCMC using Hamiltonian dynamics}
+  \field{volume}{2}
+  \field{journaltitle}{Handbook of Markov Chain Monte Carlo}
+  \field{year}{2011}
+\endentry
+
+\entry{pennington2014glove}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Pennington}{P.}%
+     {Jeffrey}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Socher}{S.}%
+     {Richard}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Manning}{M.}%
+     {Christopher~D}{C.~D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{PJSRMCD1}
+  \strng{fullhash}{PJSRMCD1}
+  \field{labelyear}{2014}
+  \field{sortinit}{P}
+  \field{booktitle}{EMNLP}
+  \field{pages}{1532\bibrangedash 1543}
+  \field{title}{Glove: Global Vectors for Word Representation.}
+  \field{volume}{14}
+  \field{year}{2014}
+\endentry
+
+\entry{roberts1996information}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Roberts}{R.}%
+     {Craige}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {The Ohio State University}%
+  }
+  \strng{namehash}{RC1}
+  \strng{fullhash}{RC1}
+  \field{labelyear}{1996}
+  \field{sortinit}{R}
+  \field{pages}{91\bibrangedash 136}
+  \field{title}{Information structure in discourse: Towards an integrated
+  formal theory of pragmatics}
+  \field{journaltitle}{Working Papers in Linguistics-Ohio State University
+  Department of Linguistics}
+  \field{year}{1996}
+\endentry
+
+\entry{shutova2016design}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Shutova}{S.}%
+     {Ekaterina}{E.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {MIT Press}%
+  }
+  \strng{namehash}{SE1}
+  \strng{fullhash}{SE1}
+  \field{labelyear}{2016}
+  \field{sortinit}{S}
+  \field{title}{Design and evaluation of metaphor processing systems}
+  \field{journaltitle}{Computational Linguistics}
+  \field{year}{2016}
+\endentry
+
+\entry{socher2013recursive}{inproceedings}{}
+  \true{moreauthor}
+  \name{author}{7}{}{%
+    {{}%
+     {Socher}{S.}%
+     {Richard}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Perelygin}{P.}%
+     {Alex}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wu}{W.}%
+     {Jean~Y}{J.~Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chuang}{C.}%
+     {Jason}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Manning}{M.}%
+     {Christopher~D}{C.~D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Ng}{N.}%
+     {Andrew~Y}{A.~Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Potts}{P.}%
+     {Christopher}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SR+1}
+  \strng{fullhash}{SRPAWJYCJMCDNAYPC+1}
+  \field{labelyear}{2013}
+  \field{sortinit}{S}
+  \field{booktitle}{Proceedings of the conference on empirical methods in
+  natural language processing (EMNLP)}
+  \field{pages}{1642}
+  \field{title}{Recursive deep models for semantic compositionality over a
+  sentiment treebank}
+  \field{volume}{1631}
+  \field{year}{2013}
+\endentry
+
+\entry{edward}{article}{}
+  \name{author}{6}{}{%
+    {{}%
+     {Tran}{T.}%
+     {Dustin}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kucukelbir}{K.}%
+     {Alp}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dieng}{D.}%
+     {Adji~B}{A.~B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rudolph}{R.}%
+     {Maja}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Liang}{L.}%
+     {Dawen}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Blei}{B.}%
+     {David~M}{D.~M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{TD+1}
+  \strng{fullhash}{TDKADABRMLDBDM1}
+  \field{labelyear}{2016}
+  \field{sortinit}{T}
+  \field{title}{Edward: A library for probabilistic modeling, inference, and
+  criticism}
+  \field{journaltitle}{arXiv preprint arXiv:1610.09787}
+  \field{year}{2016}
+\endentry
+
+\entry{tsvetkov2014metaphor}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Tsvetkov}{T.}%
+     {Yulia}{Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Boytsov}{B.}%
+     {Leonid}{L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gershman}{G.}%
+     {Anatole}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Nyberg}{N.}%
+     {Eric}{E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dyer}{D.}%
+     {Chris}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Citeseer}%
+  }
+  \strng{namehash}{TY+1}
+  \strng{fullhash}{TYBLGANEDC1}
+  \field{labelyear}{2014}
+  \field{sortinit}{T}
+  \field{title}{Metaphor detection with cross-lingual model transfer}
+  \field{year}{2014}
+\endentry
+
+\entry{turney}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Turney}{T.}%
+     {Peter~D}{P.~D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Littman}{L.}%
+     {Michael~L}{M.~L.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{TPDLML1}
+  \strng{fullhash}{TPDLML1}
+  \field{labelyear}{2003}
+  \field{sortinit}{T}
+  \field{number}{4}
+  \field{pages}{315\bibrangedash 346}
+  \field{title}{Measuring praise and criticism: Inference of semantic
+  orientation from association}
+  \field{volume}{21}
+  \field{journaltitle}{ACM Transactions on Information Systems (TOIS)}
+  \field{year}{2003}
+\endentry
+
+\entry{turney2010frequency}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Turney}{T.}%
+     {Peter~D}{P.~D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pantel}{P.}%
+     {Patrick}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{TPDPP1}
+  \strng{fullhash}{TPDPP1}
+  \field{labelyear}{2010}
+  \field{sortinit}{T}
+  \field{pages}{141\bibrangedash 188}
+  \field{title}{From frequency to meaning: Vector space models of semantics}
+  \field{volume}{37}
+  \field{journaltitle}{Journal of artificial intelligence research}
+  \field{year}{2010}
+\endentry
+
+\entry{way1991knowledge}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Way}{W.}%
+     {E~Cornell}{E.~C.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer Science \& Business Media}%
+  }
+  \strng{namehash}{WEC1}
+  \strng{fullhash}{WEC1}
+  \field{labelyear}{1991}
+  \field{sortinit}{W}
+  \field{title}{Knowledge representation and metaphor}
+  \field{volume}{7}
+  \field{year}{1991}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

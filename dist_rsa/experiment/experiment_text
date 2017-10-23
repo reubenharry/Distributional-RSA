@@ -1,0 +1,52 @@
+This is a survey on metaphor. You will be shown a series of metaphors, such as "The man is a lion" or "Love is a poison" and will be asked to make judgments about what they mean.
+
+
+TASK 1:
+-------------
+Suppose someone says the metaphor: ``The man is a shark.''. This suggests that this man possesses certain properties of sharks. For example, it might suggest that he is ruthless, or fast. 
+
+However, there are properties of sharks that are not relevant here. For example, if someone says "The man is a shark" they probably don't mean that the man lives underwater.
+
+In the following task, you will be shown a series of metaphors, and for each, you will have to choose between pairs of adjectives. For each pair, choose the adjective which you think best describes either what the metaphor is trying to convey or the opposite. Here is an example, to begin:
+-------
+Metaphor: "The man is a shark":
+
+ 	1: a. ruthless b. gray
+ 	2: a. boring b. tame 
+
+ 		In the first case, "ruthless" is probably a better choice than "gray". In the second, 
+
+ 			FINISH. 
+
+ 		For each case, simply pick the adjective which you think is most likely to be what the writer meant by saying the metaphor. For example, you might think that "The man is a shark" conveys that the man is wild more than it conveys that he is vicious, or vice versa.
+
+[QUESTIONS GO HERE]
+
+TASK 2:
+
+In this task, you will again be shown a series of metaphors. For each, we will ask you to supply one adjective of your own which describes a property that you think is being conveyed. For example, if you are given the metaphor "The man is a toddler", a good adjective to write might be "immature". 
+	
+We would also like you to provide one adjective which is NOT conveyed by the metaphor. For example, you could write "crawling" for "The man is a toddler". 
+
+[QUESTIONS GO HERE]
+
+Metadata:
+
+	TASK 1: participants shown 10 metaphors, and for each, make 2 binary decisions. 2 of the metaphors are controls, which consist of metaphors with choices I have invented, to test that the participant is behaving suitably. The controls are as follows:
+		1. Metaphor: "The child is a nightmare". Choices: 1. a. "asleep" b. "difficult" 2. a. "evil" b. "red"
+		2. Metaphor: "The politician is a glacier". Choices: 1. a. "implacable" b. "frozen" 2. a. "unfriendly" b. "melting"
+	
+	Number of participants: 20.
+
+	Number of overall metaphors:
+
+
+
+Part 2:
+
+	You will now perform the reverse task. Given a noun and and two adjectives, choose the metaphor which best conveys those adjectives. For example, given "man", 
+
+		man is a what conveys: foo,bar
+
+how many metaphors: 50
+how many people: 20
