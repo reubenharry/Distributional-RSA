@@ -809,6 +809,10 @@ todo:
 
 					top of stack:
 
+						gpu stuff: explore stability as utt number increases, try 840 baseline, try stuff that isn't space huge, but is time huge
+						find out whether hmc and variational different in sample number for stability
+
+
 										rating metaphors: the man is a wok
 
 										check that type is correct on tf_l1_baseline l65

@@ -1,0 +1,103 @@
+RESULTS 25D
+
+principal is a dictator
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['notorious', 'rightful'], 0.049774166), (['notorious', 'secular'], 0.047594946), (['foremost', 'rightful'], 0.046274666), (['foremost', 'notorious'], 0.046076085), (['fascist', 'notorious'], 0.037040975)]
+L1: 1
+[(['notorious', 'rightful'], 0.062607497), (['rightful', 'secular'], 0.050744742), (['notorious', 'secular'], 0.048845313), (['rightful', 'ruthless'], 0.045784384), (['fascist', 'rightful'], 0.044092663)]
+L1: 2
+[(['notorious', 'secular'], 0.052500904), (['notorious', 'rightful'], 0.048827209), (['foremost', 'notorious'], 0.044005916), (['foremost', 'rightful'], 0.041023314), (['fascist', 'notorious'], 0.040852793)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['notorious', 'rightful'], 0.1188266), (['notorious', 'secular'], 0.10986586), (['fascist', 'notorious'], 0.09887781), (['rightful', 'secular'], 0.097583637), (['rightful', 'ruthless'], 0.067352615)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['fascist', 'founding'], 0.0067606331), (['founding', 'main'], 0.0066678235), (['respective', 'worthy'], 0.0066249436), (['respective', 'tyrannical'], 0.006063554), (['foremost', 'loyal'], 0.0059312712)]
+L1: 1
+[(['respective', 'responsible'], 0.0081673441), (['respective', 'tyrannical'], 0.0081387004), (['fascist', 'founding'], 0.007712834), (['respective', 'worthy'], 0.0076373992), (['notorious', 'respective'], 0.0075327512)]
+L1: 2
+[(['founding', 'main'], 0.0072372532), (['evil', 'founding'], 0.0065590101), (['fascist', 'founding'], 0.006531402), (['brutal', 'founding'], 0.0054878155), (['founding', 'worthy'], 0.0053867474)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['notorious', 'secular'], 0.23144636), (['notorious', 'rightful'], 0.16980076), (['rightful', 'secular'], 0.11408172), (['fascist', 'notorious'], 0.11130015), (['fascist', 'rightful'], 0.069797136)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['absolute', 'evil'], 0.0063673374), (['alleged', 'notorious'], 0.0060018967), (['loyal', 'reputed'], 0.0055673351), (['opposing', 'supposed'], 0.0052396175), (['legitimate', 'worthy'], 0.0049356697)]
+L1: 1
+[(['designated', 'dominant'], 0.006272933), (['corrupt', 'democratic'], 0.0061420747), (['alleged', 'notorious'], 0.005694381), (['loyal', 'reputed'], 0.0055109784), (['loyal', 'nominal'], 0.0052742246)]
+L1: 2
+[(['designated', 'dominant'], 0.0067885173), (['opposing', 'supposed'], 0.0055405498), (['important', 'legitimate'], 0.0049453923), (['loyal', 'particular'], 0.0047920938), (['effective', 'loyal'], 0.0047738892)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['notorious', 'secular'], 0.23438393), (['notorious', 'rightful'], 0.17053559), (['rightful', 'secular'], 0.11400303), (['fascist', 'notorious'], 0.11118107), (['fascist', 'rightful'], 0.069657527)]
+sig1/sig2 0.001/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['foremost', 'loyal'], 0.0063589965), (['loyal', 'nominal'], 0.0060053035), (['loyal', 'tyrannical'], 0.0057625021), (['loyal', 'worthy'], 0.0057177399), (['founding', 'loyal'], 0.0056433007)]
+L1: 1
+[(['foremost', 'loyal'], 0.0077067791), (['loyal', 'nominal'], 0.0056458898), (['loyal', 'tyrannical'], 0.0051973751), (['infamous', 'loyal'], 0.0049953167), (['loyal', 'respective'], 0.004885619)]
+L1: 2
+[(['loyal', 'staunch'], 0.0062802685), (['beloved', 'loyal'], 0.0060089785), (['loyal', 'respective'], 0.0054800129), (['foremost', 'loyal'], 0.0054615326), (['loyal', 'tyrannical'], 0.0052133347)]
+sig1/sig2 0.001/0.01 baseline: True
+
+BASELINE[(['notorious', 'secular'], 0.23143777), (['notorious', 'rightful'], 0.1697913), (['rightful', 'secular'], 0.1140871), (['fascist', 'notorious'], 0.11129765), (['fascist', 'rightful'], 0.069808789)]
+sig1/sig2 0.1/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['notorious', 'rightful'], 0.27012658), (['rightful', 'secular'], 0.15547661), (['notorious', 'secular'], 0.1118331), (['fascist', 'rightful'], 0.1086514), (['foremost', 'rightful'], 0.067239247)]
+L1: 1
+[(['fascist', 'rightful'], 0.16139743), (['fascist', 'notorious'], 0.13817936), (['notorious', 'rightful'], 0.11021421), (['fascist', 'secular'], 0.10608764), (['notorious', 'secular'], 0.083396576)]
+L1: 2
+[(['notorious', 'rightful'], 0.19943593), (['notorious', 'secular'], 0.11225827), (['rightful', 'secular'], 0.11083488), (['fascist', 'rightful'], 0.097289674), (['rightful', 'ruthless'], 0.088425547)]
+sig1/sig2 0.1/0.01 baseline: True
+
+BASELINE[(['notorious', 'secular'], 1.0), (['notorious', 'rightful'], 1.2798185e-39), (['rightful', 'secular'], 0.0), (['fascist', 'notorious'], 0.0), (['ruthless', 'secular'], 0.0)]
+sig1/sig2 100.0/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['alleged', 'notorious'], 0.041195896), (['foremost', 'loyal'], 0.023577621), (['loyal', 'tyrannical'], 0.022414519), (['loyal', 'responsible'], 0.012766285), (['loyal', 'reputed'], 0.012425301)]
+L1: 1
+[(['absolute', 'evil'], 0.0059210644), (['notorious', 'prime'], 0.0056016035), (['dominant', 'infamous'], 0.0052897395), (['actual', 'evil'], 0.0051791961), (['effective', 'loyal'], 0.0049183313)]
+L1: 2
+[(['absolute', 'evil'], 0.0071474407), (['infamous', 'nominal'], 0.0056227259), (['absolute', 'ruthless'], 0.0056006848), (['infamous', 'respective'], 0.0055464683), (['infamous', 'reputed'], 0.005330048)]
+sig1/sig2 100.0/0.01 baseline: True
+
+BASELINE[(['notorious', 'secular'], 1.0), (['notorious', 'rightful'], 5.226577e-40), (['rightful', 'secular'], 0.0), (['fascist', 'notorious'], 0.0), (['ruthless', 'secular'], 0.0)]
+room is a dungeon
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['dimensional', 'unharmed'], 0.25952402), (['dimensional', 'unconscious'], 0.19614801), (['unconscious', 'unharmed'], 0.1949158), (['claustrophobic', 'dimensional'], 0.079946265), (['dreary', 'unconscious'], 0.056358788)]
+L1: 1
+[(['dimensional', 'unharmed'], 0.25476456), (['unconscious', 'unharmed'], 0.21138497), (['dimensional', 'unconscious'], 0.16581784), (['dreary', 'unconscious'], 0.093488492), (['claustrophobic', 'dimensional'], 0.048428189)]
+L1: 2
+[(['dimensional', 'unharmed'], 0.2681092), (['dimensional', 'unconscious'], 0.20537774), (['unconscious', 'unharmed'], 0.14948255), (['claustrophobic', 'dimensional'], 0.10259935), (['dreary', 'unconscious'], 0.056398656)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['dimensional', 'unharmed'], 0.54991198), (['unconscious', 'unharmed'], 0.25896162), (['dimensional', 'unconscious'], 0.17542267), (['claustrophobic', 'unharmed'], 0.0085475529), (['claustrophobic', 'dimensional'], 0.0043589026)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['excruciating', 'unharmed'], 0.050337888), (['splendid', 'unharmed'], 0.036348864), (['spooky', 'unharmed'], 0.031573519), (['spooky', 'unconscious'], 0.028562892), (['excruciating', 'spooky'], 0.027365293)]
+L1: 1
+[(['splendid', 'unharmed'], 0.038960151), (['spooky', 'unharmed'], 0.034622867), (['spooky', 'unconscious'], 0.031057965), (['dimensional', 'spooky'], 0.029892331), (['splendid', 'spooky'], 0.024699723)]
+L1: 2
+[(['splendid', 'unharmed'], 0.031501666), (['spooky', 'unconscious'], 0.031262148), (['spooky', 'unharmed'], 0.028973304), (['dimensional', 'spooky'], 0.028512774), (['splendid', 'spooky'], 0.024454912)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['dimensional', 'unharmed'], 0.76228309), (['unconscious', 'unharmed'], 0.13911511), (['dimensional', 'unconscious'], 0.098458186), (['claustrophobic', 'unharmed'], 0.00011805317), (['claustrophobic', 'dimensional'], 2.0851021e-05)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['spooky', 'unseen'], 0.0064181616), (['dreary', 'spooky'], 0.0060911532), (['imaginary', 'unharmed'], 0.0059218691), (['unfinished', 'unharmed'], 0.005852107), (['hushed', 'unseen'], 0.0057774005)]
+L1: 1
+[(['drab', 'virtual'], 0.0064944578), (['unfinished', 'unharmed'], 0.0057177967), (['splendid', 'spooky'], 0.0055454685), (['excruciating', 'unfinished'], 0.0053010164), (['excruciating', 'hushed'], 0.0052079507)]
+L1: 2
+[(['drab', 'spooky'], 0.011437001), (['spooky', 'unconscious'], 0.0090754498), (['dreary', 'spooky'], 0.0086824764), (['excruciating', 'spooky'], 0.0085013611), (['splendid', 'spooky'], 0.0083487248)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['dimensional', 'unharmed'], 0.76568878), (['unconscious', 'unharmed'], 0.13716204), (['dimensional', 'unconscious'], 0.097018138), (['claustrophobic', 'unharmed'], 0.00010804784), (['claustrophobic', 'dimensional'], 1.8680845e-05)]

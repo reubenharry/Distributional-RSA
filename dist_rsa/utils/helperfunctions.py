@@ -175,6 +175,17 @@ def metaphors_to_csv(metaphors,l1,baseline,controls):
 		for item in items:
 			csv_writer.writerow(item)
 
+def display(full_name):
+    from dist_rsa.utils.load_data import metaphors
+    l1 = pickle.load(open("dist_rsa/data/l1_dict"+full_name,'rb'))
+    baseline = pickle.load(open("dist_rsa/data/baseline_dictshort_2",'rb'))
+
+    for metaphor in metaphors:
+        metaphor = tuple(metaphor)
+        print('\n\n\n',metaphor)
+        print("BASELINE:",baseline[metaphor])
+        print("L1:",l1[metaphor])
+
 def metaphors_to_html(metaphors,l1,baseline,controls,return_dict=False):
 	import csv
 	import random
@@ -219,4 +230,38 @@ def metaphors_to_html(metaphors,l1,baseline,controls,return_dict=False):
 	html_file.write(html_text)
 	html_file.close()
 
+def demarginalize_product_space(product_dist):
 
+	"""
+	product_dist is a list of tuples of (n-tuple of words,probability mass of that n-tuple)
+	"""
+
+	import numpy as np
+	from collections import defaultdict
+
+	#calcuate number of dimensions of distribution's support
+	size_of_product = len(product_dist[0])
+
+	# unzip product_dist into the list of words, and the list of scores 
+	product_dist_words,product_dist_scores = zip(*product_dist)
+
+	# obtain the total set of words by flattening the list of n-tuples and removing duplicates
+	words = set([item for sublist in product_dist_words for item in sublist])
+
+	#initialize a dictionary whose default value for any key whatsoever is 0.0
+	word_scores=defaultdict(float)
+
+	# loop over words, and for each, loop over product_dist, adding the score of each tuple it appears in
+	for word in list(words):
+		for item in product_dist:
+			if word in item[0]:
+				word_scores[word]+=np.exp(item[1])
+	# convert word_scores dictionary to list of tuples and sort by the size of the second element of each tuple, in reverse order
+	word_scores_list = sorted(list(word_scores.items()),key=lambda x:x[1],reverse=True)
+
+	# unzip word_scores_list (which is list of tuples) into two lists, of words, and scores
+	final_words,scores = zip(*word_scores_list)
+
+	# normalize distribution
+	scores = np.ndarray.tolist(np.array(scores)/np.sum(scores))
+	return list(zip(final_words,scores))

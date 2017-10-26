@@ -106,7 +106,7 @@ if __name__ == '__main__':
 	extra = True
 	if extra:
 		for pca,mean in [(False,False),(False,True),(True,False),(True,True)]:
-			# processVecMatrix(name='glove.840B.'+h_dict[(pca,mean)]+str(300),remove_top=pca, remove_mean=mean,vec_length=300,original_vecs='glove.840B.')
+			processVecMatrix(name='glove.840B.'+h_dict[(pca,mean)]+str(300),remove_top=pca, remove_mean=mean,vec_length=300,original_vecs='glove.840B.')
 			processVecMatrix(name='glove.twitter.27B.'+h_dict[(pca,mean)]+str(25),remove_top=pca, remove_mean=mean,vec_length=25,original_vecs='glove.twitter.27B.')
 			processVecMatrix(name='glove.twitter.27B.'+h_dict[(pca,mean)]+str(200),remove_top=pca, remove_mean=mean,vec_length=200,original_vecs='glove.twitter.27B.')
 

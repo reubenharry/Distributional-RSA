@@ -1,4 +1,6 @@
 from __future__ import division
+name = input("save to: ")
+
 from collections import defaultdict
 import scipy
 import numpy as np
@@ -7,17 +9,17 @@ import itertools
 from dist_rsa.dbm import *
 from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import *
-from dist_rsa.utils.load_data import get_words
 from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
+from dist_rsa.utils.distance_under_projection import distance_under_projection
 
 
 vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
 nouns,adjs = get_words()
 
-def l1_cat_3d(metaphor):
+def l1_model(metaphor):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
-    subj,pred = metaphor
+    subj,pred,sig1,sig2,is_baseline = metaphor
 
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
@@ -41,7 +43,7 @@ def l1_cat_3d(metaphor):
     possible_utterance_adjs = quds
     quds = quds[:50]
     print("QUDS",quds[:50]) 
-    possible_utterances = possible_utterance_nouns[10:30]+possible_utterance_adjs[:30]
+    possible_utterances = possible_utterance_nouns[:200:20]+possible_utterance_adjs[:10]
 
     # possible_utterances = ['ox','bag','nightmare']
     # possible_utterances = possible_utterance_adjs[:50]
@@ -64,21 +66,22 @@ def l1_cat_3d(metaphor):
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=10.0,sig2=0.09,
+        sig1=sig1,sig2=sig2,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 100,
+        sample_number = 1000,
         number_of_qud_dimensions=2,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-3,
+        step_size=1e-2,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
-        rationality=0.9,
+        rationality=0.99,
         norm_vectors=False,
         variational=True,
-        variational_steps=100,
+        variational_steps=1000,
+        baseline=is_baseline
         # world_movement=True
 
         )
@@ -87,50 +90,33 @@ def l1_cat_3d(metaphor):
 
     run.compute_l1(load=0,save=False)
 
-    # print(run.world_samples.shape)
-
     results = run.qud_results()
-
-    # print(results[:20])
-    # run.compute_s1(params,s1_world=)
-
-    print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:50])
-    print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
-    print("BASELINE:\n",sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:20])
-
-    print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:20]])
-
-    print("\ndemarginalized:\n",demarginalize_product_space(results))
-
 
     return results
 
 if __name__ == "__main__":
 
-    # l1_cat_3d(("love","poison"))
-    # l1_cat_3d(("woman","rose"))
-    l1_cat_3d(("man","lion"))
-    l1_cat_3d(("man","lion"))
-    l1_cat_3d(("man","ox"))
-    l1_cat_3d(("man","ox"))
-    l1_cat_3d(("voice","river"))
-    l1_cat_3d(("voice","river"))
-    # l1_cat_3d(("man","ox"))
-    # l1_cat_3d(("man","ox"))
-    # # l1_cat_3d(("man","lion"))
+    out = open("dist_rsa/data/l1_results_"+name,"w")
+    out.write("RESULTS 25D\n")
+    for subj,pred in metaphors:
+        out.write("\n"+subj+" is a "+pred)
 
-    # # l1_cat_3d(("bed","heaven"))
-    # # l1_cat_3d(("bed","heaven"))
+        for sig1,sig2 in [(0.1,0.1),(1.0,0.1),(100.0,0.1),(0.001,0.01),(0.1,0.01),(100.0,0.01)]:
+            for is_baseline in [False,True]:
+                out.write('\n')
+                out.write("sig1/sig2 "+str(sig1)+"/"+str(sig2)+" baseline: "+str(is_baseline))
+                if is_baseline:
+                    out.write('\n\nBASELINE')
+                    results = l1_model((subj,pred,sig1,sig2,is_baseline))
+                    # results = [(0.5,0.5)]
+                    out.write(str([(x,np.exp(y)) for (x,y) in results[:5]]))
+                else:
+                    out.write("L1 RUN:\n")
+                    for i in range(3):
+                        out.write("\nL1: "+str(i))
+                        results = l1_model((subj,pred,sig1,sig2,is_baseline))
+                        # results = [(0.5,0.5)]
+                        out.write('\n')
+                        out.write(str([(x,np.exp(y)) for (x,y) in results[:5]]))
 
-    # # print(scipy.spatial.distance.cosine(vecs['man'],vecs['lion']))
-    # # print(scipy.spatial.distance.cosine(vecs['bed'],vecs['heaven']))
-    # l1_cat_3d(("heaven","bed"))
-    # l1_cat_3d(("heaven","bed"))
-    # # l1_cat_3d(("woman","rose"))
-    # l1_cat_3d(("flower","rose"))
-    # l1_cat_3d(("flower","rose"))
-    # l1_cat_3d(("woman","car"))
-    # l1_cat_3d(("woman","car"))
-    # l1_cat_3d(("rose","woman"))
-    # l1_cat_3d(("rose","woman"))
+
