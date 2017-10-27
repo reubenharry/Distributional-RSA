@@ -15,9 +15,9 @@ from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
 nouns,adjs = get_words()
 
-def l1_cat_3d(metaphor):
+def l1_cat_exp(metaphor):
     vec_size,vec_kind = 300,'glove.840B.'
-    subj,pred = metaphor
+    subj,pred,baseline = metaphor
 
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
@@ -32,16 +32,17 @@ def l1_cat_3d(metaphor):
         key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
         # key=lambda x:prob_dict[x],reverse=True)
 
-
-    possible_utterance_nouns = sorted([n for n in nouns if nouns[n] > concrete_threshold and n in vecs],\
+    possible_utterance_nouns = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
+    # possible_utterance_nouns = sorted([n for n in nouns if nouns[n] > concrete_threshold and n in vecs],\
         # key=lambda x:prob_dict[x],reverse=True)
-        key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+        # key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
     # possible_utterance_nouns = 
     # break
     possible_utterance_adjs = quds
-    quds = quds[:70]
+    quds = quds[:300]
     print("QUDS",quds[:50]) 
-    possible_utterances = possible_utterance_nouns[:100]+possible_utterance_adjs[:100]
+    possible_utterances = possible_utterance_nouns[:1000]
+    # +possible_utterance_adjs[:100]
 
     # possible_utterances = ['ox','bag','nightmare']
     # possible_utterances = possible_utterance_adjs[:50]
@@ -67,8 +68,8 @@ def l1_cat_3d(metaphor):
         sig1=100.0,sig2=1.0,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 10,
-        number_of_qud_dimensions=2,
+        sample_number = 100,
+        number_of_qud_dimensions=1,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
         step_size=1e-5,
@@ -79,6 +80,7 @@ def l1_cat_3d(metaphor):
         norm_vectors=False,
         variational=True,
         variational_steps=100,
+        baseline=baseline
         # world_movement=True
 
         )
@@ -93,49 +95,50 @@ def l1_cat_3d(metaphor):
 
     # print(results[:20])
     # run.compute_s1(params,s1_world=)
-
-    print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:50])
-    print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
-    print("BASELINE:\n",sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:20])
+    if not baseline:
+        print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:50])
+        print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
+    # print("BASELINE:\n",sorted(qud_words,\
+    #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:20])
 
     print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:20]])
 
-    print("\ndemarginalized:\n",demarginalize_product_space(results))
+    print("\ndemarginalized:\n",demarginalize_product_space(results)[:20])
 
 
     return results
 
 if __name__ == "__main__":
 
-    # l1_cat_3d(("love","poison"))
-    # l1_cat_3d(("woman","rose"))
+    # l1_cat_exp(("love","poison"))
+    # l1_cat_exp(("woman","rose"))
     for i in range(2):
-        l1_cat_3d(("man","lion"))
-        l1_cat_3d(("man","ox"))
-        l1_cat_3d(("voice","river"))
-    # l1_cat_3d(("man","lion"))
-    # l1_cat_3d(("man","ox"))
-    # l1_cat_3d(("lion","man"))
-    # l1_cat_3d(("lion","man"))
-    # l1_cat_3d(("ox","man"))
-    # l1_cat_3d(("ox","man"))
-    # l1_cat_3d(("voice","river"))
-    # l1_cat_3d(("man","ox"))
-    # l1_cat_3d(("man","ox"))
-    # # l1_cat_3d(("man","lion"))
+        for baseline in [True,False]:
+            l1_cat_exp(("man","lion",baseline))
+    # l1_cat_exp(("man","lion"))
+    # l1_cat_exp(("man","ox"))
+    # l1_cat_exp(("man","ox"))
+    # l1_cat_exp(("lion","man"))
+    # l1_cat_exp(("lion","man"))
+    # l1_cat_exp(("ox","man"))
+    # l1_cat_exp(("ox","man"))
+    # l1_cat_exp(("voice","river"))
+    # l1_cat_exp(("voice","river"))
+    # l1_cat_exp(("man","ox"))
+    # l1_cat_exp(("man","ox"))
+    # # l1_cat_exp(("man","lion"))
 
-    # # l1_cat_3d(("bed","heaven"))
-    # # l1_cat_3d(("bed","heaven"))
+    # # l1_cat_exp(("bed","heaven"))
+    # # l1_cat_exp(("bed","heaven"))
 
     # # print(scipy.spatial.distance.cosine(vecs['man'],vecs['lion']))
     # # print(scipy.spatial.distance.cosine(vecs['bed'],vecs['heaven']))
-    # l1_cat_3d(("heaven","bed"))
-    # l1_cat_3d(("heaven","bed"))
-    # # l1_cat_3d(("woman","rose"))
-    # l1_cat_3d(("flower","rose"))
-    # l1_cat_3d(("flower","rose"))
-    # l1_cat_3d(("woman","car"))
-    # l1_cat_3d(("woman","car"))
-    # l1_cat_3d(("rose","woman"))
-    # l1_cat_3d(("rose","woman"))
+    # l1_cat_exp(("heaven","bed"))
+    # l1_cat_exp(("heaven","bed"))
+    # # l1_cat_exp(("woman","rose"))
+    # l1_cat_exp(("flower","rose"))
+    # l1_cat_exp(("flower","rose"))
+    # l1_cat_exp(("woman","car"))
+    # l1_cat_exp(("woman","car"))
+    # l1_cat_exp(("rose","woman"))
+    # l1_cat_exp(("rose","woman"))
