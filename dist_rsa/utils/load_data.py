@@ -23,6 +23,23 @@ metaphors = [('brain','muscle'),('brain','computer'),('brain','giant'),('life','
     ('principal','dictator'),('pub','family'),('life','train'),('life','snowflake'),('life','river'),('mother','mosquito'),
     ('music','language'),('relationship','treasure'),('voice','river'),('tongue','razor')]
 
+test_metaphors = {("pain","thorn"):"Pain is a thorn", 
+	("life","train"):"Life is a train", 
+	("life","tree"):"Life is a tree", 
+	("life","snowflake"):"Life is a snowflake", 
+	("music","language"):"Music is a language",  
+	("restaurant","circus"):"The restaurant is a circus", 
+	("voice","hammer"):"The voice is a hammer", 
+	("voice","stone"):"The voice is a stone", 
+	("man","snake"):"The man is a snake",
+	("father","shark"):"The father is a shark.",
+	("curiosity","disease"):"Curiosity is a disease",
+	("art","woman"):"Art is a woman",
+	("earth","womb"):"The earth is a womb",
+	("home","lifeboat"):"Home is a lifeboat",
+	("hope","drug"):"Hope is a drug"
+	}
+
 twitter_vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.twitter.27B.mean_vecs25",'rb'))
 
 metaphors = [x for x in metaphors if x[0] in twitter_vecs and x[1] in twitter_vecs]
@@ -47,13 +64,18 @@ animal_features = list(set(animal_features))
 
 
 def load_vecs(mean,pca,vec_length,vec_type):
+	if vec_type=="word2vec":
+		from gensim.models.keyedvectors import KeyedVectors
+		vecs = KeyedVectors.load_word2vec_format('dist_rsa/data/word_vectors/word2vec.bin', binary=True)
+		if mean or pca: raise Exception("no mean or pca version available")
+		return vecs 
 	name=vec_type+h_dict[(pca,mean)]+str(vec_length)
 	message = "\nloading vecs (load vecs): "+name
 	print(message)
 	vecs = pickle.load(open("dist_rsa/data/word_vectors/"+name,'rb'))
 	return vecs
 #improved words
-def get_words():
+def get_words(with_freqs=False):
 	nouns = {}
 	adjs = {}
 	words = set()
@@ -68,11 +90,14 @@ def get_words():
 				is_noun = (row[8])=='Noun'		
 				is_adj = (row[8])=='Adjective'
 				is_adv = (row[8])=='Adverb'
+				freq = row[7]
 				if not is_bigram:
 					if is_noun:
-						nouns[row[0]]=float(row[2])
+						if with_freqs:nouns[row[0]]=float(row[2]),freq
+						else: nouns[row[0]]=float(row[2])
 					if is_adj:
-						adjs[row[0]]=float(row[2])
+						if with_freqs: adjs[row[0]]=float(row[2]),freq
+						else: adjs[row[0]]=float(row[2])
 
 		return nouns,adjs
 

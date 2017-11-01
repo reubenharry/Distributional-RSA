@@ -15,7 +15,7 @@ vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
 nouns,adjs = get_words()
 
 def l1_cat_2d(metaphor):
-    vec_size,vec_kind = 25,'glove.twitter.27B.'
+    vec_size,vec_kind = 50,'glove.6B.'
     subj,pred = metaphor
     abstract_threshold = 2.5
     print('abstract_threshold',abstract_threshold)
@@ -24,25 +24,23 @@ def l1_cat_2d(metaphor):
 
     qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
 
-    sig2_distance = scipy.spatial.distance.cosine(vecs[subj],vecs[pred])
-
-    prob_dict = get_freqs(preprocess=False)
+    # prob_dict = get_freqs(preprocess=False)
     # predict(" ".join([subj, "is","a"]))
     
     quds = sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
         # key=lambda x:prob_dict[x],reverse=True)
 
 
-    possible_utterance_nouns = sorted([n for n in nouns if nouns[n] > concrete_threshold and n in vecs and n in prob_dict],\
+    possible_utterance_nouns = sorted([n for n in nouns if nouns[n] > concrete_threshold and n in vecs],\
         # key=lambda x:prob_dict[x],reverse=True)
         key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
     # possible_utterance_nouns = 
     # break
     possible_utterance_adjs = quds
-    quds = quds[:100]
+    quds = quds[:50]
     print("QUDS",quds[:50])
-    possible_utterances = possible_utterance_nouns[:25]+quds[:25]
+    possible_utterances = possible_utterance_nouns[:100]+quds[:50]
     # possible_utterance_adjs[:50]+possible_utterance_nouns[:50]
     # possible_utterance_nouns[:4]
 
@@ -55,19 +53,18 @@ def l1_cat_2d(metaphor):
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=0.001,sig2=0.01,
+        sig1=10.0,sig2=1.0,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 10000,
+        sample_number = 1000,
         number_of_qud_dimensions=2,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=0.0005,
+        step_size=1e-5,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
         rationality=1.0,
-        speaker_world=vecs[subj],
         norm_vectors=False,
         variational=True,
         variational_steps=100,
@@ -86,19 +83,26 @@ def l1_cat_2d(metaphor):
     # print(results[:20])
     # run.compute_s1(params,s1_world=)
 
-    # print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:50])
-    # print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
+    print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:50])
+    print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
     print("BASELINE:\n",sorted(qud_words,\
         key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:20])
 
     print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:20]])
+    print("\ndemarginalized:\n",demarginalize_product_space(results)[:20])
 
     return results
 
 if __name__ == "__main__":
 
+    l1_cat_2d(("man","lion"))
+    l1_cat_2d(("man","lion"))
     l1_cat_2d(("love","poison"))
-    # l1_cat_2d(("bed","heaven"))
+    l1_cat_2d(("love","poison"))
+    l1_cat_2d(("bed","heaven"))
+    l1_cat_2d(("bed","heaven"))
+    l1_cat_2d(("woman","rose"))
+    l1_cat_2d(("woman","rose"))
     # l1_cat_2d(("bed","heaven"))
     # l1_cat_2d(("woman","rose"))
     # l1_cat_2d(("woman","rose"))

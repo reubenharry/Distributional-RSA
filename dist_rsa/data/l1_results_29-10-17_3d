@@ -1,0 +1,270 @@
+RESULTS 50D
+
+love is a poison
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['murderous', 'mysterious', 'vicious'], 0.076149046), (['evil', 'mysterious', 'vicious'], 0.061046861), (['evil', 'mysterious', 'nasty'], 0.049933046), (['cruel', 'evil', 'vicious'], 0.042835023), (['cruel', 'mysterious', 'vicious'], 0.041701607)]
+L1: 1
+[(['mysterious', 'vicious', 'wild'], 0.12346426), (['murderous', 'mysterious', 'vicious'], 0.098496974), (['evil', 'mysterious', 'nasty'], 0.086011581), (['evil', 'mysterious', 'vicious'], 0.070040219), (['mysterious', 'nasty', 'wild'], 0.056272697)]
+L1: 2
+[(['murderous', 'mysterious', 'vicious'], 0.099793695), (['mysterious', 'vicious', 'wild'], 0.076535314), (['evil', 'mysterious', 'nasty'], 0.06060091), (['evil', 'mysterious', 'vicious'], 0.059216771), (['cruel', 'mysterious', 'vicious'], 0.040019322)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['murderous', 'mysterious', 'vicious'], 0.16556101), (['evil', 'mysterious', 'nasty'], 0.16453011), (['cruel', 'mysterious', 'vicious'], 0.15818249), (['evil', 'mysterious', 'vicious'], 0.0848343), (['mysterious', 'nasty', 'vicious'], 0.06080924)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['magical', 'mysterious', 'pure'], 0.001175297), (['dangerous', 'harmless', 'pure'], 0.0011509829), (['dangerous', 'delicious', 'divine'], 0.0010980803), (['mysterious', 'pure', 'vicious'], 0.0010677967), (['delicious', 'harmless', 'wild'], 0.001005468)]
+L1: 1
+[(['dangerous', 'nasty', 'wild'], 0.0012491032), (['divine', 'evil', 'wild'], 0.0012027341), (['delicious', 'evil', 'strange'], 0.0012022697), (['evil', 'murderous', 'wild'], 0.0010621301), (['classic', 'harmless', 'wild'], 0.001039588)]
+L1: 2
+[(['bizarre', 'delicious', 'pure'], 0.0016777404), (['bizarre', 'pure', 'wicked'], 0.0013792578), (['bizarre', 'mysterious', 'pure'], 0.0013247632), (['bizarre', 'horrible', 'pure'], 0.0012555968), (['bizarre', 'fashioned', 'wicked'], 0.0012265331)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['murderous', 'mysterious', 'vicious'], 0.20611922), (['evil', 'mysterious', 'nasty'], 0.20610449), (['cruel', 'mysterious', 'vicious'], 0.20581928), (['evil', 'mysterious', 'vicious'], 0.1399601), (['mysterious', 'nasty', 'vicious'], 0.069840945)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['dangerous', 'mysterious', 'potent'], 0.0011911895), (['cruel', 'passionate', 'sure'], 0.0010335203), (['bizarre', 'cruel', 'murderous'], 0.0010034539), (['harmless', 'pure', 'wild'], 0.00058825378), (['harmless', 'sure', 'ultimate'], 0.00048764207)]
+L1: 1
+[(['delicious', 'horrible', 'tragic'], 0.0010499291), (['bizarre', 'classic', 'delicious'], 0.0010296035), (['cruel', 'lucky', 'passionate'], 0.00038775834), (['cruel', 'lucky', 'murderous'], 0.00038081093), (['lucky', 'murderous', 'passionate'], 0.0003767825)]
+L1: 2
+[(['cruel', 'sorry', 'sure'], 0.0011247644), (['classic', 'fashioned', 'wicked'], 0.0010480558), (['evil', 'harmless', 'mysterious'], 0.00051719678), (['harmless', 'mysterious', 'vicious'], 0.00048368506), (['nasty', 'pure', 'weird'], 0.00046593742)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['murderous', 'mysterious', 'vicious'], 0.20664203), (['evil', 'mysterious', 'nasty'], 0.20662853), (['cruel', 'mysterious', 'vicious'], 0.20636149), (['evil', 'mysterious', 'vicious'], 0.14095223), (['mysterious', 'nasty', 'vicious'], 0.069783591)]
+sig1/sig2 0.001/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['great', 'pure', 'wild'], 0.0012526695), (['dangerous', 'obsessed', 'unrequited'], 0.0011689594), (['nasty', 'passionate', 'pure'], 0.0011567309), (['fashioned', 'harmless', 'murderous'], 0.0011409977), (['harmless', 'murderous', 'vicious'], 0.0010952335)]
+L1: 1
+[(['dangerous', 'potent', 'wrong'], 0.0011520988), (['dangerous', 'passionate', 'wrong'], 0.0010819137), (['crazy', 'delicious', 'fashioned'], 0.0010096915), (['evil', 'jealous', 'nasty'], 0.001007094), (['fashioned', 'pure', 'wrong'], 0.0010001101)]
+L1: 2
+[(['fashioned', 'harmless', 'potent'], 0.0014598483), (['harmless', 'lucky', 'potent'], 0.0012758878), (['dangerous', 'harmless', 'pure'], 0.001173585), (['harmless', 'pure', 'seductive'], 0.0011636672), (['easy', 'pure', 'sure'], 0.0011613086)]
+sig1/sig2 0.001/0.01 baseline: True
+
+BASELINE[(['murderous', 'mysterious', 'vicious'], 0.20612264), (['evil', 'mysterious', 'nasty'], 0.2061079), (['cruel', 'mysterious', 'vicious'], 0.20582269), (['evil', 'mysterious', 'vicious'], 0.1399496), (['mysterious', 'nasty', 'vicious'], 0.06982851)]
+sig1/sig2 0.1/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['murderous', 'nasty', 'wild'], 0.043873332), (['evil', 'nasty', 'vicious'], 0.042182572), (['evil', 'murderous', 'nasty'], 0.040271051), (['murderous', 'nasty', 'vicious'], 0.037348688), (['nasty', 'vicious', 'wild'], 0.034595314)]
+L1: 1
+[(['cruel', 'murderous', 'vicious'], 0.1515262), (['cruel', 'evil', 'nasty'], 0.14253125), (['evil', 'mysterious', 'nasty'], 0.12877251), (['cruel', 'evil', 'vicious'], 0.11669941), (['cruel', 'mysterious', 'vicious'], 0.052466016)]
+L1: 2
+[(['evil', 'mysterious', 'nasty'], 0.092252105), (['cruel', 'mysterious', 'vicious'], 0.073770158), (['cruel', 'evil', 'nasty'], 0.073068261), (['cruel', 'evil', 'vicious'], 0.070873328), (['murderous', 'mysterious', 'vicious'], 0.070713051)]
+sig1/sig2 0.1/0.01 baseline: True
+
+BASELINE[(['cruel', 'mysterious', 'vicious'], 0.25), (['evil', 'mysterious', 'nasty'], 0.25), (['evil', 'mysterious', 'vicious'], 0.25), (['murderous', 'mysterious', 'vicious'], 0.25), (['mysterious', 'nasty', 'vicious'], 6.5639731e-29)]
+sig1/sig2 100.0/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['dangerous', 'passionate', 'pure'], 0.0024431497), (['harmless', 'nasty', 'vicious'], 0.001111456), (['dangerous', 'supposed', 'ultimate'], 0.0010210923), (['divine', 'pure', 'wild'], 0.00099999993), (['cruel', 'harmless', 'wild'], 0.00059459195)]
+L1: 1
+[(['harmless', 'potent', 'wild'], 0.0012835411), (['good', 'pure', 'sure'], 0.0012294233), (['dangerous', 'potent', 'wrong'], 0.0011406491), (['dangerous', 'easy', 'nasty'], 0.0010791396), (['cruel', 'lucky', 'sorry'], 0.0010610342)]
+L1: 2
+[(['fond', 'harmless', 'pure'], 0.001171999), (['supposed', 'tragic', 'vicious'], 0.0010219574), (['cruel', 'dangerous', 'pure'], 0.0010065031), (['divine', 'evil', 'vicious'], 0.00099999993), (['magical', 'murderous', 'unrequited'], 0.00099999993)]
+sig1/sig2 100.0/0.01 baseline: True
+
+BASELINE[(['cruel', 'mysterious', 'vicious'], 0.25), (['evil', 'mysterious', 'nasty'], 0.25), (['evil', 'mysterious', 'vicious'], 0.25), (['murderous', 'mysterious', 'vicious'], 0.25), (['mysterious', 'nasty', 'vicious'], 3.4775993e-29)]
+man is a lion
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['amazing', 'evil', 'sinister'], 0.0057759793), (['amazing', 'sinister', 'wicked'], 0.0055777724), (['amazing', 'heroic', 'sinister'], 0.0047797565), (['amazing', 'faithful', 'sinister'], 0.004645458), (['evil', 'fantastic', 'sinister'], 0.0045410045)]
+L1: 1
+[(['amazing', 'faithful', 'sinister'], 0.0050919466), (['amazing', 'faithful', 'wicked'], 0.0048849643), (['faithful', 'sinister', 'wicked'], 0.004842313), (['amazing', 'evil', 'faithful'], 0.004762046), (['amazing', 'sinister', 'wicked'], 0.0042987992)]
+L1: 2
+[(['amazing', 'evil', 'sinister'], 0.0044744988), (['amazing', 'evil', 'wicked'], 0.0038076118), (['evil', 'sinister', 'wicked'], 0.0037959879), (['amazing', 'evil', 'proverbial'], 0.0037014575), (['heroic', 'sinister', 'wicked'], 0.0036090524)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['amazing', 'evil', 'sinister'], 0.040117241), (['amazing', 'sinister', 'wicked'], 0.032833718), (['amazing', 'evil', 'proverbial'], 0.030751338), (['amazing', 'faithful', 'sinister'], 0.02981239), (['amazing', 'evil', 'faithful'], 0.029696424)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['evil', 'modern', 'proverbial'], 0.00026195389), (['modern', 'proverbial', 'rare'], 0.00025801591), (['proverbial', 'sinister', 'strange'], 0.00025283126), (['faithful', 'proverbial', 'strange'], 0.00025053162), (['evil', 'proverbial', 'strange'], 0.00025042961)]
+L1: 1
+[(['cowardly', 'evil', 'proverbial'], 0.0004918467), (['cowardly', 'epic', 'proverbial'], 0.00046733479), (['cowardly', 'proverbial', 'wild'], 0.00045003451), (['epic', 'faithful', 'valiant'], 0.00044454169), (['epic', 'faithful', 'magical'], 0.00044179097)]
+L1: 2
+[(['famous', 'modern', 'proverbial'], 0.00038929231), (['evil', 'modern', 'proverbial'], 0.00037400422), (['famous', 'modern', 'wicked'], 0.00036571134), (['heroic', 'modern', 'proverbial'], 0.00035576901), (['cowardly', 'proverbial', 'wild'], 0.00033848666)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['amazing', 'evil', 'sinister'], 0.14784731), (['amazing', 'sinister', 'wicked'], 0.11362498), (['amazing', 'evil', 'proverbial'], 0.10610712), (['amazing', 'faithful', 'sinister'], 0.071355015), (['amazing', 'evil', 'faithful'], 0.070396908)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['cowardly', 'innocent', 'supposed'], 0.00046167482), (['charismatic', 'cowardly', 'innocent'], 0.0004599122), (['cowardly', 'innocent', 'modern'], 0.00041643821), (['mega', 'proverbial', 'valiant'], 0.00041501212), (['cowardly', 'innocent', 'intelligent'], 0.00040772784)]
+L1: 1
+[(['brave', 'courageous', 'magnificent'], 0.0010187812), (['evil', 'heavenly', 'legendary'], 0.0010074856), (['crazy', 'proverbial', 'regal'], 0.00048226316), (['proverbial', 'regal', 'sinister'], 0.00047529332), (['mega', 'proverbial', 'regal'], 0.00039272665)]
+L1: 2
+[(['heavenly', 'unidentified', 'valiant'], 0.0010695375), (['epic', 'proverbial', 'unidentified'], 0.0010504373), (['majestic', 'unidentified', 'valiant'], 0.0010330804), (['mysterious', 'valiant', 'wild'], 0.0010068228), (['heavenly', 'valiant', 'wild'], 0.0010041163)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['amazing', 'evil', 'sinister'], 0.15030542), (['amazing', 'sinister', 'wicked'], 0.11525032), (['amazing', 'evil', 'proverbial'], 0.10761452), (['amazing', 'faithful', 'sinister'], 0.071872666), (['amazing', 'evil', 'faithful'], 0.070895642)]
+sig1/sig2 0.001/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['fantastic', 'majestic', 'wicked'], 0.0010579701), (['charismatic', 'cowardly', 'majestic'], 0.00085278647), (['beloved', 'crazy', 'majestic'], 0.00058652426), (['charismatic', 'majestic', 'rare'], 0.00053516263), (['beloved', 'crazy', 'heavenly'], 0.00051973551)]
+L1: 1
+[(['charismatic', 'cowardly', 'valiant'], 0.0010700104), (['brave', 'cowardly', 'mythical'], 0.0010680723), (['famous', 'fantastic', 'great'], 0.0010229184), (['majestic', 'proverbial', 'super'], 0.00052016048), (['crazy', 'proverbial', 'wicked'], 0.00051995041)]
+L1: 2
+[(['crazy', 'lucky', 'majestic'], 0.001215445), (['fantastic', 'heroic', 'legendary'], 0.0010345217), (['cowardly', 'evil', 'majestic'], 0.00067054085), (['crazy', 'faithful', 'heavenly'], 0.00062443636), (['courageous', 'lonely', 'wise'], 0.00061652844)]
+sig1/sig2 0.001/0.01 baseline: True
+
+BASELINE[(['amazing', 'evil', 'sinister'], 0.14784446), (['amazing', 'sinister', 'wicked'], 0.11361165), (['amazing', 'evil', 'proverbial'], 0.10610069), (['amazing', 'faithful', 'sinister'], 0.071362235), (['amazing', 'evil', 'faithful'], 0.070397146)]
+sig1/sig2 0.1/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['evil', 'magnificent', 'proverbial'], 0.014536017), (['magical', 'magnificent', 'proverbial'], 0.014191242), (['cowardly', 'magnificent', 'proverbial'], 0.013677735), (['cowardly', 'magical', 'magnificent'], 0.013192776), (['evil', 'fantastic', 'proverbial'], 0.013096502)]
+L1: 1
+[(['amazing', 'evil', 'legendary'], 0.05188936), (['amazing', 'sinister', 'wicked'], 0.044064984), (['amazing', 'evil', 'sinister'], 0.034478668), (['legendary', 'sinister', 'wicked'], 0.034308493), (['amazing', 'legendary', 'sinister'], 0.030964568)]
+L1: 2
+[(['evil', 'sinister', 'wicked'], 0.070879415), (['epic', 'evil', 'wicked'], 0.066008747), (['evil', 'faithful', 'wicked'], 0.05983654), (['amazing', 'evil', 'wicked'], 0.05968181), (['evil', 'legendary', 'wicked'], 0.04943002)]
+sig1/sig2 0.1/0.01 baseline: True
+
+BASELINE[(['amazing', 'evil', 'sinister'], 1.0), (['amazing', 'sinister', 'wicked'], 4.5454309e-14), (['amazing', 'evil', 'proverbial'], 2.4473077e-16), (['amazing', 'faithful', 'sinister'], 2.3230824e-39), (['amazing', 'evil', 'faithful'], 4.989099e-40)]
+sig1/sig2 100.0/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['charming', 'lonely', 'mega'], 0.00068965682), (['charming', 'fearless', 'lonely'], 0.00053727359), (['epic', 'mythical', 'wicked'], 0.00050211011), (['charismatic', 'faithful', 'supposed'], 0.00042728003), (['epic', 'heavenly', 'proverbial'], 0.00041058566)]
+L1: 1
+[(['heavenly', 'heroic', 'wicked'], 0.0010943654), (['cowardly', 'heavenly', 'valiant'], 0.0010019793), (['evil', 'famous', 'lucky'], 0.00099999993), (['cowardly', 'epic', 'majestic'], 0.00077886274), (['heavenly', 'proverbial', 'valiant'], 0.00071095472)]
+L1: 2
+[(['charismatic', 'faithful', 'supposed'], 0.0013597754), (['cowardly', 'epic', 'magical'], 0.0010148461), (['amazing', 'great', 'sinister'], 0.00099999993), (['cowardly', 'intelligent', 'sinister'], 0.00049843028), (['proverbial', 'regal', 'valiant'], 0.00046910171)]
+sig1/sig2 100.0/0.01 baseline: True
+
+BASELINE[(['amazing', 'evil', 'sinister'], 1.0), (['amazing', 'sinister', 'wicked'], 3.3432902e-14), (['amazing', 'evil', 'proverbial'], 1.708457e-16), (['amazing', 'faithful', 'sinister'], 9.543291e-40), (['amazing', 'evil', 'faithful'], 2.0182622e-40)]
+woman is a rose
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['best', 'mere', 'particular'], 0.012123899), (['best', 'particular', 'popular'], 0.011758116), (['best', 'particular', 'unlikely'], 0.011730765), (['best', 'mere', 'popular'], 0.01026474), (['best', 'particular', 'worse'], 0.0099911625)]
+L1: 1
+[(['best', 'mere', 'particular'], 0.013977471), (['best', 'particular', 'popular'], 0.011831263), (['best', 'particular', 'unlikely'], 0.011813888), (['best', 'mere', 'popular'], 0.01038703), (['mere', 'particular', 'typical'], 0.010287726)]
+L1: 2
+[(['best', 'mere', 'particular'], 0.012305753), (['best', 'particular', 'popular'], 0.011867119), (['best', 'particular', 'unlikely'], 0.011621601), (['best', 'particular', 'worse'], 0.011168521), (['best', 'unlikely', 'worse'], 0.010407854)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['best', 'mere', 'particular'], 0.059321892), (['best', 'mere', 'popular'], 0.059149731), (['mere', 'popular', 'unlikely'], 0.050335694), (['best', 'particular', 'unlikely'], 0.049248885), (['mere', 'particular', 'popular'], 0.048548579)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['popular', 'traditional', 'unusual'], 0.0014174232), (['ordinary', 'traditional', 'unusual'], 0.0013465578), (['traditional', 'typical', 'unusual'], 0.0012910026), (['best', 'opposite', 'unusual'], 0.0012392555), (['best', 'troubled', 'unusual'], 0.001196422)]
+L1: 1
+[(['depressed', 'normal', 'troubled'], 0.0014155469), (['depressed', 'particular', 'popular'], 0.0012674385), (['depressed', 'popular', 'worse'], 0.001134375), (['unknown', 'unnamed', 'worse'], 0.0010847254), (['best', 'depressed', 'worse'], 0.0010487803)]
+L1: 2
+[(['depressed', 'unlikely', 'worse'], 0.0010274726), (['dominant', 'particular', 'traditional'], 0.00097286655), (['traditional', 'troubled', 'unusual'], 0.00096352241), (['depressed', 'mere', 'worse'], 0.00095219171), (['depressed', 'popular', 'worse'], 0.00092263182)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['mere', 'particular', 'popular'], 0.10109591), (['mere', 'popular', 'unlikely'], 0.10047498), (['mere', 'particular', 'unlikely'], 0.097260267), (['best', 'mere', 'particular'], 0.093828358), (['best', 'mere', 'popular'], 0.09350352)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['troubled', 'unknown', 'unusual'], 0.001040378), (['charming', 'smart', 'unexpected'], 0.0010330069), (['annual', 'smart', 'unidentified'], 0.0010044472), (['elegant', 'particular', 'true'], 0.00099999993), (['fresh', 'true', 'unidentified'], 0.00099999993)]
+L1: 1
+[(['depressed', 'natural', 'normal'], 0.0013038304), (['advanced', 'crude', 'lone'], 0.0011688101), (['annual', 'fresh', 'troubled'], 0.00099999993), (['advanced', 'crude', 'unnamed'], 0.000883103), (['crude', 'dominant', 'volatile'], 0.00079738005)]
+L1: 2
+[(['depressed', 'unnamed', 'worse'], 0.0013449772), (['natural', 'normal', 'true'], 0.0010980834), (['average', 'troubled', 'volatile'], 0.00099999993), (['beloved', 'romantic', 'unusual'], 0.00099999993), (['depressed', 'lone', 'traditional'], 0.00099999993)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['mere', 'particular', 'popular'], 0.10187526), (['mere', 'popular', 'unlikely'], 0.10120407), (['mere', 'particular', 'unlikely'], 0.098072231), (['best', 'mere', 'particular'], 0.094084755), (['best', 'mere', 'popular'], 0.093754403)]
+sig1/sig2 0.001/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['intelligent', 'traditional', 'unusual'], 0.0013971486), (['mere', 'traditional', 'volatile'], 0.0010113206), (['famous', 'traditional', 'true'], 0.0010071805), (['smart', 'unknown', 'unusual'], 0.0010007865), (['mere', 'normal', 'unusual'], 0.0010000695)]
+L1: 1
+[(['lone', 'popular', 'smart'], 0.0012364365), (['famous', 'lone', 'popular'], 0.0010385134), (['elegant', 'lone', 'popular'], 0.0010350507), (['dominant', 'latest', 'steady'], 0.0010081877), (['charming', 'intelligent', 'strange'], 0.0010040057)]
+L1: 2
+[(['traditional', 'troubled', 'unusual'], 0.0014209483), (['best', 'traditional', 'unusual'], 0.0011965807), (['beautiful', 'intelligent', 'strange'], 0.0010259142), (['average', 'popular', 'traditional'], 0.0010155089), (['mysterious', 'strange', 'unnamed'], 0.0010026059)]
+sig1/sig2 0.001/0.01 baseline: True
+
+BASELINE[(['mere', 'particular', 'popular'], 0.1010957), (['mere', 'popular', 'unlikely'], 0.10047261), (['mere', 'particular', 'unlikely'], 0.09725941), (['best', 'mere', 'particular'], 0.0938235), (['best', 'mere', 'popular'], 0.093505792)]
+sig1/sig2 0.1/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['depressed', 'mere', 'unlikely'], 0.019659372), (['depressed', 'popular', 'worse'], 0.019657966), (['depressed', 'popular', 'unlikely'], 0.019603813), (['depressed', 'mere', 'popular'], 0.01959116), (['best', 'depressed', 'mere'], 0.019561738)]
+L1: 1
+[(['particular', 'typical', 'worse'], 0.080689944), (['best', 'typical', 'unlikely'], 0.0790691), (['depressed', 'mere', 'popular'], 0.065904021), (['particular', 'popular', 'typical'], 0.053758908), (['particular', 'typical', 'unlikely'], 0.052559879)]
+L1: 2
+[(['dominant', 'troubled', 'unlikely'], 0.20461403), (['dominant', 'mere', 'troubled'], 0.14028437), (['depressed', 'dominant', 'worse'], 0.11720293), (['depressed', 'mere', 'worse'], 0.054863218), (['dominant', 'natural', 'unlikely'], 0.051866081)]
+sig1/sig2 0.1/0.01 baseline: True
+
+BASELINE[(['particular', 'popular', 'unlikely'], 0.71010369), (['mere', 'particular', 'unlikely'], 0.27242026), (['mere', 'particular', 'popular'], 0.013808161), (['mere', 'popular', 'unlikely'], 0.0036680847), (['best', 'particular', 'popular'], 3.6092158e-20)]
+sig1/sig2 100.0/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['lone', 'popular', 'unusual'], 0.001531461), (['advanced', 'unknown', 'unusual'], 0.0012827261), (['gorgeous', 'intelligent', 'true'], 0.001261001), (['crude', 'fresh', 'lone'], 0.001201536), (['depressed', 'normal', 'unnamed'], 0.0011384418)]
+L1: 1
+[(['dominant', 'particular', 'unexpected'], 0.0012504613), (['popular', 'smart', 'unknown'], 0.0011688006), (['average', 'normal', 'worst'], 0.0011382394), (['best', 'smart', 'traditional'], 0.0010948539), (['dominant', 'latest', 'unlikely'], 0.0010860249)]
+L1: 2
+[(['latest', 'unknown', 'unusual'], 0.0012956804), (['annual', 'crude', 'volatile'], 0.001208921), (['best', 'unidentified', 'unknown'], 0.0011907471), (['unexpected', 'unlikely', 'unusual'], 0.0011759568), (['intelligent', 'smart', 'true'], 0.0011741302)]
+sig1/sig2 100.0/0.01 baseline: True
+
+BASELINE[(['particular', 'popular', 'unlikely'], 0.71247649), (['mere', 'particular', 'unlikely'], 0.27071354), (['mere', 'particular', 'popular'], 0.013318774), (['mere', 'popular', 'unlikely'], 0.0034914096), (['best', 'particular', 'popular'], 2.3224222e-20)]
+voice is a river
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['broad', 'continuous', 'steady'], 0.0063288249), (['continuous', 'graceful', 'gravelly'], 0.0061937342), (['continuous', 'gravelly', 'steady'], 0.0058277491), (['broad', 'continuous', 'gravelly'], 0.0057827034), (['graceful', 'gravelly', 'steady'], 0.0057138312)]
+L1: 1
+[(['easy', 'graceful', 'gravelly'], 0.0049465313), (['continuous', 'easy', 'gravelly'], 0.0048334431), (['continuous', 'graceful', 'gravelly'], 0.0045634471), (['broad', 'easy', 'gravelly'], 0.0044926652), (['broad', 'graceful', 'steady'], 0.003894195)]
+L1: 2
+[(['continuous', 'graceful', 'gravelly'], 0.0064952848), (['graceful', 'gravelly', 'steady'], 0.0060902764), (['broad', 'continuous', 'steady'], 0.0060520084), (['broad', 'graceful', 'steady'], 0.0059336359), (['continuous', 'gravelly', 'steady'], 0.0057776016)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['broad', 'continuous', 'steady'], 0.040830608), (['continuous', 'graceful', 'gravelly'], 0.039851613), (['continuous', 'gravelly', 'steady'], 0.037758179), (['broad', 'continuous', 'gravelly'], 0.037348296), (['graceful', 'gravelly', 'steady'], 0.036489319)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['able', 'gravelly', 'vital'], 0.00055422593), (['accessible', 'gravelly', 'pleasant'], 0.00055119611), (['gravelly', 'steady', 'vital'], 0.00051605987), (['gravelly', 'unable', 'vital'], 0.00048046937), (['able', 'broad', 'gravelly'], 0.00047524323)]
+L1: 1
+[(['accessible', 'gravelly', 'pleasant'], 0.00054356194), (['accessible', 'gravelly', 'lovely'], 0.00052025617), (['accessible', 'beautiful', 'gravelly'], 0.00051407272), (['accessible', 'pleasant', 'steady'], 0.00051368604), (['gravelly', 'pleasant', 'steady'], 0.00050556945)]
+L1: 2
+[(['able', 'excellent', 'gravelly'], 0.0006250685), (['able', 'accessible', 'steady'], 0.00062004512), (['able', 'gravelly', 'pleasant'], 0.00058458734), (['accessible', 'beautiful', 'steady'], 0.00058438472), (['able', 'gravelly', 'vital'], 0.00057855883)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['broad', 'continuous', 'steady'], 0.086806238), (['continuous', 'graceful', 'gravelly'], 0.08222989), (['continuous', 'gravelly', 'steady'], 0.073609695), (['broad', 'continuous', 'gravelly'], 0.071609706), (['graceful', 'gravelly', 'steady'], 0.067809507)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['continuous', 'normal', 'unique'], 0.0010107465), (['continuous', 'expressive', 'graceful'], 0.00073309412), (['broad', 'expressive', 'graceful'], 0.00070690125), (['broad', 'great', 'simple'], 0.00060297933), (['able', 'great', 'inaudible'], 0.00060037314)]
+L1: 1
+[(['broad', 'simple', 'unique'], 0.0011319397), (['easy', 'excellent', 'natural'], 0.0011024958), (['able', 'magnificent', 'majestic'], 0.00086742494), (['able', 'occasional', 'sympathetic'], 0.00074701075), (['broad', 'dramatic', 'great'], 0.00060882029)]
+L1: 2
+[(['majestic', 'pleasant', 'steady'], 0.0011296669), (['gravelly', 'mysterious', 'vast'], 0.00099999993), (['continuous', 'majestic', 'normal'], 0.00079484045), (['broad', 'excellent', 'great'], 0.00072188932), (['broad', 'sympathetic', 'unable'], 0.00062375219)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['broad', 'continuous', 'steady'], 0.087559998), (['continuous', 'graceful', 'gravelly'], 0.082893245), (['continuous', 'gravelly', 'steady'], 0.074107423), (['broad', 'continuous', 'gravelly'], 0.07206995), (['graceful', 'gravelly', 'steady'], 0.068200119)]
+sig1/sig2 0.001/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['able', 'capable', 'great'], 0.00116367), (['broad', 'great', 'soulful'], 0.0011389072), (['commanding', 'excellent', 'pristine'], 0.0010570231), (['easy', 'excellent', 'natural'], 0.00088966731), (['able', 'broad', 'excellent'], 0.00080514833)]
+L1: 1
+[(['capable', 'mysterious', 'plain'], 0.00099970622), (['broad', 'dramatic', 'steady'], 0.00068713224), (['dramatic', 'original', 'steady'], 0.00067539531), (['broad', 'dramatic', 'great'], 0.00065321242), (['magnificent', 'majestic', 'vital'], 0.00059758924)]
+L1: 2
+[(['gravelly', 'natural', 'original'], 0.0010150814), (['able', 'graceful', 'occasional'], 0.00095931988), (['broad', 'dramatic', 'great'], 0.00078663882), (['magnificent', 'majestic', 'vital'], 0.00069967477), (['broad', 'excellent', 'great'], 0.00059551722)]
+sig1/sig2 0.001/0.01 baseline: True
+
+BASELINE[(['broad', 'continuous', 'steady'], 0.086802907), (['continuous', 'graceful', 'gravelly'], 0.082225755), (['continuous', 'gravelly', 'steady'], 0.073612295), (['broad', 'continuous', 'gravelly'], 0.07160899), (['graceful', 'gravelly', 'steady'], 0.067809567)]
+sig1/sig2 0.1/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['broad', 'continuous', 'gravelly'], 0.034241434), (['continuous', 'graceful', 'gravelly'], 0.028529618), (['accessible', 'broad', 'steady'], 0.028159857), (['accessible', 'broad', 'gravelly'], 0.025258917), (['accessible', 'gravelly', 'steady'], 0.024407661)]
+L1: 1
+[(['able', 'magnificent', 'vital'], 0.0078750541), (['accessible', 'broad', 'steady'], 0.0078014843), (['able', 'plain', 'vital'], 0.007753843), (['broad', 'plain', 'steady'], 0.0076861246), (['able', 'accessible', 'magnificent'], 0.0076807607)]
+L1: 2
+[(['continuous', 'graceful', 'gravelly'], 0.063579448), (['broad', 'continuous', 'gravelly'], 0.041445803), (['broad', 'graceful', 'gravelly'], 0.039588124), (['continuous', 'gravelly', 'steady'], 0.037898034), (['graceful', 'gravelly', 'steady'], 0.037589889)]
+sig1/sig2 0.1/0.01 baseline: True
+
+BASELINE[(['broad', 'continuous', 'steady'], 0.99991989), (['continuous', 'graceful', 'gravelly'], 7.9221107e-05), (['continuous', 'graceful', 'steady'], 1.4134219e-12), (['continuous', 'gravelly', 'steady'], 9.4713647e-13), (['broad', 'continuous', 'gravelly'], 1.2229009e-14)]
+sig1/sig2 100.0/0.01 baseline: FalseL1 RUN:
+
+L1: 0
+[(['graceful', 'gravelly', 'magnificent'], 0.0011176554), (['broad', 'great', 'majestic'], 0.00099999993), (['continuous', 'occasional', 'usual'], 0.00095370528), (['occasional', 'steady', 'usual'], 0.0007573351), (['able', 'broad', 'usual'], 0.0007504872)]
+L1: 1
+[(['broad', 'distinctive', 'magnificent'], 0.0011256186), (['able', 'pristine', 'steady'], 0.0010982736), (['famous', 'lively', 'lyrical'], 0.001039466), (['broad', 'excellent', 'original'], 0.0010277807), (['broad', 'dramatic', 'great'], 0.00095341477)]
+L1: 2
+[(['continuous', 'dominant', 'natural'], 0.0013158867), (['navigable', 'reliable', 'steady'], 0.0012400678), (['great', 'majestic', 'simple'], 0.0012011488), (['great', 'navigable', 'normal'], 0.0011489212), (['excellent', 'gravelly', 'vital'], 0.0010285578)]
+sig1/sig2 100.0/0.01 baseline: True
+
+BASELINE[(['broad', 'continuous', 'steady'], 0.99992752), (['continuous', 'graceful', 'gravelly'], 7.2079376e-05), (['continuous', 'graceful', 'steady'], 1.0759065e-12), (['continuous', 'gravelly', 'steady'], 7.1808754e-13), (['broad', 'continuous', 'gravelly'], 8.8765292e-15)]

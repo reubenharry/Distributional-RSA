@@ -4,17 +4,18 @@ import numpy as np
 import scipy.stats
 import scipy
 from dist_rsa.utils.load_data import animals,animal_features,controls,metaphors,sentences
-from dist_rsa.models.l1_cat_1d import l1_cat_1d
-from dist_rsa.models.l1_cat_2d import l1_cat_2d
-from dist_rsa.models.l1_cat_2d_300_best import l1_cat_2d_300_best
-from dist_rsa.models.l1_cat_2d_300_best_2 import l1_cat_2d_300_best_2
-from dist_rsa.models.l1_cat_2d_memo import l1_cat_2d_memo
+# from dist_rsa.models.l1_cat_1d import l1_cat_1d
+from dist_rsa.models.l1_cat import l1_model
+from dist_rsa.models.l1_cat_baseline import l1_qud_only
+# from dist_rsa.models.l1_cat_2d_300_best import l1_cat_2d_300_best
+# from dist_rsa.models.l1_cat_2d_300_best_2 import l1_cat_2d_300_best_2
+# from dist_rsa.models.l1_cat_2d_memo import l1_cat_2d_memo
 from dist_rsa.utils.load_data import get_words
 from utils.load_AN_phrase_data import load_AN_phrase_data
 from dist_rsa.utils.helperfunctions import metaphors_to_csv,metaphors_to_html
 
 # possible_utterances = animals
-name='short_2'
+name='29-10-17'
 
 nouns,adjs = get_words()
 concrete_threshold = 3.0
@@ -40,7 +41,18 @@ def make_l1_dict(metaphors):
     l1_dict = {}
     for metaphor in metaphors:
         metaphor = tuple(metaphor)
-        results = l1_cat_2d(metaphor)
+        results = l1_model(metaphor)
+        results = list(zip(*results))[0]
+        results = [x for y in results for x in y]
+        print(results[:3])
+        l1_dict[metaphor]=results[:10]
+    return l1_dict
+
+def make_qud_only_dict(metaphors):
+    l1_dict = {}
+    for metaphor in metaphors:
+        metaphor = tuple(metaphor)
+        results = l1_qud_only(metaphor)
         results = list(zip(*results))[0]
         results = [x for y in results for x in y]
         print(results[:3])
@@ -59,33 +71,37 @@ def make_baseline_dict(metaphors):
         l1_dict[metaphor]=results[:10]
     return l1_dict
 
-make = True
+make = False
 
 if make:
 
     l1 = make_l1_dict(metaphors)
     baseline = make_baseline_dict(metaphors)
-    pickle.dump(baseline,open("dist_rsa/data/baseline_dict"+name,'wb'))
-    pickle.dump(l1,open("dist_rsa/data/l1_dict"+name,'wb'))
+    qud_only = make_qud_only_dict(metaphors)
+    pickle.dump(baseline,open("dist_rsa/data/results/pickles/word_to_l1_"+name,'wb'))
+    pickle.dump(l1,open("dist_rsa/data/results/pickles/word_to_baseline_"+name,'wb'))
+    pickle.dump(qud_only,open("dist_rsa/data/results/pickles/word_to_qud_only_"+name,'wb'))
 
 
-l1 = pickle.load(open("dist_rsa/data/l1_dict"+name,'rb'))
-baseline = pickle.load(open("dist_rsa/data/baseline_dict"+name,'rb'))
 
-f = open("dist_rsa/data/metaphor_file",'w')
+l1 = pickle.load(open("dist_rsa/data/results/pickles/word_to_l1_"+name,'rb'))
+baseline = pickle.load(open("dist_rsa/data/results/pickles/word_to_baseline_"+name,'rb'))
+qud_only = pickle.load(open("dist_rsa/data/results/pickles/word_to_qud_only_"+name,'rb'))
+# f = open("dist_rsa/data/metaphor_file",'w')
 for metaphor in metaphors:
     metaphor = tuple(metaphor)
     print('\n\n\n',metaphor)
     print(baseline[metaphor])
     print(l1[metaphor])
-    f.write('\n\n\n'+str(metaphor))
-    f.write('\nbaseline:\n'+str(baseline[metaphor]))
-    f.write('\l1 predictions:\n'+str(l1[metaphor]))
-f.close()
+    print(qud_only[metaphor])
+#     f.write('\n\n\n'+str(metaphor))
+#     f.write('\nbaseline:\n'+str(baseline[metaphor]))
+#     f.write('\l1 predictions:\n'+str(l1[metaphor]))
+# f.close()
 
 
 
-select_metaphors = zip(sentences,metaphors[:15])
+# select_metaphors = zip(sentences,metaphors[:15])
 # metaphors_to_html(select_metaphors,l1,baseline,controls)
 
 

@@ -15,7 +15,7 @@ from dist_rsa.utils.distance_under_projection import distance_under_projection
 
 
 vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
-nouns,adjs = get_words()
+nouns,adjs = get_words(with_freqs=True)
 
 def l1_model(metaphor):
     vec_size,vec_kind = 50,'glove.6B.'
@@ -24,26 +24,29 @@ def l1_model(metaphor):
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
 
-    qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
-
+    qud_words = [a for a in list(adjs) if  a in vecs]
+# adjs[a][0] < abstract_threshold and
 
     # prob_dict = get_freqs(preprocess=False)
     # prob_dict = predict(" ".join([subj, "is","a"]))
     
     quds = sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+        key = lambda x: adjs[x][1],reverse=True)
+        # key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
         # key=lambda x:prob_dict[x],reverse=True)
 
 
-    possible_utterance_nouns = sorted([n for n in nouns if nouns[n] > concrete_threshold and n in vecs],\
+    possible_utterance_nouns = sorted([n for n in nouns if n in vecs],\
         # key=lambda x:prob_dict[x],reverse=True)
-        key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+        key = lambda x: nouns[x][1],reverse=True)
+        # key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
     # possible_utterance_nouns = 
     # break
     possible_utterance_adjs = quds
-    quds = quds[:50]
+    quds = quds[:100]
     print("QUDS",quds[:50]) 
-    possible_utterances = possible_utterance_nouns[:200:20]+possible_utterance_adjs[:10]
+    possible_utterances = possible_utterance_nouns[:100]
+    # +possible_utterance_adjs[:10]
 
     # possible_utterances = ['ox','bag','nightmare']
     # possible_utterances = possible_utterance_adjs[:50]
@@ -69,11 +72,11 @@ def l1_model(metaphor):
         sig1=sig1,sig2=sig2,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 1000,
-        number_of_qud_dimensions=3,
+        sample_number = 100,
+        number_of_qud_dimensions=1,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-6,
+        step_size=1e-2,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
@@ -92,19 +95,18 @@ def l1_model(metaphor):
 
     results = run.qud_results()
 
-    print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:20]])
-    print("\ndemarginalized:\n",demarginalize_product_space(results)[:20])
+    print(results[:50])
 
     return results
 
 if __name__ == "__main__":
 
     out = open("dist_rsa/data/l1_results_"+name,"w")
-    out.write("RESULTS 50D\n")
-    for subj,pred in [("love","poison"),("man","lion"),("woman","rose"),("voice","river")]:
+    out.write("RESULTS 25D\n")
+    for subj,pred in metaphors:
         out.write("\n"+subj+" is a "+pred)
 
-        for sig1,sig2 in [(0.1,0.1),(1.0,0.1),(100.0,0.1),(0.001,0.01),(0.1,0.01),(100.0,0.01)]:
+        for sig1,sig2 in [(0.1,0.1),(1.0,0.1),(100.0,0.1),(0.1,0.001),(0.0001,0.1),(0.00001,0.00001)]:
             for is_baseline in [False,True]:
                 out.write('\n')
                 out.write("sig1/sig2 "+str(sig1)+"/"+str(sig2)+" baseline: "+str(is_baseline))

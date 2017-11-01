@@ -93,7 +93,7 @@ def tf_l1(inference_params):
 	# full_l = tf.reduce_logsumexp([weighted_l_summed,weighted_no_qud],axis=0)
 	# full_l = Categorical(logits=full_l)
 	if inference_params.variational:
-		qworld = Normal(loc=tf.Variable(tf.zeros(inference_params.vec_length)),scale=tf.exp(tf.Variable(tf.zeros(inference_params.vec_length))))
+		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=tf.exp(tf.Variable(tf.zeros(inference_params.vec_length))))
 		init = tf.global_variables_initializer()
 		inference_variational = ed.KLqp({world: qworld}, data={full_l: utt})
 		optimizer = tf.train.RMSPropOptimizer(learning_rate=inference_params.step_size)

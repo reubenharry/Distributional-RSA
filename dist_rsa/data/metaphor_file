@@ -1,0 +1,217 @@
+
+
+
+('principal', 'dictator')
+baseline:
+['legitimate', 'nominal', 'reputed', 'reputed', 'responsible', 'supposed', 'democratic', 'political', 'reputed', 'dominant']\l1 predictions:
+['longtime', 'main', 'major', 'founding', 'other', 'alleged', 'responsible', 'particular', 'political', 'important']
+
+
+('room', 'dungeon')
+baseline:
+['unconscious', 'unfinished', 'virtual', 'original', 'unconscious', 'unfinished', 'unfinished', 'unharmed', 'virtual', 'spooky']\l1 predictions:
+['virtual', 'original', 'usual', 'able', 'other', 'claustrophobic', 'available', 'entire', 'comfortable', 'simple']
+
+
+('biking', 'gateway')
+baseline:
+['accessible', 'excellent', 'inaccessible', 'educational', 'fabled', 'great', 'accessible', 'fabled', 'great', 'accessible']\l1 predictions:
+['accessible', 'popular', 'main', 'convenient', 'easy', 'great', 'available', 'other', 'designated', 'important']
+
+
+('room', 'furnace')
+baseline:
+['unconscious', 'unfinished', 'veritable', 'complex', 'unconscious', 'unfinished', 'complex', 'unconscious', 'veritable', 'constant']\l1 predictions:
+['sure', 'complex', 'simple', 'original', 'good', 'great', 'entire', 'able', 'other', 'typical']
+
+
+('skin', 'parchment')
+baseline:
+['distinctive', 'indelible', 'recognizable', 'indelible', 'precious', 'recognizable', 'indelible', 'masculine', 'recognizable', 'indelible']\l1 predictions:
+['resistant', 'distinctive', 'certain', 'original', 'delicate', 'distinct', 'particular', 'different', 'superficial', 'mature']
+
+
+('place', 'junkyard')
+baseline:
+['crazy', 'happiest', 'imaginary', 'crazy', 'godforsaken', 'inhospitable', 'crazy', 'happiest', 'virtual', 'crazy']\l1 predictions:
+['good', 'best', 'other', 'supposed', 'sure', 'great', 'possible', 'similar', 'likely', 'different']
+
+
+('market', 'graveyard')
+baseline:
+['historic', 'vast', 'venerable', 'busy', 'particular', 'virtual', 'busy', 'substantial', 'venerable', 'busy']\l1 predictions:
+['likely', 'major', 'other', 'main', 'important', 'good', 'thriving', 'significant', 'particular', 'traditional']
+
+
+('pornography', 'cancer')
+baseline:
+['devoted', 'harmful', 'specific', 'devoted', 'harmful', 'particular', 'certain', 'devoted', 'harmful', 'devoted']\l1 predictions:
+['anti', 'other', 'certain', 'serious', 'harmful', 'particular', 'likely', 'similar', 'illegal', 'mental']
+
+
+('room', 'wok')
+baseline:
+['crazy', 'extra', 'radiant', 'easy', 'extra', 'radiant', 'extra', 'mellow', 'radiant', 'extra']\l1 predictions:
+['sure', 'comfortable', 'easy', 'ready', 'good', 'extra', 'able', 'simple', 'special', 'other']
+
+
+('sin', 'sickness')
+baseline:
+['marital', 'profound', 'supernatural', 'guilty', 'intolerable', 'profound', 'mere', 'mortal', 'unspecified', 'incurable']\l1 predictions:
+['mortal', 'terrible', 'serious', 'severe', 'evil', 'bad', 'worse', 'chronic', 'moral', 'true']
+
+
+('room', 'matchbox')
+baseline:
+['crazy', 'mere', 'original', 'crazy', 'original', 'proverbial', 'crazy', 'mere', 'smaller', 'funky']\l1 predictions:
+['original', 'sure', 'other', 'different', 'entire', 'available', 'smaller', 'comfortable', 'typical', 'good']
+
+
+('ascent', 'journey')
+baseline:
+['tortuous', 'torturous', 'triumphant', 'abrupt', 'meteoric', 'unprecedented', 'fateful', 'homeward', 'triumphant', 'dramatic']\l1 predictions:
+['perilous', 'harrowing', 'remarkable', 'difficult', 'grueling', 'successful', 'tortuous', 'treacherous', 'triumphant', 'dramatic']
+
+
+('athletics', 'drug')
+baseline:
+['competitive', 'disciplinary', 'supposed', 'free', 'mental', 'various', 'concerned', 'other', 'various', 'competitive']\l1 predictions:
+['major', 'other', 'prior', 'professional', 'positive', 'anti', 'successful', 'concerned', 'supposed', 'national']
+
+
+('mother', 'mosquito')
+baseline:
+['consumptive', 'vulnerable', 'wild', 'immune', 'postoperative', 'wild', 'consumptive', 'immune', 'wild', 'consumptive']\l1 predictions:
+['good', 'sure', 'other', 'great', 'able', 'maternal', 'common', 'supposed', 'beautiful', 'stricken']
+
+
+('photographer', 'fly')
+baseline:
+['eager', 'impossible', 'urgent', 'exotic', 'keen', 'urgent', 'allied', 'eager', 'lucky', 'eager']\l1 predictions:
+['able', 'famous', 'best', 'other', 'free', 'ready', 'good', 'supposed', 'special', 'sure']
+
+
+('voice', 'river')
+baseline:
+['accessible', 'gravelly', 'pleasant', 'gravelly', 'pleasant', 'vital', 'accessible', 'pleasant', 'steady', 'gravelly']\l1 predictions:
+['great', 'good', 'original', 'main', 'other', 'famous', 'important', 'beautiful', 'similar', 'able']
+
+
+('ship', 'palace')
+baseline:
+['diplomatic', 'original', 'precious', 'ancient', 'diplomatic', 'temporary', 'ancient', 'diplomatic', 'vast', 'diplomatic']\l1 predictions:
+['main', 'able', 'other', 'famous', 'unknown', 'great', 'original', 'supposed', 'unable', 'complex']
+
+
+('life', 'snowflake')
+baseline:
+['enchanted', 'everlasting', 'heavenly', 'exquisite', 'peculiar', 'typical', 'perfect', 'restful', 'typical', 'peculiar']\l1 predictions:
+['beautiful', 'good', 'true', 'great', 'perfect', 'wonderful', 'other', 'everyday', 'unique', 'ideal']
+
+
+('life', 'river')
+baseline:
+['great', 'tranquil', 'unique', 'great', 'precious', 'unique', 'great', 'lovely', 'unique', 'historical']\l1 predictions:
+['great', 'good', 'important', 'other', 'entire', 'famous', 'beautiful', 'true', 'able', 'major']
+
+
+('book', 'hug')
+baseline:
+['bad', 'easy', 'famous', 'beautiful', 'easy', 'lonely', 'congratulatory', 'easy', 'supposed', 'charming']\l1 predictions:
+['good', 'best', 'great', 'easy', 'sure', 'wonderful', 'nice', 'supposed', 'beautiful', 'famous']
+
+
+('body', 'city')
+baseline:
+['beautiful', 'certain', 'responsible', 'beautiful', 'impossible', 'responsible', 'beautiful', 'effective', 'responsible', 'beautiful']\l1 predictions:
+['other', 'entire', 'similar', 'able', 'different', 'supposed', 'particular', 'main', 'various', 'municipal']
+
+
+('sun', 'hammer')
+baseline:
+['merciless', 'original', 'wicked', 'merciless', 'relentless', 'upcoming', 'actual', 'original', 'ready', 'traditional']\l1 predictions:
+['great', 'good', 'best', 'other', 'similar', 'true', 'able', 'supposed', 'sure', 'likely']
+
+
+('relationship', 'treasure')
+baseline:
+['confidential', 'excellent', 'ultimate', 'beautiful', 'ultimate', 'wonderful', 'confidential', 'ultimate', 'unique', 'historic']\l1 predictions:
+['true', 'great', 'good', 'important', 'historical', 'particular', 'unique', 'cultural', 'valuable', 'best']
+
+
+('pub', 'family')
+baseline:
+['beloved', 'crazy', 'proud', 'entertaining', 'famous', 'occasional', 'storied', 'thriving', 'usual', 'busy']\l1 predictions:
+['other', 'good', 'famous', 'typical', 'common', 'particular', 'beloved', 'traditional', 'great', 'popular']
+
+
+('life', 'train')
+baseline:
+['dangerous', 'difficult', 'impossible', 'dangerous', 'difficult', 'worst', 'average', 'dangerous', 'difficult', 'good']\l1 predictions:
+['able', 'other', 'great', 'good', 'supposed', 'different', 'entire', 'sure', 'best', 'normal']
+
+
+('rose', 'woman')
+baseline:
+['mere', 'troubled', 'unlikely', 'troubled', 'typical', 'unlikely', 'ordinary', 'particular', 'troubled', 'popular']\l1 predictions:
+['best', 'average', 'other', 'likely', 'beautiful', 'good', 'latest', 'similar', 'steady', 'particular']
+
+
+('tongue', 'razor')
+baseline:
+['delicate', 'disposable', 'nimble', 'disposable', 'dull', 'nimble', 'disposable', 'nimble', 'smart', 'disposable']\l1 predictions:
+['good', 'simple', 'sure', 'similar', 'easy', 'slight', 'common', 'fashioned', 'distinctive', 'nasty']
+
+
+('music', 'language')
+baseline:
+['academic', 'different', 'inspirational', 'different', 'inspirational', 'unique', 'academic', 'different', 'modern', 'different']\l1 predictions:
+['contemporary', 'classical', 'particular', 'original', 'popular', 'traditional', 'modern', 'different', 'other', 'literary']
+
+
+('brain', 'giant')
+baseline:
+['major', 'powerful', 'vast', 'advanced', 'powerful', 'troubled', 'powerful', 'troubled', 'vast', 'powerful']\l1 predictions:
+['similar', 'likely', 'other', 'major', 'able', 'natural', 'entire', 'great', 'smaller', 'particular']
+
+
+('brain', 'muscle')
+baseline:
+['connective', 'considerable', 'tremendous', 'connective', 'intrinsic', 'tremendous', 'connective', 'considerable', 'intrinsic', 'apparent']\l1 predictions:
+['cerebral', 'abnormal', 'neurological', 'nervous', 'mental', 'severe', 'normal', 'chronic', 'immune', 'cognitive']
+
+
+('brain', 'computer')
+baseline:
+['nervous', 'normal', 'serious', 'computational', 'random', 'theoretical', 'computational', 'entire', 'theoretical', 'faulty']\l1 predictions:
+['able', 'other', 'similar', 'particular', 'mental', 'normal', 'virtual', 'different', 'advanced', 'specific']
+
+
+('life', 'gift')
+baseline:
+['actual', 'blessed', 'unique', 'actual', 'beloved', 'unique', 'actual', 'blessed', 'unusual', 'creative']\l1 predictions:
+['good', 'wonderful', 'great', 'personal', 'true', 'best', 'beautiful', 'unique', 'certain', 'other']
+
+
+('school', 'game')
+baseline:
+['competitive', 'original', 'scholastic', 'competitive', 'excellent', 'original', 'bad', 'regular', 'talented', 'bad']\l1 predictions:
+['best', 'good', 'other', 'elementary', 'prior', 'different', 'similar', 'secondary', 'entire', 'regular']
+
+
+('life', 'party')
+baseline:
+['actual', 'particular', 'possible', 'able', 'cultural', 'particular', 'devoted', 'particular', 'possible', 'extreme']\l1 predictions:
+['political', 'social', 'democratic', 'true', 'other', 'good', 'likely', 'liberal', 'popular', 'particular']
+
+
+('bed', 'heaven')
+baseline:
+['comfortable', 'extra', 'simple', 'extra', 'proverbial', 'simple', 'able', 'earthly', 'proverbial', 'able']\l1 predictions:
+['beautiful', 'good', 'sure', 'supposed', 'heavenly', 'perfect', 'holy', 'lovely', 'true', 'crazy']
+
+
+('life', 'dream')
+baseline:
+['sure', 'tragic', 'vivid', 'able', 'everyday', 'pure', 'epic', 'personal', 'vivid', 'epic']\l1 predictions:
+['true', 'good', 'great', 'best', 'wonderful', 'sure', 'able', 'beautiful', 'perfect', 'entire']

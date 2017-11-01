@@ -1,0 +1,1130 @@
+RESULTS 25D
+
+principal is a dictator
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['formidable'], 0.0099479882), (['judicial'], 0.0096267695), (['misty'], 0.0092450045), (['screwy'], 0.0091015827), (['eldest'], 0.0089545641)]
+L1: 1
+[(['eldest'], 0.010904971), (['screwy'], 0.0093915639), (['misty'], 0.0093291039), (['judicial'], 0.0091990689), (['formidable'], 0.0087710014)]
+L1: 2
+[(['eldest'], 0.012043796), (['formidable'], 0.010451674), (['screwy'], 0.010152663), (['judicial'], 0.0097494619), (['misty'], 0.0091292141)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['screwy'], 0.016967686), (['misty'], 0.015758192), (['judicial'], 0.014962902), (['formidable'], 0.014804369), (['accountable'], 0.014635033)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['homing'], 0.010420184), (['cloistered'], 0.010405804), (['capitalist'], 0.0092595108), (['oval'], 0.00891669), (['grizzly'], 0.0074039144)]
+L1: 1
+[(['capitalist'], 0.011535451), (['humpbacked'], 0.010742367), (['outgoing'], 0.010001573), (['shadowy'], 0.0096619548), (['uneaten'], 0.0089310808)]
+L1: 2
+[(['eldest'], 0.010970284), (['schizoid'], 0.0091801044), (['capitalist'], 0.0091484096), (['oppressed'], 0.0078403065), (['homing'], 0.0076733627)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['misty'], 0.022967951), (['screwy'], 0.021266319), (['accountable'], 0.01988964), (['judicial'], 0.019136401), (['throaty'], 0.014774708)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['vanquishing'], 0.17268892), (['cloistered'], 0.17053002), (['dictatorial'], 0.16621467), (['genocidal'], 0.15349711), (['totalitarian'], 0.14329015)]
+L1: 1
+[(['genocidal'], 0.16792251), (['vanquishing'], 0.14894873), (['totalitarian'], 0.14067923), (['cloistered'], 0.13950942), (['repressed'], 0.13357368)]
+L1: 2
+[(['dictatorial'], 0.15200704), (['cloistered'], 0.13259558), (['vanquishing'], 0.1309862), (['repressed'], 0.1228084), (['totalitarian'], 0.1188345)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['misty'], 0.02309401), (['screwy'], 0.021325663), (['accountable'], 0.019974209), (['judicial'], 0.019196812), (['throaty'], 0.014844124)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['biologic'], 0.033209037), (['prosperous'], 0.017462976), (['disposable'], 0.015187384), (['bruising'], 0.015141539), (['manned'], 0.01403482)]
+L1: 1
+[(['meatless'], 0.022379613), (['capitalist'], 0.022255264), (['feral'], 0.020464681), (['moderate'], 0.020253824), (['pagan'], 0.019552091)]
+L1: 2
+[(['credible'], 0.033097044), (['visionary'], 0.028986087), (['sublime'], 0.021124491), (['mayoral'], 0.019529086), (['flawless'], 0.017909717)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['unholy'], 0.80992806), (['shy'], 0.1883464), (['captivating'], 0.0010240847), (['disposable'], 0.00065044709), (['anesthetic'], 5.1003444e-05)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['repressed'], 0.11318424), (['dictatorial'], 0.10970475), (['vanquishing'], 0.083514929), (['totalitarian'], 0.078750044), (['cloistered'], 0.073317192)]
+L1: 1
+[(['dictatorial'], 0.11960172), (['genocidal'], 0.10621008), (['vanquishing'], 0.10361636), (['totalitarian'], 0.10025137), (['cloistered'], 0.071935482)]
+L1: 2
+[(['dictatorial'], 0.10138924), (['vanquishing'], 0.098077603), (['repressed'], 0.094343387), (['totalitarian'], 0.090891317), (['genocidal'], 0.090693943)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['founding'], 0.0010001654), (['influential'], 0.0010001535), (['eminent'], 0.0010001501), (['illustrious'], 0.0010001449), (['multicolored'], 0.0010001301)]
+room is a dungeon
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['armrest'], 0.015023808), (['indoor'], 0.010941999), (['vaulted'], 0.010570589), (['generic'], 0.0087757455), (['unharmed'], 0.0081632566)]
+L1: 1
+[(['armrest'], 0.014041393), (['indoor'], 0.010030286), (['vaulted'], 0.0099398233), (['cloistered'], 0.0085636228), (['generic'], 0.0083681354)]
+L1: 2
+[(['armrest'], 0.014551634), (['indoor'], 0.010484798), (['vaulted'], 0.0094011296), (['generic'], 0.0078116581), (['unharmed'], 0.0077974009)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['armrest'], 0.02635105), (['indoor'], 0.020756634), (['modular'], 0.012668181), (['noncommissioned'], 0.012347291), (['privy'], 0.011479957)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['tartar'], 0.15735088), (['unequivocal'], 0.068048649), (['longstanding'], 0.022206333), (['proportionate'], 0.019884149), (['discriminatory'], 0.010476272)]
+L1: 1
+[(['tartar'], 0.14102869), (['unequivocal'], 0.077424139), (['proportionate'], 0.05534035), (['greater'], 0.010514076), (['moderate'], 0.0096497862)]
+L1: 2
+[(['tartar'], 0.13921604), (['unequivocal'], 0.086766928), (['proportionate'], 0.059358645), (['longstanding'], 0.012971189), (['moderate'], 0.011328145)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['armrest'], 0.040957026), (['indoor'], 0.028950153), (['modular'], 0.017514212), (['noncommissioned'], 0.016459076), (['gaunt'], 0.015255946)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['unequivocal'], 0.28525367), (['tartar'], 0.2730251), (['proportionate'], 0.22167711), (['repressed'], 0.012057759), (['defenseless'], 0.0099999998)]
+L1: 1
+[(['unequivocal'], 0.32399026), (['proportionate'], 0.30643108), (['tartar'], 0.21003906), (['moderate'], 0.010269567), (['fetching'], 0.0099999998)]
+L1: 2
+[(['proportionate'], 0.30127442), (['tartar'], 0.28258577), (['unequivocal'], 0.24649383), (['webby'], 0.010020907), (['conical'], 0.0099991653)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['armrest'], 0.041222159), (['indoor'], 0.029079512), (['modular'], 0.017596081), (['noncommissioned'], 0.016513838), (['gaunt'], 0.01532071)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['unequivocal'], 0.48099586), (['outraged'], 0.029721761), (['skeptical'], 0.026301045), (['satisfied'], 0.016826002), (['unkind'], 0.013083881)]
+L1: 1
+[(['tartar'], 0.035794191), (['current'], 0.018974049), (['daft'], 0.018780302), (['nameless'], 0.018638276), (['penniless'], 0.018289875)]
+L1: 2
+[(['tartar'], 0.59204376), (['headless'], 0.030754058), (['meek'], 0.029597051), (['unpopular'], 0.02446191), (['longstanding'], 0.010056353)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['visionary'], 0.72085154), (['curdled'], 0.2497177), (['rejuvenated'], 0.029430803), (['bearded'], 1.1535063e-09), (['repressed'], 3.41132e-17)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['unequivocal'], 0.11180681), (['proportionate'], 0.10347766), (['tartar'], 0.08588396), (['raspy'], 0.059711844), (['moderate'], 0.048738617)]
+L1: 1
+[(['unequivocal'], 0.11318567), (['tartar'], 0.096002378), (['proportionate'], 0.095661893), (['moderate'], 0.068023719), (['raspy'], 0.057023752)]
+L1: 2
+[(['tartar'], 0.13017966), (['unequivocal'], 0.10931642), (['proportionate'], 0.085230909), (['raspy'], 0.057609197), (['moderate'], 0.051057566)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['posh'], 0.0010001869), (['sunlit'], 0.0010001763), (['adjacent'], 0.0010001578), (['claustrophobic'], 0.0010001382), (['filthy'], 0.0010001319)]
+biking is a gateway
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['lucrative'], 0.0095539903), (['remote'], 0.0093007786), (['incredulous'], 0.008595705), (['renewable'], 0.0081249503), (['emasculated'], 0.0080212867)]
+L1: 1
+[(['incredulous'], 0.0096725523), (['lucrative'], 0.0094422102), (['emasculated'], 0.0090821823), (['remote'], 0.0082449308), (['malformed'], 0.0080682673)]
+L1: 2
+[(['remote'], 0.0097398851), (['incredulous'], 0.0095826332), (['malformed'], 0.0090201711), (['emasculated'], 0.008609049), (['lucrative'], 0.0077646691)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['remote'], 0.016325945), (['incredulous'], 0.014953715), (['renewable'], 0.01378091), (['malformed'], 0.01306116), (['lucrative'], 0.012930321)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['grotesque'], 0.0078383032), (['mutilated'], 0.0053064614), (['speechless'], 0.0051304689), (['unemployable'], 0.0049150772), (['manned'], 0.0048512733)]
+L1: 1
+[(['revolting'], 0.010382416), (['mutilated'], 0.008036267), (['excruciating'], 0.0053319773), (['grotesque'], 0.0047002286), (['international'], 0.0046614502)]
+L1: 2
+[(['commercial'], 0.009013691), (['balsamic'], 0.0071358965), (['revolting'], 0.0054976949), (['excruciating'], 0.0049530738), (['mutilated'], 0.0044326871)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['renewable'], 0.020368932), (['malformed'], 0.01858953), (['remote'], 0.018007863), (['genocidal'], 0.01489737), (['lucrative'], 0.014449612)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['heathen'], 0.019223625), (['satirical'], 0.0190707), (['revolting'], 0.018450214), (['renewable'], 0.015699938), (['overweight'], 0.013999456)]
+L1: 1
+[(['current'], 0.019978715), (['modular'], 0.019014644), (['mountainous'], 0.016104825), (['international'], 0.015942553), (['wholesale'], 0.014057511)]
+L1: 2
+[(['herniated'], 0.014452009), (['manipulative'], 0.013786732), (['upcoming'], 0.013464018), (['stable'], 0.01241586), (['striped'], 0.011005487)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['renewable'], 0.020488456), (['malformed'], 0.018681362), (['remote'], 0.018000565), (['genocidal'], 0.014946679), (['lucrative'], 0.014447593)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['ashy'], 0.045345426), (['collaborative'], 0.033299748), (['sturdy'], 0.029282589), (['excusable'], 0.029191384), (['renewable'], 0.026020279)]
+L1: 1
+[(['excusable'], 0.029440656), (['incredulous'], 0.02838584), (['fevered'], 0.022464884), (['renowned'], 0.022296093), (['high'], 0.018011307)]
+L1: 2
+[(['frail'], 0.029388186), (['gloved'], 0.021783728), (['demented'], 0.02171571), (['tartar'], 0.021046229), (['ludicrous'], 0.020564325)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['hypocritical'], 0.94229263), (['exasperated'], 0.055739786), (['deaf'], 0.0015801231), (['bankable'], 0.00020757623), (['frugal'], 9.6708274e-05)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['revolting'], 0.03829943), (['mutilated'], 0.014821541), (['unmotivated'], 0.01193437), (['excruciating'], 0.0075579793), (['commercial'], 0.0073178899)]
+L1: 1
+[(['revolting'], 0.043014713), (['unmotivated'], 0.017143039), (['mutilated'], 0.014721121), (['disgusted'], 0.0086603956), (['speechless'], 0.0082205134)]
+L1: 2
+[(['revolting'], 0.040261745), (['unmotivated'], 0.019083545), (['mutilated'], 0.01197349), (['disgusted'], 0.007892238), (['nonresponsive'], 0.0067016748)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['anesthetic'], 0.0010002097), (['bloodcurdling'], 0.0010001715), (['outdoor'], 0.0010001649), (['undiluted'], 0.0010001219), (['trackless'], 0.0010001205)]
+room is a furnace
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['adjacent'], 0.021353146), (['dilapidated'], 0.02033408), (['cool'], 0.015734406), (['fireproof'], 0.015147056), (['vaulted'], 0.01475688)]
+L1: 1
+[(['adjacent'], 0.021715607), (['dilapidated'], 0.018509967), (['vaulted'], 0.01823717), (['cool'], 0.01566964), (['imperialistic'], 0.0130001)]
+L1: 2
+[(['adjacent'], 0.023942407), (['dilapidated'], 0.021129694), (['cool'], 0.014943158), (['imperialistic'], 0.014293838), (['vaulted'], 0.014128502)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['adjacent'], 0.04199148), (['dilapidated'], 0.029921139), (['cool'], 0.023518099), (['imperialistic'], 0.021700831), (['complex'], 0.018730989)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['aboveground'], 0.012273452), (['adjacent'], 0.0099164126), (['sexist'], 0.0085000601), (['small'], 0.0060259132), (['hot'], 0.0059920768)]
+L1: 1
+[(['sexist'], 0.0093709994), (['hot'], 0.0082609318), (['sturdy'], 0.0067882617), (['heterosexual'], 0.0066933138), (['dilapidated'], 0.0065271677)]
+L1: 2
+[(['aboveground'], 0.018275857), (['petrified'], 0.008517839), (['sexist'], 0.0076675359), (['adjacent'], 0.0074394592), (['cold'], 0.0065070121)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['adjacent'], 0.059178904), (['dilapidated'], 0.040542565), (['complex'], 0.025490442), (['cool'], 0.021969436), (['imperialistic'], 0.021361707)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['cyclical'], 0.025135268), (['waterlogged'], 0.018516023), (['painful'], 0.016218448), (['mass'], 0.014584408), (['superheated'], 0.014317468)]
+L1: 1
+[(['handy'], 0.021890512), (['structural'], 0.019998949), (['undiagnosed'], 0.013371094), (['photographic'], 0.013318107), (['prepubescent'], 0.012930758)]
+L1: 2
+[(['solid'], 0.016848555), (['judgmental'], 0.01529242), (['condescending'], 0.01296939), (['fascinating'], 0.012688505), (['raspy'], 0.012593023)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['adjacent'], 0.059415497), (['dilapidated'], 0.040718686), (['complex'], 0.025612585), (['cool'], 0.021894004), (['imperialistic'], 0.02132218)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['revolting'], 0.032274969), (['painless'], 0.03122968), (['southeastern'], 0.022977209), (['humpbacked'], 0.020338049), (['angular'], 0.019763496)]
+L1: 1
+[(['adjacent'], 0.033771232), (['fireproof'], 0.021003595), (['fruited'], 0.019538566), (['occupational'], 0.01943795), (['purple'], 0.01903565)]
+L1: 2
+[(['adjacent'], 0.040466268), (['paranormal'], 0.038292106), (['lumpy'], 0.037358467), (['gastrointestinal'], 0.022596104), (['civil'], 0.020275792)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['pickled'], 0.51231331), (['headless'], 0.45861483), (['vertebrate'], 0.028717978), (['mammary'], 0.00033907368), (['incriminating'], 1.1390385e-05)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['aboveground'], 0.090809785), (['septic'], 0.087662272), (['heterosexual'], 0.045542073), (['superheated'], 0.025327954), (['condescending'], 0.01764939)]
+L1: 1
+[(['septic'], 0.093305297), (['aboveground'], 0.091580294), (['heterosexual'], 0.039896801), (['superheated'], 0.035413876), (['condescending'], 0.015490887)]
+L1: 2
+[(['aboveground'], 0.098403692), (['septic'], 0.065420434), (['heterosexual'], 0.039707445), (['superheated'], 0.027631339), (['geothermal'], 0.015462836)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['adjacent'], 0.0010001811), (['dilapidated'], 0.0010001378), (['outdoor'], 0.0010001349), (['imperialistic'], 0.0010001325), (['cool'], 0.0010001219)]
+skin is a parchment
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['yellowing'], 0.38364857), (['thick'], 0.021107752), (['textured'], 0.019651137), (['russet'], 0.019275259), (['beige'], 0.018162146)]
+L1: 1
+[(['yellowing'], 0.36625245), (['thick'], 0.027438862), (['textured'], 0.02269409), (['beige'], 0.021872655), (['pickled'], 0.019427808)]
+L1: 2
+[(['yellowing'], 0.37408596), (['thick'], 0.023689255), (['textured'], 0.021266319), (['russet'], 0.01846721), (['pickled'], 0.017233785)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['yellowing'], 0.37529585), (['textured'], 0.040444862), (['beige'], 0.032705132), (['pickled'], 0.030192733), (['coarse'], 0.025906319)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['yellowing'], 0.16122797), (['breakable'], 0.058458902), (['lucrative'], 0.036676932), (['rewarding'], 0.034373369), (['renewed'], 0.027167112)]
+L1: 1
+[(['yellowing'], 0.17872411), (['lucrative'], 0.041946791), (['rewarding'], 0.031454198), (['breakable'], 0.02891211), (['murderous'], 0.027387334)]
+L1: 2
+[(['yellowing'], 0.19470015), (['breakable'], 0.054447614), (['lucrative'], 0.040000714), (['cylindrical'], 0.026868401), (['entrepreneurial'], 0.01881914)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['yellowing'], 0.36963063), (['textured'], 0.056664959), (['beige'], 0.043432385), (['pickled'], 0.038268514), (['coarse'], 0.03566169)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['erratic'], 0.040186118), (['intimidating'], 0.03861247), (['ceaseless'], 0.037622705), (['nationwide'], 0.035946995), (['unabated'], 0.034078564)]
+L1: 1
+[(['intimidating'], 0.037434317), (['compulsive'], 0.035310507), (['obsessive'], 0.035306364), (['aggravated'], 0.035124138), (['erratic'], 0.034186594)]
+L1: 2
+[(['unendurable'], 0.03830627), (['cylindrical'], 0.037920542), (['hectic'], 0.036985256), (['erratic'], 0.035381489), (['precipitating'], 0.034411475)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['yellowing'], 0.3695491), (['textured'], 0.056930929), (['beige'], 0.043569069), (['pickled'], 0.0383843), (['coarse'], 0.035818797)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['yellowing'], 0.50630808), (['beige'], 0.055488043), (['balsamic'], 0.028651981), (['upturned'], 0.022211706), (['russet'], 0.019897789)]
+L1: 1
+[(['yellowing'], 0.39801064), (['beige'], 0.047385987), (['thick'], 0.042046126), (['pliable'], 0.03442641), (['russet'], 0.023198867)]
+L1: 2
+[(['yellowing'], 0.47425219), (['beige'], 0.031046845), (['selfless'], 0.023975508), (['balsamic'], 0.023165815), (['upturned'], 0.020489374)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['yellowing'], 0.4712984), (['ideological'], 0.21926983), (['foolish'], 0.15940692), (['unburned'], 0.067995697), (['snotty'], 0.035051309)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['unplanned'], 0.044127136), (['waxed'], 0.039140932), (['aggravated'], 0.035537366), (['typewritten'], 0.03411429), (['fruited'], 0.032715164)]
+L1: 1
+[(['typewritten'], 0.042998984), (['entrepreneurial'], 0.035398398), (['disorderly'], 0.035337195), (['aggravated'], 0.033440035), (['relentless'], 0.03321977)]
+L1: 2
+[(['fruited'], 0.035828285), (['waxed'], 0.035493471), (['entrepreneurial'], 0.03528763), (['disorderly'], 0.035263382), (['typewritten'], 0.033891868)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['leathery'], 0.0010004463), (['thick'], 0.0010004144), (['brittle'], 0.0010004039), (['yellowing'], 0.0010003982), (['wrinkled'], 0.0010003919)]
+place is a junkyard
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['barren'], 0.0053608185), (['ragged'], 0.0051803719), (['caustic'], 0.0045966995), (['defenseless'], 0.0043262253), (['condescending'], 0.0043137809)]
+L1: 1
+[(['ragged'], 0.0055722962), (['barren'], 0.0053624366), (['greased'], 0.0041600019), (['barbed'], 0.0041054338), (['defenseless'], 0.0040642056)]
+L1: 2
+[(['ragged'], 0.0050035031), (['barren'], 0.0044535813), (['caustic'], 0.0044499384), (['legged'], 0.0043984577), (['pickled'], 0.0043704533)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['barren'], 0.0092710815), (['ragged'], 0.008596574), (['caustic'], 0.0078421719), (['unrewarded'], 0.0073406557), (['greased'], 0.0070559494)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['broad'], 0.0055421377), (['explicit'], 0.0037047844), (['sprawling'], 0.0035626711), (['high'], 0.0032318819), (['ionic'], 0.0031815458)]
+L1: 1
+[(['explicit'], 0.0038801653), (['unsold'], 0.0033688305), (['grizzly'], 0.0032932342), (['snowbound'], 0.0031736393), (['sprawling'], 0.0030971493)]
+L1: 2
+[(['haywire'], 0.0035389096), (['unsold'], 0.003425369), (['unequivocal'], 0.0033684112), (['therapeutic'], 0.0029095025), (['bipedal'], 0.002852455)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['barren'], 0.011902936), (['ragged'], 0.011885773), (['caustic'], 0.011379627), (['unrewarded'], 0.010182101), (['barbed'], 0.0099222306)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['incredulous'], 0.017574379), (['guttural'], 0.014223787), (['ashen'], 0.013636518), (['throaty'], 0.013176511), (['nonrefundable'], 0.011946304)]
+L1: 1
+[(['doubtful'], 0.024801224), (['remote'], 0.016249839), (['unheard'], 0.01624495), (['therapeutic'], 0.015488006), (['gentle'], 0.013382806)]
+L1: 2
+[(['unflinching'], 0.01927508), (['unfailing'], 0.015632974), (['fashioned'], 0.014427986), (['flightless'], 0.014384612), (['thoughtless'], 0.014014263)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['ragged'], 0.011938645), (['barren'], 0.011937791), (['caustic'], 0.011442341), (['unrewarded'], 0.010228838), (['barbed'], 0.0099692382)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['afloat'], 0.033668913), (['serendipitous'], 0.019385749), (['unethical'], 0.01929624), (['incisive'], 0.016316341), (['chocolaty'], 0.015746618)]
+L1: 1
+[(['broody'], 0.021148432), (['unattractive'], 0.015845008), (['fireproof'], 0.015517324), (['dreamlike'], 0.014147669), (['wounded'], 0.014122595)]
+L1: 2
+[(['milky'], 0.034380313), (['conspicuous'], 0.026533801), (['futile'], 0.026115345), (['societal'], 0.019188521), (['unpremeditated'], 0.019032028)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['secretive'], 0.84221768), (['carefree'], 0.089197755), (['abusive'], 0.066253327), (['starlit'], 0.0015523437), (['invigorated'], 0.00067549612)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['explicit'], 0.04064538), (['broad'], 0.022924023), (['equal'], 0.016421305), (['appropriate'], 0.011246502), (['specific'], 0.010907196)]
+L1: 1
+[(['explicit'], 0.03416606), (['broad'], 0.024203185), (['specific'], 0.015773792), (['equal'], 0.010043654), (['appropriate'], 0.008760184)]
+L1: 2
+[(['explicit'], 0.047487427), (['broad'], 0.027510099), (['specific'], 0.015058651), (['appropriate'], 0.013920661), (['equal'], 0.012720911)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['godforsaken'], 0.0010000976), (['rheumatoid'], 0.0010000739), (['nonverbal'], 0.0010000705), (['lucky'], 0.0010000686), (['predictive'], 0.0010000648)]
+market is a graveyard
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['dilapidated'], 0.01065318), (['dreary'], 0.0090534287), (['skintight'], 0.0079149138), (['tartar'], 0.007316892), (['chipper'], 0.0068518161)]
+L1: 1
+[(['dilapidated'], 0.0088232094), (['dreary'], 0.0082274387), (['skintight'], 0.0075942641), (['tartar'], 0.0069776969), (['indecent'], 0.0067379661)]
+L1: 2
+[(['dilapidated'], 0.01066063), (['dreary'], 0.0082564261), (['tartar'], 0.0070655784), (['puzzled'], 0.0069514047), (['skintight'], 0.0067311935)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['dilapidated'], 0.017484615), (['skintight'], 0.013122074), (['tartar'], 0.012805834), (['dreary'], 0.011471136), (['puzzled'], 0.010086522)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['indecent'], 0.005069938), (['dilapidated'], 0.0050276895), (['vaulted'], 0.0049634459), (['adjacent'], 0.0045103929), (['sprawling'], 0.0044641355)]
+L1: 1
+[(['unaltered'], 0.0059627988), (['sprawling'], 0.0050719883), (['protestant'], 0.0046274555), (['godforsaken'], 0.0045233481), (['aghast'], 0.0041254563)]
+L1: 2
+[(['sprawling'], 0.0057903491), (['indecent'], 0.0051306351), (['shadowy'], 0.0047625615), (['moisturizing'], 0.0041730311), (['protestant'], 0.0040900796)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['dilapidated'], 0.022512147), (['skintight'], 0.017703637), (['tartar'], 0.017662423), (['dreary'], 0.013374397), (['sturdy'], 0.012326549)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['stupid'], 0.015925974), (['rambling'], 0.014076897), (['sugared'], 0.013460282), (['unconvinced'], 0.013051746), (['cruel'], 0.013003026)]
+L1: 1
+[(['unspeakable'], 0.021938575), (['blessed'], 0.015390784), (['egomaniacal'], 0.015361991), (['appalling'], 0.0138912), (['noble'], 0.013597269)]
+L1: 2
+[(['kindhearted'], 0.015579662), (['unclean'], 0.013162815), (['ungenerous'], 0.012344324), (['useful'], 0.012131688), (['insoluble'], 0.010581492)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['dilapidated'], 0.02258713), (['skintight'], 0.017779335), (['tartar'], 0.017743275), (['dreary'], 0.013389342), (['sturdy'], 0.012388633)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['maternal'], 0.020040432), (['moral'], 0.019822737), (['prestigious'], 0.019101804), (['girly'], 0.018777857), (['abridged'], 0.017871592)]
+L1: 1
+[(['protestant'], 0.027228149), (['lamentable'], 0.024595516), (['bruising'], 0.023493843), (['unfit'], 0.021926088), (['moisturizing'], 0.020515027)]
+L1: 2
+[(['dilapidated'], 0.02896894), (['womanly'], 0.021237722), (['wonderful'], 0.019999851), (['throaty'], 0.019563444), (['unimpeachable'], 0.019253723)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['ethnic'], 0.55164135), (['blooming'], 0.39087069), (['paradoxical'], 0.034720641), (['appalling'], 0.020831153), (['invaluable'], 0.0012614827)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['nameless'], 0.06140798), (['discriminatory'], 0.011234036), (['unexamined'], 0.0094352067), (['standard'], 0.0074867969), (['godforsaken'], 0.0057903877)]
+L1: 1
+[(['nameless'], 0.054625176), (['discriminatory'], 0.010396882), (['prehistoric'], 0.007737319), (['standard'], 0.0074444311), (['godforsaken'], 0.007224923)]
+L1: 2
+[(['nameless'], 0.069826633), (['discriminatory'], 0.010465317), (['godforsaken'], 0.0088110343), (['unexamined'], 0.0075004897), (['standard'], 0.0062847291)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['unsold'], 0.001000153), (['residential'], 0.0010001258), (['prosperous'], 0.0010001177), (['unconvinced'], 0.0010001019), (['small'], 0.0010000896)]
+pornography is a cancer
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['harmful'], 0.035111897), (['unprotected'], 0.027620286), (['heterosexual'], 0.02424833), (['unhealthy'], 0.018588014), (['horseless'], 0.017467024)]
+L1: 1
+[(['harmful'], 0.032890286), (['unprotected'], 0.025985489), (['heterosexual'], 0.023612335), (['horseless'], 0.018892836), (['unhealthy'], 0.014477972)]
+L1: 2
+[(['harmful'], 0.034456693), (['unprotected'], 0.028249973), (['heterosexual'], 0.025160246), (['horseless'], 0.020777291), (['unhealthy'], 0.015750252)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['harmful'], 0.048286308), (['heterosexual'], 0.038041882), (['unprotected'], 0.037842922), (['nationwide'], 0.020413898), (['wordy'], 0.020296251)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['jaunty'], 0.014859669), (['mutinous'], 0.014730699), (['backhanded'], 0.010677805), (['ceremonial'], 0.0099556092), (['heterosexual'], 0.0095171463)]
+L1: 1
+[(['mammary'], 0.022588719), (['backhanded'], 0.020692637), (['endocrine'], 0.013959154), (['jaunty'], 0.013413599), (['harmful'], 0.013055138)]
+L1: 2
+[(['mammary'], 0.015871633), (['endocrine'], 0.012351025), (['vaginal'], 0.011544783), (['horseless'], 0.010434275), (['harmful'], 0.010349076)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['harmful'], 0.05506777), (['heterosexual'], 0.041881338), (['unprotected'], 0.028941512), (['nationwide'], 0.02805369), (['wordy'], 0.027690461)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['endocrine'], 0.46485242), (['esophageal'], 0.024598917), (['menopausal'], 0.01877963), (['unconvinced'], 0.01788995), (['undiagnosed'], 0.010380712)]
+L1: 1
+[(['endocrine'], 0.4507798), (['esophageal'], 0.023239955), (['untreatable'], 0.019079242), (['textured'], 0.013644064), (['feminist'], 0.010139944)]
+L1: 2
+[(['endocrine'], 0.48084494), (['esophageal'], 0.041837566), (['undiagnosed'], 0.016572131), (['vaginal'], 0.01270993), (['preeminent'], 0.010743494)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['harmful'], 0.055120707), (['heterosexual'], 0.04188497), (['unprotected'], 0.028740985), (['nationwide'], 0.028195551), (['wordy'], 0.027804399)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['unwanted'], 0.02352415), (['deaf'], 0.022338651), (['unprotected'], 0.020463699), (['roguish'], 0.018288655), (['crimson'], 0.016354626)]
+L1: 1
+[(['diuretic'], 0.055189796), (['horseless'], 0.027176589), (['vanquishing'], 0.024498248), (['webby'], 0.021960277), (['mannerly'], 0.021298792)]
+L1: 2
+[(['horseless'], 0.027023738), (['diuretic'], 0.020961609), (['sacred'], 0.020532271), (['valuable'], 0.019912865), (['unwanted'], 0.019784484)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['prime'], 0.76970553), (['cozier'], 0.23029442), (['envious'], 2.1110722e-08), (['telephonic'], 5.2905276e-12), (['ferocious'], 3.1084304e-21)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['endocrine'], 0.13211845), (['undiagnosed'], 0.084403932), (['untreatable'], 0.058710616), (['esophageal'], 0.052092176), (['pulmonary'], 0.0450131)]
+L1: 1
+[(['undiagnosed'], 0.10440625), (['endocrine'], 0.10200644), (['esophageal'], 0.057395328), (['untreatable'], 0.047742467), (['pulmonary'], 0.043575291)]
+L1: 2
+[(['endocrine'], 0.12845364), (['undiagnosed'], 0.088833332), (['untreatable'], 0.046235826), (['pediatric'], 0.043047853), (['pulmonary'], 0.041792661)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['unwanted'], 0.0010002407), (['harmful'], 0.001000215), (['unprotected'], 0.0010002145), (['heterosexual'], 0.001000194), (['feminist'], 0.0010001797)]
+room is a wok
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['little'], 0.0104795), (['indoor'], 0.0096585322), (['sturdy'], 0.0085851038), (['tanning'], 0.0078370878), (['small'], 0.0075691165)]
+L1: 1
+[(['little'], 0.010200685), (['indoor'], 0.0095723942), (['tanning'], 0.0087178759), (['small'], 0.0075051049), (['sturdy'], 0.0074250354)]
+L1: 2
+[(['little'], 0.010650321), (['indoor'], 0.010469531), (['small'], 0.0088246064), (['sturdy'], 0.0086631719), (['tanning'], 0.0085402885)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['little'], 0.018553546), (['tanning'], 0.015899584), (['sturdy'], 0.014467613), (['ample'], 0.014179154), (['small'], 0.013072942)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['revised'], 0.069592804), (['cool'], 0.015320184), (['hot'], 0.011247044), (['predictive'], 0.010101785), (['definitive'], 0.009564898)]
+L1: 1
+[(['revised'], 0.11063862), (['cool'], 0.021083353), (['predictive'], 0.011928834), (['puffy'], 0.011325791), (['hot'], 0.010235127)]
+L1: 2
+[(['revised'], 0.10606139), (['cool'], 0.023705725), (['hot'], 0.016965387), (['predictive'], 0.014195675), (['bubbly'], 0.011010584)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['little'], 0.024733365), (['tanning'], 0.023468941), (['ample'], 0.019357977), (['sturdy'], 0.016711924), (['shatterproof'], 0.016708339)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['revised'], 0.42580822), (['sketchy'], 0.33617884), (['cool'], 0.018532364), (['unprepared'], 0.010056957), (['ashen'], 0.0099999998)]
+L1: 1
+[(['revised'], 0.39223495), (['sketchy'], 0.34754929), (['disreputable'], 0.014391851), (['ashy'], 0.0099999281), (['shadowy'], 0.00999803)]
+L1: 2
+[(['sketchy'], 0.37160406), (['revised'], 0.31193793), (['abridged'], 0.0099999998), (['grotesque'], 0.0099999998), (['haywire'], 0.0099999998)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['little'], 0.024821935), (['tanning'], 0.023600314), (['ample'], 0.019434832), (['shatterproof'], 0.016774388), (['sturdy'], 0.016728109)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['puffy'], 0.026442058), (['forcible'], 0.024177456), (['mammary'], 0.01975234), (['hearty'], 0.019592622), (['demented'], 0.019409243)]
+L1: 1
+[(['yellowing'], 0.024060637), (['fussy'], 0.02307835), (['handicapping'], 0.022083588), (['filthy'], 0.020686623), (['brief'], 0.0194415)]
+L1: 2
+[(['outdoor'], 0.035637129), (['nonrefundable'], 0.030330596), (['untreated'], 0.029013889), (['narcoleptic'], 0.027358586), (['opposite'], 0.024682656)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['daft'], 0.31518292), (['renowned'], 0.28239065), (['virtuous'], 0.24712029), (['disaffected'], 0.064309888), (['boozy'], 0.063735105)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['revised'], 0.16886358), (['sketchy'], 0.076560132), (['cold'], 0.060676638), (['cool'], 0.057382382), (['thirsty'], 0.042144373)]
+L1: 1
+[(['revised'], 0.15560637), (['sketchy'], 0.088998601), (['cool'], 0.067311697), (['cold'], 0.06052997), (['thirsty'], 0.052609)]
+L1: 2
+[(['revised'], 0.20273773), (['sketchy'], 0.10158809), (['cold'], 0.060440429), (['cool'], 0.052660201), (['thirsty'], 0.039285563)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['sunlit'], 0.0010001663), (['filthy'], 0.0010001578), (['outdoor'], 0.0010001482), (['claustrophobic'], 0.0010001196), (['shaded'], 0.0010001058)]
+sin is a sickness
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['compulsive'], 0.023210905), (['senile'], 0.01503645), (['cohesive'], 0.01372304), (['perpetual'], 0.013613078), (['unhealthy'], 0.012999406)]
+L1: 1
+[(['compulsive'], 0.022320289), (['senile'], 0.015324757), (['perpetual'], 0.015260871), (['unhealthy'], 0.01343858), (['cohesive'], 0.011191882)]
+L1: 2
+[(['compulsive'], 0.023607068), (['cohesive'], 0.016869972), (['senile'], 0.014855297), (['perpetual'], 0.014699608), (['unhealthy'], 0.013264939)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['compulsive'], 0.041874476), (['unhealthy'], 0.021746051), (['senile'], 0.018125594), (['intolerable'], 0.015860194), (['distinctive'], 0.014970524)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['cohesive'], 0.010309781), (['perpetual'], 0.0097845774), (['senile'], 0.0087183705), (['irritable'], 0.0076921964), (['compulsive'], 0.0073926924)]
+L1: 1
+[(['instrumental'], 0.0085634962), (['pathological'], 0.0083505483), (['cohesive'], 0.0079910168), (['perpetual'], 0.0076803872), (['irritable'], 0.0073726228)]
+L1: 2
+[(['compulsive'], 0.0083510345), (['cohesive'], 0.0082402295), (['perpetual'], 0.0072460896), (['manic'], 0.0059013166), (['excruciating'], 0.0052366327)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['compulsive'], 0.06616395), (['unhealthy'], 0.027505822), (['distinctive'], 0.020601312), (['senile'], 0.019728851), (['heterosexual'], 0.01881011)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['nonlethal'], 0.019508952), (['cohesive'], 0.015720172), (['sore'], 0.015338078), (['frisky'], 0.013458389), (['reasonable'], 0.013046638)]
+L1: 1
+[(['aggravated'], 0.018323142), (['painful'], 0.017790293), (['electromagnetic'], 0.015877523), (['perky'], 0.015085918), (['dreary'], 0.014820304)]
+L1: 2
+[(['standard'], 0.014773475), (['pulmonary'], 0.014117115), (['provocative'], 0.013316063), (['untreated'], 0.012395144), (['mountainous'], 0.011264047)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['compulsive'], 0.066569954), (['unhealthy'], 0.02759595), (['distinctive'], 0.020693287), (['senile'], 0.019727454), (['heterosexual'], 0.018880764)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['inhuman'], 0.032003753), (['painless'], 0.024564896), (['disposable'], 0.023689944), (['harmful'], 0.021526778), (['unifying'], 0.020567557)]
+L1: 1
+[(['cohesive'], 0.068365492), (['modular'], 0.025332894), (['disparate'], 0.021615695), (['esteemed'], 0.021290177), (['unrestrained'], 0.02090231)]
+L1: 2
+[(['appalling'], 0.030859958), (['unlikable'], 0.021162035), (['harmful'], 0.020161167), (['unstoppable'], 0.017836185), (['stable'], 0.017818274)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['nervy'], 0.33196473), (['unfrozen'], 0.29989111), (['retractable'], 0.29176959), (['raggedy'], 0.067834474), (['basic'], 0.0085322456)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['sick'], 0.012702368), (['unexplained'], 0.010774532), (['cohesive'], 0.0090491557), (['unpolished'], 0.0087498473), (['prone'], 0.0087111732)]
+L1: 1
+[(['unexplained'], 0.011778025), (['narcoleptic'], 0.0097907707), (['prone'], 0.0095423395), (['cohesive'], 0.0093112914), (['sick'], 0.0088324789)]
+L1: 2
+[(['unexplained'], 0.013960019), (['prone'], 0.012078434), (['narcoleptic'], 0.0094853919), (['sick'], 0.0087649599), (['cohesive'], 0.0085293986)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['inhuman'], 0.0010001769), (['depraved'], 0.0010001482), (['unspeakable'], 0.0010001473), (['intolerable'], 0.0010001372), (['earthly'], 0.0010001339)]
+room is a matchbox
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['spellbound'], 0.0082208458), (['modular'], 0.0075540738), (['bloated'], 0.007430518), (['misguided'], 0.006919716), (['skinny'], 0.006764825)]
+L1: 1
+[(['spellbound'], 0.0093630357), (['modular'], 0.0083115147), (['bloated'], 0.0072279414), (['misguided'], 0.0072184904), (['illegitimate'], 0.0069004633)]
+L1: 2
+[(['spellbound'], 0.0084229559), (['modular'], 0.0084101176), (['musical'], 0.0073634428), (['bloated'], 0.0071373596), (['illegitimate'], 0.006634092)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['modular'], 0.015848499), (['illegitimate'], 0.011456214), (['misguided'], 0.011221117), (['bloated'], 0.011149674), (['chunky'], 0.011129495)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['longstanding'], 0.021940986), (['explicit'], 0.017605714), (['principled'], 0.012645211), (['implacable'], 0.009033652), (['provocative'], 0.0085047064)]
+L1: 1
+[(['principled'], 0.049196627), (['longstanding'], 0.037363723), (['warped'], 0.022022208), (['provocative'], 0.01318267), (['implacable'], 0.012681683)]
+L1: 2
+[(['explicit'], 0.04695905), (['warped'], 0.032772683), (['longstanding'], 0.024075372), (['principled'], 0.022798572), (['implacable'], 0.013441509)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['modular'], 0.021835806), (['illegitimate'], 0.015849715), (['chunky'], 0.015267051), (['rabid'], 0.015080149), (['misguided'], 0.014261296)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['principled'], 0.1815078), (['appropriate'], 0.16873334), (['explicit'], 0.15781763), (['respectful'], 0.13882731), (['churchgoing'], 0.01376839)]
+L1: 1
+[(['explicit'], 0.22947559), (['appropriate'], 0.21868113), (['principled'], 0.21669774), (['respectful'], 0.19386171), (['suggestible'], 0.0099999709)]
+L1: 2
+[(['explicit'], 0.19905789), (['principled'], 0.19129314), (['appropriate'], 0.1854497), (['respectful'], 0.16475287), (['chilling'], 0.010046522)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['modular'], 0.021933788), (['illegitimate'], 0.015918838), (['chunky'], 0.015332725), (['rabid'], 0.015152048), (['misguided'], 0.014300349)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['heinous'], 0.031089237), (['undigested'], 0.024280472), (['selfish'], 0.023539804), (['black'], 0.022842981), (['valuable'], 0.020763291)]
+L1: 1
+[(['principled'], 0.12361952), (['ideological'], 0.051855128), (['longstanding'], 0.033353947), (['unyielding'], 0.027527381), (['unflinching'], 0.022618888)]
+L1: 2
+[(['ideological'], 0.098399892), (['unorthodox'], 0.060716119), (['agoraphobic'], 0.02), (['halting'], 0.017487859), (['fashionable'], 0.015506518)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['unlikable'], 0.99931169), (['unsecured'], 0.00038216377), (['biracial'], 0.00029205708), (['tribal'], 1.1449206e-05), (['stricken'], 2.6079204e-06)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['respectful'], 0.12881225), (['principled'], 0.061886508), (['coercive'], 0.052566234), (['secretive'], 0.042535495), (['intimidating'], 0.033782016)]
+L1: 1
+[(['respectful'], 0.087091424), (['secretive'], 0.059702519), (['coercive'], 0.057195559), (['principled'], 0.049242511), (['intimidating'], 0.031658903)]
+L1: 2
+[(['respectful'], 0.12189658), (['coercive'], 0.058468215), (['secretive'], 0.047769748), (['explicit'], 0.042443957), (['principled'], 0.04113286)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['posh'], 0.0010001439), (['imperialistic'], 0.0010001278), (['dilapidated'], 0.0010001253), (['blunted'], 0.0010001067), (['vaulted'], 0.0010001034)]
+ascent is a journey
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['southerly'], 0.026233958), (['easterly'], 0.016729703), (['prejudiced'], 0.013803987), (['answerable'], 0.013042619), (['congruent'], 0.010563474)]
+L1: 1
+[(['southerly'], 0.029826652), (['easterly'], 0.01870407), (['prejudiced'], 0.013144024), (['answerable'], 0.013051081), (['congruent'], 0.011541365)]
+L1: 2
+[(['southerly'], 0.024777276), (['easterly'], 0.017281638), (['prejudiced'], 0.014036594), (['answerable'], 0.012901971), (['stormy'], 0.011362617)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['southerly'], 0.048324406), (['easterly'], 0.031843871), (['prejudiced'], 0.023358084), (['answerable'], 0.020079058), (['emasculated'], 0.016874606)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['lucid'], 0.21501973), (['hectic'], 0.010396698), (['unrewarded'], 0.0086803073), (['ceaseless'], 0.0077972077), (['earnest'], 0.0075213769)]
+L1: 1
+[(['lucid'], 0.37517405), (['unrewarded'], 0.014641029), (['hectic'], 0.010302871), (['earnest'], 0.0095325066), (['disposable'], 0.0077550001)]
+L1: 2
+[(['lucid'], 0.11120442), (['southerly'], 0.010734287), (['serendipitous'], 0.010144378), (['triumphant'], 0.0087349117), (['rubbery'], 0.0085247224)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['southerly'], 0.070082113), (['easterly'], 0.046775442), (['prejudiced'], 0.026667606), (['emasculated'], 0.022195978), (['congruent'], 0.017005835)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['lucid'], 0.51225126), (['faulty'], 0.014924196), (['marauding'], 0.012130016), (['pathological'], 0.010461431), (['buoyant'], 0.0099999998)]
+L1: 1
+[(['lucid'], 0.45473513), (['prototypical'], 0.01980475), (['detachable'], 0.014788706), (['photographic'], 0.010029784), (['international'], 0.010008859)]
+L1: 2
+[(['lucid'], 0.49262097), (['mountainous'], 0.016632074), (['mass'], 0.010675616), (['uncanny'], 0.0099999998), (['snowbound'], 0.0099998657)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['southerly'], 0.070432231), (['easterly'], 0.047020949), (['prejudiced'], 0.026673539), (['emasculated'], 0.022280848), (['congruent'], 0.017031383)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['southerly'], 0.065566994), (['black'], 0.02841375), (['flawless'], 0.025907863), (['stormy'], 0.022305846), (['rotten'], 0.020553909)]
+L1: 1
+[(['ceaseless'], 0.055785786), (['brawny'], 0.038749773), (['compliant'], 0.02255217), (['breathtaking'], 0.022346327), (['unethical'], 0.021513306)]
+L1: 2
+[(['southerly'], 0.063053966), (['lucid'], 0.023487251), (['congruent'], 0.022519572), (['frigid'], 0.021767722), (['easterly'], 0.020586386)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['southerly'], 0.70377082), (['sturdy'], 0.1958577), (['oval'], 0.10010152), (['thick'], 0.00019831237), (['eminent'], 6.8931025e-05)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['lucid'], 0.24975938), (['compliant'], 0.021680687), (['amorphous'], 0.015278338), (['unrewarded'], 0.014459296), (['disposable'], 0.012798991)]
+L1: 1
+[(['lucid'], 0.30858892), (['compliant'], 0.015936261), (['disposable'], 0.012889181), (['hectic'], 0.012467997), (['unrewarded'], 0.011777183)]
+L1: 2
+[(['lucid'], 0.28663695), (['compliant'], 0.018224001), (['amorphous'], 0.014732034), (['hectic'], 0.01450712), (['enjoyable'], 0.013291113)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['southerly'], 0.0010001353), (['orbital'], 0.001000131), (['easterly'], 0.0010001278), (['dizzying'], 0.0010001248), (['shatterproof'], 0.0010001248)]
+athletics is a drug
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['eerie'], 0.026778128), (['wistful'], 0.024317907), (['hieroglyphic'], 0.016899519), (['allegorical'], 0.015889656), (['occupational'], 0.01419516)]
+L1: 1
+[(['eerie'], 0.032542538), (['wistful'], 0.023857998), (['hieroglyphic'], 0.015020412), (['allegorical'], 0.014956482), (['occupational'], 0.014649856)]
+L1: 2
+[(['eerie'], 0.0275495), (['wistful'], 0.023994848), (['hieroglyphic'], 0.015365228), (['allegorical'], 0.014815499), (['occupational'], 0.014346732)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['wistful'], 0.043628339), (['allegorical'], 0.025585243), (['occupational'], 0.025278497), (['hieroglyphic'], 0.018257078), (['uncanny'], 0.017070441)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['starlit'], 0.03282221), (['speechless'], 0.030264717), (['eerie'], 0.021472208), (['serene'], 0.011561558), (['greased'], 0.0095747998)]
+L1: 1
+[(['speechless'], 0.043772526), (['starlit'], 0.026185449), (['serene'], 0.012783292), (['eerie'], 0.0095788604), (['waxed'], 0.0087596327)]
+L1: 2
+[(['starlit'], 0.042676784), (['speechless'], 0.041289102), (['eerie'], 0.013275569), (['unchanging'], 0.012458441), (['homegrown'], 0.012438923)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['wistful'], 0.045366898), (['occupational'], 0.033287484), (['allegorical'], 0.030767618), (['free'], 0.021457691), (['heartfelt'], 0.021014063)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['starlit'], 0.45443156), (['speechless'], 0.037943505), (['marauding'], 0.017651957), (['chipper'], 0.0099997176), (['lax'], 0.00999936)]
+L1: 1
+[(['starlit'], 0.48088932), (['untreated'], 0.010495408), (['fashioned'], 0.010212915), (['esteemed'], 0.010207321), (['unprotected'], 0.010100041)]
+L1: 2
+[(['starlit'], 0.56455189), (['lucrative'], 0.015648099), (['joyful'], 0.014824983), (['speechless'], 0.01273099), (['ditzy'], 0.010224907)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['wistful'], 0.045279901), (['occupational'], 0.033413585), (['allegorical'], 0.030832615), (['free'], 0.021540461), (['heartfelt'], 0.021119555)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['commercial'], 0.033087827), (['prospective'], 0.028657202), (['downcast'], 0.023127228), (['nightly'], 0.0221806), (['heartbroken'], 0.021177107)]
+L1: 1
+[(['eerie'], 0.079262502), (['larval'], 0.031778704), (['velvety'], 0.029553635), (['mammary'], 0.027960373), (['endocrine'], 0.024627648)]
+L1: 2
+[(['joyous'], 0.049074337), (['petrified'], 0.045472264), (['joyful'], 0.037131995), (['complex'], 0.029709639), (['metallic'], 0.027515084)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['protestant'], 0.60744411), (['predominant'], 0.28266883), (['milky'], 0.10988692), (['broody'], 1.7759877e-10), (['neat'], 5.8843992e-11)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['starlit'], 0.073695056), (['majestic'], 0.05289384), (['homegrown'], 0.052321911), (['speechless'], 0.05036772), (['horseless'], 0.036576979)]
+L1: 1
+[(['starlit'], 0.10365194), (['speechless'], 0.05346705), (['homegrown'], 0.050067611), (['majestic'], 0.049747225), (['horseless'], 0.040582061)]
+L1: 2
+[(['starlit'], 0.1159731), (['speechless'], 0.054164607), (['majestic'], 0.050654605), (['homegrown'], 0.0388177), (['sunlit'], 0.034622766)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['international'], 0.0010002274), (['lumpy'], 0.0010002006), (['dreamy'], 0.0010001854), (['incongruous'], 0.0010001735), (['extracurricular'], 0.0010001721)]
+mother is a mosquito
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['famished'], 0.031808943), (['unwanted'], 0.021264326), (['overweight'], 0.014394973), (['narcoleptic'], 0.013249578), (['defenseless'], 0.010940976)]
+L1: 1
+[(['famished'], 0.031412441), (['unwanted'], 0.021099102), (['overweight'], 0.014901732), (['narcoleptic'], 0.014655893), (['gangrenous'], 0.012567666)]
+L1: 2
+[(['famished'], 0.030552633), (['unwanted'], 0.021833254), (['gangrenous'], 0.013608834), (['narcoleptic'], 0.013167435), (['overweight'], 0.011803157)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['famished'], 0.05661482), (['unwanted'], 0.039059047), (['sedentary'], 0.021706119), (['overweight'], 0.018315569), (['beardless'], 0.014115149)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['caged'], 0.0097586242), (['unclean'], 0.009101118), (['mathematical'], 0.0090592494), (['mangy'], 0.0088603618), (['famished'], 0.0084578581)]
+L1: 1
+[(['trackless'], 0.012577019), (['famished'], 0.010116053), (['caged'], 0.009167755), (['narcoleptic'], 0.0088691711), (['mathematical'], 0.0085587688)]
+L1: 2
+[(['philosophical'], 0.012699292), (['narcoleptic'], 0.011108975), (['gastrointestinal'], 0.010997808), (['architectural'], 0.0083377371), (['caged'], 0.0080175893)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['famished'], 0.083965622), (['unwanted'], 0.04582515), (['sedentary'], 0.033253651), (['beardless'], 0.019410044), (['ionic'], 0.019292083)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['trackless'], 0.4399873), (['feral'], 0.36700156), (['milky'], 0.010618404), (['hardworking'], 0.0099989595), (['gushy'], 0.009995318)]
+L1: 1
+[(['trackless'], 0.33135059), (['feral'], 0.31147656), (['disreputable'], 0.011285062), (['urgent'], 0.010028072), (['metacarpal'], 0.0099999998)]
+L1: 2
+[(['trackless'], 0.37503183), (['feral'], 0.36300296), (['unheard'], 0.010033932), (['diagnostic'], 0.01001568), (['disparate'], 0.01000672)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['famished'], 0.084435411), (['unwanted'], 0.045880947), (['sedentary'], 0.033460714), (['beardless'], 0.019493973), (['ionic'], 0.019390982)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['hydrogenated'], 0.029883582), (['lumpy'], 0.029811807), (['sustainable'], 0.028645014), (['buoyant'], 0.025275877), (['inconvenient'], 0.020426068)]
+L1: 1
+[(['famished'], 0.036501832), (['narcoleptic'], 0.035763882), (['geopolitical'], 0.025725855), (['prone'], 0.025466818), (['northwestern'], 0.023926834)]
+L1: 2
+[(['reasonable'], 0.030473694), (['gangrenous'], 0.023226278), (['erratic'], 0.022498487), (['actuarial'], 0.019828543), (['emasculated'], 0.019764796)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['famished'], 0.37301803), (['evasive'], 0.31322467), (['remote'], 0.30864716), (['lowly'], 0.00431932), (['amorphous'], 0.00079091982)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['feral'], 0.1490293), (['trackless'], 0.12536508), (['musical'], 0.053675201), (['philosophical'], 0.041413225), (['hieroglyphic'], 0.022392834)]
+L1: 1
+[(['feral'], 0.15487523), (['trackless'], 0.1109305), (['musical'], 0.046258461), (['philosophical'], 0.036909498), (['expendable'], 0.027002316)]
+L1: 2
+[(['feral'], 0.16672747), (['trackless'], 0.10913778), (['musical'], 0.048071828), (['expendable'], 0.026107706), (['philosophical'], 0.025601596)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['sick'], 0.0010003214), (['starving'], 0.001000234), (['stricken'], 0.0010002236), (['afflicted'], 0.0010002159), (['malnourished'], 0.0010002049)]
+photographer is a fly
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['snowbound'], 0.014089461), (['remote'], 0.013668157), (['frigid'], 0.01073504), (['unharmed'], 0.009693834), (['manned'], 0.009028364)]
+L1: 1
+[(['snowbound'], 0.015010861), (['remote'], 0.012714585), (['manned'], 0.011216255), (['unharmed'], 0.010175432), (['rheumatoid'], 0.0096680149)]
+L1: 2
+[(['snowbound'], 0.014683215), (['remote'], 0.014090362), (['manned'], 0.010009899), (['unharmed'], 0.0098592918), (['frigid'], 0.0097466027)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['unharmed'], 0.019149404), (['snowbound'], 0.01899166), (['remote'], 0.015668826), (['insoluble'], 0.014242295), (['knotty'], 0.013461168)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['snowbound'], 0.0083455406), (['manned'], 0.0077909492), (['underlying'], 0.0070937499), (['unannounced'], 0.0057236482), (['senile'], 0.0049231979)]
+L1: 1
+[(['underlying'], 0.01224847), (['manned'], 0.0087094205), (['remote'], 0.0060467152), (['societal'], 0.0051916037), (['unannounced'], 0.0049873912)]
+L1: 2
+[(['underlying'], 0.019614145), (['manned'], 0.0079858284), (['snowbound'], 0.0065149725), (['societal'], 0.0051785097), (['rotten'], 0.0050953054)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['unharmed'], 0.027653337), (['snowbound'], 0.022157323), (['insoluble'], 0.019746954), (['unmarked'], 0.016976232), (['structural'], 0.016493645)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['retro'], 0.019890793), (['courtly'], 0.015634382), (['adjacent'], 0.015046427), (['visionary'], 0.014632891), (['unifying'], 0.014137675)]
+L1: 1
+[(['possessive'], 0.017524771), (['senile'], 0.016065991), (['beardless'], 0.0126136), (['armrest'], 0.012452115), (['perfunctory'], 0.012429223)]
+L1: 2
+[(['hypnotic'], 0.016985623), (['lordly'], 0.016255124), (['transcendental'], 0.015340257), (['serendipitous'], 0.013571268), (['vaginal'], 0.01351107)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['unharmed'], 0.027799966), (['snowbound'], 0.022168467), (['insoluble'], 0.019837309), (['unmarked'], 0.017033372), (['structural'], 0.01656401)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['unharmed'], 0.035892587), (['frigid'], 0.022176549), (['unmarked'], 0.021792762), (['anxious'], 0.02121162), (['continuous'], 0.019583503)]
+L1: 1
+[(['snowbound'], 0.03599485), (['marine'], 0.032539155), (['rubber'], 0.031538785), (['emptier'], 0.026102467), (['bloodcurdling'], 0.024776213)]
+L1: 2
+[(['barbaric'], 0.038746946), (['alpine'], 0.025855055), (['marauding'], 0.024514602), (['undiluted'], 0.022817088), (['tiresome'], 0.019890057)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['godforsaken'], 0.91270405), (['detachable'], 0.084585018), (['ashy'], 0.0027090542), (['perfect'], 1.4437371e-06), (['wicked'], 2.0142579e-07)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['archetypal'], 0.028629366), (['unflattering'], 0.021208374), (['underlying'], 0.011284691), (['unflinching'], 0.010888977), (['meteoric'], 0.008517799)]
+L1: 1
+[(['archetypal'], 0.03605216), (['unflattering'], 0.023460427), (['underlying'], 0.0095504057), (['meteoric'], 0.009269149), (['philosophical'], 0.0087080505)]
+L1: 2
+[(['archetypal'], 0.032049946), (['unflattering'], 0.024778016), (['underlying'], 0.0095764715), (['meteoric'], 0.0090656886), (['philosophical'], 0.009036513)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['uninvited'], 0.0010001449), (['northwestern'], 0.0010001372), (['southeastern'], 0.001000133), (['manned'], 0.0010001258), (['remote'], 0.0010001201)]
+voice is a river
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['little'], 0.034027699), (['hieroglyphic'], 0.015722279), (['remote'], 0.013932621), (['smooth'], 0.012878203), (['broad'], 0.012788102)]
+L1: 1
+[(['little'], 0.03589233), (['hieroglyphic'], 0.016808674), (['opposite'], 0.015888626), (['remote'], 0.01384351), (['broad'], 0.013826662)]
+L1: 2
+[(['little'], 0.030176561), (['hieroglyphic'], 0.015709823), (['remote'], 0.014762518), (['invisible'], 0.012910575), (['easterly'], 0.012762322)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['little'], 0.053826738), (['remote'], 0.03027617), (['hieroglyphic'], 0.028594432), (['broad'], 0.023559179), (['invisible'], 0.019310784)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['guiltless'], 0.052555393), (['southerly'], 0.030515892), (['sadomasochistic'], 0.016807407), (['easterly'], 0.016696757), (['cosmetic'], 0.015880959)]
+L1: 1
+[(['guiltless'], 0.075770363), (['easterly'], 0.018296104), (['lateral'], 0.016141351), (['southerly'], 0.012376116), (['unobstructed'], 0.010028727)]
+L1: 2
+[(['guiltless'], 0.055890489), (['easterly'], 0.023679785), (['southerly'], 0.017488785), (['seasick'], 0.011452287), (['lateral'], 0.0091666756)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['remote'], 0.044605087), (['little'], 0.040252782), (['broad'], 0.034135412), (['invisible'], 0.027398411), (['continuous'], 0.026217783)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['guiltless'], 0.31604257), (['urbane'], 0.27163789), (['compliant'], 0.26448762), (['egomaniacal'], 0.010313253), (['psychoanalytical'], 0.010027341)]
+L1: 1
+[(['compliant'], 0.33951169), (['urbane'], 0.24432103), (['guiltless'], 0.234383), (['easterly'], 0.019076971), (['untrue'], 0.010004383)]
+L1: 2
+[(['compliant'], 0.42332822), (['guiltless'], 0.28359783), (['urbane'], 0.21460786), (['intelligent'], 0.0099999998), (['electric'], 0.0099999849)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['remote'], 0.044845011), (['little'], 0.03990325), (['broad'], 0.034318294), (['invisible'], 0.027534358), (['continuous'], 0.026369685)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['draconian'], 0.036926977), (['opposite'], 0.036640763), (['compulsive'], 0.031128353), (['shabby'], 0.025369165), (['orbital'], 0.02310108)]
+L1: 1
+[(['caped'], 0.028620331), (['chipper'], 0.024372086), (['unobstructed'], 0.02235458), (['unrestrained'], 0.021548033), (['roasted'], 0.021523228)]
+L1: 2
+[(['correctional'], 0.025332756), (['backhanded'], 0.022897234), (['delighted'], 0.02253036), (['indestructible'], 0.022222882), (['lateral'], 0.022101996)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['preexisting'], 0.70197535), (['disorderly'], 0.19715334), (['perpetual'], 0.10087133), (['bossy'], 4.3207918e-10), (['continuous'], 2.6749896e-12)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['guiltless'], 0.1456165), (['urbane'], 0.11338457), (['southerly'], 0.089154974), (['easterly'], 0.059111599), (['compliant'], 0.057582173)]
+L1: 1
+[(['urbane'], 0.14122966), (['guiltless'], 0.12166073), (['southerly'], 0.07440912), (['compliant'], 0.054647762), (['easterly'], 0.047409505)]
+L1: 2
+[(['urbane'], 0.10871136), (['guiltless'], 0.099755824), (['southerly'], 0.089010209), (['compliant'], 0.079116426), (['easterly'], 0.05021834)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['gentle'], 0.0010002102), (['easterly'], 0.0010001897), (['critical'], 0.001000164), (['opposite'], 0.0010001635), (['little'], 0.001000161)]
+ship is a palace
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['chiropractic'], 0.024751617), (['phobic'], 0.016244709), (['mutinous'], 0.015796823), (['eldest'], 0.011562021), (['adjacent'], 0.011333213)]
+L1: 1
+[(['chiropractic'], 0.024221508), (['phobic'], 0.017171362), (['mutinous'], 0.014877479), (['eldest'], 0.010894326), (['adjacent'], 0.010697874)]
+L1: 2
+[(['chiropractic'], 0.026713436), (['phobic'], 0.018148694), (['mutinous'], 0.014477109), (['eldest'], 0.012678744), (['adjacent'], 0.012234158)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['mutinous'], 0.031061912), (['phobic'], 0.028853627), (['chiropractic'], 0.023727138), (['adjacent'], 0.020162076), (['potent'], 0.012971486)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['biologic'], 0.033549208), (['behavioral'], 0.014747117), (['situational'], 0.013510148), (['chiropractic'], 0.0091193328), (['screwy'], 0.0081057949)]
+L1: 1
+[(['biologic'], 0.17605653), (['behavioral'], 0.020793773), (['screwy'], 0.013119228), (['predictive'], 0.012707809), (['situational'], 0.011624022)]
+L1: 2
+[(['biologic'], 0.096070744), (['behavioral'], 0.024315484), (['situational'], 0.01745069), (['predictive'], 0.013127313), (['screwy'], 0.010186016)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['mutinous'], 0.045972049), (['phobic'], 0.033360004), (['adjacent'], 0.026870554), (['chiropractic'], 0.023947362), (['sedentary'], 0.018120425)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['biologic'], 0.3336454), (['opulent'], 0.31286737), (['captivating'], 0.013588149), (['accountable'], 0.011933698), (['snug'], 0.010132042)]
+L1: 1
+[(['biologic'], 0.41861492), (['opulent'], 0.32044348), (['nonlethal'], 0.010405184), (['catalytic'], 0.010055345), (['disciplined'], 0.0099999998)]
+L1: 2
+[(['biologic'], 0.47569457), (['opulent'], 0.43385687), (['uninvited'], 0.0097216498), (['sharper'], 0.0091235172), (['prestigious'], 0.0069729802)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['mutinous'], 0.046229344), (['phobic'], 0.033395465), (['adjacent'], 0.026983028), (['chiropractic'], 0.023888666), (['sedentary'], 0.018213637)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['behavioral'], 0.059744053), (['chiropractic'], 0.030826051), (['mutinous'], 0.024389733), (['reasonable'], 0.019986643), (['situational'], 0.017102746)]
+L1: 1
+[(['screwy'], 0.06558615), (['therapeutic'], 0.063030452), (['behavioral'], 0.025212746), (['runny'], 0.021953089), (['mutinous'], 0.020535536)]
+L1: 2
+[(['mutinous'], 0.040691718), (['pastoral'], 0.020868707), (['remarkable'], 0.019658986), (['divining'], 0.018491145), (['prototypical'], 0.018333521)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['redundant'], 0.99296701), (['tribal'], 0.0070329634), (['serendipitous'], 1.5011477e-17), (['sedentary'], 2.2733847e-38), (['mutinous'], 4.7644148e-44)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['opulent'], 0.21070459), (['biologic'], 0.18549627), (['extravagant'], 0.044170935), (['behavioral'], 0.038139638), (['overweight'], 0.018652292)]
+L1: 1
+[(['biologic'], 0.19203025), (['opulent'], 0.18863185), (['behavioral'], 0.050001547), (['extravagant'], 0.034023885), (['overweight'], 0.025597818)]
+L1: 2
+[(['opulent'], 0.25327447), (['biologic'], 0.16502105), (['extravagant'], 0.040455472), (['behavioral'], 0.031577155), (['overweight'], 0.019224046)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['manned'], 0.0010003275), (['unharmed'], 0.0010002126), (['afloat'], 0.0010001974), (['societal'], 0.0010001539), (['adolescent'], 0.0010001253)]
+life is a snowflake
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['luscious'], 0.010303353), (['ditzy'], 0.0088131856), (['edible'], 0.0084986454), (['majestic'], 0.0076697664), (['nonlethal'], 0.0073917089)]
+L1: 1
+[(['luscious'], 0.0083596325), (['edible'], 0.0083152922), (['ditzy'], 0.007772007), (['majestic'], 0.0076748882), (['raggedy'], 0.0074842093)]
+L1: 2
+[(['luscious'], 0.0083376812), (['edible'], 0.0079010753), (['ditzy'], 0.0077809063), (['raggedy'], 0.0073502911), (['nonlethal'], 0.0072032684)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['raggedy'], 0.014878536), (['edible'], 0.014717057), (['nonlethal'], 0.013921311), (['ditzy'], 0.013669851), (['girly'], 0.013143153)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['mutinous'], 0.0044616093), (['foul'], 0.0038512496), (['indiscriminate'], 0.0035964788), (['separatist'], 0.0035179979), (['disciplinary'], 0.0033319204)]
+L1: 1
+[(['successive'], 0.0039525558), (['puny'], 0.0039018304), (['mutinous'], 0.003661975), (['nuptial'], 0.0032486676), (['marauding'], 0.0031257749)]
+L1: 2
+[(['investigative'], 0.0037734581), (['malignant'], 0.0034404909), (['lumpy'], 0.003079378), (['puny'], 0.0030659863), (['scathing'], 0.0030553762)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['raggedy'], 0.02232022), (['nonlethal'], 0.021661853), (['edible'], 0.020280942), (['bubbly'], 0.019807413), (['girly'], 0.019417606)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['daily'], 0.019827526), (['renowned'], 0.016519744), (['pediatric'], 0.015265041), (['abridged'], 0.014654377), (['worsening'], 0.013827347)]
+L1: 1
+[(['defenseless'], 0.030326778), (['hypnotic'], 0.018927088), (['frugal'], 0.016562296), (['unpremeditated'], 0.016171867), (['girly'], 0.013530708)]
+L1: 2
+[(['wounded'], 0.016883958), (['chunky'], 0.016375726), (['unceasing'], 0.012780013), (['dazzling'], 0.012686413), (['undiagnosed'], 0.0124165)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['raggedy'], 0.022447169), (['nonlethal'], 0.021803671), (['edible'], 0.020355912), (['bubbly'], 0.019928355), (['girly'], 0.019525617)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['statuesque'], 0.045551009), (['hearty'], 0.033659492), (['mushy'], 0.029999984), (['scrawny'], 0.028059557), (['gushy'], 0.024019279)]
+L1: 1
+[(['disjointed'], 0.031358339), (['undeserved'], 0.025024228), (['puzzled'], 0.023549525), (['unhelpful'], 0.020082384), (['nonresponsive'], 0.019958386)]
+L1: 2
+[(['muscular'], 0.033149194), (['caustic'], 0.032913145), (['undiluted'], 0.02965584), (['blinding'], 0.028663009), (['handy'], 0.025488146)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['nonlethal'], 0.64281422), (['unannounced'], 0.35317957), (['darn'], 0.0027791606), (['raggedy'], 0.0012269268), (['undependable'], 4.2637609e-11)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['relentless'], 0.024783397), (['violent'], 0.016683897), (['credible'], 0.0092513366), (['humanitarian'], 0.0078156264), (['accountable'], 0.0059867161)]
+L1: 1
+[(['relentless'], 0.024860581), (['violent'], 0.014757042), (['credible'], 0.0075967163), (['humanitarian'], 0.0074404492), (['accountable'], 0.0068887235)]
+L1: 2
+[(['relentless'], 0.021518383), (['violent'], 0.010763051), (['credible'], 0.0089620827), (['humanitarian'], 0.0060338951), (['civil'], 0.0051964433)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['beloved'], 0.0010000829), (['wistful'], 0.0010000719), (['happier'], 0.0010000691), (['ravishing'], 0.0010000682), (['blessed'], 0.0010000671)]
+life is a river
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['little'], 0.018952645), (['starving'], 0.015513049), (['aboriginal'], 0.011588708), (['sustainable'], 0.011118058), (['invisible'], 0.010883371)]
+L1: 1
+[(['little'], 0.023105972), (['starving'], 0.016686475), (['aboriginal'], 0.012742261), (['invisible'], 0.01165387), (['sustainable'], 0.011640552)]
+L1: 2
+[(['little'], 0.021698689), (['starving'], 0.015285217), (['aboriginal'], 0.013468802), (['gentle'], 0.011544646), (['invisible'], 0.010945031)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['starving'], 0.02933494), (['sustainable'], 0.022312138), (['instrumental'], 0.016218912), (['valuable'], 0.015400606), (['scarce'], 0.015370263)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['compliant'], 0.021763379), (['little'], 0.012939652), (['diuretic'], 0.012419662), (['fertile'], 0.0087187281), (['southerly'], 0.0084069455)]
+L1: 1
+[(['compliant'], 0.022007994), (['guiltless'], 0.011532915), (['stricken'], 0.0085687283), (['frigid'], 0.0083739469), (['cosmetic'], 0.0079377582)]
+L1: 2
+[(['easterly'], 0.010702217), (['southerly'], 0.01047872), (['stricken'], 0.0087326085), (['little'], 0.0084878849), (['mountainous'], 0.0080654742)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['starving'], 0.034138031), (['sustainable'], 0.029161042), (['instrumental'], 0.0213472), (['scarce'], 0.020503165), (['unwanted'], 0.018427014)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['compliant'], 0.32062215), (['guiltless'], 0.32026255), (['urbane'], 0.24475977), (['precipitating'], 0.0097602764), (['easterly'], 0.0091864271)]
+L1: 1
+[(['compliant'], 0.2832033), (['urbane'], 0.26930058), (['guiltless'], 0.24705808), (['yellowing'], 0.010080165), (['unemployable'], 0.0099999998)]
+L1: 2
+[(['guiltless'], 0.28697267), (['compliant'], 0.28602314), (['urbane'], 0.22649702), (['streetwise'], 0.010131921), (['founding'], 0.0099999998)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['starving'], 0.034167476), (['sustainable'], 0.029264715), (['instrumental'], 0.02141696), (['scarce'], 0.020582814), (['unwanted'], 0.01849537)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['seasick'], 0.046143472), (['unholy'], 0.036918104), (['catalytic'], 0.036257617), (['positional'], 0.033769995), (['misty'], 0.033733364)]
+L1: 1
+[(['feisty'], 0.027476819), (['unsafe'], 0.026441965), (['meteoric'], 0.025241248), (['catastrophic'], 0.023874294), (['unfamiliar'], 0.020298487)]
+L1: 2
+[(['opposite'], 0.03606841), (['scarce'], 0.029989), (['inorganic'], 0.029531682), (['structural'], 0.025506904), (['humpbacked'], 0.021913106)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['salaried'], 0.98059744), (['barefooted'], 0.018699), (['daft'], 0.00070365221), (['evasive'], 2.4662853e-43), (['blunted'], 0.0)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['guiltless'], 0.12152752), (['urbane'], 0.12067722), (['southerly'], 0.072105505), (['compliant'], 0.053896278), (['balder'], 0.027485015)]
+L1: 1
+[(['urbane'], 0.17433549), (['guiltless'], 0.094071567), (['southerly'], 0.067512728), (['compliant'], 0.04801302), (['balder'], 0.030127628)]
+L1: 2
+[(['urbane'], 0.15194868), (['guiltless'], 0.11232153), (['southerly'], 0.069806091), (['compliant'], 0.064201452), (['balder'], 0.028676515)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['poor'], 0.0010001367), (['starving'], 0.0010001225), (['maternal'], 0.0010001167), (['alive'], 0.0010001162), (['penniless'], 0.0010001148)]
+book is a hug
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['wonderful'], 0.01636632), (['fond'], 0.012351219), (['unburned'], 0.010206738), (['sweet'], 0.0077029984), (['gushy'], 0.0071690809)]
+L1: 1
+[(['wonderful'], 0.017161377), (['fond'], 0.01358215), (['unburned'], 0.0083179018), (['sweet'], 0.0077122049), (['spellbound'], 0.0071233446)]
+L1: 2
+[(['wonderful'], 0.016772693), (['fond'], 0.013818304), (['unburned'], 0.0090224762), (['spellbound'], 0.0071326713), (['sweet'], 0.0070788083)]
+sig1/sig2 0.1/0.1 baseline: True
+
+BASELINE[(['wonderful'], 0.026455889), (['unburned'], 0.017195961), (['gushy'], 0.012300015), (['aggravated'], 0.012237635), (['spellbound'], 0.01084275)]
+sig1/sig2 1.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['little'], 0.0090613877), (['glad'], 0.009049233), (['delighted'], 0.0075504943), (['lucky'], 0.0071234363), (['fond'], 0.0070122555)]
+L1: 1
+[(['little'], 0.012521559), (['hazardous'], 0.0079591759), (['polite'], 0.0071397186), (['ecstatic'], 0.0069640484), (['heartfelt'], 0.0064266413)]
+L1: 2
+[(['delighted'], 0.015878242), (['ecstatic'], 0.010912914), (['lucky'], 0.0096731707), (['glad'], 0.0093488758), (['little'], 0.0092712976)]
+sig1/sig2 1.0/0.1 baseline: True
+
+BASELINE[(['wonderful'], 0.034664124), (['unburned'], 0.024242617), (['gushy'], 0.0174568), (['aggravated'], 0.0167937), (['coercive'], 0.014850191)]
+sig1/sig2 100.0/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['penal'], 0.016167935), (['heartfelt'], 0.015490976), (['average'], 0.012163877), (['rigid'], 0.011923574), (['skintight'], 0.010581477)]
+L1: 1
+[(['irksome'], 0.015835529), (['unyielding'], 0.013296444), (['ditzy'], 0.013218265), (['wondrous'], 0.012547236), (['humane'], 0.012394482)]
+L1: 2
+[(['current'], 0.019610494), (['penal'], 0.016961869), (['smooth'], 0.015209727), (['seasick'], 0.013993168), (['imprecise'], 0.012006381)]
+sig1/sig2 100.0/0.1 baseline: True
+
+BASELINE[(['wonderful'], 0.034793172), (['unburned'], 0.024354486), (['gushy'], 0.017543534), (['aggravated'], 0.016865836), (['coercive'], 0.014939775)]
+sig1/sig2 0.1/0.001 baseline: FalseL1 RUN:
+
+L1: 0
+[(['structural'], 0.023480549), (['prosperous'], 0.021024292), (['sustainable'], 0.016665863), (['agoraphobic'], 0.016276406), (['posh'], 0.016028764)]
+L1: 1
+[(['fond'], 0.045285884), (['barbed'], 0.039497748), (['erratic'], 0.03124544), (['devious'], 0.025518999), (['wonderful'], 0.025293112)]
+L1: 2
+[(['catalytic'], 0.04111072), (['mountainous'], 0.026071392), (['herbal'], 0.023231307), (['totalitarian'], 0.02198112), (['provocative'], 0.020098099)]
+sig1/sig2 0.1/0.001 baseline: True
+
+BASELINE[(['impeccable'], 0.29482496), (['coercive'], 0.27799937), (['cyclic'], 0.22326937), (['untreated'], 0.20374358), (['unrewarded'], 0.00015420416)]
+sig1/sig2 0.0001/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['penal'], 0.07317321), (['delighted'], 0.052091479), (['compliant'], 0.031532153), (['glad'], 0.030149961), (['heartbroken'], 0.023554614)]
+L1: 1
+[(['delighted'], 0.05833086), (['penal'], 0.056132428), (['glad'], 0.042511083), (['heartbroken'], 0.024102401), (['compliant'], 0.022549933)]
+L1: 2
+[(['penal'], 0.07800702), (['delighted'], 0.061608959), (['glad'], 0.047342658), (['compliant'], 0.023835115), (['ecstatic'], 0.022428283)]
+sig1/sig2 0.0001/0.1 baseline: True
+
+BASELINE[(['wonderful'], 0.0010001096), (['anesthetic'], 0.0010000987), (['mystic'], 0.0010000962), (['rambling'], 0.0010000914), (['superheated'], 0.0010000882)]
+body is a city
+sig1/sig2 0.1/0.1 baseline: FalseL1 RUN:
+
+L1: 0
+[(['wounded'], 0.0083117997), (['hazardous'], 0.0077786399), (['stricken'], 0.0064796689), (['fireproof'], 0.0064374558), (['accountable'], 0.0058635171)]
+L1: 1
+[(['hazardous'], 0.0085449982), (['wounded'], 0.0083392477), (['stricken'], 0.0070652147), (['fireproof'], 0.0061009466), (['bloated'], 0.0056432793)]
+L1: 2

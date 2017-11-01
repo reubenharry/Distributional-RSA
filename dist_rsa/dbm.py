@@ -63,7 +63,7 @@ class Inference_Params:
             self.freq_weight=freq_weight
             self.seed=seed
             self.step_size=step_size
-            self.vec_length = self.vecs[list(self.vecs)[0]].shape[0]
+            self.vec_length = self.vecs["the"].shape[0]
             self.variational=variational
             self.variational_steps=variational_steps
             self.only_trivial=only_trivial

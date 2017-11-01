@@ -1,6 +1,3 @@
-from __future__ import division
-name = input("save to: ")
-
 from collections import defaultdict
 import scipy
 import numpy as np
@@ -18,8 +15,8 @@ vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
 nouns,adjs = get_words()
 
 def l1_model(metaphor):
-    vec_size,vec_kind = 50,'glove.6B.'
-    subj,pred,sig1,sig2,is_baseline = metaphor
+    vec_size,vec_kind = 25,'glove.twitter.27B.'
+    subj,pred,baseline = metaphor
 
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
@@ -42,8 +39,9 @@ def l1_model(metaphor):
     # break
     possible_utterance_adjs = quds
     quds = quds[:50]
-    print("QUDS",quds[:50]) 
-    possible_utterances = possible_utterance_nouns[:200:20]+possible_utterance_adjs[:10]
+    # print("QUDS",quds[:50]) 
+    possible_utterances = possible_utterance_nouns[:200:20]
+    # +possible_utterance_adjs[:10]
 
     # possible_utterances = ['ox','bag','nightmare']
     # possible_utterances = possible_utterance_adjs[:50]
@@ -66,14 +64,14 @@ def l1_model(metaphor):
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=sig1,sig2=sig2,
+        sig1=1.0,sig2=0.1,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
         sample_number = 1000,
-        number_of_qud_dimensions=3,
+        number_of_qud_dimensions=2,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-6,
+        step_size=1e-3,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
@@ -81,7 +79,7 @@ def l1_model(metaphor):
         norm_vectors=False,
         variational=True,
         variational_steps=100,
-        baseline=is_baseline
+        baseline=baseline
         # world_movement=True
 
         )
@@ -91,35 +89,26 @@ def l1_model(metaphor):
     run.compute_l1(load=0,save=False)
 
     results = run.qud_results()
+    if not baseline:
+        print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:5])
+    # print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
+    print("BASELINE:\n",sorted(qud_words,\
+        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:5])
 
-    print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:20]])
-    print("\ndemarginalized:\n",demarginalize_product_space(results)[:20])
+    print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:5]])
+    print("\ndemarginalized:\n",demarginalize_product_space(results)[:5])
 
     return results
 
 if __name__ == "__main__":
 
-    out = open("dist_rsa/data/l1_results_"+name,"w")
-    out.write("RESULTS 50D\n")
-    for subj,pred in [("love","poison"),("man","lion"),("woman","rose"),("voice","river")]:
-        out.write("\n"+subj+" is a "+pred)
+    l1_model(("athletics","drug",True))
+    l1_model(("athletics","drug",False))
+    l1_model(("place","junkyard",True))
+    l1_model(("place","junkyard",False))
 
-        for sig1,sig2 in [(0.1,0.1),(1.0,0.1),(100.0,0.1),(0.001,0.01),(0.1,0.01),(100.0,0.01)]:
-            for is_baseline in [False,True]:
-                out.write('\n')
-                out.write("sig1/sig2 "+str(sig1)+"/"+str(sig2)+" baseline: "+str(is_baseline))
-                if is_baseline:
-                    out.write('\n\nBASELINE')
-                    results = l1_model((subj,pred,sig1,sig2,is_baseline))
-                    # results = [(0.5,0.5)]
-                    out.write(str([(x,np.exp(y)) for (x,y) in results[:5]]))
-                else:
-                    out.write("L1 RUN:\n")
-                    for i in range(3):
-                        out.write("\nL1: "+str(i))
-                        results = l1_model((subj,pred,sig1,sig2,is_baseline))
-                        # results = [(0.5,0.5)]
-                        out.write('\n')
-                        out.write(str([(x,np.exp(y)) for (x,y) in results[:5]]))
-
+    l1_model(("drug","athletics",True))
+    l1_model(("drug","athletics",False))
+    l1_model(("junkyard","place",True))
+    l1_model(("junkyard","place",False))
 
