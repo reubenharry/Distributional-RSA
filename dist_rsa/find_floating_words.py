@@ -107,7 +107,7 @@ if __name__ == "__main__":
     for subj,pred in metaphors:
         word_occured = defaultdict(lambda:False)
 
-        for sig1,sig2 in [(0.1,0.1),(1.0,0.1),(100.0,0.1),(0.1,0.001),(0.0001,0.1),(0.00001,0.00001)]:
+        for sig1,sig2 in [(1.0,0.1)]:
             for is_baseline in [False]:
                 # if is_baseline:
                 #     out.write('\n\nBASELINE')

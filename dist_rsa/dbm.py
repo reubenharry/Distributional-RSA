@@ -206,9 +206,9 @@ class Dist_RSA_Inference:
        
     def qud_results(self,comparanda=None):
 
-        new_vecs = defaultdict(lambda x : np.zeros(self.inference_params.vec_length))
-        for x in self.inference_params.vecs:
-            new_vecs[x] = self.inference_params.vecs[x]
+        # new_vecs = defaultdict(lambda x : np.zeros(self.inference_params.vec_length))
+        # for x in self.inference_params.vecs:
+        #     new_vecs[x] = self.inference_params.vecs[x]
 
         if self.inference_params.model_type=="categorical":
             if self.inference_params.trivial_qud_prior:

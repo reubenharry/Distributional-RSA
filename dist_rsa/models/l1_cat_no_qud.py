@@ -40,9 +40,9 @@ def l1_cat_2d_exp(metaphor):
     # possible_utterance_nouns = 
     # break
     possible_utterance_adjs = quds
-    quds = quds[:50]
-    possible_utterances = animals[:10]
-    # possible_utterance_adjs[:20]+possible_utterance_nouns[:20]
+    quds = quds[:500]
+    # possible_utterances = animals[:10]
+    possible_utterances = possible_utterance_adjs[:20]+possible_utterance_nouns[:20]
     # possible_utterance_nouns[:4]
 
 
@@ -54,21 +54,21 @@ def l1_cat_2d_exp(metaphor):
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=0.001,sig2=0.01,
+        sig1=1.0,sig2=0.1,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 50000,
+        sample_number = 1000,
         number_of_qud_dimensions=2,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=0.0005,
+        step_size=1e-3,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
         rationality=0.9,
         norm_vectors=False,
         variational=True,
-        variational_steps=50000,
+        variational_steps=500,
         only_trivial=True
         )
 
@@ -83,8 +83,8 @@ def l1_cat_2d_exp(metaphor):
     # print(results[:20])
     # run.compute_s1(params,s1_world=)
 
-    print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:50])
-    print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
+    print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:10])
+    print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:10])
     # print("BASELINE:\n",sorted(qud_words,\
     #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:20])
 
@@ -96,6 +96,8 @@ if __name__ == "__main__":
 
     l1_cat_2d_exp(("man","ox"))
     l1_cat_2d_exp(("man","ox"))
+    l1_cat_2d_exp(("man","lion"))
+    l1_cat_2d_exp(("man","lion"))
 
     # l1_cat_2d_exp(("bed","heaven"))
     # l1_cat_2d_exp(("bed","heaven"))
