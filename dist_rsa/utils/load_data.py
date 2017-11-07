@@ -65,8 +65,10 @@ animal_features = list(set(animal_features))
 
 def load_vecs(mean,pca,vec_length,vec_type):
 	if vec_type=="word2vec":
+		message = "\nloading vecs (load vecs): word2vec"
+		print(message)
 		from gensim.models.keyedvectors import KeyedVectors
-		vecs = KeyedVectors.load_word2vec_format('dist_rsa/data/word_vectors/word2vec.bin', binary=True)
+		vecs = pickle.load(open('dist_rsa/data/word_vectors/word2vec_pickle','rb'))
 		if mean or pca: raise Exception("no mean or pca version available")
 		return vecs 
 	name=vec_type+h_dict[(pca,mean)]+str(vec_length)

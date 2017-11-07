@@ -16,43 +16,22 @@ from dist_rsa.utils.distance_under_projection import distance_under_projection
 vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
 nouns,adjs = get_words(with_freqs=True)
 
-qud_words = [a for a in list(adjs) if  a in vecs]
-quds = sorted(qud_words,key = lambda x: adjs[x][1],reverse=True)
-quds = quds[:100]
+qud_words = [a for a in adjs if  a in vecs]
+# quds = sorted(qud_words,key = lambda x: adjs[x][1],reverse=True)
+quds = qud_words[:50]
+
+possible_utterance_nouns = [n for n in nouns if n in vecs]
+    # sorted(
+    # ,\
+    # key = lambda x: nouns[x][1],reverse=True)
+# print("QUDS",quds[:50]) 
+possible_utterances = possible_utterance_nouns[:100]
 
 def l1_model(metaphor):
     subj,pred,sig1,sig2,is_baseline = metaphor
     
-    vec_size,vec_kind = 50,'glove.6B.'
+    vec_size,vec_kind = 25,'glove.twitter.27B.'
 
-    print('abstract_threshold',abstract_threshold)
-    print('concrete_threshold',concrete_threshold)
-
-# adjs[a][0] < abstract_threshold and
-
-    # prob_dict = get_freqs(preprocess=False)
-    # prob_dict = predict(" ".join([subj, "is","a"]))
-    
-        # key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
-        # key=lambda x:prob_dict[x],reverse=True)
-
-
-    possible_utterance_nouns = sorted([n for n in nouns if n in vecs],\
-        # key=lambda x:prob_dict[x],reverse=True)
-        key = lambda x: nouns[x][1],reverse=True)
-        # key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
-    # possible_utterance_nouns = 
-    # break
-    possible_utterance_adjs = quds
-    print("QUDS",quds[:50]) 
-    possible_utterances = possible_utterance_nouns[:100]
-    # +possible_utterance_adjs[:10]
-
-    # possible_utterances = ['ox','bag','nightmare']
-    # possible_utterances = possible_utterance_adjs[:50]
-    # +quds[:25]
-    # possible_utterance_adjs[:50]+possible_utterance_nouns[:50]
-    # possible_utterance_nouns[:4]
 
     real_vecs = load_vecs(mean=True,pca=True,vec_length=vec_size,vec_type=vec_kind)    
 
@@ -60,7 +39,6 @@ def l1_model(metaphor):
         if x not in real_vecs:
             print(x,"not in vecs")
             possible_utterances.remove(x)
-            # raise Exception("utterance not in vecs")
 
     print("UTTERANCES:\n",possible_utterances[:20])
 
@@ -103,8 +81,9 @@ if __name__ == "__main__":
 
     # for each word, count how many top results it appears in
     word_count = defaultdict(list)
+    mass_count = defaultdict(float)
 
-    for subj,pred in metaphors:
+    for subj,pred in list(metaphors)+list(test_metaphors):
         word_occured = defaultdict(lambda:False)
 
         for sig1,sig2 in [(1.0,0.1)]:
@@ -115,16 +94,21 @@ if __name__ == "__main__":
                 #     # results = [(0.5,0.5)]
                 #     out.write(str([(x,np.exp(y)) for (x,y) in results[:5]]))
                 # else:
-                for i in range(3):
-                    results = l1_model((subj,pred,sig1,sig2,is_baseline))
-                    word = results[0][0][0]
-                    if word_occured[word]==False:
-                        word_occured[word]==True
-                        word_count[word]+=[(subj,pred)]
-                    # results = [(0.5,0.5)]
-            out = sorted([(q,set(word_count[q])) for q in quds],key=lambda x : len(x[1]),reverse=True)
-            print(out)
-            pickle.dump(out,open("dist_rsa/data/word_counts",'wb'))
+                results = l1_model((subj,pred,sig1,sig2,is_baseline))
+                word = results[0][0][0]
+                # if word_occured[word]==False:
+                #     word_occured[word]==True
+                word_count[word]+=[(subj,pred)]
 
-    print(sorted([(q,set(word_count[q])) for q in quds],key=lambda x : len(x[1]),reverse=True))
+                for result in results:
+                    # print(result)
+                    mass_count[result[0][0]]+=np.exp(result[1])
+
+                    # results = [(0.5,0.5)]
+            # out = sorted([(q,set(word_count[q])) for q in quds],key=lambda x : len(x[1]),reverse=True)
+            # print(out)
+    pickle.dump(word_count,open("dist_rsa/data/word_counts",'wb'))
+    pickle.dump(mass_count,open("dist_rsa/data/mass_counts",'wb'))
+
+    # print(sorted([(q,set(word_count[q])) for q in quds],key=lambda x : len(x[1]),reverse=True))
 

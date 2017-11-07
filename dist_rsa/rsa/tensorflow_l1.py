@@ -1,5 +1,6 @@
 def tf_l1(inference_params):
 
+	import time
 	import numpy as np
 	import edward as ed
 	import scipy
@@ -15,7 +16,8 @@ def tf_l1(inference_params):
 	import itertools
 	from dist_rsa.rsa.tensorflow_s1 import tf_s1
 	# from dist_rsa.rsa.tensorflow_s1_triple_vec import tf_s1_triple_vec as tf_s1
-	import time
+	# from tensorflow_l0_sigma import tf_l0_sigma
+
 
 	listener_world = tf.cast(inference_params.subject_vector,dtype=tf.float32)
 	number_of_quds = len(inference_params.quds)
@@ -59,7 +61,8 @@ def tf_l1(inference_params):
 
 	u=inference_params.predicate
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
-	world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.sig1] * inference_params.vec_length)
+	# world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.sig1] * inference_params.vec_length)
+	world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.l1_sig1] * inference_params.vec_length)
 	l = tf_s1(inference_params,s1_world=tf.expand_dims(world,0))
 	# l = tf.squeeze(l)
 	# print("l shape",l.get_shape())
@@ -85,6 +88,14 @@ def tf_l1(inference_params):
 	sess = ed.get_session()
 
 
+	# GET L0 posterior on the utterance
+	mus_new = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
+		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
+	mu_new = mus_new[utt]
+	# print("squeezed mu shape",tf.squeeze(mu_new).get_shape())
+	# print("sigma shape",inference_params.inverse_sd)
+	# inference_params.sigma1,inference_params.sigma2,inference_params.inverse_sd,inference_params.sigma,inference_params.inverse_sigma = tf.l0_sigma(inference_params)
+
 	# no_qud = s1_no_qud(speaker_world=world,freq_weight=freq_weight)
 	# print("no qud shape",no_qud.get_shape())
 	# no_qud = no_qud+tf.log(trivial_qud_prior)
@@ -93,7 +104,10 @@ def tf_l1(inference_params):
 	# full_l = tf.reduce_logsumexp([weighted_l_summed,weighted_no_qud],axis=0)
 	# full_l = Categorical(logits=full_l)
 	if inference_params.variational:
-		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=tf.exp(tf.Variable(tf.zeros(inference_params.vec_length))))
+		# qworld = Normal(loc=tf.Variable(tf.zeros(inference_params.vec_length)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
+		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[inference_params.l1_sig1] * inference_params.vec_length)
+		# qworld = Normal(loc=tf.Variable(tf.squeeze(mu_new)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
+		print("QWORLD SHAPE", qworld.get_shape())
 		init = tf.global_variables_initializer()
 		inference_variational = ed.KLqp({world: qworld}, data={full_l: utt})
 		optimizer = tf.train.RMSPropOptimizer(learning_rate=inference_params.step_size)
@@ -144,22 +158,17 @@ def tf_l1(inference_params):
 	if not inference_params.variational:
 		inferred_qud = inferred_qud[inference_params.burn_in:]
 		inferred_world = inferred_world[inference_params.burn_in:]
-	tac = time.time()
 	# print(tac-toc)
 
 
 	inferred_qud = inferred_qud[:,:,utt]
 	inferred_qud = tf.subtract(inferred_qud,tf.expand_dims(tf.reduce_logsumexp(inferred_qud,axis=-1),1))
-	tec = time.time()
 	# print(tec-tac)
 
 	inferred_qud = tf.subtract(tf.reduce_logsumexp(inferred_qud,axis=0),tf.log(tf.cast(tf.shape(inferred_qud)[0],dtype=tf.float32)))
-	tuc = time.time()
 	# print(tuc-tec)
 	results = list(zip(qud_combinations,sess.run(inferred_qud)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
-	toic = time.time()
-	print(toic-tuc)
 	# if return_tf:
 	# 	return inferred_qud, inferred_world
 	# else:

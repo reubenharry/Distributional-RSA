@@ -80,7 +80,7 @@ def tf_l1_only_trivial(inference_params):
 
 
 	if inference_params.variational:
-		qworld = Normal(loc=tf.Variable(tf.zeros(inference_params.vec_length)),scale=tf.exp(tf.Variable(tf.zeros(inference_params.vec_length))))
+		qworld = Normal(loc=tf.Variable(tf.zeros(inference_params.vec_length)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
 		init = tf.global_variables_initializer()
 		inference_variational = ed.KLqp({world: qworld}, data={full_l: utt})
 		optimizer = tf.train.RMSPropOptimizer(1e-3, epsilon=1.0)

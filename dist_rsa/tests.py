@@ -35,7 +35,7 @@ inference_params = Inference_Params(
     subject=[world],predicate=utt,
     quds=quds,
     possible_utterances=possible_utterances,
-    sig1=sig1,sig2=sig2,
+    sig1=sig1,sig2=sig2,l1_sig1=0.1,
     qud_weight=0.0,freq_weight=0.0,
     categorical="categorical",
     sample_number = 500,
@@ -57,32 +57,37 @@ s1_world = inference_params.vecs[world]+inference_params.vecs["the"]
 s1_world_2 = inference_params.vecs[world]+inference_params.vecs["a"]
 
 
-run_old = Dist_RSA_Inference(inference_params)
-run_old.compute_s1(s1_world=np.expand_dims(s1_world,0),debug=False,vectorization=1)
+# run_old = Dist_RSA_Inference(inference_params)
+# run_old.compute_s1(s1_world=np.expand_dims(s1_world,0),debug=False,vectorization=1)
 
 run_new = Dist_RSA_Inference(inference_params)
-run_new.compute_s1(s1_world=np.expand_dims(s1_world,0),debug=False,vectorization=2)
+run_new.compute_s1(s1_world=np.expand_dims(s1_world,0),debug=True,vectorization=2)
 
-run_newest = Dist_RSA_Inference(inference_params)
-run_newest.compute_s1(s1_world=np.array([s1_world,s1_world_2]),debug=False,vectorization=3)
+# run_newest = Dist_RSA_Inference(inference_params)
+# run_newest.compute_s1(s1_world=np.array([s1_world,s1_world_2]),debug=False,vectorization=3)
 
 
 
-tf_old = ed.get_session().run(run_old.s1_results)
+# tf_old = ed.get_session().run(run_old.s1_results)
 tf_new = ed.get_session().run(run_new.s1_results)
-tf_newest = ed.get_session().run(run_newest.s1_results)
+# tf_newest = ed.get_session().run(run_newest.s1_results)
 
-print(tf_old,'\n\n\n\n\n',tf_new,"\n\n\n\n\n",tf_newest[0])
-print(tf_old.shape,tf_new.shape,tf_newest.shape)
-print(tf_newest[0]==tf_old)
-print("ARE NEW AND OLD TF EQUAL?",np.array_equal(tf_old,tf_new),np.array_equal(tf_old,tf_newest[0]))
+print("listener mean",vecs[world])
+
+print("tf new",tf_new)
+
+# print(tf_old,'\n\n\n\n\n',tf_new,"\n\n\n\n\n",tf_newest[0])
+# print(tf_old.shape,tf_new.shape,tf_newest.shape)
+# print(tf_newest[0]==tf_old)
+# print("ARE NEW AND OLD TF EQUAL?",np.array_equal(tf_old,tf_new),np.array_equal(tf_old,tf_newest[0]))
 
 # tf_new = ed.get_session().run(tf_s1(inference_params,s1_world))
 # tf_old = ed.get_session().run(tf_s1_old(inference_params,s1_world))
 
 
-# np_unvectorized = np.array(np_rsa(s1_world=s1_world, qud_mat=np.array([vecs['vicious'],vecs['wet']]).T, vecs=vecs,vec_length=vec_length, world_mean=world, possible_utterances=possible_utterances, utterance=utt,sig1=sig1,sig2=sig2,frequencies=defaultdict(lambda:1)))
+np_unvectorized = np.array(np_rsa(s1_world=s1_world, qud_mat=np.array([vecs['vicious'],vecs['wet']]).T, vecs=vecs,vec_length=vec_length, listener_prior_mean=vecs[world], possible_utterances=possible_utterances, utterance=utt,sig1=sig1,sig2=sig2,frequencies=defaultdict(lambda:1)))
 
+print("numpy",np_unvectorized)
 
 
 # print(np_unvectorized)

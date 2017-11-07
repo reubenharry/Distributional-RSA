@@ -25,21 +25,11 @@ def l1_model(metaphor):
     print('concrete_threshold',concrete_threshold)
 
     qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
-
-
-    # prob_dict = get_freqs(preprocess=False)
-    # prob_dict = predict(" ".join([subj, "is","a"]))
-    
     quds = sorted(qud_words,\
         key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
-        # key=lambda x:prob_dict[x],reverse=True)
-
-
     possible_utterance_nouns = sorted([n for n in nouns if nouns[n] > concrete_threshold and n in vecs],\
-        # key=lambda x:prob_dict[x],reverse=True)
         key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
-    # possible_utterance_nouns = 
-    # break
+
     possible_utterance_adjs = quds
     quds = quds[:50]
     print("QUDS",quds[:50]) 

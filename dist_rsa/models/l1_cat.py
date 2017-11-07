@@ -16,7 +16,7 @@ nouns,adjs = get_words()
 
 def l1_model(metaphor):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
-    subj,pred,baseline = metaphor
+    subj,pred,sig1,sig2,l1_sig1,baseline = metaphor
 
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
@@ -40,7 +40,7 @@ def l1_model(metaphor):
     possible_utterance_adjs = quds
     quds = quds[:50]
     # print("QUDS",quds[:50]) 
-    possible_utterances = possible_utterance_nouns[:200:20]
+    possible_utterances = possible_utterance_nouns[:50]
     # +possible_utterance_adjs[:10]
 
     # possible_utterances = ['ox','bag','nightmare']
@@ -64,22 +64,23 @@ def l1_model(metaphor):
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=1.0,sig2=0.1,
+        sig1=sig1,sig2=sig2,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
         sample_number = 1000,
-        number_of_qud_dimensions=2,
+        number_of_qud_dimensions=1,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-3,
+        step_size=1e-5,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
         rationality=0.99,
         norm_vectors=False,
         variational=True,
-        variational_steps=100,
-        baseline=baseline
+        variational_steps=10000,
+        baseline=baseline,
+        l1_sig1=l1_sig1
         # world_movement=True
 
         )
@@ -102,13 +103,15 @@ def l1_model(metaphor):
 
 if __name__ == "__main__":
 
-    l1_model(("athletics","drug",True))
-    l1_model(("athletics","drug",False))
-    l1_model(("place","junkyard",True))
-    l1_model(("place","junkyard",False))
+    # l1_model(("athletics","drug",0.1,0.1,True))
+    # l1_model(("athletics","drug",0.1,0.1,False))
+    l1_model(("athletics","drug",0.1,0.1,0.000001,True))
+    l1_model(("athletics","drug",0.1,0.1,0.000001,False))
+    # l1_model(("place","junkyard",True))
+    # l1_model(("place","junkyard",False))
 
-    l1_model(("drug","athletics",True))
-    l1_model(("drug","athletics",False))
-    l1_model(("junkyard","place",True))
-    l1_model(("junkyard","place",False))
+    # l1_model(("drug","athletics",True))
+    # l1_model(("drug","athletics",False))
+    # l1_model(("junkyard","place",True))
+    # l1_model(("junkyard","place",False))
 

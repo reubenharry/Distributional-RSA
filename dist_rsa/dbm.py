@@ -29,6 +29,7 @@ class Inference_Params:
         number_of_qud_dimensions,
         seed,
         trivial_qud_prior,
+        l1_sig1,
         burn_in=0,
         step_size=0.25,
         poss_utt_frequencies=None,
@@ -39,9 +40,10 @@ class Inference_Params:
         variational=True,
         variational_steps=100,
         baseline=False,
-        only_trivial=False
+        only_trivial=False,
         ):
 
+            self.l1_sig1=l1_sig1
             self.vecs=vecs
             self.subject = subject
             self.subject_vector = np.mean([self.vecs[x] for x in self.subject],axis=0)

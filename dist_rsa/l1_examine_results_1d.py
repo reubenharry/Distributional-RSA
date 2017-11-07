@@ -18,7 +18,7 @@ vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
 nouns,adjs = get_words(with_freqs=True)
 
 def l1_model(metaphor):
-    vec_size,vec_kind = 50,'glove.6B.'
+    vec_size,vec_kind = 25,'glove.twitter.27B.'
     subj,pred,sig1,sig2,is_baseline = metaphor
 
     print('abstract_threshold',abstract_threshold)
@@ -43,9 +43,10 @@ def l1_model(metaphor):
     # possible_utterance_nouns = 
     # break
     possible_utterance_adjs = quds
-    quds = quds[:50]
+    quds = quds[:1000]
     # print("QUDS",quds[:50]) 
-    possible_utterances = possible_utterance_nouns[:50]+possible_utterance_adjs[:50]
+    possible_utterances = possible_utterance_nouns[:1000]
+    # +possible_utterance_adjs[:50]
 
     # possible_utterances = ['ox','bag','nightmare']
     # possible_utterances = possible_utterance_adjs[:50]
@@ -72,17 +73,17 @@ def l1_model(metaphor):
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
         sample_number = 100,
-        number_of_qud_dimensions=2,
-        # burn_in=900,
+        number_of_qud_dimensions=1,
+        burn_in=90,
         seed=False,trivial_qud_prior=False,
-        step_size=5e-3,
+        step_size=1e-3,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
         rationality=0.99,
         norm_vectors=False,
-        variational=True,
-        variational_steps=100,
+        variational=False,
+        variational_steps=1000,
         baseline=is_baseline
         # world_movement=True
 
@@ -112,7 +113,7 @@ def l1_model(metaphor):
 
 if __name__ == "__main__":
 
-    out = open("dist_rsa/data/l1_results_"+name,"w")
+    out = open("dist_rsa/data/l1_results_1d_"+name,"w")
     out.write("RESULTS 25D\n")
     for subj,pred in [("man","lion"),("banana","lion"),("man","banana"),("lion","man")]:
         out.write("\n"+subj+" is a "+pred)
