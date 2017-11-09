@@ -8,7 +8,6 @@ def tf_l1_only_trivial(inference_params):
 	import pickle
 	import tensorflow as tf
 	from edward.models import Normal,Empirical, Bernoulli, Categorical
-	from dist_rsa.utils.load_data import initialize
 	from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
         normalize,as_a_matrix,tensor_projection_matrix,\
         double_tensor_projection_matrix,combine_quds, lookup, s1_nonvect

@@ -85,8 +85,8 @@ def get_words(with_freqs=False):
 	vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.6B.mean_vecs300",'rb'),encoding='latin1')
 
 	with open('dist_rsa/data/concreteness.csv', newline='') as csvfile:
-		spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-		for i,row in enumerate(spamreader):
+		r = csv.reader(csvfile, delimiter=',', quotechar='|')
+		for i,row in enumerate(r):
 			if i>0:
 				is_bigram = float(row[1])!=0
 				is_noun = (row[8])=='Noun'		
@@ -125,61 +125,3 @@ def get_freqs(preprocess=True):
 		pickle.dump(freqs,open("dist_rsa/data/google_freqs","wb"))
 	return freqs
 
-# frequencies,nouns,adjectives,verbs = get_words(preprocess=True)
-
-# nouns,adjectives = sorted(nouns, key=lambda x: frequencies[x], reverse=True), sorted(adjectives, key=lambda x: frequencies[x], reverse=True)
-
-def initialize(words,max_number=1000000,load_pickle=False,file_input='coca',save_path=""):
-
-
-	if load_pickle:
-		text = open(file_input,'r').read().lower()
-		text = nltk.word_tokenize(text)
-
-		print("NUMBER OF WORDS IN TEXT: " + str(len(text)))
-
-		frequencies = freq_count(text)
-		frequencies_list = sorted(list(frequencies.items()),key = lambda x : x[1],reverse=True)[:max_number]
-		top_words = [x[0] for x in frequencies_list]
-
-		print("Top Words: ", top_words[:5])
-
-		text = [x for x in text if x in top_words]
-		text = list(set(text))
-
-
-		#intersperse, to trick the stupid ngrams in the nltk pos tagger
-		new_text = []
-		for i,x in enumerate(text):
-			new_text.append(x)
-			new_text.append('.')
-		text = new_text
-		text = dict(nltk.pos_tag(text))
-
-
-		for word in words:
-			if word[0] not in text:
-				# print(word[0] + ' was not in text: now added')
-				text[word[0]] = word[1]
-				frequencies[word[0]] += 1
-
-
-		nouns = [x for x in text if text[x] in ["NN",'NNP']]
-		adjectives = [x for x in text if text[x] in ["JJ"]]
-
-		pickle.dump(frequencies,open(save_path+"frequency_count","wb"))
-		pickle.dump(nouns,open(save_path+"nouns","wb"))
-		pickle.dump(adjectives,open(save_path+"adjectives","wb"))
-
-
-	else:
-		frequencies = pickle.load(open(save_path+"frequency_count",'rb'))
-		nouns = pickle.load(open(save_path+"nouns",'rb'))
-		adjectives = pickle.load(open(save_path+"adjectives",'rb'))
-
-
-
-
-
-
-	return frequencies,nouns,adjectives

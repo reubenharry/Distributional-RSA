@@ -8,7 +8,6 @@ def tf_l1(inference_params):
 	import pickle
 	import tensorflow as tf
 	from edward.models import Normal,Empirical, Bernoulli, Categorical
-	from dist_rsa.utils.load_data import initialize
 	from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
         normalize,as_a_matrix,tensor_projection_matrix,\
         double_tensor_projection_matrix,combine_quds, lookup, s1_nonvect
@@ -105,8 +104,9 @@ def tf_l1(inference_params):
 	# full_l = Categorical(logits=full_l)
 	if inference_params.variational:
 		# qworld = Normal(loc=tf.Variable(tf.zeros(inference_params.vec_length)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
-		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[inference_params.l1_sig1] * inference_params.vec_length)
-		# qworld = Normal(loc=tf.Variable(tf.squeeze(mu_new)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
+		# qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[inference_params.l1_sig1] * inference_params.vec_length)
+		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
+		# qworld = Normal(loc=tf.Variable(tf.squeeze(mu_new)),scale=[inference_params.sigma1] * inference_params.vec_length)
 		print("QWORLD SHAPE", qworld.get_shape())
 		init = tf.global_variables_initializer()
 		inference_variational = ed.KLqp({world: qworld}, data={full_l: utt})

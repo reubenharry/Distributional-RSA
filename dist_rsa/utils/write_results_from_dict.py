@@ -1,7 +1,15 @@
 import pickle
 import numpy as np
-name='05-11-17_test'
+from dist_rsa.utils.load_data import load_vecs,get_words
+from dist_rsa.utils.config import abstract_threshold,concrete_threshold
+import scipy
 
+
+
+nouns,adjs = get_words(with_freqs=False)
+vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')  
+
+name='05-11-17_test'
 out = open("dist_rsa/data/l1_results_"+name,"w")
 
 
@@ -19,6 +27,12 @@ for subj,pred in results_dict['l1_dict']:
 			out.write(str([(x,np.exp(y)) for (x,y) in results_dict['qud_only_dict'][(subj,pred)]['baseline'][:5]]))
 			out.write('\nBASELINE 1D:\n')
 			out.write(str([(x,np.exp(y)) for (x,y) in results_dict['qud_only_dict'][(subj,pred)]['1d'][:5]]))
+			out.write("\nVECTOR BASELINE\n")
+			qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
+			quds = sorted(qud_words,\
+			    key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+			out.write(str(quds[:5]))
+
 		else:
 			out.write("L1 RUN:\n")
 			out.write("\nL1:\n")

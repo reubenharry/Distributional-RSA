@@ -1,33 +1,5 @@
 
 
-restaurant is a circus
-L1 RUN:
-
-L1:
-[(['frenzied', 'savory'], 0.0314903), (['savory', 'surreal'], 0.022444643), (['frenzied', 'opulent'], 0.022169111), (['swanky', 'whimsical'], 0.018847762), (['authentic', 'savory'], 0.018387986)]
-[(['frenzied', 'opulent'], 0.026913915), (['frenzied', 'savory'], 0.026825702), (['swanky', 'whimsical'], 0.020460231), (['extravagant', 'swanky'], 0.019197123), (['swanky', 'theatrical'], 0.01753987)]
-[(['frenzied', 'savory'], 0.028502375), (['extravagant', 'frenzied'], 0.024904789), (['frenzied', 'wild'], 0.018250601), (['frenzied', 'opulent'], 0.017625993), (['famous', 'wild'], 0.017422704)]
-
-DEMARG
-[('savory', 1.1448999003279907), ('frenzied', 1.0723176732818327), ('opulent', 1.0620155190806375), ('wild', 1.0617027980809721), ('surreal', 1.0613475098486136)]
-[('savory', 1.1055353661122236), ('frenzied', 1.08965926631669), ('extravagant', 1.0742517618924716), ('swanky', 1.0617420278358991), ('opulent', 1.0616219744575439)]
-[('wild', 1.1243002516796119), ('frenzied', 1.0945458982042933), ('savory', 1.0890801404547539), ('extravagant', 1.0703385632888576), ('crazy', 1.0529064657042628)]
-
-1 DIMENSION
-[(['wild'], 0.079649962), (['savory'], 0.055872198), (['frenzied'], 0.054491509), (['crazy'], 0.050231155), (['swanky'], 0.041341517)]
-[(['savory'], 0.066814326), (['wild'], 0.059875071), (['frenzied'], 0.051586036), (['surreal'], 0.045712981), (['extravagant'], 0.041188285)]
-[(['wild'], 0.06424699), (['savory'], 0.061755095), (['crazy'], 0.047345661), (['swanky'], 0.045277849), (['frenzied'], 0.044490304)]
-
-WORLD MOVEMENT
-[('surreal', 0.90648398367081229), ('savory', 1.0944955636497817), ('humble', 1.0589520441156168), ('sarcastic', 1.0555764241676744), ('keen', 1.0554886729895117)]
-[('bizarre', 1.0631081759875818), ('possible', 1.0442361220397223), ('impossible', 1.043918062323772), ('exotic', 0.95888573586929515), ('fond', 1.0420430684120552)]
-[('authentic', 1.1332164341678042), ('opulent', 1.1268883091711699), ('unique', 1.1049255624621805), ('famous', 1.0966624199102959), ('motivational', 1.0915656592214236)]
-
-BASELINE
-[(['bustling', 'delectable'], 0.034320559), (['bustling', 'chaotic'], 0.029782224), (['bustling', 'macabre'], 0.024331607), (['bustling', 'scrumptious'], 0.024221415), (['bustling', 'quaint'], 0.023870721)]
-BASELINE 1D:
-[(['bustling'], 0.15541558), (['chaotic'], 0.11637996), (['macabre'], 0.092435606), (['delectable'], 0.085029729), (['flamboyant'], 0.079441369)]
-
 voice is a stone
 L1 RUN:
 
@@ -55,62 +27,8 @@ BASELINE
 [(['earthy', 'melancholy'], 0.038945414), (['beautiful', 'melancholy'], 0.034719292), (['beautiful', 'graven'], 0.034075283), (['earthy', 'unapproachable'], 0.033491962), (['emotionless', 'graven'], 0.032361776)]
 BASELINE 1D:
 [(['beautiful'], 0.24338578), (['earthy'], 0.11500762), (['melancholy'], 0.10536224), (['emotionless'], 0.09617731), (['unapproachable'], 0.088716671)]
-
-home is a lifeboat
-L1 RUN:
-
-L1:
-[(['commonsense', 'frightened'], 0.042207543), (['habitable', 'nautical'], 0.035316035), (['brave', 'nautical'], 0.030268874), (['brave', 'godly'], 0.025830582), (['farthest', 'sociable'], 0.023840934)]
-[(['habitable', 'nautical'], 0.045184106), (['farthest', 'frugal'], 0.043257106), (['farthest', 'frightened'], 0.036705256), (['farthest', 'frantic'], 0.029436389), (['brave', 'farthest'], 0.023347201)]
-[(['farthest', 'sociable'], 0.018739989), (['brave', 'godly'], 0.018281715), (['heartbroken', 'precious'], 0.018126683), (['habitable', 'nautical'], 0.015936442), (['precious', 'sociable'], 0.015861699)]
-
-DEMARG
-[('precious', 1.1203012873372216), ('frightened', 1.1112446109709633), ('brave', 1.0979236291340886), ('nautical', 1.0778568200835144), ('farthest', 1.0619474251102958)]
-[('farthest', 1.1167206033775456), ('frightened', 1.0982897955376025), ('precious', 1.0951084534867077), ('nautical', 1.0803064776050673), ('habitable', 1.0652656905521134)]
-[('precious', 1.1773362912226053), ('brave', 1.0740494838981742), ('unharmed', 1.0621271875183838), ('frightened', 1.0616262253627584), ('nautical', 1.0601679337523233)]
-
-1 DIMENSION
-[(['precious'], 0.17645352), (['frightened'], 0.057466473), (['unharmed'], 0.056783106), (['farthest'], 0.051277835), (['brave'], 0.049340203)]
-[(['precious'], 0.26960722), (['frightened'], 0.058545437), (['farthest'], 0.052510027), (['unharmed'], 0.04937958), (['nautical'], 0.041181322)]
-[(['precious'], 0.18400455), (['unharmed'], 0.073922522), (['farthest'], 0.053965505), (['nautical'], 0.049741343), (['petty'], 0.038737074)]
-
-WORLD MOVEMENT
-[('frightened', 0.76533045964314095), ('commonsense', 1.121870286063142), ('brave', 1.1169566858283337), ('beloved', 1.1083836453706406), ('beautiful', 1.1072237008449353)]
-[('farthest', 1.3320572060935547), ('sociable', 0.80547844926254442), ('effortless', 1.1314540033298355), ('compelling', 1.1278182310671132), ('medieval', 0.88716951888598805)]
-[('precious', 1.1442685716835779), ('lifesaving', 0.8849676610144761), ('unconscious', 0.88725255475716569), ('lucky', 1.1039729916455465), ('adorable', 1.0925889999845497)]
-
-BASELINE
-[(['heroic', 'nautical'], 0.10307125), (['lifesaving', 'nautical'], 0.088228062), (['nautical', 'stricken'], 0.084897652), (['heroic', 'lifesaving'], 0.060840331), (['frugal', 'nautical'], 0.059368923)]
-BASELINE 1D:
-[(['nautical'], 0.22158247), (['heroic'], 0.19057897), (['lifesaving'], 0.15886338), (['stricken'], 0.14330426), (['frugal'], 0.10138232)]
-
-pain is a thorn
-L1 RUN:
-
-L1:
-[(['acute', 'helpless'], 0.016484257), (['helpless', 'torrid'], 0.015021472), (['beneficial', 'helpless'], 0.014855609), (['helpless', 'humbling'], 0.014597884), (['elusive', 'helpless'], 0.014583483)]
-[(['humbling', 'unshakable'], 0.028378194), (['humbling', 'painless'], 0.022887535), (['humbling', 'torrid'], 0.019984588), (['ashamed', 'miserable'], 0.014410261), (['torrid', 'unshakable'], 0.014276714)]
-[(['humbling', 'unshakable'], 0.02679445), (['humbling', 'torrid'], 0.021906132), (['acute', 'helpless'], 0.019690482), (['humbling', 'painless'], 0.019200603), (['helpless', 'unshakable'], 0.018933168)]
-
-DEMARG
-[('helpless', 1.2153939086391994), ('unbearable', 1.1354635199798446), ('humbling', 1.0575456749497605), ('ashamed', 1.0515507115750073), ('traumatic', 1.0483955758383898)]
-[('helpless', 1.159425175149462), ('humbling', 1.0924850661828773), ('unshakable', 1.0772780829398259), ('ashamed', 1.0569184614491041), ('unbearable', 1.0533979582370248)]
-[('helpless', 1.2273753429568597), ('humbling', 1.0847381946491048), ('unshakable', 1.0811975191409506), ('ashamed', 1.0552647795607302), ('traumatic', 1.0545217314075981)]
-
-1 DIMENSION
-[(['helpless'], 0.41152948), (['unbearable'], 0.13104373), (['traumatic'], 0.032077346), (['unshakable'], 0.032027658), (['humbling'], 0.031826988)]
-[(['unbearable'], 0.26418701), (['helpless'], 0.25575486), (['humbling'], 0.030588362), (['unshakable'], 0.027397718), (['traumatic'], 0.026237112)]
-[(['helpless'], 0.41373119), (['unbearable'], 0.12280484), (['unshakable'], 0.043157697), (['humbling'], 0.038620867), (['ashamed'], 0.026248598)]
-
-WORLD MOVEMENT
-[('unbearable', 0.88968612249646406), ('unshakable', 1.0956483875218861), ('helpless', 1.0753859439267748), ('emotionless', 1.0670637154653557), ('nostalgic', 1.0557885586741618)]
-[('humbling', 0.94196798533587389), ('acute', 0.94654539737207766), ('staunch', 1.0508679109837169), ('problematic', 1.0500439217369799), ('unshakable', 0.95868361848008288)]
-[('unshakable', 0.90539193371619064), ('staunch', 0.90836914664189883), ('unbearable', 1.0970645387346205), ('humbling', 0.93456283508053117), ('emotionless', 0.94612243273062713)]
-
-BASELINE
-[(['acute', 'humbling'], 0.061350819), (['agonizing', 'humbling'], 0.053571668), (['beneficial', 'humbling'], 0.051720716), (['humbling', 'impotent'], 0.045415264), (['humbling', 'painless'], 0.042879228)]
-BASELINE 1D:
-[(['humbling'], 0.35207999), (['acute'], 0.12451911), (['agonizing'], 0.088923834), (['painless'], 0.088217989), (['torrid'], 0.06329418)]
+VECTOR BASELINE
+['distinctive', 'beautiful', 'original', 'simple', 'soulful']
 
 curiosity is a disease
 L1 RUN:
@@ -139,34 +57,8 @@ BASELINE
 [(['neurological', 'unexplainable'], 0.10098955), (['asexual', 'neurological'], 0.092634894), (['hereditary', 'pathological'], 0.084059604), (['hereditary', 'unexplainable'], 0.074799582), (['hereditary', 'lifelong'], 0.074097224)]
 BASELINE 1D:
 [(['hereditary'], 0.20481952), (['neurological'], 0.18816036), (['unexplainable'], 0.18132532), (['lifelong'], 0.17791238), (['evolutionary'], 0.049267642)]
-
-earth is a womb
-L1 RUN:
-
-L1:
-[(['angelic', 'worldly'], 0.092465825), (['angelic', 'sinful'], 0.082012035), (['innermost', 'worldly'], 0.046245791), (['angelic', 'innermost'], 0.040743157), (['angelic', 'primeval'], 0.036431391)]
-[(['earthly', 'innermost'], 0.054670256), (['innermost', 'worldly'], 0.053384267), (['earthly', 'worldly'], 0.04219937), (['angelic', 'worldly'], 0.04095234), (['maternal', 'worldly'], 0.036002211)]
-[(['earthly', 'primeval'], 0.050861932), (['angelic', 'worldly'], 0.042979345), (['innermost', 'worldly'], 0.042071398), (['primeval', 'zodiacal'], 0.041905608), (['earthly', 'worldly'], 0.039166193)]
-
-DEMARG
-[('angelic', 1.2283496941262644), ('worldly', 1.197883220485283), ('innermost', 1.1019087454992591), ('primeval', 1.0795511511755513), ('earthly', 1.0728373145923196)]
-[('worldly', 1.1896453221511742), ('innermost', 1.1262679519265066), ('primeval', 1.1214728346593155), ('earthly', 1.103549140133955), ('angelic', 1.1007883629380995)]
-[('primeval', 1.1911126272622354), ('worldly', 1.1891850461744289), ('angelic', 1.0995031362957202), ('earthly', 1.0920260196471954), ('innermost', 1.0863390152269985)]
-
-1 DIMENSION
-[(['angelic'], 0.11242803), (['worldly'], 0.094846144), (['innermost'], 0.084043488), (['primeval'], 0.077109955), (['earthly'], 0.05930553)]
-[(['angelic'], 0.21800865), (['innermost'], 0.08697705), (['earthly'], 0.073101021), (['primeval'], 0.069513388), (['sinful'], 0.049163245)]
-[(['angelic'], 0.11967383), (['worldly'], 0.084738366), (['innermost'], 0.069904052), (['eternal'], 0.06553746), (['primeval'], 0.063840434)]
-
-WORLD MOVEMENT
-[('angelic', 1.1776786736455431), ('godly', 0.93087658993920397), ('worldly', 1.0643226690772696), ('helpless', 0.94790918947523828), ('insistent', 0.94896518636348082)]
-[('sinful', 0.91316573578346782), ('heavenly', 0.93694733968499089), ('maternal', 1.063389791991084), ('nether', 0.94503304794015708), ('harmful', 1.0575958708714672)]
-[('primeval', 1.1686432981743677), ('godly', 0.88386900164381377), ('worldly', 1.0787643476342084), ('goody', 0.93597337498338462), ('singular', 0.94106142338175469)]
-
-BASELINE
-[(['earthly', 'innermost'], 0.2881794), (['innermost', 'zodiacal'], 0.15301533), (['innermost', 'radiant'], 0.14048059), (['earthly', 'radiant'], 0.13930677), (['earthly', 'zodiacal'], 0.126729)]
-BASELINE 1D:
-[(['innermost'], 0.35328847), (['earthly'], 0.33191198), (['radiant'], 0.15053177), (['zodiacal'], 0.11898243), (['sinful'], 0.035157885)]
+VECTOR BASELINE
+['infectious', 'incurable', 'chronic', 'neurological', 'immune']
 
 music is a language
 L1 RUN:
@@ -195,34 +87,8 @@ BASELINE
 [(['contemporary', 'expressive'], 0.059237756), (['contemporary', 'literary'], 0.052683797), (['contemporary', 'literate'], 0.051456138), (['contemporary', 'conversational'], 0.046456821), (['contemporary', 'melodic'], 0.040321123)]
 BASELINE 1D:
 [(['contemporary'], 0.25102559), (['literary'], 0.16246983), (['artistic'], 0.11410732), (['melodic'], 0.10778279), (['poetic'], 0.081410386)]
-
-life is a train
-L1 RUN:
-
-L1:
-[(['aspiring', 'transformative'], 0.031680934), (['aspiring', 'supersonic'], 0.024855532), (['supersonic', 'terrifying'], 0.024733266), (['blissful', 'transformative'], 0.021247871), (['transformative', 'traumatic'], 0.021194806)]
-[(['supersonic', 'terrifying'], 0.034658156), (['bored', 'traumatic'], 0.02583413), (['supersonic', 'tragic'], 0.022485161), (['aspiring', 'supersonic'], 0.022281639), (['stressful', 'supersonic'], 0.018235439)]
-[(['hellish', 'transformative'], 0.051301315), (['aspiring', 'transformative'], 0.04372659), (['supersonic', 'transformative'], 0.041813802), (['blissful', 'transformative'], 0.040142588), (['sane', 'transformative'], 0.035289455)]
-
-DEMARG
-[('transformative', 1.2411818083934167), ('aspiring', 1.0711918235826443), ('supersonic', 1.0656896875971724), ('traumatic', 1.0503825804721412), ('bored', 1.0388835134354637)]
-[('transformative', 1.1566683545098688), ('supersonic', 1.0966618921069873), ('aspiring', 1.066504895704774), ('traumatic', 1.0601213884323226), ('tragic', 1.0408882565380155)]
-[('transformative', 1.4358322234591072), ('supersonic', 1.0600045807287859), ('aspiring', 1.0520976680982055), ('hellish', 1.029720734930307), ('bored', 1.0296408217858153)]
-
-1 DIMENSION
-[(['transformative'], 0.12177359), (['aspiring'], 0.056513902), (['traumatic'], 0.051636722), (['supersonic'], 0.037459038), (['bored'], 0.037006952)]
-[(['bored'], 0.050132722), (['wonderful'], 0.042239472), (['aspiring'], 0.041577723), (['transformative'], 0.040019285), (['inspiring'], 0.034702118)]
-[(['transformative'], 0.082283296), (['supersonic'], 0.039568815), (['bored'], 0.038531341), (['aspiring'], 0.038127773), (['traumatic'], 0.034489587)]
-
-WORLD MOVEMENT
-[('lonely', 1.1289009256765832), ('bored', 1.115677802079839), ('heartbroken', 1.0975844788905991), ('boring', 1.0948046499573425), ('clingy', 1.0898438473136838)]
-[('bored', 1.1761232067192449), ('frustrating', 1.1390457355098105), ('entertaining', 1.1361169627388756), ('boring', 1.1331181142823843), ('annoying', 1.1324314055736615)]
-[('transformative', 1.376547833993375), ('traumatic', 1.2183291748878993), ('surreal', 1.199429075674785), ('spiritual', 1.1950274344128797), ('hectic', 1.1822095838910998)]
-
-BASELINE
-[(['bored', 'traumatic'], 0.1552148), (['selfless', 'traumatic'], 0.11635974), (['normal', 'traumatic'], 0.084789574), (['lifelong', 'traumatic'], 0.057077412), (['lifelong', 'selfless'], 0.045850843)]
-BASELINE 1D:
-[(['traumatic'], 0.31891268), (['selfless'], 0.17236131), (['bored'], 0.14182571), (['lifelong'], 0.10952832), (['lifesaving'], 0.040844612)]
+VECTOR BASELINE
+['classical', 'contemporary', 'literary', 'poetic', 'lyrical']
 
 voice is a hammer
 L1 RUN:
@@ -251,146 +117,8 @@ BASELINE
 [(['insistent', 'unspoken'], 0.032627944), (['eloquent', 'unspoken'], 0.031778418), (['eloquent', 'expletive'], 0.027382093), (['honky', 'unspoken'], 0.023792351), (['eloquent', 'whiny'], 0.022220531)]
 BASELINE 1D:
 [(['unspoken'], 0.12557241), (['eloquent'], 0.12048497), (['menacing'], 0.10858195), (['whiny'], 0.10399544), (['honky'], 0.10323233)]
-
-father is a shark
-L1 RUN:
-
-L1:
-[(['adoptive', 'workaholic'], 0.055545066), (['grieving', 'workaholic'], 0.036284305), (['affectionate', 'vicious'], 0.033472717), (['overprotective', 'workaholic'], 0.033178575), (['heartbroken', 'vicious'], 0.031187389)]
-[(['adoptive', 'workaholic'], 0.065884694), (['overprotective', 'workaholic'], 0.054068804), (['terrifying', 'workaholic'], 0.053335071), (['distraught', 'workaholic'], 0.052752081), (['hunky', 'workaholic'], 0.028887898)]
-[(['grieving', 'workaholic'], 0.044272173), (['creepy', 'terrifying'], 0.043891672), (['adoptive', 'workaholic'], 0.035471238), (['facetious', 'terrifying'], 0.033597298), (['creepy', 'vicious'], 0.028368399)]
-
-DEMARG
-[('workaholic', 1.1656798373093871), ('vicious', 1.1576769248575824), ('terrifying', 1.0764108290543943), ('adoptive', 1.0595163652327555), ('facetious', 1.0430904773572938)]
-[('workaholic', 1.2212972142725458), ('vicious', 1.1320592371055003), ('terrifying', 1.1269570413111427), ('adoptive', 1.0628198186735809), ('overprotective', 1.0409379080354755)]
-[('workaholic', 1.1475406342229646), ('terrifying', 1.1435387402225958), ('vicious', 1.1341203859323794), ('adoptive', 1.0523850263859811), ('facetious', 1.0488991317518068)]
-
-1 DIMENSION
-[(['terrifying'], 0.084915854), (['vicious'], 0.081788763), (['workaholic'], 0.074009001), (['jealous'], 0.051296752), (['creepy'], 0.037754904)]
-[(['terrifying'], 0.092623368), (['vicious'], 0.058127128), (['workaholic'], 0.056724973), (['jealous'], 0.056191988), (['facetious'], 0.042463321)]
-[(['terrifying'], 0.088635989), (['workaholic'], 0.07695388), (['vicious'], 0.04417577), (['jealous'], 0.043795064), (['facetious'], 0.03958885)]
-
-WORLD MOVEMENT
-[('maritime', 0.79935552207671345), ('jealous', 1.2251781186775088), ('desperate', 1.1754158079103099), ('sure', 1.175398194958047), ('curious', 1.1748033144876668)]
-[('grieving', 0.7309937881185421), ('workaholic', 1.2179491827862359), ('prized', 0.86422432144358707), ('terrifying', 0.86731789735536213), ('epic', 0.87224197374688661)]
-[('hunky', 0.77932454143468988), ('mysterious', 0.86550166469733314), ('subtle', 0.8808501236746088), ('sophisticated', 0.88267750671195155), ('vicious', 0.88359425732008312)]
-
-BASELINE
-[(['creepy', 'facetious'], 0.047762901), (['creepy', 'freaky'], 0.047523864), (['creepy', 'homicidal'], 0.04161885), (['freaky', 'lifesaving'], 0.036909517), (['creepy', 'prehistoric'], 0.033383343)]
-BASELINE 1D:
-[(['creepy'], 0.19434243), (['freaky'], 0.14465582), (['frightened'], 0.091167532), (['lifesaving'], 0.089482985), (['homicidal'], 0.087199464)]
-
-life is a tree
-L1 RUN:
-
-L1:
-[(['biblical', 'societal'], 0.052582815), (['biblical', 'neurotic'], 0.029863276), (['evolutionary', 'selfless'], 0.028202623), (['biblical', 'wonderful'], 0.02562339), (['botanic', 'societal'], 0.022155516)]
-[(['biblical', 'societal'], 0.099449292), (['botanic', 'societal'], 0.03671027), (['evolutionary', 'selfless'], 0.028824838), (['biblical', 'lovely'], 0.02314424), (['biblical', 'neurotic'], 0.021860961)]
-[(['biblical', 'societal'], 0.082931459), (['botanic', 'societal'], 0.047641143), (['everlasting', 'lovely'], 0.035744559), (['evolutionary', 'selfless'], 0.033936057), (['biblical', 'lovely'], 0.02841402)]
-
-DEMARG
-[('biblical', 1.1640919735165498), ('societal', 1.0783562554254165), ('selfless', 1.0649919597114594), ('neurotic', 1.0568484151668038), ('everlasting', 1.0529843885724761)]
-[('biblical', 1.1636242142741524), ('societal', 1.1350969764893273), ('selfless', 1.0514647489998745), ('everlasting', 1.0454128972962675), ('botanic', 1.0440294609409591)]
-[('biblical', 1.1611059508875645), ('societal', 1.1223187152726086), ('everlasting', 1.0727787107729692), ('selfless', 1.0708933740542914), ('botanic', 1.0599747544810905)]
-
-1 DIMENSION
-[(['biblical'], 0.045120172), (['beloved'], 0.043329112), (['precious'], 0.041481677), (['everlasting'], 0.041421067), (['botanic'], 0.039068732)]
-[(['precious'], 0.047031343), (['beloved'], 0.046566639), (['biblical'], 0.04214368), (['wonderful'], 0.039570063), (['everyday'], 0.036825448)]
-[(['everlasting'], 0.049842224), (['biblical'], 0.047153693), (['precious'], 0.045993481), (['beloved'], 0.042627599), (['botanic'], 0.040818561)]
-
-WORLD MOVEMENT
-[('unconscious', 0.76376555247277944), ('innocent', 0.83003764836863336), ('botanic', 0.84678109644326205), ('happiest', 1.164650216107004), ('systematic', 0.87058421028565303)]
-[('lifelong', 1.1851873019004009), ('ancestral', 0.89133728531318723), ('beloved', 1.1144694381354252), ('thankful', 0.91137654070465146), ('bashful', 1.0872426127142512)]
-[('neurotic', 0.73563355138024478), ('innocent', 0.79802594213488964), ('happiest', 0.80165977596549787), ('guilty', 0.85437743504494756), ('insecure', 0.85490716371383713)]
-
-BASELINE
-[(['beloved', 'joyful'], 0.04643485), (['beloved', 'biblical'], 0.032804821), (['beloved', 'virtuous'], 0.030740026), (['beloved', 'philosophical'], 0.028237846), (['beautiful', 'beloved'], 0.028063457)]
-BASELINE 1D:
-[(['beloved'], 0.1969896), (['philosophical'], 0.13393135), (['biblical'], 0.13253306), (['evolutionary'], 0.10474069), (['joyful'], 0.065388843)]
-
-art is a woman
-L1 RUN:
-
-L1:
-[(['literary', 'meditative'], 0.020656081), (['eclectic', 'meditative'], 0.020621853), (['meditative', 'womanly'], 0.019898491), (['meditative', 'tasteful'], 0.019056087), (['meditative', 'vibrant'], 0.018676428)]
-[(['eclectic', 'meditative'], 0.019167155), (['literary', 'meditative'], 0.017944176), (['meditative', 'womanly'], 0.017908607), (['artful', 'meditative'], 0.017077655), (['figurative', 'meditative'], 0.01671586)]
-[(['eclectic', 'vivacious'], 0.019489525), (['tasteful', 'vivacious'], 0.019057438), (['eclectic', 'gorgeous'], 0.016732736), (['gorgeous', 'tasteful'], 0.015539997), (['eclectic', 'erotic'], 0.015538937)]
-
-DEMARG
-[('meditative', 1.2182391242952784), ('beautiful', 1.0881531675826106), ('gorgeous', 1.0751557745224534), ('eclectic', 1.0692274169618174), ('tasteful', 1.0447409859908745)]
-[('meditative', 1.2038673335323919), ('beautiful', 1.0903471935918483), ('gorgeous', 1.0845488426478465), ('eclectic', 1.071619594079509), ('vivacious', 1.04059871553845)]
-[('meditative', 1.1127273290530078), ('beautiful', 1.1063808324519695), ('gorgeous', 1.1055520858443486), ('eclectic', 1.1010730963981794), ('tasteful', 1.0538201419422277)]
-
-1 DIMENSION
-[(['meditative'], 0.4053151), (['gorgeous'], 0.16057238), (['beautiful'], 0.13492405), (['sensual'], 0.029196745), (['vivacious'], 0.017582694)]
-[(['meditative'], 0.35235265), (['beautiful'], 0.13905323), (['gorgeous'], 0.12015235), (['eclectic'], 0.030570742), (['sensual'], 0.029161647)]
-[(['meditative'], 0.50207901), (['gorgeous'], 0.12673123), (['beautiful'], 0.11457454), (['sensual'], 0.023684811), (['eclectic'], 0.019748211)]
-
-WORLD MOVEMENT
-[('meditative', 1.1437220557966545), ('tasteful', 0.93803438668910588), ('vivacious', 1.052970114643494), ('unorthodox', 1.0517744527067372), ('crazed', 1.050979112700922)]
-[('meditative', 1.1454254871631657), ('sensual', 1.0870118288399584), ('poetic', 0.93069391005863089), ('cultural', 1.0637470558242823), ('proactive', 0.94488692826742859)]
-[('artistic', 0.91436533065597991), ('erotic', 0.93019129221467367), ('gorgeous', 0.930666363729723), ('kinky', 0.93449360292817885), ('witty', 0.93804417677640173)]
-
-BASELINE
-[(['postmodern', 'vivacious'], 0.16279365), (['literary', 'vivacious'], 0.13420247), (['literary', 'postmodern'], 0.1037057), (['exquisite', 'vivacious'], 0.10204195), (['exquisite', 'literary'], 0.082484581)]
-BASELINE 1D:
-[(['vivacious'], 0.34690011), (['postmodern'], 0.23547377), (['literary'], 0.17065147), (['exquisite'], 0.11560299), (['unconscious'], 0.09541855)]
-
-man is a snake
-L1 RUN:
-
-L1:
-[(['menacing', 'sadistic'], 0.023476694), (['sadistic', 'unidentified'], 0.022535309), (['disoriented', 'menacing'], 0.014363029), (['delusional', 'vicious'], 0.012427706), (['demented', 'proverbial'], 0.012393177)]
-[(['menacing', 'sadistic'], 0.034199163), (['sadistic', 'unidentified'], 0.032725919), (['disoriented', 'sadistic'], 0.025791721), (['disoriented', 'evil'], 0.014789813), (['disoriented', 'fake'], 0.01467821)]
-[(['sadistic', 'unidentified'], 0.038805533), (['menacing', 'sadistic'], 0.024063293), (['evil', 'unharmed'], 0.020757046), (['unidentified', 'vicious'], 0.016701534), (['mysterious', 'sadistic'], 0.016244609)]
-
-DEMARG
-[('proverbial', 1.1162531403349589), ('disoriented', 1.113928613784801), ('menacing', 1.0649891069444504), ('unidentified', 1.058396406207873), ('sadistic', 1.0561542623031939)]
-[('disoriented', 1.1796268197419015), ('sadistic', 1.0810382125862941), ('proverbial', 1.0764962896224193), ('menacing', 1.061372033872809), ('unidentified', 1.0563870913271722)]
-[('proverbial', 1.1208176731825921), ('disoriented', 1.0787212745110781), ('unidentified', 1.0764376833144564), ('sadistic', 1.0737985685676319), ('fake', 1.0579064629435522)]
-
-1 DIMENSION
-[(['disoriented'], 0.066555366), (['proverbial'], 0.059914283), (['vicious'], 0.051466603), (['mysterious'], 0.049712639), (['menacing'], 0.040245768)]
-[(['proverbial'], 0.062318023), (['mysterious'], 0.044800755), (['menacing'], 0.044787396), (['disoriented'], 0.038336273), (['fake'], 0.035859153)]
-[(['disoriented'], 0.080527313), (['proverbial'], 0.075118504), (['vicious'], 0.050802704), (['menacing'], 0.04659918), (['mysterious'], 0.04657853)]
-
-WORLD MOVEMENT
-[('fake', 1.1290632966592662), ('proverbial', 0.90147332176312311), ('ignorant', 1.0958893203264681), ('dumb', 1.0950648784209662), ('immature', 1.093993288223962)]
-[('disoriented', 0.84467697467282543), ('thieving', 1.1661998407861738), ('sadistic', 1.1595321792740829), ('intermediate', 0.92386392557988817), ('telepathic', 1.0822853264694852)]
-[('nasty', 0.88485598756846895), ('freaky', 0.89868292995674404), ('nice', 0.89934233824253895), ('proverbial', 0.90048175189153778), ('unidentified', 1.1102683703343044)]
-
-BASELINE
-[(['disgusting', 'menacing'], 0.019909553), (['heartless', 'menacing'], 0.016830858), (['disgusting', 'ornery'], 0.015860436), (['freaky', 'heartless'], 0.015287812), (['freaky', 'menacing'], 0.014607354)]
-BASELINE 1D:
-[(['disgusting'], 0.11822446), (['freaky'], 0.11507144), (['menacing'], 0.099774353), (['heartless'], 0.088085979), (['sadistic'], 0.061077185)]
-
-life is a snowflake
-L1 RUN:
-
-L1:
-[(['fantastical', 'zodiacal'], 0.064090326), (['gorgeous', 'zodiacal'], 0.034782175), (['childlike', 'zodiacal'], 0.03235339), (['terrifying', 'zodiacal'], 0.0311235), (['adorable', 'zodiacal'], 0.030665025)]
-[(['beautiful', 'gorgeous'], 0.04181743), (['everyday', 'gorgeous'], 0.034525301), (['gorgeous', 'wonderful'], 0.034436721), (['eternal', 'infinite'], 0.030544892), (['gorgeous', 'romantic'], 0.026390634)]
-[(['beautiful', 'gorgeous'], 0.030895043), (['eternal', 'infinite'], 0.028859461), (['fantastical', 'zodiacal'], 0.026750822), (['eternal', 'gorgeous'], 0.021703366), (['eternal', 'fantastical'], 0.02080263)]
-
-DEMARG
-[('zodiacal', 1.2548826330734553), ('gorgeous', 1.0937105902775923), ('fantastical', 1.0761215946065301), ('kindhearted', 1.0729744691322023), ('eternal', 1.0690710189047734)]
-[('gorgeous', 1.1338074733630317), ('zodiacal', 1.0971444200629572), ('infinite', 1.0922920893934902), ('eternal', 1.0806721207882379), ('poetic', 1.0742574446798228)]
-[('zodiacal', 1.1314954630573704), ('gorgeous', 1.1048593212927089), ('eternal', 1.088684228082911), ('poetic', 1.0721606596954181), ('infinite', 1.0705716590303511)]
-
-1 DIMENSION
-[(['zodiacal'], 0.072467498), (['eternal'], 0.050556056), (['infinite'], 0.050422788), (['fantastical'], 0.041118551), (['gorgeous'], 0.040994763)]
-[(['kindhearted'], 0.090973958), (['zodiacal'], 0.081280276), (['eternal'], 0.045212004), (['poetic'], 0.041492507), (['infinite'], 0.038335569)]
-[(['zodiacal'], 0.05634914), (['kindhearted'], 0.047306836), (['eternal'], 0.044261683), (['fantastical'], 0.042432748), (['everyday'], 0.041834772)]
-
-WORLD MOVEMENT
-[('zodiacal', 1.2804113511878767), ('everlasting', 1.1585358154310696), ('gorgeous', 1.1366675973443479), ('ghostly', 1.1248650068837431), ('romantic', 0.89320099098652628)]
-[('gorgeous', 1.1830347070775336), ('beautiful', 1.1802703306150486), ('lovely', 1.1682848694681971), ('stunning', 1.1534610859560459), ('fabulous', 1.1432894612542082)]
-[('lovely', 1.1450982809375512), ('gorgeous', 1.1363405312498343), ('beautiful', 1.1228600936413387), ('wonderful', 1.1153696844755552), ('adorable', 1.1098807925336156)]
-
-BASELINE
-[(['everlasting', 'poetic'], 0.14156094), (['joyful', 'poetic'], 0.067507498), (['angelic', 'poetic'], 0.056696769), (['dreamy', 'poetic'], 0.042233068), (['everlasting', 'ghostly'], 0.041976284)]
-BASELINE 1D:
-[(['poetic'], 0.26770768), (['everlasting'], 0.19182438), (['angelic'], 0.093352757), (['joyful'], 0.088839538), (['ghostly'], 0.084697843)]
+VECTOR BASELINE
+['soulful', 'distinctive', 'lyrical', 'subtle', 'familiar']
 
 hope is a drug
 L1 RUN:
@@ -419,3 +147,305 @@ BASELINE
 [(['positive', 'unlikely'], 0.088804871), (['positive', 'preventive'], 0.085640475), (['preventive', 'unlikely'], 0.057612877), (['erectile', 'positive'], 0.049676705), (['erectile', 'unlikely'], 0.043981832)]
 BASELINE 1D:
 [(['positive'], 0.26580703), (['unlikely'], 0.24517429), (['preventive'], 0.091332331), (['desperate'], 0.083055802), (['erectile'], 0.063173465)]
+VECTOR BASELINE
+['promising', 'anti', 'positive', 'illicit', 'illegal']
+
+life is a tree
+L1 RUN:
+
+L1:
+[(['biblical', 'societal'], 0.052582815), (['biblical', 'neurotic'], 0.029863276), (['evolutionary', 'selfless'], 0.028202623), (['biblical', 'wonderful'], 0.02562339), (['botanic', 'societal'], 0.022155516)]
+[(['biblical', 'societal'], 0.099449292), (['botanic', 'societal'], 0.03671027), (['evolutionary', 'selfless'], 0.028824838), (['biblical', 'lovely'], 0.02314424), (['biblical', 'neurotic'], 0.021860961)]
+[(['biblical', 'societal'], 0.082931459), (['botanic', 'societal'], 0.047641143), (['everlasting', 'lovely'], 0.035744559), (['evolutionary', 'selfless'], 0.033936057), (['biblical', 'lovely'], 0.02841402)]
+
+DEMARG
+[('biblical', 1.1640919735165498), ('societal', 1.0783562554254165), ('selfless', 1.0649919597114594), ('neurotic', 1.0568484151668038), ('everlasting', 1.0529843885724761)]
+[('biblical', 1.1636242142741524), ('societal', 1.1350969764893273), ('selfless', 1.0514647489998745), ('everlasting', 1.0454128972962675), ('botanic', 1.0440294609409591)]
+[('biblical', 1.1611059508875645), ('societal', 1.1223187152726086), ('everlasting', 1.0727787107729692), ('selfless', 1.0708933740542914), ('botanic', 1.0599747544810905)]
+
+1 DIMENSION
+[(['biblical'], 0.045120172), (['beloved'], 0.043329112), (['precious'], 0.041481677), (['everlasting'], 0.041421067), (['botanic'], 0.039068732)]
+[(['precious'], 0.047031343), (['beloved'], 0.046566639), (['biblical'], 0.04214368), (['wonderful'], 0.039570063), (['everyday'], 0.036825448)]
+[(['everlasting'], 0.049842224), (['biblical'], 0.047153693), (['precious'], 0.045993481), (['beloved'], 0.042627599), (['botanic'], 0.040818561)]
+
+WORLD MOVEMENT
+[('unconscious', 0.76376555247277944), ('innocent', 0.83003764836863336), ('botanic', 0.84678109644326205), ('happiest', 1.164650216107004), ('systematic', 0.87058421028565303)]
+[('lifelong', 1.1851873019004009), ('ancestral', 0.89133728531318723), ('beloved', 1.1144694381354252), ('thankful', 0.91137654070465146), ('bashful', 1.0872426127142512)]
+[('neurotic', 0.73563355138024478), ('innocent', 0.79802594213488964), ('happiest', 0.80165977596549787), ('guilty', 0.85437743504494756), ('insecure', 0.85490716371383713)]
+
+BASELINE
+[(['beloved', 'joyful'], 0.04643485), (['beloved', 'biblical'], 0.032804821), (['beloved', 'virtuous'], 0.030740026), (['beloved', 'philosophical'], 0.028237846), (['beautiful', 'beloved'], 0.028063457)]
+BASELINE 1D:
+[(['beloved'], 0.1969896), (['philosophical'], 0.13393135), (['biblical'], 0.13253306), (['evolutionary'], 0.10474069), (['joyful'], 0.065388843)]
+VECTOR BASELINE
+['beautiful', 'true', 'entire', 'wonderful', 'lovely']
+
+art is a woman
+L1 RUN:
+
+L1:
+[(['literary', 'meditative'], 0.020656081), (['eclectic', 'meditative'], 0.020621853), (['meditative', 'womanly'], 0.019898491), (['meditative', 'tasteful'], 0.019056087), (['meditative', 'vibrant'], 0.018676428)]
+[(['eclectic', 'meditative'], 0.019167155), (['literary', 'meditative'], 0.017944176), (['meditative', 'womanly'], 0.017908607), (['artful', 'meditative'], 0.017077655), (['figurative', 'meditative'], 0.01671586)]
+[(['eclectic', 'vivacious'], 0.019489525), (['tasteful', 'vivacious'], 0.019057438), (['eclectic', 'gorgeous'], 0.016732736), (['gorgeous', 'tasteful'], 0.015539997), (['eclectic', 'erotic'], 0.015538937)]
+
+DEMARG
+[('meditative', 1.2182391242952784), ('beautiful', 1.0881531675826106), ('gorgeous', 1.0751557745224534), ('eclectic', 1.0692274169618174), ('tasteful', 1.0447409859908745)]
+[('meditative', 1.2038673335323919), ('beautiful', 1.0903471935918483), ('gorgeous', 1.0845488426478465), ('eclectic', 1.071619594079509), ('vivacious', 1.04059871553845)]
+[('meditative', 1.1127273290530078), ('beautiful', 1.1063808324519695), ('gorgeous', 1.1055520858443486), ('eclectic', 1.1010730963981794), ('tasteful', 1.0538201419422277)]
+
+1 DIMENSION
+[(['meditative'], 0.4053151), (['gorgeous'], 0.16057238), (['beautiful'], 0.13492405), (['sensual'], 0.029196745), (['vivacious'], 0.017582694)]
+[(['meditative'], 0.35235265), (['beautiful'], 0.13905323), (['gorgeous'], 0.12015235), (['eclectic'], 0.030570742), (['sensual'], 0.029161647)]
+[(['meditative'], 0.50207901), (['gorgeous'], 0.12673123), (['beautiful'], 0.11457454), (['sensual'], 0.023684811), (['eclectic'], 0.019748211)]
+
+WORLD MOVEMENT
+[('meditative', 1.1437220557966545), ('tasteful', 0.93803438668910588), ('vivacious', 1.052970114643494), ('unorthodox', 1.0517744527067372), ('crazed', 1.050979112700922)]
+[('meditative', 1.1454254871631657), ('sensual', 1.0870118288399584), ('poetic', 0.93069391005863089), ('cultural', 1.0637470558242823), ('proactive', 0.94488692826742859)]
+[('artistic', 0.91436533065597991), ('erotic', 0.93019129221467367), ('gorgeous', 0.930666363729723), ('kinky', 0.93449360292817885), ('witty', 0.93804417677640173)]
+
+BASELINE
+[(['postmodern', 'vivacious'], 0.16279365), (['literary', 'vivacious'], 0.13420247), (['literary', 'postmodern'], 0.1037057), (['exquisite', 'vivacious'], 0.10204195), (['exquisite', 'literary'], 0.082484581)]
+BASELINE 1D:
+[(['vivacious'], 0.34690011), (['postmodern'], 0.23547377), (['literary'], 0.17065147), (['exquisite'], 0.11560299), (['unconscious'], 0.09541855)]
+VECTOR BASELINE
+['contemporary', 'beautiful', 'modern', 'artistic', 'literary']
+
+life is a snowflake
+L1 RUN:
+
+L1:
+[(['fantastical', 'zodiacal'], 0.064090326), (['gorgeous', 'zodiacal'], 0.034782175), (['childlike', 'zodiacal'], 0.03235339), (['terrifying', 'zodiacal'], 0.0311235), (['adorable', 'zodiacal'], 0.030665025)]
+[(['beautiful', 'gorgeous'], 0.04181743), (['everyday', 'gorgeous'], 0.034525301), (['gorgeous', 'wonderful'], 0.034436721), (['eternal', 'infinite'], 0.030544892), (['gorgeous', 'romantic'], 0.026390634)]
+[(['beautiful', 'gorgeous'], 0.030895043), (['eternal', 'infinite'], 0.028859461), (['fantastical', 'zodiacal'], 0.026750822), (['eternal', 'gorgeous'], 0.021703366), (['eternal', 'fantastical'], 0.02080263)]
+
+DEMARG
+[('zodiacal', 1.2548826330734553), ('gorgeous', 1.0937105902775923), ('fantastical', 1.0761215946065301), ('kindhearted', 1.0729744691322023), ('eternal', 1.0690710189047734)]
+[('gorgeous', 1.1338074733630317), ('zodiacal', 1.0971444200629572), ('infinite', 1.0922920893934902), ('eternal', 1.0806721207882379), ('poetic', 1.0742574446798228)]
+[('zodiacal', 1.1314954630573704), ('gorgeous', 1.1048593212927089), ('eternal', 1.088684228082911), ('poetic', 1.0721606596954181), ('infinite', 1.0705716590303511)]
+
+1 DIMENSION
+[(['zodiacal'], 0.072467498), (['eternal'], 0.050556056), (['infinite'], 0.050422788), (['fantastical'], 0.041118551), (['gorgeous'], 0.040994763)]
+[(['kindhearted'], 0.090973958), (['zodiacal'], 0.081280276), (['eternal'], 0.045212004), (['poetic'], 0.041492507), (['infinite'], 0.038335569)]
+[(['zodiacal'], 0.05634914), (['kindhearted'], 0.047306836), (['eternal'], 0.044261683), (['fantastical'], 0.042432748), (['everyday'], 0.041834772)]
+
+WORLD MOVEMENT
+[('zodiacal', 1.2804113511878767), ('everlasting', 1.1585358154310696), ('gorgeous', 1.1366675973443479), ('ghostly', 1.1248650068837431), ('romantic', 0.89320099098652628)]
+[('gorgeous', 1.1830347070775336), ('beautiful', 1.1802703306150486), ('lovely', 1.1682848694681971), ('stunning', 1.1534610859560459), ('fabulous', 1.1432894612542082)]
+[('lovely', 1.1450982809375512), ('gorgeous', 1.1363405312498343), ('beautiful', 1.1228600936413387), ('wonderful', 1.1153696844755552), ('adorable', 1.1098807925336156)]
+
+BASELINE
+[(['everlasting', 'poetic'], 0.14156094), (['joyful', 'poetic'], 0.067507498), (['angelic', 'poetic'], 0.056696769), (['dreamy', 'poetic'], 0.042233068), (['everlasting', 'ghostly'], 0.041976284)]
+BASELINE 1D:
+[(['poetic'], 0.26770768), (['everlasting'], 0.19182438), (['angelic'], 0.093352757), (['joyful'], 0.088839538), (['ghostly'], 0.084697843)]
+VECTOR BASELINE
+['beautiful', 'everyday', 'wonderful', 'carefree', 'splendid']
+
+earth is a womb
+L1 RUN:
+
+L1:
+[(['angelic', 'worldly'], 0.092465825), (['angelic', 'sinful'], 0.082012035), (['innermost', 'worldly'], 0.046245791), (['angelic', 'innermost'], 0.040743157), (['angelic', 'primeval'], 0.036431391)]
+[(['earthly', 'innermost'], 0.054670256), (['innermost', 'worldly'], 0.053384267), (['earthly', 'worldly'], 0.04219937), (['angelic', 'worldly'], 0.04095234), (['maternal', 'worldly'], 0.036002211)]
+[(['earthly', 'primeval'], 0.050861932), (['angelic', 'worldly'], 0.042979345), (['innermost', 'worldly'], 0.042071398), (['primeval', 'zodiacal'], 0.041905608), (['earthly', 'worldly'], 0.039166193)]
+
+DEMARG
+[('angelic', 1.2283496941262644), ('worldly', 1.197883220485283), ('innermost', 1.1019087454992591), ('primeval', 1.0795511511755513), ('earthly', 1.0728373145923196)]
+[('worldly', 1.1896453221511742), ('innermost', 1.1262679519265066), ('primeval', 1.1214728346593155), ('earthly', 1.103549140133955), ('angelic', 1.1007883629380995)]
+[('primeval', 1.1911126272622354), ('worldly', 1.1891850461744289), ('angelic', 1.0995031362957202), ('earthly', 1.0920260196471954), ('innermost', 1.0863390152269985)]
+
+1 DIMENSION
+[(['angelic'], 0.11242803), (['worldly'], 0.094846144), (['innermost'], 0.084043488), (['primeval'], 0.077109955), (['earthly'], 0.05930553)]
+[(['angelic'], 0.21800865), (['innermost'], 0.08697705), (['earthly'], 0.073101021), (['primeval'], 0.069513388), (['sinful'], 0.049163245)]
+[(['angelic'], 0.11967383), (['worldly'], 0.084738366), (['innermost'], 0.069904052), (['eternal'], 0.06553746), (['primeval'], 0.063840434)]
+
+WORLD MOVEMENT
+[('angelic', 1.1776786736455431), ('godly', 0.93087658993920397), ('worldly', 1.0643226690772696), ('helpless', 0.94790918947523828), ('insistent', 0.94896518636348082)]
+[('sinful', 0.91316573578346782), ('heavenly', 0.93694733968499089), ('maternal', 1.063389791991084), ('nether', 0.94503304794015708), ('harmful', 1.0575958708714672)]
+[('primeval', 1.1686432981743677), ('godly', 0.88386900164381377), ('worldly', 1.0787643476342084), ('goody', 0.93597337498338462), ('singular', 0.94106142338175469)]
+
+BASELINE
+[(['earthly', 'innermost'], 0.2881794), (['innermost', 'zodiacal'], 0.15301533), (['innermost', 'radiant'], 0.14048059), (['earthly', 'radiant'], 0.13930677), (['earthly', 'zodiacal'], 0.126729)]
+BASELINE 1D:
+[(['innermost'], 0.35328847), (['earthly'], 0.33191198), (['radiant'], 0.15053177), (['zodiacal'], 0.11898243), (['sinful'], 0.035157885)]
+VECTOR BASELINE
+['primordial', 'divine', 'evil', 'beautiful', 'heavenly']
+
+restaurant is a circus
+L1 RUN:
+
+L1:
+[(['frenzied', 'savory'], 0.0314903), (['savory', 'surreal'], 0.022444643), (['frenzied', 'opulent'], 0.022169111), (['swanky', 'whimsical'], 0.018847762), (['authentic', 'savory'], 0.018387986)]
+[(['frenzied', 'opulent'], 0.026913915), (['frenzied', 'savory'], 0.026825702), (['swanky', 'whimsical'], 0.020460231), (['extravagant', 'swanky'], 0.019197123), (['swanky', 'theatrical'], 0.01753987)]
+[(['frenzied', 'savory'], 0.028502375), (['extravagant', 'frenzied'], 0.024904789), (['frenzied', 'wild'], 0.018250601), (['frenzied', 'opulent'], 0.017625993), (['famous', 'wild'], 0.017422704)]
+
+DEMARG
+[('savory', 1.1448999003279907), ('frenzied', 1.0723176732818327), ('opulent', 1.0620155190806375), ('wild', 1.0617027980809721), ('surreal', 1.0613475098486136)]
+[('savory', 1.1055353661122236), ('frenzied', 1.08965926631669), ('extravagant', 1.0742517618924716), ('swanky', 1.0617420278358991), ('opulent', 1.0616219744575439)]
+[('wild', 1.1243002516796119), ('frenzied', 1.0945458982042933), ('savory', 1.0890801404547539), ('extravagant', 1.0703385632888576), ('crazy', 1.0529064657042628)]
+
+1 DIMENSION
+[(['wild'], 0.079649962), (['savory'], 0.055872198), (['frenzied'], 0.054491509), (['crazy'], 0.050231155), (['swanky'], 0.041341517)]
+[(['savory'], 0.066814326), (['wild'], 0.059875071), (['frenzied'], 0.051586036), (['surreal'], 0.045712981), (['extravagant'], 0.041188285)]
+[(['wild'], 0.06424699), (['savory'], 0.061755095), (['crazy'], 0.047345661), (['swanky'], 0.045277849), (['frenzied'], 0.044490304)]
+
+WORLD MOVEMENT
+[('surreal', 0.90648398367081229), ('savory', 1.0944955636497817), ('humble', 1.0589520441156168), ('sarcastic', 1.0555764241676744), ('keen', 1.0554886729895117)]
+[('bizarre', 1.0631081759875818), ('possible', 1.0442361220397223), ('impossible', 1.043918062323772), ('exotic', 0.95888573586929515), ('fond', 1.0420430684120552)]
+[('authentic', 1.1332164341678042), ('opulent', 1.1268883091711699), ('unique', 1.1049255624621805), ('famous', 1.0966624199102959), ('motivational', 1.0915656592214236)]
+
+BASELINE
+[(['bustling', 'delectable'], 0.034320559), (['bustling', 'chaotic'], 0.029782224), (['bustling', 'macabre'], 0.024331607), (['bustling', 'scrumptious'], 0.024221415), (['bustling', 'quaint'], 0.023870721)]
+BASELINE 1D:
+[(['bustling'], 0.15541558), (['chaotic'], 0.11637996), (['macabre'], 0.092435606), (['delectable'], 0.085029729), (['flamboyant'], 0.079441369)]
+VECTOR BASELINE
+['famed', 'famous', 'trendy', 'legendary', 'theatrical']
+
+home is a lifeboat
+L1 RUN:
+
+L1:
+[(['commonsense', 'frightened'], 0.042207543), (['habitable', 'nautical'], 0.035316035), (['brave', 'nautical'], 0.030268874), (['brave', 'godly'], 0.025830582), (['farthest', 'sociable'], 0.023840934)]
+[(['habitable', 'nautical'], 0.045184106), (['farthest', 'frugal'], 0.043257106), (['farthest', 'frightened'], 0.036705256), (['farthest', 'frantic'], 0.029436389), (['brave', 'farthest'], 0.023347201)]
+[(['farthest', 'sociable'], 0.018739989), (['brave', 'godly'], 0.018281715), (['heartbroken', 'precious'], 0.018126683), (['habitable', 'nautical'], 0.015936442), (['precious', 'sociable'], 0.015861699)]
+
+DEMARG
+[('precious', 1.1203012873372216), ('frightened', 1.1112446109709633), ('brave', 1.0979236291340886), ('nautical', 1.0778568200835144), ('farthest', 1.0619474251102958)]
+[('farthest', 1.1167206033775456), ('frightened', 1.0982897955376025), ('precious', 1.0951084534867077), ('nautical', 1.0803064776050673), ('habitable', 1.0652656905521134)]
+[('precious', 1.1773362912226053), ('brave', 1.0740494838981742), ('unharmed', 1.0621271875183838), ('frightened', 1.0616262253627584), ('nautical', 1.0601679337523233)]
+
+1 DIMENSION
+[(['precious'], 0.17645352), (['frightened'], 0.057466473), (['unharmed'], 0.056783106), (['farthest'], 0.051277835), (['brave'], 0.049340203)]
+[(['precious'], 0.26960722), (['frightened'], 0.058545437), (['farthest'], 0.052510027), (['unharmed'], 0.04937958), (['nautical'], 0.041181322)]
+[(['precious'], 0.18400455), (['unharmed'], 0.073922522), (['farthest'], 0.053965505), (['nautical'], 0.049741343), (['petty'], 0.038737074)]
+
+WORLD MOVEMENT
+[('frightened', 0.76533045964314095), ('commonsense', 1.121870286063142), ('brave', 1.1169566858283337), ('beloved', 1.1083836453706406), ('beautiful', 1.1072237008449353)]
+[('farthest', 1.3320572060935547), ('sociable', 0.80547844926254442), ('effortless', 1.1314540033298355), ('compelling', 1.1278182310671132), ('medieval', 0.88716951888598805)]
+[('precious', 1.1442685716835779), ('lifesaving', 0.8849676610144761), ('unconscious', 0.88725255475716569), ('lucky', 1.1039729916455465), ('adorable', 1.0925889999845497)]
+
+BASELINE
+[(['heroic', 'nautical'], 0.10307125), (['lifesaving', 'nautical'], 0.088228062), (['nautical', 'stricken'], 0.084897652), (['heroic', 'lifesaving'], 0.060840331), (['frugal', 'nautical'], 0.059368923)]
+BASELINE 1D:
+[(['nautical'], 0.22158247), (['heroic'], 0.19057897), (['lifesaving'], 0.15886338), (['stricken'], 0.14330426), (['frugal'], 0.10138232)]
+VECTOR BASELINE
+['convalescent', 'temporary', 'unharmed', 'marooned', 'intrepid']
+
+father is a shark
+L1 RUN:
+
+L1:
+[(['adoptive', 'workaholic'], 0.055545066), (['grieving', 'workaholic'], 0.036284305), (['affectionate', 'vicious'], 0.033472717), (['overprotective', 'workaholic'], 0.033178575), (['heartbroken', 'vicious'], 0.031187389)]
+[(['adoptive', 'workaholic'], 0.065884694), (['overprotective', 'workaholic'], 0.054068804), (['terrifying', 'workaholic'], 0.053335071), (['distraught', 'workaholic'], 0.052752081), (['hunky', 'workaholic'], 0.028887898)]
+[(['grieving', 'workaholic'], 0.044272173), (['creepy', 'terrifying'], 0.043891672), (['adoptive', 'workaholic'], 0.035471238), (['facetious', 'terrifying'], 0.033597298), (['creepy', 'vicious'], 0.028368399)]
+
+DEMARG
+[('workaholic', 1.1656798373093871), ('vicious', 1.1576769248575824), ('terrifying', 1.0764108290543943), ('adoptive', 1.0595163652327555), ('facetious', 1.0430904773572938)]
+[('workaholic', 1.2212972142725458), ('vicious', 1.1320592371055003), ('terrifying', 1.1269570413111427), ('adoptive', 1.0628198186735809), ('overprotective', 1.0409379080354755)]
+[('workaholic', 1.1475406342229646), ('terrifying', 1.1435387402225958), ('vicious', 1.1341203859323794), ('adoptive', 1.0523850263859811), ('facetious', 1.0488991317518068)]
+
+1 DIMENSION
+[(['terrifying'], 0.084915854), (['vicious'], 0.081788763), (['workaholic'], 0.074009001), (['jealous'], 0.051296752), (['creepy'], 0.037754904)]
+[(['terrifying'], 0.092623368), (['vicious'], 0.058127128), (['workaholic'], 0.056724973), (['jealous'], 0.056191988), (['facetious'], 0.042463321)]
+[(['terrifying'], 0.088635989), (['workaholic'], 0.07695388), (['vicious'], 0.04417577), (['jealous'], 0.043795064), (['facetious'], 0.03958885)]
+
+WORLD MOVEMENT
+[('maritime', 0.79935552207671345), ('jealous', 1.2251781186775088), ('desperate', 1.1754158079103099), ('sure', 1.175398194958047), ('curious', 1.1748033144876668)]
+[('grieving', 0.7309937881185421), ('workaholic', 1.2179491827862359), ('prized', 0.86422432144358707), ('terrifying', 0.86731789735536213), ('epic', 0.87224197374688661)]
+[('hunky', 0.77932454143468988), ('mysterious', 0.86550166469733314), ('subtle', 0.8808501236746088), ('sophisticated', 0.88267750671195155), ('vicious', 0.88359425732008312)]
+
+BASELINE
+[(['creepy', 'facetious'], 0.047762901), (['creepy', 'freaky'], 0.047523864), (['creepy', 'homicidal'], 0.04161885), (['freaky', 'lifesaving'], 0.036909517), (['creepy', 'prehistoric'], 0.033383343)]
+BASELINE 1D:
+[(['creepy'], 0.19434243), (['freaky'], 0.14465582), (['frightened'], 0.091167532), (['lifesaving'], 0.089482985), (['homicidal'], 0.087199464)]
+VECTOR BASELINE
+['famous', 'mysterious', 'beloved', 'paternal', 'legendary']
+
+pain is a thorn
+L1 RUN:
+
+L1:
+[(['acute', 'helpless'], 0.016484257), (['helpless', 'torrid'], 0.015021472), (['beneficial', 'helpless'], 0.014855609), (['helpless', 'humbling'], 0.014597884), (['elusive', 'helpless'], 0.014583483)]
+[(['humbling', 'unshakable'], 0.028378194), (['humbling', 'painless'], 0.022887535), (['humbling', 'torrid'], 0.019984588), (['ashamed', 'miserable'], 0.014410261), (['torrid', 'unshakable'], 0.014276714)]
+[(['humbling', 'unshakable'], 0.02679445), (['humbling', 'torrid'], 0.021906132), (['acute', 'helpless'], 0.019690482), (['humbling', 'painless'], 0.019200603), (['helpless', 'unshakable'], 0.018933168)]
+
+DEMARG
+[('helpless', 1.2153939086391994), ('unbearable', 1.1354635199798446), ('humbling', 1.0575456749497605), ('ashamed', 1.0515507115750073), ('traumatic', 1.0483955758383898)]
+[('helpless', 1.159425175149462), ('humbling', 1.0924850661828773), ('unshakable', 1.0772780829398259), ('ashamed', 1.0569184614491041), ('unbearable', 1.0533979582370248)]
+[('helpless', 1.2273753429568597), ('humbling', 1.0847381946491048), ('unshakable', 1.0811975191409506), ('ashamed', 1.0552647795607302), ('traumatic', 1.0545217314075981)]
+
+1 DIMENSION
+[(['helpless'], 0.41152948), (['unbearable'], 0.13104373), (['traumatic'], 0.032077346), (['unshakable'], 0.032027658), (['humbling'], 0.031826988)]
+[(['unbearable'], 0.26418701), (['helpless'], 0.25575486), (['humbling'], 0.030588362), (['unshakable'], 0.027397718), (['traumatic'], 0.026237112)]
+[(['helpless'], 0.41373119), (['unbearable'], 0.12280484), (['unshakable'], 0.043157697), (['humbling'], 0.038620867), (['ashamed'], 0.026248598)]
+
+WORLD MOVEMENT
+[('unbearable', 0.88968612249646406), ('unshakable', 1.0956483875218861), ('helpless', 1.0753859439267748), ('emotionless', 1.0670637154653557), ('nostalgic', 1.0557885586741618)]
+[('humbling', 0.94196798533587389), ('acute', 0.94654539737207766), ('staunch', 1.0508679109837169), ('problematic', 1.0500439217369799), ('unshakable', 0.95868361848008288)]
+[('unshakable', 0.90539193371619064), ('staunch', 0.90836914664189883), ('unbearable', 1.0970645387346205), ('humbling', 0.93456283508053117), ('emotionless', 0.94612243273062713)]
+
+BASELINE
+[(['acute', 'humbling'], 0.061350819), (['agonizing', 'humbling'], 0.053571668), (['beneficial', 'humbling'], 0.051720716), (['humbling', 'impotent'], 0.045415264), (['humbling', 'painless'], 0.042879228)]
+BASELINE 1D:
+[(['humbling'], 0.35207999), (['acute'], 0.12451911), (['agonizing'], 0.088923834), (['painless'], 0.088217989), (['torrid'], 0.06329418)]
+VECTOR BASELINE
+['excruciating', 'nagging', 'persistent', 'chronic', 'lingering']
+
+man is a snake
+L1 RUN:
+
+L1:
+[(['menacing', 'sadistic'], 0.023476694), (['sadistic', 'unidentified'], 0.022535309), (['disoriented', 'menacing'], 0.014363029), (['delusional', 'vicious'], 0.012427706), (['demented', 'proverbial'], 0.012393177)]
+[(['menacing', 'sadistic'], 0.034199163), (['sadistic', 'unidentified'], 0.032725919), (['disoriented', 'sadistic'], 0.025791721), (['disoriented', 'evil'], 0.014789813), (['disoriented', 'fake'], 0.01467821)]
+[(['sadistic', 'unidentified'], 0.038805533), (['menacing', 'sadistic'], 0.024063293), (['evil', 'unharmed'], 0.020757046), (['unidentified', 'vicious'], 0.016701534), (['mysterious', 'sadistic'], 0.016244609)]
+
+DEMARG
+[('proverbial', 1.1162531403349589), ('disoriented', 1.113928613784801), ('menacing', 1.0649891069444504), ('unidentified', 1.058396406207873), ('sadistic', 1.0561542623031939)]
+[('disoriented', 1.1796268197419015), ('sadistic', 1.0810382125862941), ('proverbial', 1.0764962896224193), ('menacing', 1.061372033872809), ('unidentified', 1.0563870913271722)]
+[('proverbial', 1.1208176731825921), ('disoriented', 1.0787212745110781), ('unidentified', 1.0764376833144564), ('sadistic', 1.0737985685676319), ('fake', 1.0579064629435522)]
+
+1 DIMENSION
+[(['disoriented'], 0.066555366), (['proverbial'], 0.059914283), (['vicious'], 0.051466603), (['mysterious'], 0.049712639), (['menacing'], 0.040245768)]
+[(['proverbial'], 0.062318023), (['mysterious'], 0.044800755), (['menacing'], 0.044787396), (['disoriented'], 0.038336273), (['fake'], 0.035859153)]
+[(['disoriented'], 0.080527313), (['proverbial'], 0.075118504), (['vicious'], 0.050802704), (['menacing'], 0.04659918), (['mysterious'], 0.04657853)]
+
+WORLD MOVEMENT
+[('fake', 1.1290632966592662), ('proverbial', 0.90147332176312311), ('ignorant', 1.0958893203264681), ('dumb', 1.0950648784209662), ('immature', 1.093993288223962)]
+[('disoriented', 0.84467697467282543), ('thieving', 1.1661998407861738), ('sadistic', 1.1595321792740829), ('intermediate', 0.92386392557988817), ('telepathic', 1.0822853264694852)]
+[('nasty', 0.88485598756846895), ('freaky', 0.89868292995674404), ('nice', 0.89934233824253895), ('proverbial', 0.90048175189153778), ('unidentified', 1.1102683703343044)]
+
+BASELINE
+[(['disgusting', 'menacing'], 0.019909553), (['heartless', 'menacing'], 0.016830858), (['disgusting', 'ornery'], 0.015860436), (['freaky', 'heartless'], 0.015287812), (['freaky', 'menacing'], 0.014607354)]
+BASELINE 1D:
+[(['disgusting'], 0.11822446), (['freaky'], 0.11507144), (['menacing'], 0.099774353), (['heartless'], 0.088085979), (['sadistic'], 0.061077185)]
+VECTOR BASELINE
+['mysterious', 'crazy', 'strange', 'mythical', 'evil']
+
+life is a train
+L1 RUN:
+
+L1:
+[(['aspiring', 'transformative'], 0.031680934), (['aspiring', 'supersonic'], 0.024855532), (['supersonic', 'terrifying'], 0.024733266), (['blissful', 'transformative'], 0.021247871), (['transformative', 'traumatic'], 0.021194806)]
+[(['supersonic', 'terrifying'], 0.034658156), (['bored', 'traumatic'], 0.02583413), (['supersonic', 'tragic'], 0.022485161), (['aspiring', 'supersonic'], 0.022281639), (['stressful', 'supersonic'], 0.018235439)]
+[(['hellish', 'transformative'], 0.051301315), (['aspiring', 'transformative'], 0.04372659), (['supersonic', 'transformative'], 0.041813802), (['blissful', 'transformative'], 0.040142588), (['sane', 'transformative'], 0.035289455)]
+
+DEMARG
+[('transformative', 1.2411818083934167), ('aspiring', 1.0711918235826443), ('supersonic', 1.0656896875971724), ('traumatic', 1.0503825804721412), ('bored', 1.0388835134354637)]
+[('transformative', 1.1566683545098688), ('supersonic', 1.0966618921069873), ('aspiring', 1.066504895704774), ('traumatic', 1.0601213884323226), ('tragic', 1.0408882565380155)]
+[('transformative', 1.4358322234591072), ('supersonic', 1.0600045807287859), ('aspiring', 1.0520976680982055), ('hellish', 1.029720734930307), ('bored', 1.0296408217858153)]
+
+1 DIMENSION
+[(['transformative'], 0.12177359), (['aspiring'], 0.056513902), (['traumatic'], 0.051636722), (['supersonic'], 0.037459038), (['bored'], 0.037006952)]
+[(['bored'], 0.050132722), (['wonderful'], 0.042239472), (['aspiring'], 0.041577723), (['transformative'], 0.040019285), (['inspiring'], 0.034702118)]
+[(['transformative'], 0.082283296), (['supersonic'], 0.039568815), (['bored'], 0.038531341), (['aspiring'], 0.038127773), (['traumatic'], 0.034489587)]
+
+WORLD MOVEMENT
+[('lonely', 1.1289009256765832), ('bored', 1.115677802079839), ('heartbroken', 1.0975844788905991), ('boring', 1.0948046499573425), ('clingy', 1.0898438473136838)]
+[('bored', 1.1761232067192449), ('frustrating', 1.1390457355098105), ('entertaining', 1.1361169627388756), ('boring', 1.1331181142823843), ('annoying', 1.1324314055736615)]
+[('transformative', 1.376547833993375), ('traumatic', 1.2183291748878993), ('surreal', 1.199429075674785), ('spiritual', 1.1950274344128797), ('hectic', 1.1822095838910998)]
+
+BASELINE
+[(['bored', 'traumatic'], 0.1552148), (['selfless', 'traumatic'], 0.11635974), (['normal', 'traumatic'], 0.084789574), (['lifelong', 'traumatic'], 0.057077412), (['lifelong', 'selfless'], 0.045850843)]
+BASELINE 1D:
+[(['traumatic'], 0.31891268), (['selfless'], 0.17236131), (['bored'], 0.14182571), (['lifelong'], 0.10952832), (['lifesaving'], 0.040844612)]
+VECTOR BASELINE
+['normal', 'able', 'everyday', 'busy', 'supposed']
