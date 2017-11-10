@@ -104,8 +104,8 @@ def tf_l1(inference_params):
 	# full_l = Categorical(logits=full_l)
 	if inference_params.variational:
 		# qworld = Normal(loc=tf.Variable(tf.zeros(inference_params.vec_length)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
-		# qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[inference_params.l1_sig1] * inference_params.vec_length)
-		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
+		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[inference_params.l1_sig1] * inference_params.vec_length)
+		# qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
 		# qworld = Normal(loc=tf.Variable(tf.squeeze(mu_new)),scale=[inference_params.sigma1] * inference_params.vec_length)
 		print("QWORLD SHAPE", qworld.get_shape())
 		init = tf.global_variables_initializer()
@@ -138,9 +138,19 @@ def tf_l1(inference_params):
 	# inferred_qud = tf.reshape(inferred_qud_inter,[inferred_qud_inter_shape[0]*inferred_qud_inter_shape[1],inferred_qud_inter_shape[2],inferred_qud_inter_shape[3]])
 	# print("inferred qud",inferred_qud)
 
+	# 	inferred_qud = inferred_qud[inference_params.burn_in:]
+	# 	inferred_world = inferred_world[inference_params.burn_in:]
+	
+	if not inference_params.variational:
+		inferred_world = inferred_world[inference_params.burn_in:]
+	# 	num = (inference_params.sample_number-inference_params.burn_in) // 2
+	# 	first_half_worlds = inferred_world[:(inference_params.sample_number-inference_params.burn_in)//2]
+	# 	second_half_worlds = inferred_world[(inference_params.sample_number-inference_params.burn_in)//2:]
+	# else:
 
 	first_half_worlds = inferred_world[:inference_params.sample_number//2]
 	second_half_worlds = inferred_world[inference_params.sample_number//2:]
+	
 	out1 =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
 		first_half_worlds)
 	out2 =tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
@@ -155,9 +165,6 @@ def tf_l1(inference_params):
 	print("inferred_qud shape",inferred_qud.get_shape())
 	toc = time.time()
 	print("TIME OF DEMARGINALIZATION",toc-tic)
-	if not inference_params.variational:
-		inferred_qud = inferred_qud[inference_params.burn_in:]
-		inferred_world = inferred_world[inference_params.burn_in:]
 	# print(tac-toc)
 
 

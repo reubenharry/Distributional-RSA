@@ -1,0 +1,19 @@
+
+
+MODEL:variational
+
+
+man,shark
+L1: utts0500
+[(['mortal'], 0.011162383), (['ancient'], 0.0091199987), (['unreliable'], 0.0083558261), (['moderate'], 0.0076424009), (['icky'], 0.0074940692)]
+[(['mortal'], 0.010444564), (['ancient'], 0.0093689486), (['audacious'], 0.0089762518), (['cynical'], 0.0086420961), (['moderate'], 0.0075836829)]
+[(['mortal'], 0.0098913694), (['cynical'], 0.0084054628), (['unreliable'], 0.008178927), (['audacious'], 0.0072493628), (['bloodthirsty'], 0.0068181064)]
+BASELINE:0-100
+[(['audacious'], 0.061573014), (['ancient'], 0.034732025), (['majestic'], 0.029055215), (['monumental'], 0.025630526), (['redundant'], 0.024167014)]
+politician,shark
+L1: utts0500
+[(['unreliable'], 0.0092551177), (['ancient'], 0.0078242393), (['cynical'], 0.0073526045), (['holy'], 0.0061951908), (['icky'], 0.0058036642)]
+[(['unreliable'], 0.007740485), (['ancient'], 0.0063450183), (['cynical'], 0.0061818026), (['unorthodox'], 0.0061353333), (['mortal'], 0.0059520639)]
+[(['cynical'], 0.0091957049), (['unreliable'], 0.0067607975), (['moderate'], 0.0064156004), (['ancient'], 0.0062852688), (['unorthodox'], 0.0059534805)]
+BASELINE:0-100
+[(['attempted'], 0.028433945), (['tragic'], 0.027259463), (['true'], 0.022552487), (['passive'], 0.019501047), (['astrological'], 0.019208271)]

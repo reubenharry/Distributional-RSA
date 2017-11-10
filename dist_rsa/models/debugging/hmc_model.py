@@ -85,16 +85,16 @@ def l1_model(metaphor):
         categorical="categorical",
         sample_number = 1000,
         number_of_qud_dimensions=1,
-        # burn_in=90,
+        burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-8,
+        step_size=1e-5,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=1.0,
         rationality=1.0,
         norm_vectors=False,
-        variational=True,
-        variational_steps=1000,
+        variational=False,
+        variational_steps=100,
         baseline=is_baseline
         # world_movement=True
         )
@@ -132,4 +132,5 @@ def l1_model(metaphor):
 
 
     return [(x,np.exp(y)) for (x,y) in results],worldm
+
 
