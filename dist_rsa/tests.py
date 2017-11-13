@@ -72,9 +72,6 @@ run_new.compute_s1(s1_world=np.expand_dims(s1_world,0),debug=True,vectorization=
 tf_new = ed.get_session().run(run_new.s1_results)
 # tf_newest = ed.get_session().run(run_newest.s1_results)
 
-print("listener mean",vecs[world])
-
-print("tf new",tf_new)
 
 # print(tf_old,'\n\n\n\n\n',tf_new,"\n\n\n\n\n",tf_newest[0])
 # print(tf_old.shape,tf_new.shape,tf_newest.shape)
@@ -87,7 +84,11 @@ print("tf new",tf_new)
 
 np_unvectorized = np.array(np_rsa(s1_world=s1_world, qud_mat=np.array([vecs['vicious'],vecs['wet']]).T, vecs=vecs,vec_length=vec_length, listener_prior_mean=vecs[world], possible_utterances=possible_utterances, utterance=utt,sig1=sig1,sig2=sig2,frequencies=defaultdict(lambda:1)))
 
-print("numpy",np_unvectorized)
+print(tf_new[2],np_unvectorized)
+
+test = np.array_equal(tf_new[2],np_unvectorized)
+assert(np.testing.assert_allclose(tf_new[2],np_unvectorized,antol=1e-1))
+# print("numpy",np_unvectorized)
 
 
 # print(np_unvectorized)

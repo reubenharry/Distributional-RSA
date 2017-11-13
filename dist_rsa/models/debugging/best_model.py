@@ -22,6 +22,8 @@ real_vecs = load_vecs(mean=True,pca=True,vec_length=vec_size,vec_type=vec_kind)
 
 qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs and a in real_vecs]
 
+
+
 qud_words = sorted(qud_words,\
 #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
     key=lambda x:freqs[x],reverse=True)
@@ -30,8 +32,12 @@ noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs an
 noun_words = sorted(noun_words,\
     key=lambda x:freqs[x],reverse=True)
 
+# print("QUDS AND NOUNS 1",qud_words[0],noun_words[0])
+
 random.shuffle(qud_words)
 random.shuffle(noun_words)
+# print("QUDS AND NOUNS after shuffle",qud_words[0],noun_words[0])
+
 
 #     key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
 # possible_utterance_nouns = 
@@ -50,13 +56,11 @@ random.shuffle(noun_words)
 def l1_model(metaphor):
     subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline,qud_num = metaphor
 
-    quds = qud_words[:qud_num]
+    quds = qud_words[:qud_num] + ['ugly','strong']
     possible_utterance_adjs = quds
     possible_utterances = noun_words[start:stop]
-    quds.reverse()
-    possible_utterances.reverse()
-    print(quds)
-    print(possible_utterances)
+
+
 
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
@@ -74,6 +78,8 @@ def l1_model(metaphor):
     print("QUDS",quds[:50]) 
     print("UTTERANCES:\n",possible_utterances[:50])
 
+    random.shuffle(quds)
+    random.shuffle(possible_utterances)
 
     params = Inference_Params(
         vecs=real_vecs,
@@ -83,11 +89,11 @@ def l1_model(metaphor):
         sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 1000,
+        sample_number = 20000,
         number_of_qud_dimensions=1,
         # burn_in=90,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-8,
+        step_size=1e-7,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=1.0,

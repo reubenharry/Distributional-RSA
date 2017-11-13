@@ -60,8 +60,16 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 		pass
 		# print("tf projected_world dv t", ed.get_session().run(projected_world[:,:,:]),projected_world)
 		# print("PROJECTED MUS dv t",ed.get_session().run(projected_mus),projected_mus)
-	# print("SHAPES",projected_mus.get_shape(),projected_world.get_shape())
+	
+	stacked_unprojected_world = tf.transpose(tf.stack([s1_world,s1_world,s1_world]),perm=[0,2,1])
+	stacked_unprojected_mus = tf.transpose(tf.stack([mus,mus,mus]),perm=[0,2,1])
+	
+	# print("stackeds",ed.get_session().run([stacked_unprojected_mus,stacked_unprojected_world]))
+
+	# print("SHAPES",projected_mus.get_shape(),projected_world.get_shape(),stacked_unprojected_mus.get_shape(),stacked_unprojected_world.get_shape())
 	mus_world_diff = tf.transpose(tf.subtract(projected_mus,projected_world),perm=[0,2,1])
+
+	# mus_world_diff = tf.transpose(tf.subtract(stacked_unprojected_mus,stacked_unprojected_world),perm=[0,2,1])
 	if debug:
 		pass
 		# print("mus_world_diff double vect",mus_world_diff,ed.get_session().run(mus_world_diff))
@@ -72,6 +80,7 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 	utterance_scores = tf.multiply(inference_params.rationality, tf.add(log_likelihoods,tf.multiply(inference_params.freq_weight,inference_params.weighted_utt_frequency_array)))
 	if debug:
 		# pass
+		# print("RATIONALITY",inference_params.rationality)
 		print("tf log_likelihoods",ed.get_session().run(log_likelihoods))
 		# print("tf scores",ed.get_session().run(utterance_scores))
 	#this is where the rationality parameter is included

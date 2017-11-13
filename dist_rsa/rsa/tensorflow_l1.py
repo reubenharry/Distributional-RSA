@@ -106,6 +106,7 @@ def tf_l1(inference_params):
 		# qworld = Normal(loc=tf.Variable(tf.zeros(inference_params.vec_length)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
 		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[inference_params.l1_sig1] * inference_params.vec_length)
 		# qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
+		# qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[inference_params.sigma1] * inference_params.vec_length)
 		# qworld = Normal(loc=tf.Variable(tf.squeeze(mu_new)),scale=[inference_params.sigma1] * inference_params.vec_length)
 		print("QWORLD SHAPE", qworld.get_shape())
 		init = tf.global_variables_initializer()

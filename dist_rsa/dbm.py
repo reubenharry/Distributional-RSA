@@ -183,6 +183,7 @@ class Dist_RSA_Inference:
                 subject = projection(self.inference_params.subject_vector,np.expand_dims(vecs[word],-1))
                 observation = np.expand_dims(projection(np.mean(self.world_samples,axis=0),np.expand_dims(vecs[word],-1)),0)
                 dists.append((word,np.linalg.norm(observation-subject)))
+                # dists.append((word,observation-subject))
             return sorted(dists,key=lambda x:x[1],reverse=True)
 
 

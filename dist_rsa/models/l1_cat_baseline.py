@@ -7,91 +7,142 @@ import itertools
 from dist_rsa.dbm import *
 from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import *
-from dist_rsa.utils.load_data import get_words
 from dist_rsa.lm_1b_eval import predict
+from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 from dist_rsa.utils.distance_under_projection import distance_under_projection
+import random
+
+random.seed(9001)
+
+vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='word2vec')
+vec_size,vec_kind = 25,'glove.twitter.27B.'
+freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
+nouns,adjs = get_words(with_freqs=False)
+real_vecs = load_vecs(mean=True,pca=True,vec_length=vec_size,vec_type=vec_kind)  
 
 
-vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
-vec_size,vec_kind = (300,'glove.840B.')
-real_vecs = load_vecs(mean=False,pca=False,vec_length=vec_size,vec_type=vec_kind)    
-nouns,adjs = get_words()
+# print("QUDS AND NOUNS 1",qud_words[0],noun_words[0])
+
+# random.shuffle(qud_words)
+# random.shuffle(noun_words)
+# print("QUDS AND NOUNS after shuffle",qud_words[0],noun_words[0])
+
+
+#     key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+# possible_utterance_nouns = 
+# break
+
+# qud_words = [a for a in list(adjs) if a in vecs and a in real_vecs]
+# quds = sorted(qud_words,key=lambda x:freqs[x],reverse=True)
+
+# possible_utterance_nouns = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs and n in real_vecs]
+# possible_utterances = sorted(possible_utterance_nouns,key=lambda x:freqs[x],reverse=True)
+# possible_utterances=possible_utterances[:100]
+
+# quds = quds[:70]
+# print(quds[:100])
 
 def l1_cat_baseline(metaphor):
     subj,pred = metaphor
-    abstract_threshold = 2.5
+
+    qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs and a in real_vecs]
+
+
+
+    qud_words = sorted(qud_words,\
+        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+        # key=lambda x:freqs[x],reverse=True)
+
+    noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs and n in real_vecs]
+    noun_words = sorted(noun_words,\
+        # key=lambda x:freqs[x],reverse=True)
+        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+
+    quds = qud_words[:50]
+    possible_utterance_adjs = quds
+    possible_utterances = noun_words[0:50]
+
+
+
     print('abstract_threshold',abstract_threshold)
-    concrete_threshold = 3.0
     print('concrete_threshold',concrete_threshold)
 
-    qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
 
+    # +possible_utterance_adjs
+    print("ARE SUBJ AND PRED IN VECS?",subj in real_vecs,pred in real_vecs)
 
-    quds = sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
-    # prob_dict = predict(" ".join([subj, "is","a"]))
+    for x in possible_utterances:
+        if x not in real_vecs:
+            # print(x,"not in vecs")
+            possible_utterances.remove(x)
+            # raise Exception("utterance not in vecs")
 
-    possible_utterance_nouns = sorted([n for n in nouns if nouns[n] > concrete_threshold and n in vecs],\
-        # key=lambda x:prob_dict[x],reverse=True)
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+    print("QUDS",quds[:50]) 
+    print("UTTERANCES:\n",possible_utterances[:50])
 
-    # break
-    possible_utterance_adjs = quds
-    quds = quds[:50]
-    possible_utterances = possible_utterance_adjs[:50]+possible_utterance_nouns[:50]
-
-
-    print("UTTERANCES:\n",possible_utterances[:20])
+    random.shuffle(quds)
+    random.shuffle(possible_utterances)
 
     params = Inference_Params(
         vecs=real_vecs,
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=10.0,sig2=10.0,
-        qud_weight=0.0,freq_weight=1.0,
+        sig1=0.1,sig2=0.1,l1_sig1=1.0,
+        qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 100,
+        sample_number = 20000,
         number_of_qud_dimensions=2,
-        # burn_in=900,
+        # burn_in=90,
         seed=False,trivial_qud_prior=False,
-        step_size=0.0005,
+        step_size=1e-7,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
-        qud_prior_weight=0.5,
+        qud_prior_weight=1.0,
         rationality=0.9,
-        norm_vectors=True,
+        norm_vectors=False,
         variational=True,
-        variational_steps=10,
+        variational_steps=1000,
         baseline=True
-
+        # world_movement=True
         )
 
     run = Dist_RSA_Inference(params)
-
     run.compute_l1(load=0,save=False)
+    results = run.qud_results()
 
+    # print(results[:5])
 
-    # print(run.world_samples.shape)
-
-    results = run.qud_samples
-    # print(results[:20])
-    # run.compute_s1(params,s1_world=)
-
-    # print("WORLD MOVEMENT\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])[:50])
+        # out.write("\nWORLD MOVEMENT:\n")
+        # out.write(str(worldm))
     # print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
     # print("BASELINE:\n",sorted(qud_words,\
-    #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:20])
-    print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:20]])
+    #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:5])
 
-    # print("RESULTS\n",[(x,np.exp(y),distance_under_projection(subj,pred,x,real_vecs)) for (x,y) in results[:20]])
-    # print("\ndemarginalized:\n",demarginalize_product_space(results)[:20])    # print("check")
-    return results
+    print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:5]])
+    demarg = demarginalize_product_space(results)
+    # print("\ndemarginalized:\n,",demarg[:5])
+    # out.write("\ndemarginalized:\n")
+    # out.write((str(demarg)))
+
+    # params.number_of_qud_dimensions=1
+    # run = Dist_RSA_Inference(params)
+    # run.compute_l1(load=0,save=False)
+    # results2 = run.qud_results()
+    # # print("\n1d results\n",results2[:10])
+    # one_d = results2
+    # one_d=None
+
+
+
+    return [(x,np.exp(y)) for (x,y) in results]
+
 
 if __name__ == "__main__":
 
     # from dist_rsa.tuning import metaphors
-    for subj,pred in [("love","poison"),("man","lion"),("woman","rose")]:
+    for subj,pred in metaphors:
+    # [("love","poison"),("man","lion"),("woman","rose")]:
 
         l1_cat_baseline((subj,pred))
         # l1_cat_baseline(("lion","man"))

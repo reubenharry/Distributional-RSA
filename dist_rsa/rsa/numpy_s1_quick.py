@@ -2,7 +2,8 @@ import numpy as np
 import nltk
 import scipy
 import pickle
-from utils.helperfunctions import projection,weights_to_dist
+from dist_rsa.utils.helperfunctions import projection,weights_to_dist
+from dist_rsa.utils.gaussian_likelihood import project
 
 def np_rsa(s1_world,qud_mat,vecs,vec_length, frequencies, listener_prior_mean, possible_utterances, utterance, lam=0,sig1=1.0,sig2=1.0,debug=True):
 # np_rsa(s1_world,qud_mat,vecs,vec_length,sig1,sig2, frequencies, listener_prior_mean, possible_utterances, utterance, lam=0,debug=True)
@@ -16,7 +17,8 @@ def np_rsa(s1_world,qud_mat,vecs,vec_length, frequencies, listener_prior_mean, p
 		mu = np.divide(np.add(mu1/sigma1, y/sigma2),  ((1/sigma1) + (1/sigma2)))
 		sigma_base = ((1/sigma1) + (1/sigma2))**-1
 		sigma = np.diag([sigma_base] * vec_length)
-		return mu,sigma
+		projected_sigma = np.diag([sigma_base] * qud_mat.shape[0])
+		return mu,sigma,projected_sigma
 
 	# return l0(u=utterance,listener_prior_mean=listener_prior_mean)
 
@@ -24,18 +26,26 @@ def np_rsa(s1_world,qud_mat,vecs,vec_length, frequencies, listener_prior_mean, p
 		# print(listener_prior_mean)
 		# print("np listener prior mean",listener_prior_mean,listener_prior_mean.shape)
 		# print("np utterance", utterance,utterance.shape)
-		listener_mu,listener_sigma = l0(u=utterance,listener_prior_mean=listener_prior_mean,sig1=sig1,sig2=sig2)
+		listener_mu,listener_sigma,projected_sigma = l0(u=utterance,listener_prior_mean=listener_prior_mean,sig1=sig1,sig2=sig2)
 		# print("mu np",listener_mu)
 		# listener_mu,listener_sigma = l0(utterance,s1,s2,world)
 
 		# print("np listener_mu",listener_mu)
 		# print("qud matrix",qud)
 		# print("NP WORLD",world)
-		projected_world = projection(world,qud)
+		projected_world = project(world, qud)
+
+			# projection(world,qud)
 		# print("np projected world",projected_world)
-		projected_listener_mu = projection(listener_mu,qud)
+		projected_listener_mu = project(listener_mu, qud)
+
+			# projection(listener_mu,qud)
+
+
+
+
 		# print("np projected mu",projected_listener_mu)
-		projected_listener = scipy.stats.multivariate_normal(projected_listener_mu,listener_sigma)
+		projected_listener = scipy.stats.multivariate_normal(projected_listener_mu,projected_sigma)
 		# return listener_mu
 		
 		log_score = projected_listener.logpdf(projected_world)
