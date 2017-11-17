@@ -18,8 +18,8 @@ from dist_rsa.models.debugging.l1_cat_short import l1_model as l1_cat_short
 
 if __name__ == "__main__":
 
-    sig1 = 0.1
-    sig2 = 0.1
+    sig1 = 20.0
+    sig2 = 20.0
     l1_sig1 = 100.0
     start = 10
     stop = 3000

@@ -88,9 +88,9 @@ def tf_l1(inference_params):
 
 
 	# GET L0 posterior on the utterance
-	mus_new = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
-		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
-	mu_new = mus_new[utt]
+	# mus_new = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
+	# 	inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
+	# mu_new = mus_new[utt]
 	# print("squeezed mu shape",tf.squeeze(mu_new).get_shape())
 	# print("sigma shape",inference_params.inverse_sd)
 	# inference_params.sigma1,inference_params.sigma2,inference_params.inverse_sd,inference_params.sigma,inference_params.inverse_sigma = tf.l0_sigma(inference_params)

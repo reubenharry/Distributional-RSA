@@ -21,9 +21,12 @@ add:
 
 	report set up of experiment, and results
 
+	scatterplot, the values,
+
 	conjecture as to why not successful
 
-	
+	discuss variational
+
 
 \title{Bayesian Pragmatics with Distributional Semantics: a Computational Approach to Metaphor}
 \author{Reuben Cohn-Gordon and Leon Bergen \\ Stanford}
@@ -484,9 +487,9 @@ L$_1$ is defined as follows, where P$_{QUD}$ represents the prior on QUDs. As di
 \begin{exe}
 \ex $L_1(w,q\vert u) \propto S_1(u\vert w,q) P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)*P_{QUD}(q)$
 \end{exe}
-While we were able to use analytic methods to derive the L$_0$ and S$_1$ posteriors, we cannot do so for the L$_1$. Instead, we must use an approximate inference method. We therefore use Hamiltonian Monte Carlo (\cite{neal2011mcmc}) to compute the L$_1$ posterior, a brand of Markov Chain Monte Carlo inference algorithm which makes use of gradient information to move from one sample to the next.
+While we were able to use analytic methods to derive the L$_0$ and S$_1$ posteriors, we cannot do so for the L$_1$. Instead, we must use an approximate inference method. We try two different inference algorithms, Hamiltonian Monte Carlo (\cite{neal2011mcmc}), a brand of Markov Chain Monte Carlo inference algorithm which makes use of gradient information to move from one sample to the next, and Variational Mean Field inference (see \cite{blei2017variational}), an optimization based inference algorithm. In our first experiment we use the former, while we make use of the latter in our second, on account of its speed.
 
-Hamiltonian Monte Carlo (HMC) greatly increases efficiency over other Monte Carlo methods, at the cost of requiring gradients for the S$_1$ and the functions the S$_1$ calls. Fortunately, it is possible for us to calculate these gradients, using automatic differentiation.
+Variational Inference (VI) greatly increases efficiency over other inference methods, at the cost of requiring gradients for the S$_1$ and the functions the S$_1$ calls. Fortunately, it is possible for us to calculate these gradients, using automatic differentiation.
 
 L$_1$ performs joint inference over QUDs and worlds. While the nature of the prior over worlds has already been discussed, two variants of L$_1$ are possible, as regards to prior on QUDs. The first is to have a categorical distribution over a set of projection hyperplanes (i.e. QUDs), for example those corresponding to n-tuples of words, according to the pretrained embedding. The output of our inference then gives us a categorical distribution over QUDs, corresponding to words (as well as a continuous distribution over worlds). 
 
@@ -512,7 +515,7 @@ As for the QUDs in the Categorical model, we take a set of adjectives from WordN
 We create categorical distributions over possible utterances and QUDs by weighting the elements in these sets according to their frequency\footnote{For a measure of frequency, we use the Google N-grams unigrams.}. Our model is computationally efficient enough that quite large inferences are possible - we can supply several thousand possible utterances and QUDs, with a run time of around 30 minutes per metaphor. 
 
 
-We implemented our model in both WebPPL and Python\footnote{The code of our Python implementation is available at \url{}. Readers are warned that for reasons of efficiency, the code is written is a vectorized form, which makes the L$_0$ and S$_1$ somewhat opaque.}. For the later, we make use of Tensorflow, and Edward in particular (see \cite{edward}), in order to perform HMC. Though the model in principle runs in both languages, the Tensorflow implementation is significantly faster, allowing us to run large inferences, over thousands of possible utterances and QUDs. Furthermore, Tensorflow and Edward are GPU compatible, allowing for significant speed up of the HMC.
+We implemented our model in both WebPPL and Python\footnote{The code of our Python implementation is available at \url{}. Readers are warned that for reasons of efficiency, the code is written is a vectorized form, which makes the L$_0$ and S$_1$ somewhat opaque.}. For the later, we make use of Tensorflow, and Edward in particular (see \cite{edward}), in order to perform HMC or VI. Though the model in principle runs in both languages, the Tensorflow implementation is significantly faster, allowing us to run large inferences, over thousands of possible utterances and QUDs. Furthermore, Tensorflow and Edward are GPU compatible, allowing for significant speed up of the inference.
 
 For our word vectors, we experimented with a number of different variants of the Glove vectors, all available at \url{https://nlp.stanford.edu/projects/glove/}. We mean center the vectors, and use PCA to remove the top 4 orthonomal bases. This second preprocessing step is inspired by (\cite{mu2016geometry}), which suggests this for improving the quality of word vectors.
 
@@ -572,34 +575,25 @@ Qualitatively, these results are promising: for the most part, the QUDs identifi
 
 For quantitative evaluation, we obtain human judgments on the quality of metaphors. We collect 15 metaphors from COCA (\cite{davies2008corpus}), by searching for ``[Singular Noun] is like a [Singular Noun]'', and using hand-chosen pairs of nouns obtained from this search as our metaphor set\footnote{Collecting data from COCA has precedent in other computational work on metaphor, e.g. (\cite{neuman2013metaphor}) and (\cite{turney2011literal})}.
 
-We use Mechanical Turk to obtain crowd-sourced judgments regarding each metaphor. We have each of 20 participants respond to the same 49 items, each of which consists of a metaphorical predication sentence (e.g. ``The man is a lion.'') followed by a binary choice between a prediction of the L1 and a prediction of the baseline model described above, supplied with the same set of QUDs to rank as compose the L1 QUD support. The order of the binary choice and the order of the items is initially shuffled, but appears in the same order for each participant.
+We use Mechanical Turk to obtain crowd-sourced judgments regarding each metaphor. 
 
-For each of the 15 metaphors M from COCA, we generate three items i$_n$, where the prompt is the metaphor M and the choice is between the nth top ranked prediction of the L$_1$ and baseline models respectively. As above, the baseline model takes the nearest words to the mean of the subject and predicate of the metaphor. For the L$_1$, we take the first 50 possible utterances generated by our pretrained language model (\cite{jozefowicz2016exploring}), and for QUDs, take the pairs of words\footnote{In fact, we exclude all pairs where $w_1=w_2$.} $\langle$w_1,w_2$\rangle\in$W$\times$W, where W consists of the first fifty QUDs generated as described in section (\ref{implementation})\footnote{The hyperparameters are as follows: HMC step size = 0.0005. Number of HMC samples = 500. Burn in: 400 removed. Sigma$_1$ = 0.0005. Sigma$_2$ = 0.005. Dimensions onto which QUD is projected: 2. Number of QUD tuples = 1225. Speaker prior: uniform. Listener prior: uniform. GloVe vectors: twitter, 25 dimensional.}.
+	Each participant (of 40 in total) are shown all 15 of the metaphors (order randomized). For each metaphor, they are shown 6 adjectives, 3 from the L$_1$ and three from the baseline described above, which simply finds the words nearest to the mean of the subject and predicate (order also randomized). They are instructed to rate the relevance of each adjective to the metaphor, where relevance is defined as follows: ``an adjective is relevant if it describes a property of the subject (e.g. ``the man'' in ``The man is a shark'') that the speaker of the sentence is trying to communicate about''. The baseline model is supplied with the same 50 QUDs to rank that constitute the L$_1$ QUD distribution support.
 
-We use a mixed effects model to control for variation between participants. Our findings are as follows: participants prefer our model with 514 out of 980 of the total binary choices for our model. On a binomial test, this yields a p-value of 0.13. 
+	For the L$_1$, we take the first 50 possible utterances generated by our pretrained language model (\cite{jozefowicz2016exploring}), and for QUDs, take the pairs of words\footnote{In fact, we exclude all pairs where $w_1=w_2$.} $\langle$w_1,w_2$\rangle\in$W$\times$W, where W consists of the first fifty QUDs generated as described in section (\ref{implementation})\footnote{The hyperparameters are as follows: VI step size = 0.0005. Number of HMC samples = 500. Burn in: 400 removed. Sigma$_1$ = 0.0005. Sigma$_2$ = 0.005. Dimensions onto which QUD is projected: 2. Number of QUD tuples = 1225. Speaker prior: uniform. Listener prior: uniform. GloVe vectors: twitter, 25 dimensional.}.
 
-[TO BE ADDED: MIXED EFFECTS MODEL RESULTS:
-Intercept                                         0.510    0.071  7.230 0.000  0.372  0.649
-participants[T."31LVTDXBL7AREAUH8OOX1TUGKZGRLC"] -0.102    0.100 -1.023 0.307 -0.298  0.094
-participants[T."3570Y55XZPJKPJS2BSJBWXI5R59YGF"] -0.143    0.100 -1.432 0.152 -0.338  0.053
-participants[T."36DSNE9QZ5YIM7E1DBVGRJCJ5NRJOT"] -0.020    0.100 -0.205 0.838 -0.216  0.175
-participants[T."37C0GNLMHF3FUF853JNB7LVFF416DG"]  0.102    0.100  1.023 0.307 -0.094  0.298
-participants[T."3D8YOU6S9EK1BHJRPED0HLZ313VU6B"] -0.061    0.100 -0.614 0.540 -0.257  0.134
-participants[T."3DOCMVPBTNEWNC5ARUNV51TVOYUNNR"]  0.082    0.100  0.818 0.413 -0.114  0.277
-participants[T."3DPNQGW4LLF2UJPCA8MI4H192R8643"]  0.082    0.100  0.818 0.413 -0.114  0.277
-participants[T."3IGI0VL647KE5X5MS9N8KQT0E7WON2"]  0.061    0.100  0.614 0.540 -0.134  0.257
-participants[T."3J4Q2Z4UTY37D3RGZN6Z5E1RMKIWQ9"] -0.020    0.100 -0.205 0.838 -0.216  0.175
-participants[T."3KV0LJBBH2LBKSC280PC1695K46RME"]  0.061    0.100  0.614 0.540 -0.134  0.257
-participants[T."3LPW2N6LKT25SDJDKV3VPFL358KU5V"]  0.020    0.100  0.205 0.838 -0.175  0.216
-participants[T."3N8OEVH1FRQWNI5YTONLZFT54H1OOH"]  0.000    0.100  0.000 1.000 -0.196  0.196
-participants[T."3O6CYIULED1Z5WYXGWQ4FFYGP5OWUE"]  0.020    0.100  0.205 0.838 -0.175  0.216
-participants[T."3RGU30DZTA8UM4TP0VG3ZFNEANCJME"] -0.020    0.100 -0.205 0.838 -0.216  0.175
-participants[T."3SKRO2GZ71RS1ZDIPUXHG2ZOR2I1KQ"]  0.082    0.100  0.818 0.413 -0.114  0.277
-participants[T."3W2LOLRXLBFGU4CZNOCWMTH1VZBRK9"]  0.143    0.100  1.432 0.152 -0.053  0.338
-participants[T."3X4MXAO0BGO7P46GC2VZA4BWI6KWRA"] -0.082    0.100 -0.818 0.413 -0.277  0.114
-participants[T."3ZQIG0FLQEGZIBNXLM09B10Z3CXWV3"]  0.102    0.100  1.023 0.307 -0.094  0.298
-participants[T."3ZR9AIQJUB97G83X8J61VGRIPOM400"] -0.020    0.100 -0.205 0.838 -0.216  0.175
-groups RE                                         0.000]
+\subsection{Results for Task 1}
+
+We run a linear mixed effects model, with metaphor and Mechanical Turk participant as random effects, to analyse the results of the experiment. We find a significant (p$<$2e-16) correlation between an adjective being from our model and it being rated higher on the scale of relevance. 
+
+	TODO: report other values
+
+Figure 1 shows the mean participant rating for the L$_1$ and baseline models, per metaphor. 
+
+	As can be seen, there is a lot of variation in the average quality of proposed adjectives across both models, between metaphors.
+
+	Stability of the model:
+
+% We use a mixed effects model to control for variation between participants. Our findings are as follows: participants prefer our model with 514 out of 980 of the total binary choices for our model. On a binomial test, this yields a p-value of 0.13. 
 
 
 % For our quantitative testing of the QUD identification system, we consider three domains: the animal metaphors described above, a set of verbal metaphors, and a set of adjective-noun phrases collected by (\cite{tsvetkov2014metaphor}). We use the model described in the second of the above examples.
@@ -621,6 +615,7 @@ For this task, we use the labeled corpus of data provided by (\cite{tsvetkov2014
 
 We use 84 of each of the two lists of AN phrases as a training set for our system, for fitting hyperparameters of our categorical model. We test on the remaining 711 of each, having removed 89 metaphors in each to exclude words which did not appear in GloVe\footnote{The hyperparameters are as follows: HMC step size = 0.0005. Number of HMC samples = 400. Burn in: 285 removed. Sigma$_1$ = 0.0005. Sigma$_2$ = 0.01. Number of possible utterances = 30. Dimensions onto which QUD is projected (if not trivial QUD): 1. Number of QUD 1-tuples (including trivial QUD) = 31. Speaker prior: uniform. Listener prior: 0.9 on trivial QUD, 0.1 evenly distributed between other 30 QUDs. GloVe vectors: twitter, 25 dimensional, with mean centering of vectors and removal of PCA top dimensions.}.
 
+\subsection{Results for Task 2}
 
 The results of this experiment are as follows. The number of metaphorical AN phrases for which the trivial QUD has the most probability weight out of the set of QUDs is 356 out of 711. For the literal AN phrases, this number is 439 out of 711. Another way of measuring the importance of the trivial QUD is by its probability density divided by the cosine distance between the adjective and noun in question. This division addresses a confound caused by the effect that the distance between these words has on increasing the trivial QUD density. In this case, the sum of all trivial QUD densities divided by cosine distance of the adjective and noun, across the 711 metaphorical AN phrases, is  303.3. For the literal AN phrases, it is 498.3.
 
