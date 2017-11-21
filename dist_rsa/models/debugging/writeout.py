@@ -19,7 +19,7 @@ from dist_rsa.models.debugging.l1_cat_short import l1_model as l1_cat_short
 if __name__ == "__main__":
 
     sig1 = 20.0
-    sig2 = 20.0
+    sig2 = 5.0
     l1_sig1 = 100.0
     start = 10
     stop = 3000
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     # [(best_model,"variational")]:
         out.write("\n\nMODEL:"+model_name+"\n\n")
 
-        for subj,pred in [("man","horse")]:
+        for subj,pred in [("man","tree")]:
         # [("woman","horse"),("man","horse"),("horse","man"),("cat","fool")]:
         # metaphors:
             out.write('\n'+subj+","+pred+'\n')

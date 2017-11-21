@@ -180,9 +180,9 @@ class Dist_RSA_Inference:
             dists=[]
             for word in comparanda:
                 # print((self.subject_vector).shape)
-                subject = projection(self.inference_params.subject_vector,np.expand_dims(vecs[word],-1))
-                observation = np.expand_dims(projection(np.mean(self.world_samples,axis=0),np.expand_dims(vecs[word],-1)),0)
-                dists.append((word,np.linalg.norm(observation-subject)))
+                subject = projection_debug(self.inference_params.subject_vector,np.expand_dims(vecs[word],-1))
+                observation = np.expand_dims(projection_debug(np.mean(self.world_samples,axis=0),np.expand_dims(vecs[word],-1)),0)
+                dists.append((word,observation-subject))
                 # dists.append((word,observation-subject))
             return sorted(dists,key=lambda x:x[1],reverse=True)
 

@@ -10,9 +10,30 @@ from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
+import random
 
 vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
 nouns,adjs = get_words()
+
+freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
+nouns,adjs = get_words(with_freqs=False)
+
+qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
+
+
+
+qud_words = sorted(qud_words,\
+#     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+    key=lambda x:freqs[x],reverse=True)
+
+noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
+noun_words = sorted(noun_words,\
+    key=lambda x:freqs[x],reverse=True)
+
+# print("QUDS AND NOUNS 1",qud_words[0],noun_words[0])
+
+random.shuffle(qud_words)
+random.shuffle(noun_words)
 
 def l1_model(metaphor):
     vec_size,vec_kind = 300,'glove.840B.'
@@ -21,8 +42,11 @@ def l1_model(metaphor):
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
 
-    quds = ['strong','fast','green']
-    possible_utterances = ["horse","man","oak"]
+    # quds = ['stable','fast','old',"stupid"]
+    # possible_utterances = ["horse",subj,"tree"]
+
+    quds = qud_words[:500]
+    possible_utterances = noun_words[:500]
     # possible_utterances = ['ox','bag','nightmare']
     # possible_utterances = possible_utterance_adjs[:50]
     # +quds[:25]
@@ -103,7 +127,7 @@ def l1_model(metaphor):
     results = run.qud_results()
     if not is_baseline:
         # worldm = run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs])    
-        worldm = run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=False)
+        worldm = run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)
     else: worldm=None
     # print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
     # print("BASELINE:\n",sorted(quds,\
@@ -116,7 +140,7 @@ def l1_model(metaphor):
             subj_proj = projection_debug(run.inference_params.subject_vector,np.expand_dims(real_vecs[x[0]],-1))
             result_proj = np.expand_dims(projection_debug(np.mean(run.world_samples,axis=0),np.expand_dims(real_vecs[x[0]],-1)),0)
         # print("\ndemarginalized:\n",demarginalize_product_space(results)[:5])
-            new_results.append((x,np.exp(y),result_proj,subj_proj,result_proj-subj_proj))
+            new_results.append((x,np.exp(y),result_proj-subj_proj))
     else: new_results = [(x,np.exp(y)) for (x,y) in results]
 
 
