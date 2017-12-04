@@ -13,17 +13,20 @@ from dist_rsa.utils.distance_under_projection import distance_under_projection
 import random
 # from dist_rsa.models.debugging.best_model import l1_model as best_model
 # from dist_rsa.models.debugging.hmc_model import l1_model as hmc_model
+# from dist_rsa.models.debugging.l1_cat_long import l1_model as l1_cat_long
 from dist_rsa.models.debugging.l1_cat_short import l1_model as l1_cat_short
 
 
 if __name__ == "__main__":
 
-    sig1 = 20.0
-    sig2 = 5.0
-    l1_sig1 = 100.0
+    sig1 = 0.1
+    sig2 = 0.1
+    l1_sig1 = 10.0
     start = 10
     stop = 3000
     qud_num = 10
+
+    num_iters = 20
 
     out = open("dist_rsa/models/debugging/writeout","w")
     # (best_model,"variational"),
@@ -32,20 +35,20 @@ if __name__ == "__main__":
     # [(best_model,"variational")]:
         out.write("\n\nMODEL:"+model_name+"\n\n")
 
-        for subj,pred in [("man","tree")]:
+        for subj,pred in [("subj1","pred1"),("subj2","pred1")]:
         # [("woman","horse"),("man","horse"),("horse","man"),("cat","fool")]:
         # metaphors:
             out.write('\n'+subj+","+pred+'\n')
             out.write("L1: utts"+str(0)+str(start))
             worldms=[]
-            for x in range(5):
+            for x in range(num_iters):
                 results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,False,qud_num))
                 worldms.append(worldm)
                 out.write('\n')
-                out.write(str(results[:5]))
+                out.write("Iter "+str(x)+" "+str(results[:5]))
                 # out.write(str([(x,np.exp(y)) for (x,y) in results[:5]]))
-            out.write('\nWORLDS')
-            for x in range(5):
+            out.write('\nWorld movement along each qud')
+            for x in range(num_iters):
                 out.write('\n')
                 out.write(str(worldms[x][:5]))
             out.write('\n')
