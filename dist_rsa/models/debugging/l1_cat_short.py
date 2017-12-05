@@ -11,8 +11,8 @@ from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
 
-# vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
-# nouns,adjs = get_words()
+vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
+nouns,adjs = get_words()
 
 
 
@@ -31,30 +31,24 @@ def l1_model(metaphor):
     # possible_utterance_adjs[:50]+possible_utterance_nouns[:50]
     # possible_utterance_nouns[:4]
 
-    real_vecs = {}
-    real_vecs['subj1'] = np.asarray([1.0,0.0])
-    real_vecs['subj2'] = np.asarray([0.0,1.0])
-    real_vecs['pred1'] = real_vecs['subj1']
-    real_vecs['pred2']= real_vecs['subj2']
+    real_vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind)
+    real_vecs['subj1']=real_vecs["pebble"]
+    real_vecs['subj2']=real_vecs["many"]
+    real_vecs['pred1']=real_vecs["myth"]
+
+    vecs['subj1']=vecs["many"]
+    vecs['subj2']=vecs["pebble"]
+    vecs['pred1']=vecs["myth"]
 
 
-    real_vecs['the']=np.asarray([0.0,0.0])
+    quds = list(adjs)[:20]
+    possible_utterances = list(nouns)[:200]  
+        
 
-    real_vecs['pred3'] = np.asarray([0.5,0.5])
-    real_vecs['pred4'] = np.asarray([-0.5,-0.5])
-
-
-    real_vecs['qud1']=np.asarray([1.0,1.0])
-    real_vecs['qud2']=np.asarray([1.0,-1.0])
-    # real_vecs['qud3']=np.asarray([1.0,2.0])
-    
-    vecs=real_vecs
-
-    quds = ['qud1','qud2']
-    possible_utterances = ["subj1","subj2","pred1",'pred2','pred3','pred4']
+    # quds = ['qud1','qud2']
+    # possible_utterances = ["subj1","subj2","pred1",'pred2','pred3','pred4']
 
 
-    # real_vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind)
     # print("unyielding in real vecs","unyielding" in real_vecs)
 
     for x in possible_utterances:
