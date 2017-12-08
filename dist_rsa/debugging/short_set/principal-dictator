@@ -1,0 +1,37 @@
+
+
+MODEL:short
+
+
+principal,dictator
+L1: utts010
+[(['ruthless'], 0.56678391, array([[ 4.55959024]])), (['commanding'], 0.43321604, array([[ 4.98539414]]))]
+[(['ruthless'], 0.58542591, array([[ 5.56388093]])), (['commanding'], 0.41457406, array([[ 4.34513342]]))]
+[(['ruthless'], 0.55862582, array([[ 4.89253179]])), (['commanding'], 0.44137409, array([[ 3.3172891]]))]
+[(['ruthless'], 0.59952527, array([[ 5.80787533]])), (['commanding'], 0.40047464, array([[ 4.63387446]]))]
+[(['ruthless'], 0.59868681, array([[ 5.8496673]])), (['commanding'], 0.40131307, array([[ 3.08275567]]))]
+WORLDS
+[('commanding', array([[ 4.98539414]])), ('ruthless', array([[ 4.55959024]]))]
+[('ruthless', array([[ 5.56388093]])), ('commanding', array([[ 4.34513342]]))]
+[('ruthless', array([[ 4.89253179]])), ('commanding', array([[ 3.3172891]]))]
+[('ruthless', array([[ 5.80787533]])), ('commanding', array([[ 4.63387446]]))]
+[('ruthless', array([[ 5.8496673]])), ('commanding', array([[ 3.08275567]]))]
+
+BASELINE:0-100
+[(['commanding'], 0.52367282), (['ruthless'], 0.47632718)]
+child,dictator
+L1: utts010
+[(['commanding'], 0.55495799, array([[ 6.31785722]])), (['ruthless'], 0.44504184, array([[ 5.27083491]]))]
+[(['commanding'], 0.55400294, array([[ 6.85894023]])), (['ruthless'], 0.44599697, array([[ 5.06967656]]))]
+[(['commanding'], 0.57167643, array([[ 7.8961773]])), (['ruthless'], 0.4283233, array([[ 5.19783277]]))]
+[(['commanding'], 0.566571, array([[ 7.43888541]])), (['ruthless'], 0.43342885, array([[ 4.9579138]]))]
+[(['commanding'], 0.51824528, array([[ 6.51607812]])), (['ruthless'], 0.48175457, array([[ 6.56555701]]))]
+WORLDS
+[('commanding', array([[ 6.31785722]])), ('ruthless', array([[ 5.27083491]]))]
+[('commanding', array([[ 6.85894023]])), ('ruthless', array([[ 5.06967656]]))]
+[('commanding', array([[ 7.8961773]])), ('ruthless', array([[ 5.19783277]]))]
+[('commanding', array([[ 7.43888541]])), ('ruthless', array([[ 4.9579138]]))]
+[('ruthless', array([[ 6.56555701]])), ('commanding', array([[ 6.51607812]]))]
+
+BASELINE:0-100
+[(['commanding'], 0.51459694), (['ruthless'], 0.48540312)]

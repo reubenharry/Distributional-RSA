@@ -10,9 +10,10 @@ from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
+from dist_rsa.utils.simple_vecs import real_vecs
 
-vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
-nouns,adjs = get_words()
+# vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
+# nouns,adjs = get_words()
 
 
 
@@ -31,22 +32,22 @@ def l1_model(metaphor):
     # possible_utterance_adjs[:50]+possible_utterance_nouns[:50]
     # possible_utterance_nouns[:4]
 
-    real_vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind)
-    real_vecs['subj1']=real_vecs["pebble"]
-    real_vecs['subj2']=real_vecs["many"]
-    real_vecs['pred1']=real_vecs["myth"]
+    # real_vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind)
+    # real_vecs['subj1']=real_vecs["pebble"]
+    # real_vecs['subj2']=real_vecs["many"]
+    # real_vecs['pred1']=real_vecs["myth"]
 
-    vecs['subj1']=vecs["many"]
-    vecs['subj2']=vecs["pebble"]
-    vecs['pred1']=vecs["myth"]
+    # vecs['subj1']=vecs["many"]
+    # vecs['subj2']=vecs["pebble"]
+    # vecs['pred1']=vecs["myth"]
+    vecs = real_vecs
 
-
-    quds = list(adjs)[:20]
-    possible_utterances = list(nouns)[:200]  
+    # quds = list(adjs)[:20]
+    # possible_utterances = list(nouns)[:200]  
         
 
-    # quds = ['qud1','qud2']
-    # possible_utterances = ["subj1","subj2","pred1",'pred2','pred3','pred4']
+    quds = ['qud1','qud2']
+    possible_utterances = ["pred1",'pred2']
 
 
     # print("unyielding in real vecs","unyielding" in real_vecs)
@@ -67,17 +68,17 @@ def l1_model(metaphor):
         sig1=sig1,sig2=sig2, l1_sig1=l1_sig1,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 1000,
+        sample_number = 2000,
         number_of_qud_dimensions=1,
-        # burn_in=900,
+        burn_in=1000,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-6,
+        step_size=5e-1,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
         rationality=1.0,
         norm_vectors=False,
-        variational=True,
+        variational=False,
         variational_steps=100,
         baseline=is_baseline
         # world_movement=True
