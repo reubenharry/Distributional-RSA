@@ -1,0 +1,37 @@
+
+
+MODEL:short
+
+
+wall,tree
+L1: utts010
+Iter 0 [(['stupid'], 'prob:', 0.20859224, 'world movement along this qud:', array([[-0.59245637]])), (['old'], 'prob:', 0.1999045, 'world movement along this qud:', array([[-0.65947511]])), (['fast'], 'prob:', 0.19924064, 'world movement along this qud:', array([[-0.46564898]])), (['strong'], 'prob:', 0.19923456, 'world movement along this qud:', array([[-0.61185711]])), (['green'], 'prob:', 0.19302817, 'world movement along this qud:', array([[-0.41783175]]))]
+Iter 1 [(['stupid'], 'prob:', 0.20496607, 'world movement along this qud:', array([[-0.29109233]])), (['old'], 'prob:', 0.20072581, 'world movement along this qud:', array([[-0.38279321]])), (['fast'], 'prob:', 0.20037083, 'world movement along this qud:', array([[-0.31619814]])), (['strong'], 'prob:', 0.20035249, 'world movement along this qud:', array([[-0.37359577]])), (['green'], 'prob:', 0.19358477, 'world movement along this qud:', array([[-0.4531886]]))]
+Iter 2 [(['stupid'], 'prob:', 0.20496166, 'world movement along this qud:', array([[-0.32417771]])), (['old'], 'prob:', 0.20025651, 'world movement along this qud:', array([[-0.43350608]])), (['strong'], 'prob:', 0.19985357, 'world movement along this qud:', array([[-0.50206111]])), (['fast'], 'prob:', 0.19983527, 'world movement along this qud:', array([[-0.29051167]])), (['green'], 'prob:', 0.19509293, 'world movement along this qud:', array([[-0.31827902]]))]
+Iter 3 [(['stupid'], 'prob:', 0.20838609, 'world movement along this qud:', array([[-0.54194105]])), (['old'], 'prob:', 0.20031734, 'world movement along this qud:', array([[-0.50764439]])), (['fast'], 'prob:', 0.19993868, 'world movement along this qud:', array([[-0.57585327]])), (['strong'], 'prob:', 0.19981669, 'world movement along this qud:', array([[-0.39196798]])), (['green'], 'prob:', 0.19154121, 'world movement along this qud:', array([[-0.55968019]]))]
+Iter 4 [(['stupid'], 'prob:', 0.20880534, 'world movement along this qud:', array([[-0.53515299]])), (['old'], 'prob:', 0.2008429, 'world movement along this qud:', array([[-0.5109714]])), (['fast'], 'prob:', 0.20037763, 'world movement along this qud:', array([[-0.48816817]])), (['strong'], 'prob:', 0.20035316, 'world movement along this qud:', array([[-0.504429]])), (['green'], 'prob:', 0.18962111, 'world movement along this qud:', array([[-0.71322904]]))]
+World movement along each qud
+[('green', array([[-0.41783175]])), ('fast', array([[-0.46564898]])), ('stupid', array([[-0.59245637]])), ('strong', array([[-0.61185711]])), ('old', array([[-0.65947511]]))]
+[('stupid', array([[-0.29109233]])), ('fast', array([[-0.31619814]])), ('strong', array([[-0.37359577]])), ('old', array([[-0.38279321]])), ('green', array([[-0.4531886]]))]
+[('fast', array([[-0.29051167]])), ('green', array([[-0.31827902]])), ('stupid', array([[-0.32417771]])), ('old', array([[-0.43350608]])), ('strong', array([[-0.50206111]]))]
+[('strong', array([[-0.39196798]])), ('old', array([[-0.50764439]])), ('stupid', array([[-0.54194105]])), ('green', array([[-0.55968019]])), ('fast', array([[-0.57585327]]))]
+[('fast', array([[-0.48816817]])), ('strong', array([[-0.504429]])), ('old', array([[-0.5109714]])), ('stupid', array([[-0.53515299]])), ('green', array([[-0.71322904]]))]
+
+BASELINE:0-100
+[(['fast'], nan), (['green'], nan), (['old'], nan), (['strong'], nan), (['stupid'], nan)]
+man,tree
+L1: utts010
+Iter 0 [(['stupid'], 'prob:', 0.20864013, 'world movement along this qud:', array([[-0.60597081]])), (['old'], 'prob:', 0.19973086, 'world movement along this qud:', array([[-0.65244112]])), (['fast'], 'prob:', 0.19914657, 'world movement along this qud:', array([[-0.63433288]])), (['strong'], 'prob:', 0.19907364, 'world movement along this qud:', array([[-0.61604572]])), (['green'], 'prob:', 0.19340864, 'world movement along this qud:', array([[-0.38315351]]))]
+Iter 1 [(['stupid'], 'prob:', 0.20803542, 'world movement along this qud:', array([[-0.62087697]])), (['old'], 'prob:', 0.19889688, 'world movement along this qud:', array([[-0.55716635]])), (['fast'], 'prob:', 0.19832714, 'world movement along this qud:', array([[-0.51309888]])), (['strong'], 'prob:', 0.19829082, 'world movement along this qud:', array([[-0.44127838]])), (['green'], 'prob:', 0.19644998, 'world movement along this qud:', array([[-0.12287073]]))]
+Iter 2 [(['stupid'], 'prob:', 0.20921955, 'world movement along this qud:', array([[-0.56962858]])), (['old'], 'prob:', 0.20073836, 'world movement along this qud:', array([[-0.51054661]])), (['fast'], 'prob:', 0.20023665, 'world movement along this qud:', array([[-0.57041906]])), (['strong'], 'prob:', 0.20023665, 'world movement along this qud:', array([[-0.67586968]])), (['green'], 'prob:', 0.18956867, 'world movement along this qud:', array([[-0.72349986]]))]
+Iter 3 [(['stupid'], 'prob:', 0.21088587, 'world movement along this qud:', array([[-0.74675442]])), (['old'], 'prob:', 0.20005307, 'world movement along this qud:', array([[-0.74185687]])), (['fast'], 'prob:', 0.19923666, 'world movement along this qud:', array([[-0.34332064]])), (['strong'], 'prob:', 0.19920018, 'world movement along this qud:', array([[-0.5914506]])), (['green'], 'prob:', 0.19062419, 'world movement along this qud:', array([[-0.58814152]]))]
+Iter 4 [(['stupid'], 'prob:', 0.20803998, 'world movement along this qud:', array([[-0.53347085]])), (['old'], 'prob:', 0.20000905, 'world movement along this qud:', array([[-0.37637913]])), (['fast'], 'prob:', 0.1997041, 'world movement along this qud:', array([[-0.60371216]])), (['strong'], 'prob:', 0.19959442, 'world movement along this qud:', array([[-0.62979717]])), (['green'], 'prob:', 0.19265231, 'world movement along this qud:', array([[-0.47184929]]))]
+World movement along each qud
+[('green', array([[-0.38315351]])), ('stupid', array([[-0.60597081]])), ('strong', array([[-0.61604572]])), ('fast', array([[-0.63433288]])), ('old', array([[-0.65244112]]))]
+[('green', array([[-0.12287073]])), ('strong', array([[-0.44127838]])), ('fast', array([[-0.51309888]])), ('old', array([[-0.55716635]])), ('stupid', array([[-0.62087697]]))]
+[('old', array([[-0.51054661]])), ('stupid', array([[-0.56962858]])), ('fast', array([[-0.57041906]])), ('strong', array([[-0.67586968]])), ('green', array([[-0.72349986]]))]
+[('fast', array([[-0.34332064]])), ('green', array([[-0.58814152]])), ('strong', array([[-0.5914506]])), ('old', array([[-0.74185687]])), ('stupid', array([[-0.74675442]]))]
+[('old', array([[-0.37637913]])), ('green', array([[-0.47184929]])), ('stupid', array([[-0.53347085]])), ('fast', array([[-0.60371216]])), ('strong', array([[-0.62979717]]))]
+
+BASELINE:0-100
+[(['fast'], nan), (['green'], nan), (['old'], nan), (['strong'], nan), (['stupid'], nan)]

@@ -16,21 +16,21 @@ import random
 # from dist_rsa.models.debugging.l1_cat_long import l1_model as l1_cat_long
 from dist_rsa.models.debugging.l1_cat_short import l1_model as l1_cat_short
 
-name = "0.1"
+name="10.0"
 
 if __name__ == "__main__":
 
     sig1 = 0.1
     sig2 = 0.1
-    l1_sig1 = 0.1
-
+    l1_sig1 = 10.0
+    
     start = 10
     stop = 3000
     qud_num = 10
 
     num_iters = 20
 
-    out = open("dist_rsa/models/debugging/writeout","w")
+    out = open("dist_rsa/models/debugging/writeout_2","w")
     # (best_model,"variational"),
     # (hmc_model,"hmc"),
     for l1_model,model_name in [(l1_cat_short,"short")]:

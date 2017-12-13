@@ -1,0 +1,15 @@
+L1: 0-100 utts
+[(['informal'], 0.13510883), (['benevolent'], 0.074562684), (['notorious'], 0.069416963), (['vindictive'], 0.063461378), (['liberating'], 0.061619729)]
+
+[(['elementary'], 0.092460051), (['lax'], 0.075219937), (['sultry'], 0.074846052), (['uncontrolled'], 0.057803299), (['radical'], 0.045583557)]
+
+[(['icky'], 0.21684797), (['unrated'], 0.084494337), (['contending'], 0.068652801), (['irresponsible'], 0.057289619), (['celebratory'], 0.047511559)]
+
+L1: 100-200 utts[(['informal'], 0.072481394), (['accustomed'], 0.061723594), (['maritime'], 0.057469405), (['holistic'], 0.049662042), (['ghastly'], 0.04396724)]
+[(['pathological'], 0.087233111), (['passable'], 0.065489784), (['studious'], 0.053203203), (['subsidized'], 0.051508561), (['sly'], 0.044838842)]
+[(['unreasonable'], 0.22882992), (['prestigious'], 0.058427803), (['placid'], 0.053474493), (['gaudy'], 0.046363674), (['common'], 0.043532811)]
+
+BASELINE:0-100
+[(['careful'], 0.047635201), (['insane'], 0.045287006), (['ashamed'], 0.042368617), (['depressing'], 0.040409181), (['classy'], 0.040226985)]
+BASELINE:100-200
+KeY[(['imaginary'], 0.040545564), (['true'], 0.03654043), (['random'], 0.035454284), (['emotional'], 0.035126843), (['disturbing'], 0.033686362)]

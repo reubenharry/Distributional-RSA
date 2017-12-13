@@ -10,50 +10,55 @@ from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
-from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
+import random
 
-# vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
+random.seed(9001)
+
+
+vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
 nouns,adjs = get_words()
 
+freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
+nouns,adjs = get_words(with_freqs=False)
 
+qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
+
+
+
+qud_words = sorted(qud_words,\
+#     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+    key=lambda x:freqs[x],reverse=True)
+
+noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
+noun_words = sorted(noun_words,\
+    key=lambda x:freqs[x],reverse=True)
+
+# print("QUDS AND NOUNS 1",qud_words[0],noun_words[0])
+
+random.shuffle(qud_words)
+random.shuffle(noun_words)
 
 def l1_model(metaphor):
-    vec_size,vec_kind = 25,'glove.twitter.27B.'
-    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline,qud_num,run_num,name = metaphor
+    vec_size,vec_kind = 300,'glove.840B.'
+    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline,qud_num = metaphor
 
-    # print('abstract_threshold',abstract_threshold)
-    # print('concrete_threshold',concrete_threshold)
+    print('abstract_threshold',abstract_threshold)
+    print('concrete_threshold',concrete_threshold)
 
-    # quds = ['old','strong','stupid',"fast","green"]
-    # possible_utterances = ["wall","tree","man","idiot"]
+    # quds = ['commanding','ruthless']
+    # possible_utterances = ["puppy","child","principal"]
+
+    quds = qud_words[:500]+[subj]
+    possible_utterances = noun_words[:500]+[subj]
     # possible_utterances = ['ox','bag','nightmare']
     # possible_utterances = possible_utterance_adjs[:50]
     # +quds[:25]
     # possible_utterance_adjs[:50]+possible_utterance_nouns[:50]
     # possible_utterance_nouns[:4]
 
-    vecs = simple_vecs
-    real_vecs= simple_vecs
 
-    # real_vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind)
-    # real_vecs['subj1']=real_vecs["pebble"]
-    # real_vecs['subj2']=real_vecs["many"]
-    # real_vecs['pred1']=real_vecs["myth"]
-
-    # vecs['subj1']=vecs["many"]
-    # vecs['subj2']=vecs["pebble"]
-    # vecs['pred1']=vecs["myth"]
-
-
-    # quds = list(adjs)[:20]
-    # possible_utterances = list(nouns)[:200]  
-        
-
-    quds = ['qud1','qud2']
-    possible_utterances = ["pred1","pred2"]
-
-
-    # print("unyielding in real vecs","unyielding" in real_vecs)
+    real_vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind)
+    print("unyielding in real vecs","unyielding" in real_vecs)
 
     for x in possible_utterances:
         if x not in real_vecs:
@@ -71,17 +76,17 @@ def l1_model(metaphor):
         sig1=sig1,sig2=sig2, l1_sig1=l1_sig1,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 2000,
+        sample_number = 1000,
         number_of_qud_dimensions=1,
-        burn_in=1000,
+        # burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-1,
+        step_size=1e-10,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
-        rationality=1.0,
+        rationality=0.99,
         norm_vectors=False,
-        variational=False,
+        variational=True,
         variational_steps=100,
         baseline=is_baseline
         # world_movement=True
@@ -92,26 +97,23 @@ def l1_model(metaphor):
 
     run.compute_l1(load=0,save=False)
 
-    world_samples = run.world_samples
-    pickle.dump(world_samples,open("dist_rsa/data/world_samples_"+name+str(run_num),"wb"))
-
 
     l0_post = tf.transpose(tf.divide(tf.add(run.inference_params.listener_world/run.inference_params.sigma1, 
       run.inference_params.poss_utts/run.inference_params.sigma2),run.inference_params.inverse_sd))
 
     l0_post = ed.get_session().run(l0_post)
 
-    # print("L0 post shape",l0_post.shape)
+    print("L0 post shape",l0_post.shape)
 
-    # for q in ["strong","fast","green"]:
-    #     projected_l0_post = projection_debug(l0_post,np.expand_dims(real_vecs[q],-1))
-    #     subj_proj = projection_debug(run.inference_params.subject_vector,np.expand_dims(real_vecs[q],-1))
-    #     # print(run.inference_params.subject_vector)
-    #     print(q,projected_l0_post,subj_proj)
+    for q in ["strong","fast","green"]:
+        projected_l0_post = projection_debug(l0_post,np.expand_dims(real_vecs[q],-1))
+        subj_proj = projection_debug(run.inference_params.subject_vector,np.expand_dims(real_vecs[q],-1))
+        # print(run.inference_params.subject_vector)
+        print(q,projected_l0_post,subj_proj)
 
-    # print("projection of man on green",projection_debug(real_vecs["man"],np.expand_dims(real_vecs["green"],1)))
-    # print("projection of horse on green",projection_debug(real_vecs["horse"],np.expand_dims(real_vecs["green"],1)))
-    # print("projection of oak on green",projection_debug(real_vecs["oak"],np.expand_dims(real_vecs["green"],1)))
+    print("projection of man on green",projection_debug(real_vecs["man"],np.expand_dims(real_vecs["green"],1)))
+    print("projection of horse on green",projection_debug(real_vecs["horse"],np.expand_dims(real_vecs["green"],1)))
+    print("projection of oak on green",projection_debug(real_vecs["oak"],np.expand_dims(real_vecs["green"],1)))
 
     # print("man",real_vecs["man"])
     # print("horse",real_vecs["horse"])
@@ -141,7 +143,7 @@ def l1_model(metaphor):
             subj_proj = projection_debug(run.inference_params.subject_vector,np.expand_dims(real_vecs[x[0]],-1))
             result_proj = np.expand_dims(projection_debug(np.mean(run.world_samples,axis=0),np.expand_dims(real_vecs[x[0]],-1)),0)
         # print("\ndemarginalized:\n",demarginalize_product_space(results)[:5])
-            new_results.append((x,"prob:",np.exp(y),"world movement along this qud:",result_proj-subj_proj))
+            new_results.append((x,np.exp(y),result_proj-subj_proj))
     else: new_results = [(x,np.exp(y)) for (x,y) in results]
 
 

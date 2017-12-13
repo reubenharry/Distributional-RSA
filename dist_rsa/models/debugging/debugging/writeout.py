@@ -16,14 +16,12 @@ import random
 # from dist_rsa.models.debugging.l1_cat_long import l1_model as l1_cat_long
 from dist_rsa.models.debugging.l1_cat_short import l1_model as l1_cat_short
 
-name = "0.1"
 
 if __name__ == "__main__":
 
     sig1 = 0.1
     sig2 = 0.1
     l1_sig1 = 0.1
-
     start = 10
     stop = 3000
     qud_num = 10
@@ -44,7 +42,7 @@ if __name__ == "__main__":
             out.write("L1: utts"+str(0)+str(start))
             worldms=[]
             for x in range(num_iters):
-                results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,False,qud_num,x,name))
+                results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,False,qud_num))
                 worldms.append(worldm)
                 out.write('\n')
                 out.write("Iter "+str(x)+" "+str(results[:5]))
@@ -71,9 +69,9 @@ if __name__ == "__main__":
 
 
             
-            # out.write('\nBASELINE:0-100\n')
-            # results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,True,qud_num,1000))
-            # out.write(str(results[:10]))
+            out.write('\nBASELINE:0-100\n')
+            results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,True,qud_num))
+            out.write(str(results[:10]))
 
             # out.write('\nBASELINE:100-200\n')
             # results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,start,stop,True))

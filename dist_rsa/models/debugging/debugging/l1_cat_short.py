@@ -10,16 +10,18 @@ from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
-from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
+from dist_rsa.utils.simple_vecs import real_vecs
 
 # vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
-nouns,adjs = get_words()
+# nouns,adjs = get_words()
+
+
 
 
 
 def l1_model(metaphor):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
-    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline,qud_num,run_num,name = metaphor
+    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline,qud_num = metaphor
 
     # print('abstract_threshold',abstract_threshold)
     # print('concrete_threshold',concrete_threshold)
@@ -32,9 +34,6 @@ def l1_model(metaphor):
     # possible_utterance_adjs[:50]+possible_utterance_nouns[:50]
     # possible_utterance_nouns[:4]
 
-    vecs = simple_vecs
-    real_vecs= simple_vecs
-
     # real_vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind)
     # real_vecs['subj1']=real_vecs["pebble"]
     # real_vecs['subj2']=real_vecs["many"]
@@ -43,14 +42,14 @@ def l1_model(metaphor):
     # vecs['subj1']=vecs["many"]
     # vecs['subj2']=vecs["pebble"]
     # vecs['pred1']=vecs["myth"]
-
+    vecs = real_vecs
 
     # quds = list(adjs)[:20]
     # possible_utterances = list(nouns)[:200]  
         
 
     quds = ['qud1','qud2']
-    possible_utterances = ["pred1","pred2"]
+    possible_utterances = ["pred1",'pred2']
 
 
     # print("unyielding in real vecs","unyielding" in real_vecs)
@@ -91,9 +90,6 @@ def l1_model(metaphor):
     run = Dist_RSA_Inference(params)
 
     run.compute_l1(load=0,save=False)
-
-    world_samples = run.world_samples
-    pickle.dump(world_samples,open("dist_rsa/data/world_samples_"+name+str(run_num),"wb"))
 
 
     l0_post = tf.transpose(tf.divide(tf.add(run.inference_params.listener_world/run.inference_params.sigma1, 

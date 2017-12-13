@@ -1,0 +1,257 @@
+
+
+MODEL:variational
+
+
+principal,dictator
+L1: utts0500
+[(['elemental'], 0.066190451), (['preexisting'], 0.059120111), (['aloof'], 0.045369465), (['punchy'], 0.036850411), (['docile'], 0.03493743)]
+[(['elemental'], 0.071164325), (['preexisting'], 0.067373946), (['unreachable'], 0.044074576), (['aloof'], 0.042264052), (['punchy'], 0.038862295)]
+[(['preexisting'], 0.05960039), (['elemental'], 0.057596508), (['unreachable'], 0.048122741), (['docile'], 0.041020732), (['debilitating'], 0.040184874)]
+BASELINE:0-100
+[(['moody'], 0.051357768), (['pious'], 0.036151353), (['nefarious'], 0.034070399), (['underlying'], 0.03321759), (['devoid'], 0.029582743)]
+room,dungeon
+L1: utts0500
+[(['unchangeable'], 0.023498846), (['ineligible'], 0.019423937), (['classified'], 0.016236354), (['whacky'], 0.016113613), (['audacious'], 0.012602154)]
+[(['unchangeable'], 0.036904015), (['audacious'], 0.016327385), (['ineligible'], 0.013398832), (['whacky'], 0.012509767), (['classified'], 0.012063573)]
+[(['ineligible'], 0.037453152), (['unchangeable'], 0.035737026), (['classified'], 0.018369749), (['audacious'], 0.017633028), (['whacky'], 0.013790632)]
+BASELINE:0-100
+[(['commonplace'], 0.049388681), (['compliant'], 0.042526055), (['untrained'], 0.04068552), (['discerning'], 0.035113838), (['unshakable'], 0.034902938)]
+biking,gateway
+L1: utts0500
+[(['possessive'], 0.13521789), (['unemotional'], 0.010464449), (['rebellious'], 0.0086882664), (['aloof'], 0.006569183), (['resistant'], 0.0062497049)]
+[(['possessive'], 0.1123679), (['rebellious'], 0.011915225), (['unemotional'], 0.0088899815), (['aloof'], 0.0081019076), (['resistant'], 0.0065138633)]
+[(['possessive'], 0.14071415), (['unemotional'], 0.011096667), (['aloof'], 0.0084047252), (['rebellious'], 0.0077542313), (['resistant'], 0.0069127209)]
+BASELINE:0-100
+[(['miscellaneous'], 0.031059675), (['interchangeable'], 0.024143782), (['ready'], 0.023308408), (['decadent'], 0.020014815), (['sulky'], 0.017098375)]
+room,furnace
+L1: utts0500
+[(['gutsy'], 0.023460941), (['unapologetic'], 0.021877265), (['apprehensive'], 0.021395739), (['allied'], 0.019073378), (['enchanting'], 0.019060345)]
+[(['allied'], 0.020771857), (['apprehensive'], 0.019788399), (['unapologetic'], 0.018707313), (['gutsy'], 0.016323717), (['enchanting'], 0.016264878)]
+[(['enlightening'], 0.014476418), (['apprehensive'], 0.014325799), (['unapologetic'], 0.012442417), (['centralized'], 0.01228661), (['gutsy'], 0.012056787)]
+BASELINE:0-100
+[(['unsolicited'], 0.066026852), (['irregular'], 0.058099858), (['accessible'], 0.050404411), (['conceptual'], 0.039869227), (['prevalent'], 0.037229743)]
+skin,parchment
+L1: utts0500
+[(['deviant'], 0.23823224), (['unchangeable'], 0.018894849), (['technical'], 0.015318197), (['amoral'], 0.013407185), (['inconvenient'], 0.012183225)]
+[(['deviant'], 0.16825923), (['hectic'], 0.032193575), (['stressful'], 0.026778836), (['technical'], 0.026754905), (['unchangeable'], 0.016538305)]
+[(['deviant'], 0.16303618), (['unchangeable'], 0.015316306), (['uninteresting'], 0.012625497), (['enlightening'], 0.012186542), (['inconvenient'], 0.011194321)]
+BASELINE:0-100
+[(['enlightening'], 0.09467712), (['unreliable'], 0.040319718), (['easygoing'], 0.03458612), (['newfound'], 0.034294222), (['kindred'], 0.033778787)]
+place,junkyard
+L1: utts0500
+[(['subliminal'], 0.01239291), (['inadequate'], 0.012110886), (['fanatical'], 0.011840711), (['astrological'], 0.01170983), (['meditative'], 0.011240236)]
+[(['inadequate'], 0.017371338), (['astrological'], 0.016443731), (['fanatical'], 0.012850679), (['subliminal'], 0.01172136), (['pathological'], 0.01168648)]
+[(['inadequate'], 0.016516624), (['subliminal'], 0.014361139), (['fanatical'], 0.011845913), (['astrological'], 0.011687204), (['intermediate'], 0.011576839)]
+BASELINE:0-100
+[(['deviant'], 0.040859219), (['accessible'], 0.037392322), (['superstitious'], 0.035297036), (['regulatory'], 0.030499993), (['forgettable'], 0.02995565)]
+market,graveyard
+L1: utts0500
+[(['kindred'], 0.046450187), (['trite'], 0.025358081), (['compliant'], 0.019328984), (['plausible'], 0.016907355), (['homicidal'], 0.015428566)]
+[(['trite'], 0.039640553), (['kindred'], 0.03536332), (['compliant'], 0.026215158), (['plausible'], 0.017410371), (['blissful'], 0.016957801)]
+[(['kindred'], 0.033484887), (['compliant'], 0.031151198), (['trite'], 0.017229348), (['blissful'], 0.016244462), (['plausible'], 0.016001318)]
+BASELINE:0-100
+[(['revolutionary'], 0.044143278), (['promising'], 0.033561792), (['romantic'], 0.031800933), (['proud'], 0.029733768), (['supportive'], 0.026612354)]
+pornography,cancer
+L1: utts0500
+[(['radical'], 0.041382827), (['moody'], 0.035345722), (['sensible'], 0.02880545), (['greater'], 0.02714983), (['potential'], 0.026721558)]
+[(['forbidding'], 0.039926291), (['radical'], 0.03364145), (['tyrannical'], 0.033631586), (['greater'], 0.032703791), (['sensible'], 0.028875228)]
+[(['moody'], 0.040881533), (['radical'], 0.037364293), (['sensible'], 0.035095893), (['potential'], 0.031875789), (['willing'], 0.031713765)]
+BASELINE:0-100
+[(['indestructible'], 0.087098524), (['amoral'], 0.083487056), (['undiscovered'], 0.055695482), (['gracious'], 0.025688492), (['approximate'], 0.024993241)]
+room,wok
+L1: utts0500
+[(['motherly'], 0.20828158), (['wimpy'], 0.015749674), (['disadvantaged'], 0.014585257), (['subliminal'], 0.014237012), (['grievous'], 0.010358664)]
+[(['motherly'], 0.22206427), (['subliminal'], 0.013943247), (['wimpy'], 0.011595878), (['disadvantaged'], 0.011486561), (['compassionate'], 0.011121802)]
+[(['motherly'], 0.15472344), (['disadvantaged'], 0.019984545), (['grievous'], 0.012266577), (['subliminal'], 0.012003193), (['compassionate'], 0.01068835)]
+BASELINE:0-100
+[(['fictional'], 0.089666821), (['untitled'], 0.063585162), (['unidentified'], 0.047029514), (['skillful'], 0.039816163), (['underlying'], 0.038058285)]
+sin,sickness
+L1: utts0500
+[(['chronic'], 0.042471573), (['governing'], 0.0096505638), (['foremost'], 0.0087418407), (['greater'], 0.0086312816), (['gutsy'], 0.008398816)]
+[(['chronic'], 0.039370861), (['foremost'], 0.011037215), (['governing'], 0.0090258159), (['gutsy'], 0.0082036825), (['omnipotent'], 0.0074850409)]
+[(['chronic'], 0.037338514), (['governing'], 0.009971045), (['foremost'], 0.0099332845), (['wiser'], 0.0092032198), (['giddy'], 0.0089155333)]
+BASELINE:0-100
+[(['temporal'], 0.033167925), (['literal'], 0.02939775), (['unreal'], 0.026980642), (['inferior'], 0.026877467), (['blessed'], 0.026439128)]
+room,matchbox
+L1: utts0500
+[(['fundamentalist'], 0.010910005), (['ancestral'], 0.010298465), (['underrated'], 0.0071793026), (['fashionable'], 0.0051049967), (['unidentified'], 0.0050780382)]
+[(['fundamentalist'], 0.0087315338), (['ancestral'], 0.0086942259), (['underrated'], 0.0079765655), (['fashionable'], 0.0050025489), (['ungrateful'], 0.00494423)]
+[(['fundamentalist'], 0.011396824), (['ancestral'], 0.01045795), (['underrated'], 0.0078208456), (['corresponding'], 0.0057625514), (['unpredictable'], 0.0053292401)]
+BASELINE:0-100
+[(['ungrateful'], 0.05022769), (['unidentified'], 0.048564542), (['lewd'], 0.026243817), (['receivable'], 0.024196476), (['crude'], 0.022596523)]
+ascent,journey
+L1: utts0500
+[(['undying'], 0.26504728), (['greater'], 0.033379506), (['overwhelming'], 0.023097945), (['surreal'], 0.012941726), (['governing'], 0.011778688)]
+[(['undying'], 0.19187854), (['greater'], 0.059272848), (['overwhelming'], 0.051611096), (['nauseous'], 0.02102734), (['surreal'], 0.014610629)]
+[(['undying'], 0.19088438), (['greater'], 0.05369965), (['overwhelming'], 0.052233517), (['nauseous'], 0.019362774), (['surreal'], 0.014574348)]
+BASELINE:0-100
+[(['insincere'], 0.1303634), (['undying'], 0.058484122), (['bearable'], 0.051902957), (['cordial'], 0.037777476), (['lighthearted'], 0.036460273)]
+athletics,drug
+L1: utts0500
+[(['revolutionary'], 0.091265418), (['attempted'], 0.0734924), (['insightful'], 0.055159632), (['illegal'], 0.049518295), (['chronic'], 0.048837963)]
+[(['revolutionary'], 0.090760738), (['attempted'], 0.068044461), (['insightful'], 0.057124693), (['chronic'], 0.047791973), (['illegal'], 0.045850165)]
+[(['revolutionary'], 0.077975795), (['attempted'], 0.070046797), (['insightful'], 0.060651645), (['chronic'], 0.055588439), (['illegal'], 0.053914785)]
+BASELINE:0-100
+[(['cynical'], 0.032152489), (['hectic'], 0.031497568), (['intense'], 0.030973569), (['underrated'], 0.028778089), (['promising'], 0.028271709)]
+mother,mosquito
+L1: utts0500
+[(['offbeat'], 0.018867413), (['mortal'], 0.011147276), (['audacious'], 0.010379207), (['intermediate'], 0.010246045), (['blissful'], 0.0090652863)]
+[(['offbeat'], 0.021765793), (['unreliable'], 0.011114306), (['mortal'], 0.010376689), (['blissful'], 0.010323206), (['intermediate'], 0.010286451)]
+[(['offbeat'], 0.014098992), (['unreliable'], 0.0096006487), (['audacious'], 0.0095483148), (['blissful'], 0.0088035502), (['mortal'], 0.0084224623)]
+BASELINE:0-100
+[(['chronic'], 0.07776022), (['anti'], 0.063251883), (['pending'], 0.031950727), (['indispensable'], 0.026293639), (['nightly'], 0.02517168)]
+photographer,fly
+L1: utts0500
+[(['debilitating'], 0.0088885706), (['insecure'], 0.0086756311), (['proud'], 0.0085739968), (['ready'], 0.0078267362), (['willing'], 0.0076199421)]
+[(['proud'], 0.010305628), (['debilitating'], 0.0096399114), (['mortal'], 0.0071862624), (['warrantless'], 0.0067159007), (['ready'], 0.0067065852)]
+[(['lonely'], 0.0089265974), (['debilitating'], 0.0088386806), (['ready'], 0.0087197507), (['mortal'], 0.0081721749), (['insecure'], 0.0077161114)]
+BASELINE:0-100
+[(['vice'], 0.041200787), (['infinite'], 0.037728816), (['ideal'], 0.036122609), (['mature'], 0.035173714), (['gorgeous'], 0.033226635)]
+voice,river
+L1: utts0500
+[(['monumental'], 0.16387905), (['unsocial'], 0.04620095), (['incomparable'], 0.032324933), (['physiological'], 0.03167361), (['offbeat'], 0.022891842)]
+[(['monumental'], 0.16608863), (['unsocial'], 0.038895797), (['incomparable'], 0.032870036), (['physiological'], 0.031027516), (['offbeat'], 0.02120815)]
+[(['monumental'], 0.079289027), (['unsocial'], 0.03762956), (['incomparable'], 0.034426197), (['physiological'], 0.029314721), (['offbeat'], 0.021181647)]
+BASELINE:0-100
+[(['moderate'], 0.089882247), (['anti'], 0.054295942), (['ideal'], 0.043490101), (['undiscovered'], 0.04312326), (['crude'], 0.039194264)]
+ship,palace
+L1: utts0500
+[(['monumental'], 0.011543754), (['suitable'], 0.010424477), (['inadequate'], 0.007894895), (['unsocial'], 0.0071691973), (['ineffective'], 0.0066656615)]
+[(['suitable'], 0.010806557), (['monumental'], 0.0097382041), (['unsocial'], 0.0084850807), (['inadequate'], 0.007627158), (['ineffective'], 0.0072401874)]
+[(['monumental'], 0.011380201), (['suitable'], 0.0070783221), (['inter'], 0.0067919269), (['ineffective'], 0.0066567808), (['inadequate'], 0.0065616067)]
+BASELINE:0-100
+[(['civil'], 0.024895517), (['greater'], 0.022538446), (['transformational'], 0.022112302), (['accessible'], 0.020414716), (['dismissive'], 0.019103812)]
+life,snowflake
+L1: utts0500
+[(['aspiring'], 0.027504982), (['indefinite'], 0.026996342), (['unconditional'], 0.020804955), (['unthinkable'], 0.016131941), (['courageous'], 0.013621181)]
+[(['unconditional'], 0.023503082), (['indefinite'], 0.021105697), (['courageous'], 0.015514306), (['unthinkable'], 0.015183155), (['untitled'], 0.01193824)]
+[(['unconditional'], 0.023771536), (['aspiring'], 0.022534534), (['indefinite'], 0.017921746), (['courageous'], 0.014656521), (['unthinkable'], 0.013342395)]
+BASELINE:0-100
+[(['majestic'], 0.071071751), (['jokey'], 0.058270033), (['untitled'], 0.053945374), (['fashionable'], 0.036865875), (['snarky'], 0.033457611)]
+life,river
+L1: utts0500
+[(['monumental'], 0.13133337), (['incomparable'], 0.039177783), (['unsocial'], 0.03861795), (['perceptive'], 0.026952373), (['physiological'], 0.025461894)]
+[(['monumental'], 0.1832089), (['unsocial'], 0.040060151), (['incomparable'], 0.035418), (['physiological'], 0.022040088), (['perceptive'], 0.021055302)]
+[(['monumental'], 0.19127271), (['unsocial'], 0.042063724), (['incomparable'], 0.040420339), (['physiological'], 0.023586938), (['perceptive'], 0.019737475)]
+BASELINE:0-100
+[(['temporal'], 0.24165274), (['nefarious'], 0.052547261), (['uncountable'], 0.043589681), (['continuous'], 0.040786166), (['differing'], 0.036000993)]
+book,hug
+L1: utts0500
+[(['happier'], 0.017032543), (['prehistoric'], 0.014367859), (['willing'], 0.012661845), (['gorgeous'], 0.012317958), (['proud'], 0.011707244)]
+[(['happier'], 0.015431038), (['prehistoric'], 0.012305295), (['willing'], 0.011502061), (['gorgeous'], 0.010699068), (['adorable'], 0.010616536)]
+[(['prehistoric'], 0.017176799), (['happier'], 0.016636716), (['gorgeous'], 0.013841121), (['proud'], 0.013675961), (['blessed'], 0.012503684)]
+BASELINE:0-100
+[(['mysterious'], 0.047547877), (['other'], 0.038694508), (['holy'], 0.038338833), (['true'], 0.035106272), (['absolute'], 0.032152198)]
+body,city
+L1: utts0500
+[(['monumental'], 0.14384826), (['temporal'], 0.062453821), (['civil'], 0.012830289), (['anti'], 0.012783462), (['unsocial'], 0.012622511)]
+[(['monumental'], 0.11399662), (['temporal'], 0.066527411), (['anti'], 0.014705336), (['unsocial'], 0.014219495), (['ideal'], 0.012208505)]
+[(['monumental'], 0.2103397), (['temporal'], 0.059319247), (['inter'], 0.013031504), (['unsocial'], 0.01200005), (['anti'], 0.011516868)]
+BASELINE:0-100
+[(['anti'], 0.091282696), (['super'], 0.070812896), (['macho'], 0.06316404), (['erroneous'], 0.045087051), (['pending'], 0.040954664)]
+sun,hammer
+L1: utts0500
+[(['unreliable'], 0.018032644), (['intermediate'], 0.013364631), (['unsolicited'], 0.011884238), (['allied'], 0.007839663), (['avid'], 0.0078246128)]
+[(['unreliable'], 0.016274815), (['intermediate'], 0.010696232), (['unsolicited'], 0.0094576208), (['avid'], 0.0078010084), (['allied'], 0.0068711)]
+[(['unreliable'], 0.018356584), (['intermediate'], 0.011410228), (['avid'], 0.0094029726), (['unsolicited'], 0.0092130108), (['allied'], 0.0074944119)]
+BASELINE:0-100
+[(['sacrificial'], 0.033735231), (['moderate'], 0.033270791), (['controversial'], 0.024653275), (['chronic'], 0.024539478), (['kinky'], 0.021627635)]
+relationship,treasure
+L1: utts0500
+[(['magical'], 0.017641548), (['sacred'], 0.014554715), (['heavenly'], 0.013362668), (['mysterious'], 0.012707591), (['unconditional'], 0.012066783)]
+[(['magical'], 0.017180823), (['mysterious'], 0.015964972), (['sacred'], 0.012399944), (['heavenly'], 0.011465488), (['fictional'], 0.010744084)]
+[(['magical'], 0.015732583), (['sacred'], 0.014900425), (['heavenly'], 0.014622456), (['mysterious'], 0.011628436), (['ancient'], 0.011424606)]
+BASELINE:0-100
+[(['heavenly'], 0.12252136), (['congressional'], 0.045280311), (['opportunistic'], 0.032133438), (['cautionary'], 0.03077847), (['lonesome'], 0.026512969)]
+pub,family
+L1: utts0500
+[(['mature'], 0.093124859), (['supportive'], 0.069253638), (['independent'], 0.068553425), (['peculiar'], 0.013800828), (['belated'], 0.013348848)]
+[(['mature'], 0.064750917), (['supportive'], 0.062216211), (['independent'], 0.061829761), (['peculiar'], 0.015315276), (['belated'], 0.011642928)]
+[(['mature'], 0.10123257), (['supportive'], 0.080174439), (['independent'], 0.077514477), (['happier'], 0.012705943), (['peculiar'], 0.012458963)]
+BASELINE:0-100
+[(['bearable'], 0.038846392), (['opportunistic'], 0.032023869), (['nefarious'], 0.027982874), (['indispensable'], 0.022844408), (['prejudicial'], 0.021167329)]
+life,train
+L1: utts0500
+[(['forbidding'], 0.12399046), (['nefarious'], 0.10035128), (['macabre'], 0.082718737), (['directorial'], 0.036107827), (['egotistical'], 0.023939673)]
+[(['forbidding'], 0.14874174), (['nefarious'], 0.1357712), (['macabre'], 0.10638352), (['directorial'], 0.045999404), (['egotistical'], 0.02779974)]
+[(['nefarious'], 0.13366288), (['forbidding'], 0.12633133), (['macabre'], 0.093367942), (['directorial'], 0.043772317), (['egotistical'], 0.023536997)]
+BASELINE:0-100
+[(['omnipotent'], 0.071358182), (['apocalyptic'], 0.040008791), (['neurological'], 0.038199216), (['melancholic'], 0.035343226), (['glum'], 0.035140101)]
+rose,woman
+L1: utts0500
+[(['charming'], 0.061222848), (['mysterious'], 0.04942527), (['supportive'], 0.042160314), (['moody'], 0.04135656), (['stubborn'], 0.040840171)]
+[(['charming'], 0.055368394), (['mysterious'], 0.043047439), (['willing'], 0.035613973), (['mature'], 0.035164129), (['supportive'], 0.03456996)]
+[(['charming'], 0.051769249), (['mysterious'], 0.034024917), (['moody'], 0.029572653), (['mature'], 0.0286975), (['independent'], 0.026293665)]
+BASELINE:0-100
+[(['glam'], 0.04829726), (['super'], 0.044955175), (['impartial'], 0.038899638), (['mega'], 0.038791794), (['infinite'], 0.038368158)]
+tongue,razor
+L1: utts0500
+[(['intermediate'], 0.38153344), (['unexplained'], 0.026279895), (['unsung'], 0.021984071), (['unreliable'], 0.013677193), (['impartial'], 0.011428164)]
+[(['intermediate'], 0.29669794), (['unexplained'], 0.03639295), (['unsung'], 0.023871142), (['unreliable'], 0.01876398), (['impartial'], 0.012294574)]
+[(['intermediate'], 0.40802079), (['unexplained'], 0.029081987), (['unsung'], 0.022180451), (['unreliable'], 0.012711809), (['impartial'], 0.010251988)]
+BASELINE:0-100
+[(['unsung'], 0.23723397), (['impartial'], 0.074341565), (['liberating'], 0.045518678), (['deliberate'], 0.035388861), (['warrantless'], 0.022100374)]
+music,language
+L1: utts0500
+[(['scientific'], 0.12678546), (['revolutionary'], 0.10234024), (['political'], 0.018130573), (['psychic'], 0.015264707), (['complicated'], 0.013676319)]
+[(['scientific'], 0.063363113), (['revolutionary'], 0.06178122), (['political'], 0.016073693), (['psychic'], 0.013811249), (['historical'], 0.01098151)]
+[(['scientific'], 0.15147179), (['revolutionary'], 0.1149461), (['political'], 0.016744884), (['psychic'], 0.014761131), (['incorrect'], 0.013955859)]
+BASELINE:0-100
+[(['political'], 0.086169876), (['complicated'], 0.067002468), (['revolutionary'], 0.062766865), (['appropriate'], 0.03123861), (['foolish'], 0.029344706)]
+brain,giant
+L1: utts0500
+[(['anti'], 0.0097801136), (['macho'], 0.0093846694), (['vigorous'], 0.0079038823), (['liberating'], 0.0073447344), (['woeful'], 0.0072779823)]
+[(['macho'], 0.0099966619), (['liberating'], 0.008185396), (['anti'], 0.0075764107), (['vigorous'], 0.0073703453), (['woeful'], 0.006101002)]
+[(['woeful'], 0.0076287766), (['liberating'], 0.0075528743), (['macho'], 0.007164239), (['mysterious'], 0.0069537754), (['anti'], 0.0063267429)]
+BASELINE:0-100
+[(['liberating'], 0.057707556), (['anti'], 0.057418868), (['woeful'], 0.040769473), (['super'], 0.036325794), (['sacrificial'], 0.031123567)]
+brain,muscle
+L1: utts0500
+[(['offensive'], 0.12424567), (['sensible'], 0.10891511), (['competitive'], 0.10012753), (['unreachable'], 0.076477341), (['unappreciated'], 0.019016594)]
+[(['offensive'], 0.11985549), (['sensible'], 0.11594142), (['competitive'], 0.11459645), (['unreachable'], 0.078254677), (['unappreciated'], 0.018639026)]
+[(['competitive'], 0.15297475), (['offensive'], 0.15294987), (['sensible'], 0.14075214), (['unreachable'], 0.092251882), (['unappreciated'], 0.02055167)]
+BASELINE:0-100
+[(['inferior'], 0.20344585), (['smaller'], 0.056271274), (['cheap'], 0.052738551), (['regular'], 0.042480413), (['sustainable'], 0.037588332)]
+brain,computer
+L1: utts0500
+[(['possessive'], 0.10490299), (['veritable'], 0.036388133), (['squeamish'], 0.019190593), (['incorrect'], 0.015388926), (['edgy'], 0.013040182)]
+[(['possessive'], 0.11368481), (['veritable'], 0.035525024), (['squeamish'], 0.018989066), (['incorrect'], 0.015906394), (['pending'], 0.013885054)]
+[(['possessive'], 0.16277051), (['veritable'], 0.039645448), (['squeamish'], 0.019926444), (['incorrect'], 0.015904687), (['irate'], 0.011898283)]
+BASELINE:0-100
+[(['edgy'], 0.079390317), (['awkward'], 0.049725976), (['apt'], 0.047102083), (['indispensable'], 0.045544777), (['cheap'], 0.043942172)]
+life,gift
+L1: utts0500
+[(['existing'], 0.10968888), (['supportive'], 0.10617504), (['unconditional'], 0.096560366), (['psychic'], 0.088763468), (['affordable'], 0.0648617)]
+[(['existing'], 0.14001285), (['supportive'], 0.12685783), (['affordable'], 0.11172964), (['psychic'], 0.10721693), (['unconditional'], 0.10005599)]
+[(['existing'], 0.13034277), (['supportive'], 0.11248686), (['psychic'], 0.10433906), (['unconditional'], 0.095426671), (['affordable'], 0.089798048)]
+BASELINE:0-100
+[(['existing'], 0.22405501), (['supportive'], 0.16195431), (['unconditional'], 0.13131317), (['exotic'], 0.064998657), (['gorgeous'], 0.05185755)]
+school,game
+L1: utts0500
+[(['possessive'], 0.072530419), (['moral'], 0.064714313), (['competitive'], 0.062880568), (['offensive'], 0.060727842), (['mega'], 0.056424562)]
+[(['possessive'], 0.075655371), (['moral'], 0.071828917), (['mega'], 0.064516746), (['competitive'], 0.063803948), (['aspiring'], 0.058030143)]
+[(['possessive'], 0.082030922), (['mega'], 0.077965386), (['moral'], 0.07725098), (['competitive'], 0.071918331), (['aspiring'], 0.0698236)]
+BASELINE:0-100
+[(['unreal'], 0.068423904), (['good'], 0.052567724), (['nervous'], 0.049227685), (['worst'], 0.046795104), (['decent'], 0.04307102)]
+life,party
+L1: utts0500
+[(['ready'], 0.01942634), (['proud'], 0.018827111), (['good'], 0.011644916), (['vice'], 0.011409428), (['holy'], 0.011299563)]
+[(['proud'], 0.015812613), (['ready'], 0.015441696), (['vice'], 0.013924744), (['belated'], 0.012819098), (['good'], 0.012477245)]
+[(['ready'], 0.02100938), (['proud'], 0.017758001), (['vice'], 0.013675498), (['super'], 0.013529831), (['belated'], 0.013417565)]
+BASELINE:0-100
+[(['belated'], 0.080918506), (['super'], 0.067621648), (['perverted'], 0.053849317), (['congressional'], 0.050320238), (['glam'], 0.044697225)]
+bed,heaven
+L1: utts0500
+[(['magical'], 0.018913718), (['blessed'], 0.014268587), (['heavenly'], 0.013720121), (['cruel'], 0.012330823), (['ancient'], 0.011619661)]
+[(['magical'], 0.017007984), (['heavenly'], 0.013547015), (['happier'], 0.013294822), (['mysterious'], 0.012517333), (['ancient'], 0.012102181)]
+[(['magical'], 0.016356256), (['mysterious'], 0.01411235), (['heavenly'], 0.013883267), (['happier'], 0.012566935), (['blessed'], 0.011927981)]
+BASELINE:0-100
+[(['heavenly'], 0.093573302), (['magical'], 0.081171319), (['sacred'], 0.039287597), (['greater'], 0.037717726), (['charming'], 0.034454457)]
+life,dream
+L1: utts0500
+[(['unconditional'], 0.12046392), (['charming'], 0.10649427), (['supportive'], 0.10296993), (['greater'], 0.072774582), (['willing'], 0.018562997)]
+[(['unconditional'], 0.13197973), (['supportive'], 0.12159702), (['charming'], 0.12064206), (['greater'], 0.084250167), (['willing'], 0.01610944)]
+[(['unconditional'], 0.1250452), (['supportive'], 0.1161157), (['charming'], 0.11465614), (['greater'], 0.081026733), (['willing'], 0.017058846)]
+BASELINE:0-100
+[(['unconditional'], 0.099929929), (['charming'], 0.087104507), (['supportive'], 0.071301825), (['greater'], 0.050971746), (['magnificent'], 0.042400651)]

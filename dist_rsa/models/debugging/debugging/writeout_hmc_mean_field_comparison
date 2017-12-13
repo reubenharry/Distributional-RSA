@@ -1,0 +1,49 @@
+
+boundary,shark
+L1: utts010
+[(['disappointed'], 0.53921008), (['tragic'], 0.35526353), (['outdated'], 0.023197236), (['repugnant'], 0.022516249), (['untapped'], 0.013407421)]
+[(['disappointed'], 0.63537109), (['tragic'], 0.21571971), (['devoted'], 0.035695106), (['untapped'], 0.029098216), (['repugnant'], 0.022401569)]
+[(['disappointed'], 0.53848124), (['tragic'], 0.28995156), (['repugnant'], 0.034039285), (['fundamentalist'], 0.031912882), (['devoted'], 0.026695812)]
+WORLDS
+[('worried', -0.66794058152191027), ('disappointed', -0.6465437817018953), ('concerned', -0.63673146466822539), ('ashamed', -0.61665618307438697), ('tragic', -0.61662163737269482)]
+[('unhappy', -0.47218432977442437), ('happier', -0.46802113803366063), ('worrying', -0.460971585360887), ('satisfied', -0.45926302526948426), ('thankful', -0.44966753666611958)]
+[('disappointed', -0.53494611771277822), ('worried', -0.53146335973323289), ('ashamed', -0.52608566630361997), ('disgusted', -0.51302410921406427), ('amazed', -0.51044032522796878)]
+
+BASELINE:0-100
+[(['manic'], 0.47118223), (['fundamentalist'], 0.469726), (['uninteresting'], 0.049140252), (['uptight'], 0.0099254632), (['untapped'], 2.5974645e-05)]
+mouse,shark
+L1: utts010
+[(['disappointed'], 0.46514976), (['tragic'], 0.40809569), (['repugnant'], 0.022604084), (['manic'], 0.021363646), (['outdated'], 0.021090241)]
+[(['disappointed'], 0.47655413), (['tragic'], 0.45022085), (['repugnant'], 0.026534356), (['uninteresting'], 0.012193616), (['untapped'], 0.0076075909)]
+[(['disappointed'], 0.46247128), (['tragic'], 0.41204128), (['outdated'], 0.022694349), (['untapped'], 0.021177722), (['devoted'], 0.019059787)]
+WORLDS
+[('repressed', 0.43184366311040134), ('unlucky', -0.42802032650971766), ('disappointed', -0.4183454415067962), ('fortunate', -0.41592424181801668), ('hopeful', -0.41566531285836772)]
+[('exempt', 0.42989793012721822), ('unworthy', 0.42153036307676472), ('outdated', 0.38829510939542455), ('inaccurate', 0.38452762679345254), ('forgettable', -0.37810198610872181)]
+[('philanthropic', 0.34887222653033234), ('disappointed', -0.31848233006653737), ('unchanged', -0.31721786363658233), ('heartbreaking', -0.31600128930826066), ('perpetual', -0.31035121058141202)]
+
+BASELINE:0-100
+[(['untapped'], 0.34098762), (['devoted'], 0.25109956), (['disappointed'], 0.24899429), (['outdated'], 0.08759293), (['manic'], 0.063117929)]
+boundary,shark
+L1: utts010
+[(['devoted'], 0.99068618), (['untapped'], 0.0093135694), (['disappointed'], 4.422721e-08), (['fundamentalist'], 2.388933e-13), (['manic'], 8.9938528e-14)]
+[(['repugnant'], 0.7668758), (['uninteresting'], 0.22859751), (['fundamentalist'], 0.0045263818), (['tragic'], 2.8108332e-07), (['devoted'], 7.8775643e-14)]
+[(['devoted'], 0.82259405), (['outdated'], 0.10455921), (['fundamentalist'], 0.072837561), (['tragic'], 9.1166021e-06), (['repugnant'], 3.7267262e-20)]
+WORLDS
+[('unwise', 0.85967534092951214), ('comparative', 0.77183720928232458), ('unappreciative', -0.76826818760131421), ('incidental', -0.76432010423984365), ('grandiose', -0.76214835129784886)]
+[('uncommitted', -1.2335404605160161), ('habitual', 1.0620656756588158), ('thieving', -1.0487076940453641), ('exuberant', -1.0171526343935908), ('overactive', -1.0144387382180509)]
+[('overactive', -0.91397124704243771), ('habitual', 0.90839891329538447), ('pious', 0.89825103812819795), ('overconfident', -0.8394593108063827), ('virginal', 0.80787334060518678)]
+
+BASELINE:0-100
+[(['devoted'], nan), (['disappointed'], nan), (['fundamentalist'], nan), (['manic'], nan), (['outdated'], nan)]
+mouse,shark
+L1: utts010
+[(['manic'], 0.89058208), (['uninteresting'], 0.091509186), (['fundamentalist'], 0.01790842), (['untapped'], 1.7672662e-10), (['devoted'], 9.8790964e-14)]
+[(['tragic'], 0.58113521), (['outdated'], 0.41386774), (['fundamentalist'], 0.0049662679), (['disappointed'], 3.0965733e-05), (['devoted'], 1.9276995e-13)]
+[(['outdated'], 0.98505336), (['fundamentalist'], 0.014946551), (['uninteresting'], 1.4177599e-17), (['untapped'], 2.3342202e-25), (['repugnant'], 1.7268201e-41)]
+WORLDS
+[('compulsive', 0.9941888760362334), ('explicit', 0.98047660455554009), ('preoccupied', 0.9477257370387151), ('original', 0.89525138484145206), ('insatiable', 0.88121754320872248)]
+[('wondrous', 1.0185831208384806), ('sonic', 0.97806788084585317), ('theatrical', 0.96061607221774015), ('channeled', -0.92436486864617151), ('unproductive', 0.92293125671207765)]
+[('original', 0.86136994351575802), ('actual', 0.83824743458674056), ('sonic', 0.77985465142539434), ('regular', 0.77177479036695251), ('fresh', 0.76403992512085162)]
+
+BASELINE:0-100
+[(['devoted'], nan), (['disappointed'], nan), (['fundamentalist'], nan), (['manic'], nan), (['outdated'], nan)]

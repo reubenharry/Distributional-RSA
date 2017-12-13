@@ -1,0 +1,37 @@
+
+
+MODEL:short
+
+
+principal,dictator
+L1: utts010
+[(['despicable'], 0.11159376, array([[ 4.31694045]])), (['bourgeois'], 0.071908385, array([[ 3.22394631]])), (['fundamentalist'], 0.051807255, array([[ 2.69823545]])), (['imbecilic'], 0.049201507, array([[ 1.10803868]])), (['unjust'], 0.02667254, array([[ 2.75120728]]))]
+[(['despicable'], 0.11454668, array([[ 4.67428288]])), (['bourgeois'], 0.072166733, array([[ 3.40004714]])), (['imbecilic'], 0.049755611, array([[ 0.90840703]])), (['fundamentalist'], 0.047948319, array([[ 2.87638687]])), (['unjust'], 0.025640288, array([[ 2.88205118]]))]
+[(['despicable'], 0.11193041, array([[ 3.76222411]])), (['bourgeois'], 0.07196787, array([[ 3.09323405]])), (['imbecilic'], 0.054735988, array([[ 1.22103059]])), (['fundamentalist'], 0.048025958, array([[ 2.61789484]])), (['unjust'], 0.025198011, array([[ 2.49617611]]))]
+[(['despicable'], 0.10975637, array([[ 4.4045421]])), (['bourgeois'], 0.066552609, array([[ 2.846172]])), (['imbecilic'], 0.051769793, array([[ 0.93406496]])), (['fundamentalist'], 0.044274833, array([[ 2.5568517]])), (['unjust'], 0.025762584, array([[ 2.7879462]]))]
+[(['despicable'], 0.11725575, array([[ 4.10225843]])), (['bourgeois'], 0.0738765, array([[ 3.38216904]])), (['imbecilic'], 0.052978061, array([[ 1.28868049]])), (['fundamentalist'], 0.046807837, array([[ 2.70231617]])), (['unjust'], 0.025826555, array([[ 2.80060938]]))]
+WORLDS
+[('despicable', array([[ 4.31694045]])), ('immoral', array([[ 3.2673189]])), ('appalling', array([[ 3.23395522]])), ('bourgeois', array([[ 3.22394631]])), ('idiotic', array([[ 3.20631959]]))]
+[('despicable', array([[ 4.67428288]])), ('immoral', array([[ 3.49070005]])), ('absurd', array([[ 3.48253898]])), ('appalling', array([[ 3.47667197]])), ('idiotic', array([[ 3.46045599]]))]
+[('despicable', array([[ 3.76222411]])), ('bourgeois', array([[ 3.09323405]])), ('vicious', array([[ 2.9820915]])), ('absurd', array([[ 2.94012172]])), ('immoral', array([[ 2.9093817]]))]
+[('despicable', array([[ 4.4045421]])), ('appalling', array([[ 3.3961948]])), ('vicious', array([[ 3.33412213]])), ('absurd', array([[ 3.27232853]])), ('idiotic', array([[ 3.24493426]]))]
+[('despicable', array([[ 4.10225843]])), ('bourgeois', array([[ 3.38216904]])), ('absurd', array([[ 3.33426309]])), ('immoral', array([[ 3.20429734]])), ('vicious', array([[ 3.18717911]]))]
+
+BASELINE:0-100
+[(['vice'], 0.0022629199), (['responsible'], 0.0022422166), (['governing'], 0.0022291457), (['administrative'], 0.0022008843), (['municipal'], 0.0021947809), (['prime'], 0.0021810618), (['fictitious'], 0.0021790669), (['probable'], 0.0021715383), (['contingent'], 0.0021674004), (['political'], 0.0021659674)]
+child,dictator
+L1: utts010
+[(['despicable'], 0.11245586, array([[ 4.1843666]])), (['bourgeois'], 0.073715404, array([[ 3.13323455]])), (['imbecilic'], 0.049814899, array([[ 0.91193743]])), (['fundamentalist'], 0.046100654, array([[ 2.7313277]])), (['unjust'], 0.026279062, array([[ 2.75705234]]))]
+[(['despicable'], 0.11957948, array([[ 5.3462038]])), (['bourgeois'], 0.071781255, array([[ 3.24156818]])), (['imbecilic'], 0.050798696, array([[ 1.31543994]])), (['fundamentalist'], 0.045790583, array([[ 2.93752515]])), (['unjust'], 0.026162783, array([[ 3.36063298]]))]
+[(['despicable'], 0.10953145, array([[ 4.60087516]])), (['bourgeois'], 0.072788224, array([[ 3.0500603]])), (['imbecilic'], 0.049349852, array([[ 1.49848273]])), (['fundamentalist'], 0.048819408, array([[ 2.77247313]])), (['unjust'], 0.028582824, array([[ 2.91179379]]))]
+[(['despicable'], 0.11120731, array([[ 4.51035856]])), (['bourgeois'], 0.076841973, array([[ 3.39306596]])), (['fundamentalist'], 0.049959414, array([[ 2.75879409]])), (['imbecilic'], 0.048228689, array([[ 1.26648524]])), (['unjust'], 0.0266938, array([[ 2.91248842]]))]
+[(['despicable'], 0.11231063, array([[ 3.55061484]])), (['bourgeois'], 0.076949261, array([[ 2.89263534]])), (['imbecilic'], 0.053675547, array([[ 1.02090952]])), (['fundamentalist'], 0.043803044, array([[ 2.33035988]])), (['unjust'], 0.024863485, array([[ 2.33454334]]))]
+WORLDS
+[('despicable', array([[ 4.1843666]])), ('appalling', array([[ 3.23204069]])), ('absurd', array([[ 3.20056817]])), ('immoral', array([[ 3.18110946]])), ('vicious', array([[ 3.17376365]]))]
+[('despicable', array([[ 5.3462038]])), ('immoral', array([[ 3.94776913]])), ('appalling', array([[ 3.9299186]])), ('vicious', array([[ 3.83708674]])), ('idiotic', array([[ 3.75708009]]))]
+[('despicable', array([[ 4.60087516]])), ('immoral', array([[ 3.47388262]])), ('vicious', array([[ 3.45226512]])), ('appalling', array([[ 3.4399859]])), ('absurd', array([[ 3.31605734]]))]
+[('despicable', array([[ 4.51035856]])), ('bourgeois', array([[ 3.39306596]])), ('immoral', array([[ 3.39038544]])), ('appalling', array([[ 3.35676291]])), ('vicious', array([[ 3.31426301]]))]
+[('despicable', array([[ 3.55061484]])), ('bourgeois', array([[ 2.89263534]])), ('absurd', array([[ 2.87981056]])), ('idiotic', array([[ 2.80538575]])), ('vicious', array([[ 2.80505558]]))]
+
+BASELINE:0-100
+[(['reluctant'], 0.0022506812), (['paternal'], 0.0022426273), (['responsible'], 0.0022286866), (['wrong'], 0.0022221352), (['immoral'], 0.0021989248), (['insane'], 0.0021924963), (['stupid'], 0.0021918304), (['brave'], 0.0021854851), (['terrifying'], 0.0021833603), (['vicious'], 0.0021792704)]
