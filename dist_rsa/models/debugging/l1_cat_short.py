@@ -19,7 +19,7 @@ nouns,adjs = get_words()
 
 def l1_model(metaphor):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
-    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline,qud_num,run_num,name = metaphor
+    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline,qud_num,run_num = metaphor
 
     # print('abstract_threshold',abstract_threshold)
     # print('concrete_threshold',concrete_threshold)
@@ -93,8 +93,14 @@ def l1_model(metaphor):
     run.compute_l1(load=0,save=False)
 
     world_samples = run.world_samples
-    pickle.dump(world_samples,open("dist_rsa/data/world_samples_"+name+str(run_num),"wb"))
 
+    if l1_sig1==0.1:
+
+        pickle.dump(world_samples,open("dist_rsa/models/debugging/l1_sig1-0.1/world_samples_"+subj+pred+str(run_num),"wb"))
+
+    elif l1_sig1==10.0:
+
+        pickle.dump(world_samples,open("dist_rsa/models/debugging/l1_sig1-10/world_samples_"+subj+pred+str(run_num),"wb"))        
 
     l0_post = tf.transpose(tf.divide(tf.add(run.inference_params.listener_world/run.inference_params.sigma1, 
       run.inference_params.poss_utts/run.inference_params.sigma2),run.inference_params.inverse_sd))

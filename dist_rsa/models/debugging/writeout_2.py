@@ -16,21 +16,21 @@ import random
 # from dist_rsa.models.debugging.l1_cat_long import l1_model as l1_cat_long
 from dist_rsa.models.debugging.l1_cat_short import l1_model as l1_cat_short
 
-name="10.0"
+name = "0.1"
 
 if __name__ == "__main__":
 
     sig1 = 0.1
     sig2 = 0.1
     l1_sig1 = 10.0
-    
+
     start = 10
     stop = 3000
     qud_num = 10
 
     num_iters = 20
 
-    out = open("dist_rsa/models/debugging/writeout_2","w")
+    out = open("dist_rsa/models/debugging/writeout","w")
     # (best_model,"variational"),
     # (hmc_model,"hmc"),
     for l1_model,model_name in [(l1_cat_short,"short")]:
@@ -40,11 +40,11 @@ if __name__ == "__main__":
         for subj,pred in [("subj1","pred1"),("subj2","pred1")]:
         # [("woman","horse"),("man","horse"),("horse","man"),("cat","fool")]:
         # metaphors:
-            out.write('\n'+subj+","+pred+'\n')
+            out.write('\n'+subj+","+pred+'\n'+"l0_sig1:"+str(sig1)+"l0_sig2:"+str(sig2)+"l1_sig1"+str(l1_sig1)+"\n")
             out.write("L1: utts"+str(0)+str(start))
             worldms=[]
             for x in range(num_iters):
-                results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,False,qud_num,x,name))
+                results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,False,qud_num,x))
                 worldms.append(worldm)
                 out.write('\n')
                 out.write("Iter "+str(x)+" "+str(results[:5]))

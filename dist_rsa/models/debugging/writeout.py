@@ -40,11 +40,11 @@ if __name__ == "__main__":
         for subj,pred in [("subj1","pred1"),("subj2","pred1")]:
         # [("woman","horse"),("man","horse"),("horse","man"),("cat","fool")]:
         # metaphors:
-            out.write('\n'+subj+","+pred+'\n')
+            out.write('\n'+subj+","+pred+'\n'+"l0_sig1:"+str(sig1)+"l0_sig2:"+str(sig2)+"l1_sig1"+str(l1_sig1)+"\n")
             out.write("L1: utts"+str(0)+str(start))
             worldms=[]
             for x in range(num_iters):
-                results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,False,qud_num,x,name))
+                results,worldm = l1_model((subj,pred,sig1,sig2,l1_sig1,0,start,False,qud_num,x))
                 worldms.append(worldm)
                 out.write('\n')
                 out.write("Iter "+str(x)+" "+str(results[:5]))
