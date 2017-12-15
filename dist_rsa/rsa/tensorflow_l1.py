@@ -180,6 +180,8 @@ def tf_l1(inference_params):
 	# if return_tf:
 	# 	return inferred_qud, inferred_world
 	# else:
+	if not inference_params.variational:
+		return results,sess.run(inferred_world)
 	return results,sess.run(tf.expand_dims(qworld.mean(),0))
 
 

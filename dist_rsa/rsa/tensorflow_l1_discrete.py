@@ -59,8 +59,8 @@ def tf_l1_discrete(inference_params):
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
 	# world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.sig1] * inference_params.vec_length)
 	world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.l1_sig1] * inference_params.vec_length)
-	l = tf_s1(inference_params,s1_world=tf.expand_dims(world,0))
-	l_summed = tf.reduce_logsumexp(l,axis=0)
+	# l = tf_s1(inference_params,s1_world=tf.expand_dims(world,0))
+	# l_summed = tf.reduce_logsumexp(l,axis=0)
 
 	
 	# full_l = Categorical(logits=l_summed)
@@ -85,52 +85,54 @@ def tf_l1_discrete(inference_params):
 	# full_l = tf.reduce_logsumexp([weighted_l_summed,weighted_no_qud],axis=0)
 	# full_l = Categorical(logits=full_l)
 
-	discrete_worlds = np.asarray([[x/10,y/10] for (x,y) in itertools.product(range(100),range(100))],dtype=np.float32)
+	discrete_worlds = np.asarray([[x/10,y/10] for (x,y) in itertools.product(range(-100,100),range(-100,100))],dtype=np.float32)
 
-	# discrete_worlds_prior = tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
-	# 	discrete_worlds)
-	# for (x,y) in itertools.product(range(100),range(100)):
-	# 	# print(world.get_shape())
-	# 	# print(world.prob([0.0,0.0]))
-	# 	# print(np.asarray([x/10,y/10],dtype=np.float32))
-	# 	discrete_worlds_prior[x,y]=world.log_prob([x/10,y/10])
+	# test = np.asarray([0 for (x,y) in itertools.product(range(-100,100),range(-100,100))],dtype=np.float32)
+	# test[1100]=5
 
-	first_half_worlds = discrete_worlds[:5000]
-	second_half_worlds = discrete_worlds[5000:]
+	print("discrete_worlds shape", discrete_worlds.shape)
+
+	discrete_worlds_prior = tf.map_fn(lambda w: tf.reduce_sum(world.log_prob(w)),
+		discrete_worlds)
+
+	print(sess.run(world.log_prob(discrete_worlds[0])))
+
+	print("discrete_worlds_prior.get_shape", discrete_worlds_prior.get_shape())
+
 	
-	out1 =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
-		first_half_worlds)
-	out2 =tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
-		second_half_worlds)
-	inferred_worlds = tf.concat([out1,out2],axis=0)
-
-	inferred_worlds = inferred_worlds
-
-	 # + inferred_worlds_prior
-
-	# out1 = tf_s1(inference_params,s1_world=first_half_worlds)
-	# out2 = tf_s1(inference_params,s1_world=second_half_worlds)
-
-	# inferred_qud = full_mat
-	# inferred_qud = tf_s1(inference_params,s1_world=inferred_world)
-	# print("inferred_qud shape",inferred_qud.get_shape())
-	# print(tac-toc)
+	# for (x,y) in itertools.product(range(100),range(100)):
+		# print(world.get_shape())
+		# print(world.prob([0.0,0.0]))
+		# print(np.asarray([x/10,y/10],dtype=np.float32))
+		# discrete_worlds_prior[x,y]=world.log_prob([x/10,y/10])
 
 
-	inferred_qud = inferred_worlds[:,:,utt]
-	inferred_qud = tf.subtract(inferred_qud,tf.expand_dims(tf.reduce_logsumexp(inferred_qud,axis=-1),1))
-	# print(tec-tac)
+	
+	inferred_worlds =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
+		discrete_worlds)
 
-	inferred_qud = tf.subtract(tf.reduce_logsumexp(inferred_qud,axis=0),tf.log(tf.cast(tf.shape(inferred_qud)[0],dtype=tf.float32)))
+
+	inferred_worlds = inferred_worlds[:,:,utt]
+
+	inferred_worlds = tf.reduce_logsumexp(inferred_worlds,axis=-1)
+
+	inferred_worlds += discrete_worlds_prior
+	# normalize
+	inferred_worlds = inferred_worlds - tf.reduce_logsumexp(inferred_worlds)
+
+	# inferred_worlds = tf.subtract(tf.reduce_logsumexp(inferred_worlds,axis=0),tf.log(tf.cast(tf.shape(inferred_worlds)[0],dtype=tf.float32)))
 	# print(tuc-tec)
-	results = list(zip(qud_combinations,sess.run(inferred_qud)))
-	results = (sorted(results, key=lambda x: x[1], reverse=True))
+	# results = list(zip(qud_combinations,sess.run(inferred_qud)))
+	# results = (sorted(results, key=lambda x: x[1], reverse=True))
 	# if return_tf:
 	# 	return inferred_qud, inferred_world
 	# else:
 
+	# return None,np.reshape(test,(200,200))
 
-	return results,sess.run(inferred_worlds)
+	# return None,np.exp(np.reshape(sess.run(discrete_worlds_prior),(200,200)))
+
+	return None,np.reshape(sess.run(inferred_worlds),(200,200))
 
 
 
