@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 import itertools
 from dist_rsa.dbm import *
-from dist_rsa.utils.load_data import *
+# from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import *
 from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
@@ -12,14 +12,11 @@ from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
 from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
 
-# vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
-nouns,adjs = get_words()
 
 
 
-def l1_model(metaphor):
+def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
-    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline,qud_num,run_num = metaphor
 
     # print('abstract_threshold',abstract_threshold)
     # print('concrete_threshold',concrete_threshold)
@@ -83,8 +80,9 @@ def l1_model(metaphor):
         norm_vectors=False,
         variational=False,
         variational_steps=100,
-        baseline=is_baseline,
-        discrete_l1=True
+        baseline=False,
+        discrete_l1=True,
+        resolution=resolution
         # world_movement=True
 
         )
@@ -97,7 +95,11 @@ def l1_model(metaphor):
 
     print(world_samples,world_samples.shape)
 
+    pickle.dump(world_samples,open("dist_rsa/data/heatmap_samples.pkl",'wb'))
+
+    return world_samples
+
 if __name__ == "__main__":
 
-    l1_model(("subj1","pred1",0.1,0.1,10.0,0,10,False,0,"discrete"))
+    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1))
 

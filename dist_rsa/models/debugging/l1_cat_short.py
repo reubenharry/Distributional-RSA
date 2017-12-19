@@ -13,7 +13,7 @@ import edward as ed
 from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
 
 # vecs = load_vecs(mean=True,pca=True,vec_length=300,vec_type='glove.6B.')
-nouns,adjs = get_words()
+# nouns,adjs = get_words()
 
 
 
@@ -83,7 +83,8 @@ def l1_model(metaphor):
         norm_vectors=False,
         variational=False,
         variational_steps=100,
-        baseline=is_baseline
+        baseline=is_baseline,
+        discrete_l1=True
         # world_movement=True
 
         )
@@ -158,15 +159,5 @@ def l1_model(metaphor):
 
 if __name__ == "__main__":
 
-    l1_model(("man","shark"))
-    l1_model(("man","shark"))
-    # l1_model(("tree","man",True))
-    # l1_model(("tree","woman",False))
-
-    # l1_model(("man","oak",True))
-    # l1_model(("oak","tree",True))
-    # l1_model(("tree","oak",True))
-    # l1_model(("drug","athletics",False))
-    # l1_model(("junkyard","place",True))
-    # l1_model(("junkyard","place",False))
+    l1_model(("subj1","pred1",0.1,0.1,10.0,0,10,False,0,"discrete"))
 
