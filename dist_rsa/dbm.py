@@ -10,8 +10,9 @@ from dist_rsa.rsa.tensorflow_l1_with_trivial import tf_l1_with_trivial
 from dist_rsa.rsa.tensorflow_l1_only_trivial import tf_l1_only_trivial
 from dist_rsa.rsa.tensorflow_l1_baseline import tf_l1_baseline
 from dist_rsa.rsa.tensorflow_l1_noncat import tf_l1_noncat
+from dist_rsa.rsa.tensorflow_l1_discrete import tf_l1_discrete
 from dist_rsa.utils.refine_vectors import h_dict,processVecMatrix
-from dist_rsa.utils.load_data import *
+# from dist_rsa.utils.load_data import 
 from dist_rsa.utils.helperfunctions import *
 
 
@@ -41,7 +42,10 @@ class Inference_Params:
         variational_steps=100,
         baseline=False,
         only_trivial=False,
+        discrete_l1=False,
+        resolution=(100,0.1)
         ):
+
 
             self.l1_sig1=l1_sig1
             self.vecs=vecs
@@ -70,6 +74,8 @@ class Inference_Params:
             self.variational_steps=variational_steps
             self.only_trivial=only_trivial
             self.baseline=baseline
+            self.discrete_l1=discrete_l1
+            self.resolution=resolution
             
             if norm_vectors:
                 for vec in vecs:
@@ -93,6 +99,7 @@ class Dist_RSA_Inference:
         print("subject:",self.inference_params.subject)
         print("predicate",self.inference_params.predicate)
         print("SIGs 1&2:",self.inference_params.sig1,self.inference_params.sig2)
+        print("L1 SIG",self.inference_params.l1_sig1)
         print("step_size",self.inference_params.step_size)
         print("utt weight, qud weight",self.inference_params.freq_weight,self.inference_params.qud_weight)
         print("number of qud dimensions:",self.inference_params.number_of_qud_dimensions)
@@ -104,7 +111,10 @@ class Dist_RSA_Inference:
         message = "Running "+self.inference_params.model_type+" RSA with "+str(len(self.inference_params.possible_utterances))+" possible utterances and " + str(len(self.inference_params.quds))
         print(message)
 
-        if self.inference_params.only_trivial:
+        if self.inference_params.discrete_l1:
+            tf_results = tf_l1_discrete(self.inference_params)
+
+        elif self.inference_params.only_trivial:
             print("RUNNING MODEL WITHOUT QUDS")
             tf_results = tf_l1_only_trivial(self.inference_params)
             self.world_samples = tf_results
