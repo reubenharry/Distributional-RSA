@@ -1,5 +1,7 @@
 def tf_l1_discrete(inference_params):
 
+	print("\n\n\nTRIVIAL\n\n\n")
+
 	import time
 	import numpy as np
 	import edward as ed
@@ -13,7 +15,7 @@ def tf_l1_discrete(inference_params):
         double_tensor_projection_matrix,combine_quds, lookup, s1_nonvect
 	# from edward.inferences import HMC
 	import itertools
-	from dist_rsa.rsa.tensorflow_s1 import tf_s1
+	from dist_rsa.rsa.tensorflow_s1_trivial import tf_s1_trivial
 	# from dist_rsa.rsa.tensorflow_s1_triple_vec import tf_s1_triple_vec as tf_s1
 	# from tensorflow_l0_sigma import tf_l0_sigma
 	sess = ed.get_session()
@@ -111,7 +113,7 @@ def tf_l1_discrete(inference_params):
 
 
 	
-	inferred_worlds =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
+	inferred_worlds =  tf.map_fn(lambda w: tf_s1_trivial(inference_params,s1_world=tf.expand_dims(w,0)),
 		discrete_worlds)
 
 

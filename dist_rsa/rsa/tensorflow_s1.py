@@ -56,13 +56,15 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 	projected_world = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,s1_world),perm=[0,2,1])
 	# print("new projected world",ed.get_session().run(tf.shape(projected_world)),"new projected mus",ed.get_session().run(tf.shape(projected_mus)))
 
+	print(projected_mus.get_shape(),projected_world.get_shape())
+
 	if debug:
 		pass
 		# print("tf projected_world dv t", ed.get_session().run(projected_world[:,:,:]),projected_world)
 		# print("PROJECTED MUS dv t",ed.get_session().run(projected_mus),projected_mus)
 	
-	stacked_unprojected_world = tf.transpose(tf.stack([s1_world,s1_world,s1_world]),perm=[0,2,1])
-	stacked_unprojected_mus = tf.transpose(tf.stack([mus,mus,mus]),perm=[0,2,1])
+	# stacked_unprojected_world = tf.transpose(tf.stack([s1_world,s1_world,s1_world]),perm=[0,2,1])
+	# stacked_unprojected_mus = tf.transpose(tf.stack([mus,mus,mus]),perm=[0,2,1])
 	
 	# print("stackeds",ed.get_session().run([stacked_unprojected_mus,stacked_unprojected_world]))
 

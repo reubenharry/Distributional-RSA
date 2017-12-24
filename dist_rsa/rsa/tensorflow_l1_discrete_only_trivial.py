@@ -1,4 +1,4 @@
-def tf_l1_discrete(inference_params):
+def tf_l1_discrete_only_trivial(inference_params):
 
 	import time
 	import numpy as np
@@ -13,43 +13,22 @@ def tf_l1_discrete(inference_params):
         double_tensor_projection_matrix,combine_quds, lookup, s1_nonvect
 	# from edward.inferences import HMC
 	import itertools
-	from dist_rsa.rsa.tensorflow_s1 import tf_s1
+	from dist_rsa.rsa.tensorflow_s1_trivial import tf_s1_trivial
 	# from dist_rsa.rsa.tensorflow_s1_triple_vec import tf_s1_triple_vec as tf_s1
 	# from tensorflow_l0_sigma import tf_l0_sigma
 	sess = ed.get_session()
 
 
 	listener_world = tf.cast(inference_params.subject_vector,dtype=tf.float32)
-	number_of_quds = len(inference_params.quds)
 	poss_utts = tf.cast(as_a_matrix(inference_params.possible_utterances,inference_params.vecs),dtype=tf.float32)
 	number_of_utts = len(inference_params.possible_utterances)
 	poss_utt_freqs = np.log(np.array([lookup(inference_params.poss_utt_frequencies,x,'NOUN') for x in inference_params.possible_utterances]))
 	weighted_utt_frequency_array = poss_utt_freqs-scipy.misc.logsumexp(poss_utt_freqs)
 	
 
-	qud_weight = tf.cast(inference_params.qud_weight,dtype=tf.float32)
-
-	if not inference_params.qud_frequencies:
-		qud_frequencies = inference_params.poss_utt_frequencies
-
-	qud_freqs = -np.log(np.array([lookup(inference_params.qud_frequencies,x,'ADJ') for x in inference_params.quds]))
-	if inference_params.trivial_qud_prior:
-		weighted_qud_frequency_array = tf.expand_dims(tf.zeros([number_of_quds])+tf.log(1/number_of_quds),1)
-	else:
-		weighted_qud_frequency_array = tf.cast(tf.expand_dims(qud_freqs-scipy.misc.logsumexp(qud_freqs),1),dtype=tf.float32)
-	
-	#remove to save worry about failing: needed for multidim categorical
-	qud_combinations = combine_quds(inference_params.quds,inference_params.number_of_qud_dimensions)
-	# qud_combinations = [[q] for q in quds]
-
-	print("qud_combinations",len(qud_combinations))
-	print("quds",len(inference_params.quds))
-
-	qud_matrix = tf.cast((np.asarray([np.asarray([inference_params.vecs[word] for word in words]).T for words in qud_combinations])),dtype=tf.float32)
 
 	inference_params.weighted_utt_frequency_array=weighted_utt_frequency_array
 	inference_params.poss_utts=poss_utts
-	inference_params.qud_matrix=qud_matrix
 	inference_params.listener_world=listener_world 
 
 
@@ -111,7 +90,7 @@ def tf_l1_discrete(inference_params):
 
 
 	
-	inferred_worlds =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
+	inferred_worlds =  tf.map_fn(lambda w: tf_s1_trivial(inference_params,s1_world=tf.expand_dims(w,0)),
 		discrete_worlds)
 
 
