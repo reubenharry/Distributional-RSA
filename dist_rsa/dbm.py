@@ -11,6 +11,7 @@ from dist_rsa.rsa.tensorflow_l1_only_trivial import tf_l1_only_trivial
 from dist_rsa.rsa.tensorflow_l1_baseline import tf_l1_baseline
 from dist_rsa.rsa.tensorflow_l1_noncat import tf_l1_noncat
 from dist_rsa.rsa.tensorflow_l1_discrete import tf_l1_discrete
+from dist_rsa.rsa.tensorflow_l1_discrete_only_trivial import tf_l1_discrete_only_trivial
 from dist_rsa.utils.refine_vectors import h_dict,processVecMatrix
 # from dist_rsa.utils.load_data import 
 from dist_rsa.utils.helperfunctions import *
@@ -112,7 +113,9 @@ class Dist_RSA_Inference:
         print(message)
 
         if self.inference_params.discrete_l1:
-            tf_results = tf_l1_discrete(self.inference_params)
+            if self.inference_params.only_trivial:
+                tf_results = tf_l1_discrete_only_trivial(self.inference_params)
+            else: tf_results = tf_l1_discrete(self.inference_params)
 
         elif self.inference_params.only_trivial:
             print("RUNNING MODEL WITHOUT QUDS")
