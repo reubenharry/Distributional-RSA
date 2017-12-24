@@ -15,7 +15,7 @@ from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
 
 
 
-def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,trivial_qud_prior):
+def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
 
     # print('abstract_threshold',abstract_threshold)
@@ -70,7 +70,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,trivial_qud_prior):
         sample_number = 2000,
         number_of_qud_dimensions=1,
         burn_in=1000,
-        seed=False,trivial_qud_prior=trivial_qud_prior,
+        seed=False,trivial_qud_prior=0.5,
         step_size=1e-1,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
@@ -81,7 +81,9 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,trivial_qud_prior):
         variational_steps=100,
         baseline=False,
         discrete_l1=True,
-        resolution=resolution
+        resolution=resolution,
+        only_trivial=True
+
         # world_movement=True
 
         )
@@ -100,5 +102,5 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,trivial_qud_prior):
 
 if __name__ == "__main__":
 
-    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],trivial_qud_prior=False)
+    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=True)
 
