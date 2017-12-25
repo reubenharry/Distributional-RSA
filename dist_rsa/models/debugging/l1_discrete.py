@@ -70,7 +70,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial):
         sample_number = 2000,
         number_of_qud_dimensions=1,
         burn_in=1000,
-        seed=False,trivial_qud_prior=0.5,
+        seed=False,trivial_qud_prior=False,
         step_size=1e-1,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
@@ -82,7 +82,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial):
         baseline=False,
         discrete_l1=True,
         resolution=resolution,
-        only_trivial=True
+        only_trivial=only_trivial
 
         # world_movement=True
 
