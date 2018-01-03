@@ -94,13 +94,28 @@ def tf_l1_discrete_only_trivial(inference_params):
 		discrete_worlds)
 
 
-	inferred_worlds = inferred_worlds[:,:,utt]
+	# inferred_worlds = inferred_worlds[:,:,utt]
 
-	inferred_worlds = tf.reduce_logsumexp(inferred_worlds,axis=-1)
+	# inferred_worlds = tf.reduce_logsumexp(inferred_worlds,axis=-1)
 
-	inferred_worlds += discrete_worlds_prior
-	# normalize
-	inferred_worlds = inferred_worlds - tf.reduce_logsumexp(inferred_worlds)
+	# inferred_worlds += discrete_worlds_prior
+	# # normalize
+	# inferred_worlds = inferred_worlds - tf.reduce_logsumexp(inferred_worlds)
+
+	if not inference_params.just_s1:
+		inferred_worlds = inferred_worlds[:,:,utt]
+
+		inferred_worlds = tf.reduce_logsumexp(inferred_worlds,axis=-1)
+
+		inferred_worlds += discrete_worlds_prior
+		# normalize
+		inferred_worlds = inferred_worlds - tf.reduce_logsumexp(inferred_worlds)
+
+	else: 
+		if len(inference_params.quds)==1:
+			print("\n\n\nQUDS\n\n\n",inference_params.quds)
+			inferred_worlds = inferred_worlds[:,0,0]
+		else: raise Exception
 
 	# inferred_worlds = tf.subtract(tf.reduce_logsumexp(inferred_worlds,axis=0),tf.log(tf.cast(tf.shape(inferred_worlds)[0],dtype=tf.float32)))
 	# print(tuc-tec)
