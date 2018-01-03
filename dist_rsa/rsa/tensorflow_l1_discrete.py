@@ -126,7 +126,7 @@ def tf_l1_discrete(inference_params):
 	else: 
 		if len(inference_params.quds)==1:
 			print("\n\n\nQUDS\n\n\n",inference_params.quds)
-			inferred_worlds = inferred_worlds[:,0,0]
+			inferred_worlds = inferred_worlds[:,inference_params.s1_qud,inference_params.s1_utt]
 		else: raise Exception
 
 	# inferred_worlds = tf.subtract(tf.reduce_logsumexp(inferred_worlds,axis=0),tf.log(tf.cast(tf.shape(inferred_worlds)[0],dtype=tf.float32)))

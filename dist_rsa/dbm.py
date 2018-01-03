@@ -45,7 +45,9 @@ class Inference_Params:
         only_trivial=False,
         discrete_l1=False,
         resolution=(100,0.1),
-        just_s1=False
+        just_s1=False,
+        s1_utt=None,
+        s1_qud=None
         ):
 
 
@@ -79,6 +81,8 @@ class Inference_Params:
             self.discrete_l1=discrete_l1
             self.resolution=resolution
             self.just_s1=just_s1
+            self.s1_utt=s1_utt
+            self.s1_qud=s1_qud
             
             if norm_vectors:
                 for vec in vecs:

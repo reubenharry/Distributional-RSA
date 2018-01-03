@@ -59,6 +59,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1):
 
     print("UTTERANCES:\n",possible_utterances[:20])
 
+
     params = Inference_Params(
         vecs=real_vecs,
         subject=[subj],predicate=pred,
@@ -83,7 +84,9 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1):
         discrete_l1=True,
         resolution=resolution,
         only_trivial=only_trivial,
-        just_s1=just_s1
+        just_s1=just_s1,
+        s1_utt=int(pred[-1])-1,
+        s1_qud=0
 
         # world_movement=True
 
@@ -104,5 +107,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1):
 if __name__ == "__main__":
 
     # l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1','qud2'],only_trivial=False,just_s1=True)
+    l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=False,just_s1=True)
     l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=False,just_s1=True)
-
+    l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=True)
+    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=True)
