@@ -67,7 +67,7 @@ def tf_l1_discrete_only_trivial(inference_params):
 	size,amount = inference_params.resolution
 
 
-	discrete_worlds = np.asarray([[x*amount,y*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
+	discrete_worlds = np.asarray([[y*amount,-x*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
 
 	# test = np.asarray([0 for (x,y) in itertools.product(range(-100,100),range(-100,100))],dtype=np.float32)
 	# test[1100]=5
@@ -114,7 +114,7 @@ def tf_l1_discrete_only_trivial(inference_params):
 	else: 
 		if len(inference_params.quds)==1:
 			print("\n\n\nQUDS\n\n\n",inference_params.quds)
-			inferred_worlds = inferred_worlds[:,inference_params.s1_qud,inference_params.s1_utt]
+			inferred_worlds = inferred_worlds[:,inference_params.target_qud,utt]
 		else: raise Exception
 
 	# inferred_worlds = tf.subtract(tf.reduce_logsumexp(inferred_worlds,axis=0),tf.log(tf.cast(tf.shape(inferred_worlds)[0],dtype=tf.float32)))
@@ -129,7 +129,9 @@ def tf_l1_discrete_only_trivial(inference_params):
 
 	# return None,np.exp(np.reshape(sess.run(discrete_worlds_prior),(200,200)))
 
-	return None,np.reshape(sess.run(inferred_worlds),(size*2,size*2))
+	return (np.reshape(sess.run(inferred_worlds),(size*2,size*2)),
+		discrete_worlds,
+		np.reshape(sess.run(discrete_worlds_prior),(size*2,size*2)))
 
 
 

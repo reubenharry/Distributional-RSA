@@ -15,7 +15,7 @@ from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
 
 
 
-def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1):
+def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,just_l0):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
 
     # print('abstract_threshold',abstract_threshold)
@@ -85,8 +85,8 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1):
         resolution=resolution,
         only_trivial=only_trivial,
         just_s1=just_s1,
-        s1_utt=int(pred[-1])-1,
-        s1_qud=0
+        just_l0=just_l0,
+        target_qud=0
 
         # world_movement=True
 
@@ -96,18 +96,22 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1):
 
     run.compute_l1(load=0,save=False)
 
-    world_samples = run.world_samples
+    tf_results = run.tf_results
 
-    print(world_samples,world_samples.shape)
+    # world_samples = tf_results[0]
 
-    pickle.dump(world_samples,open("dist_rsa/data/heatmap_samples.pkl",'wb'))
+    # print(world_samples,world_samples.shape)
 
-    return world_samples
+    print(tf_results)
+
+    # pickle.dump(world_samples,open("dist_rsa/data/heatmap_samples.pkl",'wb'))
+
+    return tf_results
 
 if __name__ == "__main__":
 
     # l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1','qud2'],only_trivial=False,just_s1=True)
-    l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=False,just_s1=True)
-    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=False,just_s1=True)
-    l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=True)
-    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=True)
+    l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=False,just_s1=False,just_l0=False)
+    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=False,just_s1=False,just_l0=False)
+    l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=False,just_l0=False)
+    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=False,just_l0=False)

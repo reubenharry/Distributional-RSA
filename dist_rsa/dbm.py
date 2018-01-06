@@ -46,8 +46,8 @@ class Inference_Params:
         discrete_l1=False,
         resolution=(100,0.1),
         just_s1=False,
-        s1_utt=None,
-        s1_qud=None
+        just_l0=False,
+        target_qud=None
         ):
 
 
@@ -81,8 +81,8 @@ class Inference_Params:
             self.discrete_l1=discrete_l1
             self.resolution=resolution
             self.just_s1=just_s1
-            self.s1_utt=s1_utt
-            self.s1_qud=s1_qud
+            self.just_l0=just_l0
+            self.target_qud=target_qud
             
             if norm_vectors:
                 for vec in vecs:
@@ -122,6 +122,8 @@ class Dist_RSA_Inference:
             if self.inference_params.only_trivial:
                 tf_results = tf_l1_discrete_only_trivial(self.inference_params)
             else: tf_results = tf_l1_discrete(self.inference_params)
+            self.tf_results=tf_results
+            return None
 
         elif self.inference_params.only_trivial:
             print("RUNNING MODEL WITHOUT QUDS")

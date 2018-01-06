@@ -14,6 +14,8 @@ def tf_l1_discrete(inference_params):
 	# from edward.inferences import HMC
 	import itertools
 	from dist_rsa.rsa.tensorflow_s1 import tf_s1
+	from dist_rsa.rsa.tensorflow_l0_sigma import tf_l0_sigma
+
 	# from dist_rsa.rsa.tensorflow_s1_triple_vec import tf_s1_triple_vec as tf_s1
 	# from tensorflow_l0_sigma import tf_l0_sigma
 	sess = ed.get_session()
@@ -88,10 +90,27 @@ def tf_l1_discrete(inference_params):
 	size,amount = inference_params.resolution
 
 
-	discrete_worlds = np.asarray([[x*amount,y*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
+	discrete_worlds = np.asarray([[y*amount,-x*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
 
 	# test = np.asarray([0 for (x,y) in itertools.product(range(-100,100),range(-100,100))],dtype=np.float32)
 	# test[1100]=5
+
+	if inference_params.just_l0:
+
+		inference_params.sigma1,inference_params.sigma2,inference_params.inverse_sd,inference_params.sigma,inference_params.inverse_sigma = tf_l0_sigma(inference_params)
+
+		mus_new = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
+		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
+		# print(mus_new.get_shape(),listener_world.get_shape())
+		# raise Exception
+		l0_post = Normal(loc=tf.squeeze(mus_new[utt]), scale=[inference_params.sigma[utt,utt]] * inference_params.vec_length)
+
+		# print(inference_params.sigma.get_shape())
+
+		l0_worlds_post = tf.map_fn(lambda w: tf.reduce_sum(l0_post.log_prob(w)),
+		discrete_worlds)
+
+		return None,np.reshape(sess.run(l0_worlds_post),(size*2,size*2))
 
 	print("discrete_worlds shape", discrete_worlds.shape)
 
@@ -126,7 +145,7 @@ def tf_l1_discrete(inference_params):
 	else: 
 		if len(inference_params.quds)==1:
 			print("\n\n\nQUDS\n\n\n",inference_params.quds)
-			inferred_worlds = inferred_worlds[:,inference_params.s1_qud,inference_params.s1_utt]
+			inferred_worlds = inferred_worlds[:,inference_params.target_qud,utt]
 		else: raise Exception
 
 	# inferred_worlds = tf.subtract(tf.reduce_logsumexp(inferred_worlds,axis=0),tf.log(tf.cast(tf.shape(inferred_worlds)[0],dtype=tf.float32)))
@@ -141,7 +160,11 @@ def tf_l1_discrete(inference_params):
 
 	# return None,np.exp(np.reshape(sess.run(discrete_worlds_prior),(200,200)))
 
-	return None,np.reshape(sess.run(inferred_worlds),(size*2,size*2))
+	# inferred_worlds[1,1]=10
+	print(discrete_worlds.shape)
+	return (np.reshape(sess.run(inferred_worlds),(size*2,size*2)),
+		discrete_worlds,
+		np.reshape(sess.run(discrete_worlds_prior),(size*2,size*2)))
 
 
 
