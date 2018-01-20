@@ -18,7 +18,7 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 
 	# print("tf qud mat", inference_params.qud_matrix, ed.get_session().run(inference_params.qud_matrix))
 
-
+	# print(inference_params.listener_world.get_shape(),inference_params.sigma1.get_shape(),inference_params.poss_utts.get_shape(),inference_params.sigma2.get_shape())
 	qud_projection_matrix = double_tensor_projection_matrix(inference_params.qud_matrix)
 	mus = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
 		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)

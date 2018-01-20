@@ -44,8 +44,8 @@ def tf_l1_discrete(inference_params):
 	qud_combinations = combine_quds(inference_params.quds,inference_params.number_of_qud_dimensions)
 	# qud_combinations = [[q] for q in quds]
 
-	print("qud_combinations",len(qud_combinations))
-	print("quds",len(inference_params.quds))
+	# print("qud_combinations",len(qud_combinations))
+	# print("quds",len(inference_params.quds))
 
 	qud_matrix = tf.cast((np.asarray([np.asarray([inference_params.vecs[word] for word in words]).T for words in qud_combinations])),dtype=tf.float32)
 
@@ -95,31 +95,31 @@ def tf_l1_discrete(inference_params):
 	# test = np.asarray([0 for (x,y) in itertools.product(range(-100,100),range(-100,100))],dtype=np.float32)
 	# test[1100]=5
 
-	if inference_params.just_l0:
+	# if inference_params.just_l0:
 
-		inference_params.sigma1,inference_params.sigma2,inference_params.inverse_sd,inference_params.sigma,inference_params.inverse_sigma = tf_l0_sigma(inference_params)
+	# 	inference_params.sigma1,inference_params.sigma2,inference_params.inverse_sd,inference_params.sigma,inference_params.inverse_sigma = tf_l0_sigma(inference_params)
 
-		mus_new = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
-		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
-		# print(mus_new.get_shape(),listener_world.get_shape())
-		# raise Exception
-		l0_post = Normal(loc=tf.squeeze(mus_new[utt]), scale=[inference_params.sigma[utt,utt]] * inference_params.vec_length)
+	# 	mus_new = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
+	# 	inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
+	# 	# print(mus_new.get_shape(),listener_world.get_shape())
+	# 	# raise Exception
+	# 	l0_post = Normal(loc=tf.squeeze(mus_new[utt]), scale=[inference_params.sigma[utt,utt]] * inference_params.vec_length)
 
-		# print(inference_params.sigma.get_shape())
+	# 	# print(inference_params.sigma.get_shape())
 
-		l0_worlds_post = tf.map_fn(lambda w: tf.reduce_sum(l0_post.log_prob(w)),
-		discrete_worlds)
+	# 	l0_worlds_post = tf.map_fn(lambda w: tf.reduce_sum(l0_post.log_prob(w)),
+	# 	discrete_worlds)
 
-		return None,np.reshape(sess.run(l0_worlds_post),(size*2,size*2))
+	# 	return None,np.reshape(sess.run(l0_worlds_post),(size*2,size*2))
 
-	print("discrete_worlds shape", discrete_worlds.shape)
+	# print("discrete_worlds shape", discrete_worlds.shape)
 
-	discrete_worlds_prior = tf.map_fn(lambda w: tf.reduce_sum(world.log_prob(w)),
-		discrete_worlds)
+	discrete_worlds_prior = tf.expand_dims(tf.map_fn(lambda w: tf.reduce_sum(world.log_prob(w)),
+		discrete_worlds),1)
 
-	print(sess.run(world.log_prob(discrete_worlds[0])))
+	# print(sess.run(world.log_prob(discrete_worlds[0])))
 
-	print("discrete_worlds_prior.get_shape", discrete_worlds_prior.get_shape())
+	# print("discrete_worlds_prior.get_shape", discrete_worlds_prior.get_shape())
 
 	
 	# for (x,y) in itertools.product(range(100),range(100)):
@@ -130,24 +130,32 @@ def tf_l1_discrete(inference_params):
 
 
 	
-	inferred_worlds =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
+	s1_scores =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),
 		discrete_worlds)
 
-	if not inference_params.just_s1:
-		inferred_worlds = inferred_worlds[:,:,utt]
 
-		inferred_worlds = tf.reduce_logsumexp(inferred_worlds,axis=-1)
+	# if not inference_params.just_s1:
+	s1_scores = s1_scores[:,:,utt]
 
-		inferred_worlds += discrete_worlds_prior
-		# normalize
-		inferred_worlds = inferred_worlds - tf.reduce_logsumexp(inferred_worlds)
+	# inferred_worlds = tf.reduce_logsumexp(inferred_worlds,axis=-1)
 
-	else: 
-		if len(inference_params.quds)==1:
-			print("\n\n\nQUDS\n\n\n",inference_params.quds)
-			inferred_worlds = inferred_worlds[:,inference_params.target_qud,utt]
-		else: raise Exception
+	l1_joint_posterior_unnormed = discrete_worlds_prior + s1_scores
+	# normalize
+	l1_joint_posterior_normed = l1_joint_posterior_unnormed - tf.reduce_logsumexp(l1_joint_posterior_unnormed)
 
+	# else: 
+	# 	if len(inference_params.quds)==1:
+	# 		print("\n\n\nQUDS\n\n\n",inference_params.quds)
+	# 		inferred_worlds = inferred_worlds[:,inference_params.target_qud,utt]
+	# 	else: raise Exception
+
+	world_posterior = tf.reduce_logsumexp(l1_joint_posterior_normed,axis=1)
+
+	qud_posterior = tf.reduce_logsumexp(l1_joint_posterior_normed,axis=0)
+
+	# inferred_quds = inferred_worlds[:,:,utt]
+	# inferred_quds = tf.reduce_logsumexp(inferred_quds,axis=0)
+	# inferred_quds = inferred_quds - tf.reduce_logsumexp(inferred_quds)
 	# inferred_worlds = tf.subtract(tf.reduce_logsumexp(inferred_worlds,axis=0),tf.log(tf.cast(tf.shape(inferred_worlds)[0],dtype=tf.float32)))
 	# print(tuc-tec)
 	# results = list(zip(qud_combinations,sess.run(inferred_qud)))
@@ -160,11 +168,9 @@ def tf_l1_discrete(inference_params):
 
 	# return None,np.exp(np.reshape(sess.run(discrete_worlds_prior),(200,200)))
 
-	# inferred_worlds[1,1]=10
-	print(discrete_worlds.shape)
-	return (np.reshape(sess.run(inferred_worlds),(size*2,size*2)),
-		discrete_worlds,
-		np.reshape(sess.run(discrete_worlds_prior),(size*2,size*2)))
+	# # inferred_worlds[1,1]=10
+	# print(discrete_worlds.shape)
+	return sess.run([tf.reshape(world_posterior,(size*2,size*2)),qud_posterior])
 
 
 
