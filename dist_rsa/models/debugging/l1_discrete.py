@@ -15,7 +15,7 @@ from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
 
 
 
-def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,just_l0):
+def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,just_l0,possible_utterances,discrete):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
 
     # print('abstract_threshold',abstract_threshold)
@@ -46,7 +46,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,ju
     # possible_utterances = list(nouns)[:200]  
         
 
-    possible_utterances = ["pred1","pred2"]
+    # possible_utterances = ["pred1","pred2"]
 
 
     # print("unyielding in real vecs","unyielding" in real_vecs)
@@ -78,10 +78,10 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,ju
         qud_prior_weight=0.5,
         rationality=1.0,
         norm_vectors=False,
-        variational=False,
+        variational=True,
         variational_steps=100,
         baseline=False,
-        discrete_l1=True,
+        discrete_l1=discrete,
         resolution=resolution,
         only_trivial=only_trivial,
         just_s1=just_s1,
@@ -96,22 +96,30 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,ju
 
     run.compute_l1(load=0,save=False)
 
-    tf_results = run.tf_results
 
     # world_samples = tf_results[0]
 
     # print(world_samples,world_samples.shape)
 
-    print(tf_results)
+    # print(tf_results)
 
     # pickle.dump(world_samples,open("dist_rsa/data/heatmap_samples.pkl",'wb'))
-
-    return tf_results
+    if discrete:
+        tf_results = run.tf_results
+        return tf_results
+    else: return run.world_samples,run.qud_samples
 
 if __name__ == "__main__":
 
     # l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1','qud2'],only_trivial=False,just_s1=True)
-    l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=False,just_s1=False,just_l0=False)
-    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1'],only_trivial=False,just_s1=False,just_l0=False)
-    l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=False,just_l0=False)
-    l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=False,just_l0=False)
+    quds=['vicious','swims']
+    # a = l1_model(subj="man",pred="shark",sig1=0.1,sig2=0.1,l1_sig1=1.0,resolution=(10,0.1),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=True)
+    a = l1_model(subj="man",pred="shark",sig1=0.1,sig2=0.1,l1_sig1=1.0,resolution=(300,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=True)
+
+    print(a[1])
+    print(list(zip(quds,np.exp(a[1]))))
+    # print([(x[0],np.exp(x[1])) for x in a[1]])
+    # b = l1_model(s ubj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1','qud2'],only_trivial=False,just_s1=False,just_l0=False)
+    # print(b[-1])
+    # l1_model(subj="subj1",pred="pred1",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=False,just_l0=False)
+    # l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud2'],only_trivial=False,just_s1=False,just_l0=False)
