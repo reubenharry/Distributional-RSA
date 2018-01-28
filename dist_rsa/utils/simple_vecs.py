@@ -6,13 +6,38 @@ real_vecs['subj2'] = np.asarray([0.0,1.0])
 real_vecs['pred1'] = real_vecs['subj1']
 real_vecs['pred2']= real_vecs['subj2']
 
+real_vecs['qud1']=np.asarray([1.0,1.0])
+real_vecs['qud2']=np.asarray([1.0,-1.0])
 
+
+# real_vecs["fish"]=np.asarray([-1.0,3.5])
+# real_vecs["shark"]=np.asarray([3.0,3.0])
+# real_vecs["man"]=np.asarray([0.0,0.0])
+# real_vecs["vicious"]=np.asarray([1.0,0.0])
+# real_vecs["swims"]=np.asarray([0.0,1.0])
 real_vecs['the']=np.asarray([0.0,0.0])
+
+real_vecs["swimmer"]=np.asarray([0.0,1.0])
+real_vecs["shark"]=np.asarray([1.0,1.0])
+real_vecs["man"]=np.asarray([0.0,0.0])
+real_vecs["vicious"]=np.asarray([1.0,0.0])
+# real_vecs["fishiness"]=np.asarray([0.0,1.0,0.0])
+real_vecs["swims"]=np.asarray([0.0,1.0])
+
+
+# real_vecs["swimmer"]=np.asarray([0.0,0.0,1.0])
+# real_vecs["shark"]=np.asarray([1.0,10.0,1.0])
+# real_vecs["man"]=np.asarray([0.0,0.0,0.0])
+# real_vecs["vicious"]=np.asarray([1.0,0.0,0.0])
+# real_vecs["fishiness"]=np.asarray([0.0,1.0,0.0])
+# real_vecs["swims"]=np.asarray([0.0,0.0,1.0])
+
+
+
+
 
 real_vecs['pred3'] = np.asarray([0.5,0.5])
 real_vecs['pred4'] = np.asarray([-0.5,-0.5])
 
 
-real_vecs['qud1']=np.asarray([1.0,1.0])
-real_vecs['qud2']=np.asarray([1.0,-1.0])
 real_vecs['qud3']=np.asarray([1.0,2.0])

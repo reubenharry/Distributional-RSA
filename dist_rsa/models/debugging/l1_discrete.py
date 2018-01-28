@@ -11,11 +11,12 @@ from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 # from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
 from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
+import itertools
 
 
 
 
-def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,just_l0,possible_utterances,discrete):
+def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,just_l0,possible_utterances,discrete,variational):
     vec_size,vec_kind = 25,'glove.twitter.27B.'
 
     # print('abstract_threshold',abstract_threshold)
@@ -72,14 +73,14 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,resolution,quds,only_trivial,just_s1,ju
         number_of_qud_dimensions=1,
         burn_in=1000,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-1,
+        step_size=1e-3,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
         rationality=1.0,
         norm_vectors=False,
-        variational=True,
-        variational_steps=100,
+        variational=variational,
+        variational_steps=1000,
         baseline=False,
         discrete_l1=discrete,
         resolution=resolution,
@@ -114,10 +115,28 @@ if __name__ == "__main__":
     # l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1','qud2'],only_trivial=False,just_s1=True)
     quds=['vicious','swims']
     # a = l1_model(subj="man",pred="shark",sig1=0.1,sig2=0.1,l1_sig1=1.0,resolution=(10,0.1),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=True)
-    a = l1_model(subj="man",pred="shark",sig1=0.1,sig2=0.1,l1_sig1=1.0,resolution=(300,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=True)
+    results_dict={}
+    # for sig1,sig2,l1_sig1 in itertools.product([1.0,10.0,0.1],[1.0,10.0,0.1],[1.0,10.0,0.1]):
 
-    print(a[1])
-    print(list(zip(quds,np.exp(a[1]))))
+
+    for sig1,sig2,l1_sig1 in [[0.1,1.0,1.0],[1.0,1.0,1.0],[10.0,1.0,1.0],[100.0,1.0,1.0],
+        [1.0,0.1,1.0],[1.0,1.0,1.0],[1.0,10.0,1.0],[1.0,100.0,1.0],
+        [1.0,1.0,0.1],[1.0,1.0,1.0],[1.0,1.0,10.0],[1.0,1.0,100.0]]:
+
+    # for sig1,sig2,l1_sig1 in itertools.product([1.0],[1.0],[1.0]):
+
+        a = l1_model(subj="man",pred="shark",sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,resolution=(100,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=True,variational=False)
+        results_dict[(sig1,sig2,l1_sig1,"disc",0)]=list(zip(quds,np.exp(a[1])))
+        for i in range(5):
+            b = l1_model(subj="man",pred="shark",sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,resolution=(100,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True)
+            c = l1_model(subj="man",pred="shark",sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,resolution=(100,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=False)
+            results_dict[(sig1,sig2,l1_sig1,"var",i)]=b[1]
+            results_dict[(sig1,sig2,l1_sig1,"hmc",i)]=c[1]
+
+    pickle.dump(results_dict,open("dist_rsa/data/discrete_sig_search",'wb'))
+
+    # print(a[1])
+        # print("sig1",sig1,"sig2",sig2,"l1_sig1",l1_sig1, list(zip(quds,np.exp(a[1]))))
     # print([(x[0],np.exp(x[1])) for x in a[1]])
     # b = l1_model(s ubj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1','qud2'],only_trivial=False,just_s1=False,just_l0=False)
     # print(b[-1])
