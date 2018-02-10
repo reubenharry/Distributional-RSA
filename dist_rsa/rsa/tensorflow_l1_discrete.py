@@ -50,6 +50,7 @@ def tf_l1_discrete(inference_params):
 
 
 	if inference_params.just_s1:
+		assert s1_scores.get_shape()[1]==1
 		return sess.run(tf.reshape(s1_scores[:,0,utt],(size*2,size*2))),None
 
 	# shape: [(size*2)**2, num_of_quds]

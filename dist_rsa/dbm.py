@@ -5,6 +5,7 @@ import pickle
 import itertools
 import nltk
 from dist_rsa.rsa.tensorflow_l1 import tf_l1
+from dist_rsa.rsa.tensorflow_l1_mixture import tf_l1 as tf_l1_mixture
 from dist_rsa.rsa.tensorflow_s2 import tf_s2
 from dist_rsa.rsa.tensorflow_l1_with_trivial import tf_l1_with_trivial
 from dist_rsa.rsa.tensorflow_l1_only_trivial import tf_l1_only_trivial
@@ -47,7 +48,8 @@ class Inference_Params:
         resolution=(100,0.1),
         just_s1=False,
         just_l0=False,
-        target_qud=None
+        target_qud=None,
+        mixture_variational=False,
         ):
 
 
@@ -75,6 +77,7 @@ class Inference_Params:
             self.step_size=step_size
             self.vec_length = self.vecs["the"].shape[0]
             self.variational=variational
+            self.mixture_variational=mixture_variational
             self.variational_steps=variational_steps
             self.only_trivial=only_trivial
             self.baseline=baseline
@@ -118,6 +121,7 @@ class Dist_RSA_Inference:
         message = "Running "+self.inference_params.model_type+" RSA with "+str(len(self.inference_params.possible_utterances))+" possible utterances and " + str(len(self.inference_params.quds))
         print(message)
 
+
         if self.inference_params.discrete_l1:
             if self.inference_params.only_trivial:
                 tf_results = tf_l1_discrete_only_trivial(self.inference_params)
@@ -145,6 +149,9 @@ class Dist_RSA_Inference:
             elif self.inference_params.trivial_qud_prior:
                 print("RUNNING CAT WITH TRIVIAL MODEL")
                 tf_results = tf_l1_with_trivial(self.inference_params)
+            elif self.inference_params.mixture_variational:
+                print("RUNNING MIXTURE VARIATIONAL MODEL")
+                tf_results = tf_l1_mixture(self.inference_params)
             else:
                 print("RUNNING CAT WITHOUT TRIVIAL MODEL")
                 tf_results = tf_l1(self.inference_params)
