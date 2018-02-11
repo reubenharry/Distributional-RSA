@@ -46,7 +46,7 @@ def l1_model(metaphor):
     #     key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
     # possible_utterance_nouns = 
     # break
-    quds = quds[:50]
+    quds = quds[:20]
     possible_utterance_adjs = quds
     possible_utterances = possible_utterance_nouns[start:stop]
     # +possible_utterance_adjs
@@ -71,10 +71,10 @@ def l1_model(metaphor):
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
         sample_number = 1000,
-        number_of_qud_dimensions=2,
+        number_of_qud_dimensions=1,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
-        step_size=1e-6,
+        step_size=1e-3,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         qud_prior_weight=0.5,
@@ -82,7 +82,8 @@ def l1_model(metaphor):
         norm_vectors=False,
         variational=True,
         variational_steps=300,
-        baseline=is_baseline
+        baseline=is_baseline,
+        mixture_variational=True,
         # world_movement=True
         )
 
@@ -92,10 +93,10 @@ def l1_model(metaphor):
 
     # print(results[:5])
 
-    if not is_baseline:
-        worldm = run.world_movement("cosine",comparanda=[x for x in qud_words if x in real_vecs])
-        # print("\nworld\n",worldm[:5])
-    else: worldm = None
+    # if not is_baseline:
+    #     worldm = run.world_movement("cosine",comparanda=[x for x in qud_words if x in real_vecs])
+    #     # print("\nworld\n",worldm[:5])
+    # else: worldm = None
         # out.write("\nWORLD MOVEMENT:\n")
         # out.write(str(worldm))
     # print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
@@ -104,7 +105,7 @@ def l1_model(metaphor):
 
     print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:5]])
     demarg = demarginalize_product_space(results)
-    # print("\ndemarginalized:\n,",demarg[:5])
+    print("\ndemarginalized:\n,",demarg[:5])
     # out.write("\ndemarginalized:\n")
     # out.write((str(demarg)))
 
@@ -122,10 +123,9 @@ def l1_model(metaphor):
 
 if __name__ == "__main__":
 
-    for x in range(3):
-        l1_model(("father","shark",0.1,0.1,1.0,0,100,False))
-    for x in range(3):
-        l1_model(("father","shark",0.1,0.1,1.0,100,200,False))
+    for x in range(1):
+        l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
+    for x in range(1):
+        l1_model(("man","lion",0.5,0.5,1.0,0,100,False))
 
-    l1_model(("father","shark",0.1,0.1,1.0,0,100,True))
-    l1_model(("father","shark",0.1,0.1,1.0,100,200,True))
+

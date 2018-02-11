@@ -1,3 +1,4 @@
+gensim
 matplotlib
 seaborn
 scipy

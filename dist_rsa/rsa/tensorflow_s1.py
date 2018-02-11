@@ -4,22 +4,26 @@
 
 def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 
+	"""
+	s1_world: SHAPE: [1, NUM_DIMS]
+
+
+	"""
+
 	import tensorflow as tf
 	import edward as ed
 	import numpy as np
 	import scipy
-	from dist_rsa.utils.helperfunctions import projection,tensor_projection,as_a_matrix,\
-		double_tensor_projection_matrix,combine_quds, lookup
+	from dist_rsa.utils.helperfunctions import projection,tensor_projection,as_a_matrix,double_tensor_projection_matrix,combine_quds, lookup
 	from dist_rsa.rsa.tensorflow_l0_sigma import tf_l0_sigma
 
 
 	inference_params.sigma1,inference_params.sigma2,inference_params.inverse_sd,inference_params.sigma,inference_params.inverse_sigma = tf_l0_sigma(inference_params)
-
-
-	# print("tf qud mat", inference_params.qud_matrix, ed.get_session().run(inference_params.qud_matrix))
-
 	# print(inference_params.listener_world.get_shape(),inference_params.sigma1.get_shape(),inference_params.poss_utts.get_shape(),inference_params.sigma2.get_shape())
+
+	# SHAPE: [NUM_QUDS,NUM_DIMS,NUM_DIMS] ?
 	qud_projection_matrix = double_tensor_projection_matrix(inference_params.qud_matrix)
+	# SHAPE: [NUM_UTTS,NUM_DIMS]
 	mus = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
 		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
 
@@ -51,8 +55,11 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 		# print("possible utts",inference_params.poss_utts,ed.get_session().run(inference_params.poss_utts))
 		# print("mus",mus,ed.get_session().run(mus))
 	s1_world = tf.transpose(s1_world)
+	# SHAPE: [NUM_DIMS,NUM_UTTS]
 	mus = tf.transpose(mus) #mus now contains a listener interpretation in each column
+	# SHAPE: [NUM_QUDS,NUM_UTTS,NUM_DIMS]
 	projected_mus = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,mus),perm=[0,2,1])
+	# SHAPE: [NUM_QUDS,1,NUM_DIMS]
 	projected_world = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,s1_world),perm=[0,2,1])
 	# print("new projected world",ed.get_session().run(tf.shape(projected_world)),"new projected mus",ed.get_session().run(tf.shape(projected_mus)))
 
@@ -68,7 +75,7 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 	
 	# print("stackeds",ed.get_session().run([stacked_unprojected_mus,stacked_unprojected_world]))
 
-	# print("SHAPES",projected_mus.get_shape(),projected_world.get_shape(),stacked_unprojected_mus.get_shape(),stacked_unprojected_world.get_shape())
+	# SHAPE: [NUM_QUDS,NUM_UTTS,NUM_DIMS]
 	mus_world_diff = tf.transpose(tf.subtract(projected_mus,projected_world),perm=[0,2,1])
 
 	# mus_world_diff = tf.transpose(tf.subtract(stacked_unprojected_mus,stacked_unprojected_world),perm=[0,2,1])
@@ -88,5 +95,6 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 	#this is where the rationality parameter is included
 	norm = tf.expand_dims(tf.reduce_logsumexp(utterance_scores,axis=1),1)
 	out = tf.subtract(utterance_scores, norm)
-	# print(out,"print out")
+
+	print(out.get_shape(),"shape out")
 	return out

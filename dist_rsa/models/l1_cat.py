@@ -11,7 +11,7 @@ from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 from dist_rsa.utils.distance_under_projection import distance_under_projection
 
-
+asd;fja;sjfds raise ;askfj
 vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='word2vec')
 vec_size,vec_kind = 25,'glove.twitter.27B.'
 freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
@@ -80,9 +80,10 @@ def l1_model(metaphor):
         qud_prior_weight=0.5,
         rationality=1.0,
         norm_vectors=False,
-        variational=True,
+        variational=False,
         variational_steps=300,
-        baseline=is_baseline
+        baseline=is_baseline,
+        mixture_variational=True,
         # world_movement=True
         )
 

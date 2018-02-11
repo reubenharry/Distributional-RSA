@@ -48,9 +48,14 @@ def tensor_projection_matrix(m):
 def double_tensor_projection_matrix(m):
 	covariance_matrix = tf.einsum('aij,ajk->aik',tf.transpose(m,perm=[0,2,1]),m)
 	inverse_covariance_matrix = tf.matrix_inverse(covariance_matrix)
-	# print(m,inverse_covariance_matrix)
 	intermed = tf.einsum('aij,ajk->aik',m,inverse_covariance_matrix)
 	return tf.einsum('aij,ajk->aik',intermed,tf.transpose(m,perm=[0,2,1]))
+
+def double_tensor_projection_matrix_into_subspace(m):
+	covariance_matrix = tf.einsum('aij,ajk->aik',tf.transpose(m,perm=[0,2,1]),m)
+	inverse_covariance_matrix = tf.matrix_inverse(covariance_matrix)
+	intermed = tf.einsum('aij,ajk->aik',m,inverse_covariance_matrix)
+	return intermed
 
 
 def projection_debug(x,m):
@@ -58,6 +63,13 @@ def projection_debug(x,m):
 	covariance_matrix = np.dot(np.transpose(m),m)
 	inverse_covariance_matrix = np.linalg.inv(covariance_matrix)
 	projection_weights = np.dot(inverse_covariance_matrix,uncorrected_projection_weights)
+	return projection_weights
+
+def projection_into_subspace(x,m):
+	uncorrected_projection_weights = tf.matmul(tf.transpose(m),x)
+	covariance_matrix = tf.matmul(tf.transpose(m),m)
+	inverse_covariance_matrix = tf.matrix_inverse(covariance_matrix)
+	projection_weights = tf.matmul(inverse_covariance_matrix,uncorrected_projection_weights)
 	return projection_weights
 
 def projection_matrix(m):
