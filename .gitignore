@@ -1,3 +1,4 @@
+dist_rsa/data/*
 dist_rsa/data/google_freqs/*
 dist_rsa/data/glove_texts/*
 dist_rsa/data/word_vectors/*
