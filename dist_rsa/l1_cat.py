@@ -91,6 +91,9 @@ def l1_model(metaphor):
     run.compute_l1(load=0,save=False)
     results = run.qud_results()
 
+    world_means = run.world_samples
+    print(world_means[:5],"MEANS")
+
     # print(results[:5])
 
     # if not is_baseline:

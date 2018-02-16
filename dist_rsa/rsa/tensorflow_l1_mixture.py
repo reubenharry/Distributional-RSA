@@ -55,6 +55,7 @@ def tf_l1(inference_params):
 
 	# THE CORE L1 CODE STARTS HERE
 	modes = []
+	inferred_world_means = []
 	sess = ed.get_session()
 	for qi in range(len(qud_combinations)):
 
@@ -79,7 +80,7 @@ def tf_l1(inference_params):
 		tf.global_variables_initializer().run()
 		inference_variational.run(n_iter=inference_params.variational_steps)
 		modes.append(tf.matmul(tf.expand_dims(qworld.mode(),0),tf.transpose(inference_params.qud_matrix[qi])))
-	
+		inferred_world_means.append(qworld.mean())
 	# SHAPE: [NUM_QUDS,NUM_DIMS]
 	modes = tf.squeeze(tf.stack(modes))
 	
@@ -99,7 +100,7 @@ def tf_l1(inference_params):
 	results = list(zip(qud_combinations,sess.run(inferred_qud)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
 
-	return results,sess.run(tf.expand_dims(qworld.mean(),0))
+	return results,sess.run(inferred_world_means)
 
 
 
