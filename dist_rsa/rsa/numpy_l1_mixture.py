@@ -102,6 +102,11 @@ def tf_l1(inference_params):
 		inferred_world_means.append(qworld.mean())
 		inferred_world_variances.append(qworld.variance())
 
+		mean = sess.run(qworld.mean())
+		variance = sess.run(qworld.variance())
+
+		for sample
+
 		#CALCULATE A SAMPLE FROM THE FULL GAUSSIAN, RECOVERING THE COVARIANCE
 
 		# SAMPLE_NUMBER SAMPLES FROM THE VARIATIONALLY INFERRED NORMAL
@@ -113,47 +118,38 @@ def tf_l1(inference_params):
 
 		# THE ORTHOGONAL VECTORS TO CURRENT QUD Q
 		# SHAPE: [NUM_DIMS,NUM_DIMS-NUM_QUD_DIMS]
-		orthogonal_dims = tf.transpose(orthogonal_complement_tf(qud_matrix[qi]))
+		orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
 
 
 		# PROJECT THE LISTENER WORLD (e.g. man in "man is shark") into each orthogonal_dim: 
 		# SHAPE: [1, NUM_DIMS-NUM_QUD_DIMS, NUM_QUD_DIMS]
 			# WOULD BE GOOD TO DOUBLE CHECK THIS!!
-		# projected_means = tf.expand_dims(projection_into_subspace(tf.expand_dims(listener_world,1),orthogonal_dims),0)
-		# print("projected means",projected_means)
+		projected_means = tf.expand_dims(projection_into_subspace(tf.expand_dims(listener_world,1),orthogonal_dims),0)
+		print("projected means",projected_means)
 
 		# REPARAMETRIZED SAMPLING
 		# SHAPE: [SAMPLE_NUMBER, NUM_DIMS-NUM_QUD_DIMS,NUM_QUD_DIMS]
-		# orthogonal_samples = unit_normal.sample([inference_params.sample_number,NUM_DIMS-NUM_QUD_DIMS,NUM_QUD_DIMS])
-		# print("orthogonal samples",orthogonal_samples)
+		orthogonal_samples = unit_normal.sample([inference_params.sample_number,NUM_DIMS-NUM_QUD_DIMS,NUM_QUD_DIMS])
+		print("orthogonal samples",orthogonal_samples)
 
-		gaussian_samples = unit_normal.sample([inference_params.sample_number,NUM_DIMS-NUM_QUD_DIMS,NUM_QUD_DIMS])
-		unprojected_samples = tf.einsum("ijk,jk->ijk",gaussian_samples,orthogonal_dims)
-
-		# add mean and variance:
-		unprojected_samples_with_mean = unprojected_samples + tf.expand_dims(tf_expand_dims(listener_world,0),0)
-		# add variance
-		unprojected_samples_with_variance = unprojected_samples_with_mean
-		# TODO
-
-		# sample_from_orthog = (projected_means+orthogonal_samples)*inference_params.l1_sig1
+		sample_from_orthog = (projected_means+orthogonal_samples)*inference_params.l1_sig1
 		# print(projected_means,orthogonal_samples,sample_from_orthog)
 		# raise Exception
 
-		# unprojected_samples = tf.matmul(sample_from_orthog,tf.transpose(orthogonal_dims))
+		unprojected_samples = tf.matmul(sample_from_orthog,tf.transpose(orthogonal_dims))
 
-		# print("unprojected samples",sess.run(unprojected_samples))
+		print("unprojected samples",sess.run(unprojected_samples))
 
-		# print("shapes",unprojected_samples,unprojected_qud_dim_sample)
+		print("shapes",unprojected_samples,unprojected_qud_dim_sample)
 
 		#
-		all_samples = tf.concat([unprojected_samples,unprojected_qud_dim_sample],axis=1)
+		all_samples = tf.concat([unprojected_samples,unprojected_qud_dim_sample],axis=0)
 
 
 
 		# print(all_samples)
 
-		combined_sample = tf.reduce_sum(all_samples,axis=1)
+		combined_sample = tf.reduce_sum(all_samples,axis=0)
 
 		combined_samples.append(combined_sample)
 

@@ -9,6 +9,26 @@ import tensorflow as tf
 from collections import defaultdict
 from scipy.misc import logsumexp
 
+def orthogonal_complement(a):
+	q,_ = np.linalg.qr(a,mode='complete')
+	num_subspace_dims = a.shape[1]
+	return q[:,num_subspace_dims:]
+
+def orthogonal_complement_tf(a):
+	q,_ = tf.linalg.qr(a,full_matrices=True)
+	num_subspace_dims = a.get_shape()[1]
+	return q[:,num_subspace_dims:]
+
+
+# a = np.transpose(array([[1,0,0,0]]))
+
+# a_orth = orthogonal_complement(a)
+
+# print(np.dot(a[:,0],a_orth[:,0]))
+# print(np.dot(a[:,0],a_orth[:,1]))
+
+# print(a_orth)
+
 #makes a matrix of glove vectors form a list of input words
 def as_a_matrix(words,vecs):
 	outs = np.asarray([vecs[x] for x in words])
