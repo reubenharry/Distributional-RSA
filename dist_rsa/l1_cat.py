@@ -126,9 +126,9 @@ def l1_model(metaphor):
 
 if __name__ == "__main__":
 
+    # for x in range(1):
+    #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
     for x in range(1):
-        l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
-    for x in range(1):
-        l1_model(("man","lion",0.5,0.5,1.0,0,100,False))
+        l1_model(("man","lion",1.0,1.0,1.0,0,100,False))
 
 

@@ -58,7 +58,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,mixture_variational,resolution,quds,onl
             possible_utterances.remove(x)
             # raise Exception("utterance not in vecs")
 
-    print("UTTERANCES:\n",possible_utterances[:20])
+    print("UTTERANCES:\n",sorted(list(set(possible_utterances).union(set([pred]))))[:20])
 
 
     params = Inference_Params(
@@ -69,7 +69,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,mixture_variational,resolution,quds,onl
         sig1=sig1,sig2=sig2, l1_sig1=l1_sig1,
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
-        sample_number = 2000,
+        sample_number = 50,
         number_of_qud_dimensions=1,
         burn_in=1000,
         seed=False,trivial_qud_prior=False,
@@ -115,9 +115,23 @@ if __name__ == "__main__":
 
     # l1_model(subj="subj1",pred="pred2",sig1=0.1,sig2=0.1,l1_sig1=10.0,resolution=(100,0.1),quds=['qud1','qud2'],only_trivial=False,just_s1=True)
     quds=['vicious','swims']
-    a = l1_model(subj="man",pred="shark",sig1=10.0,sig2=0.1,l1_sig1=0.1,resolution=(100,0.01),quds=quds,possible_utterances=["man","shark"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
-    
-    print([(x,np.exp(y)) for (x,y) in a[1]])
+    a = l1_model(subj="man",pred="shark",sig1=1.0,sig2=1.0,l1_sig1=1.0,resolution=(100,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
+    # print(a[0])
+    # print(np.asarray(a[0]).shape)
+    # print(np.mean(np.asarray(a[0]),axis=0))
+    print([(x,np.exp(y)) for (x,y) in a[1]]) 
+    a = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=1.0,l1_sig1=1.0,resolution=(100,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
+    # print(a[0])
+    # print(np.asarray(a[0]).shape)
+    # print(np.mean(np.asarray(a[0]),axis=0))
+    print([(x,np.exp(y)) for (x,y) in a[1]]) 
+    # a = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=1.0,l1_sig1=1.0,resolution=(100,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
+    # print([(x,np.exp(y)) for (x,y) in a[1]]) 
+    # print(a[1])
+    # print([(quds[i],np.exp(x)) for (i,x) in enumerate(a[1])])
+    # a = l1_model(subj="man",pred="shark",sig1=1.0,sig2=1.0,l1_sig1=1.0,resolution=(100,0.01),quds=quds,possible_utterances=["man","shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
+    # print(a[1])
+    # print([(quds[i],np.exp(x)) for (i,x) in enumerate(a[1])])
     # results_dict={}
     # # for sig1,sig2,l1_sig1 in itertools.product([1.0,10.0,0.1],[1.0,10.0,0.1],[1.0,10.0,0.1]):
 

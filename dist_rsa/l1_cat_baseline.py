@@ -118,7 +118,7 @@ def l1_cat_baseline(metaphor):
     # print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
     # print("BASELINE:\n",sorted(qud_words,\
     #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:5])
-
+    print("METAPHOR",subj,pred)
     print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:5]])
     demarg = demarginalize_product_space(results)
     # print("\ndemarginalized:\n,",demarg[:5])

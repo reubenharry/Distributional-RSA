@@ -9,7 +9,8 @@ from edward.models import Normal,Empirical, Bernoulli, Categorical
 from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
     normalize,as_a_matrix,tensor_projection_matrix,\
     double_tensor_projection_matrix,combine_quds, lookup,\
-    s1_nonvect,double_tensor_projection_matrix_into_subspace,orthogonal_complement_tf,projection_into_subspace
+    s1_nonvect,double_tensor_projection_matrix_into_subspace,\
+    orthogonal_complement_tf,projection_into_subspace_tf, projection_into_subspace_np, orthogonal_complement_np
 from edward.inferences import HMC
 import itertools
 from dist_rsa.rsa.tensorflow_s1 import tf_s1
@@ -23,6 +24,7 @@ def tf_l1(inference_params):
 
 
 	#ALL THE SETUP STUFF
+	sess = ed.get_session()
 	if not inference_params.variational:
 		raise Exception("Only Variational is Implemented")
 	listener_world = tf.cast(inference_params.subject_vector,dtype=tf.float32)
@@ -43,7 +45,9 @@ def tf_l1(inference_params):
 	print("qud_combinations",len(qud_combinations))
 	print("quds",len(inference_params.quds))
 	# SHAPE: [NUM_QUDS, NUM_DIMS, NUM_QUD_DIMS]
-	qud_matrix = tf.cast((np.asarray([np.asarray([inference_params.vecs[word] for word in words]).T for words in qud_combinations])),dtype=tf.float32)
+	qud_matrix = tf.cast((np.asarray([np.asarray([inference_params.vecs[word]/np.linalg.norm(inference_params.vecs[word]) for word in words]).T for words in qud_combinations])),dtype=tf.float32)
+	print("QUD MATRIX",qud_matrix,sess.run(qud_matrix))
+	# print(qud_combinations)
 	inference_params.weighted_utt_frequency_array=weighted_utt_frequency_array
 	inference_params.poss_utts=poss_utts
 	inference_params.qud_matrix=qud_matrix
@@ -54,13 +58,17 @@ def tf_l1(inference_params):
 	# SHAPE: [NUM_QUDS,NUM_DIMS,NUM_QUD_DIMS]
 	qud_projection_matrix = double_tensor_projection_matrix_into_subspace(inference_params.qud_matrix)
 	# SHAPE: [NUM_QUDS,1,NUM_QUD_DIMS]
-	projected_listener_worlds = tf.transpose(tf.einsum('aij,ik->akj',qud_projection_matrix,tf.expand_dims(listener_world,1)),perm=[0,2,1])
+	# CHANGE FOR 2D CASE
+	print("projection shapes",tf.expand_dims(listener_world,1),tf.transpose(tf.squeeze(qud_matrix)))
+	projected_listener_worlds = projection_into_subspace_tf(tf.expand_dims(listener_world,1),tf.transpose(tf.squeeze(qud_matrix)))
 
-	# THE CORE L1 CODE STARTS HERE
-	modes = []
-	inferred_world_means = []
-	inferred_world_variances = []
-	sess = ed.get_session()
+	# print("shape qud matrix squeezed",tf.squeeze(qud_matrix))
+	print("shape projected listener worlds",projected_listener_worlds)
+
+	pi = tf.constant(np.pi)
+	
+# tf.zeros([NUM_DIMS-NUM_QUD_DIMS,1])
+	# tf.transpose(tf.einsum('aij,ik->akj',qud_projection_matrix,tf.expand_dims(listener_world,1)),perm=[0,2,1])
 
 
 	"""
@@ -73,7 +81,13 @@ def tf_l1(inference_params):
 
 
 	"""
-	unit_normal = Normal(loc=0.0,scale=1.0)
+
+	determinants=[]
+	means=[]
+
+	#ALL THIS CODE IS WRONG FOR MULTIDIMENSIONAL QUDS
+
+	full_space_prior = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.l1_sig1] * inference_params.vec_length)
 
 
 	combined_samples = []
@@ -82,12 +96,18 @@ def tf_l1(inference_params):
 		#CALCULATE MEAN AND SIGMA OF p(w|q=q,u=u) in the projected space; currently with VI
 
 		# SHAPE: scalar
-		projected_listener_world = tf.squeeze(projected_listener_worlds[qi])
+		projected_listener_world = projected_listener_worlds[qi]
+		# print("shape of projected listener world",projected_listener_world)
 		# SHAPE: [1]
 		world = Normal(loc=projected_listener_world, scale=[inference_params.l1_sig1] * inference_params.number_of_qud_dimensions)
 		# FEED S1 the world sample in the dimension of the original space
 		# SHAPE: [NUM_QUDS,NUM_UTTS]
-		l = tf_s1(inference_params,s1_world=tf.matmul(tf.expand_dims(world,0),tf.transpose(inference_params.qud_matrix[qi])))
+
+		# print("world shape",world)
+		# print("input shape", world*tf.transpose(inference_params.qud_matrix[qi]))
+		# NEEDS changing for 2d
+		l = tf_s1(inference_params,s1_world=world*tf.transpose(inference_params.qud_matrix[qi]))
+			# tf.matmul(tf.expand_dims(world,0),tf.transpose(inference_params.qud_matrix[qi])))
 		# SHAPE: scalar
 		full_l = Categorical(logits=l[qi])
 		# SHAPE: [1]
@@ -99,100 +119,142 @@ def tf_l1(inference_params):
 		inference_variational.initialize(optimizer=optimizer)
 		tf.global_variables_initializer().run()
 		inference_variational.run(n_iter=inference_params.variational_steps)
-		inferred_world_means.append(qworld.mean())
-		inferred_world_variances.append(qworld.variance())
+		
+		#CALCULATE FULL MEAN AND COVARIANCE FOR A SINGLE GAUSSIAN:
 
-		#CALCULATE A SAMPLE FROM THE FULL GAUSSIAN, RECOVERING THE COVARIANCE
+	
 
-		# SAMPLE_NUMBER SAMPLES FROM THE VARIATIONALLY INFERRED NORMAL
-		# SHAPE: [SAMPLE_NUMBER,NUM_QUD_DIMS]
-		qud_dim_sample = qworld.sample([inference_params.sample_number])
-		# LINEAR TRANSFORM TO TAKE THESE SAMPLES TO THE FULL SPACE
 		# SHAPE of inference_params.qud_matrix[qi] : [NUM_DIMS, NUM_QUD_DIMS]
-		unprojected_qud_dim_sample = tf.matmul(qud_dim_sample,tf.transpose(inference_params.qud_matrix[qi]))
 
+		full_basis_qud_mean = tf.transpose(qworld.mean()*inference_params.qud_matrix[qi])
+			#multidim version
+			# tf.matmul(qworld.mean(),tf.transpose(inference_params.qud_matrix[qi]))
+		# print("full_basis_qud_mean",full_basis_qud_mean)
+
+
+		#could do this whole bit in numpy
 		# THE ORTHOGONAL VECTORS TO CURRENT QUD Q
 		# SHAPE: [NUM_DIMS,NUM_DIMS-NUM_QUD_DIMS]
+		# current_qud = qud_matrix[qi] - tf.norm(qud_matrix[qi])
+		# change for 2d
+		# a = sess.run(tf.transpose(qud_matrix[qi]))
+		# print(a,orthogonal_complement_np(a),orthogonal_complement_np(a.T))
 		orthogonal_dims = tf.transpose(orthogonal_complement_tf(qud_matrix[qi]))
+		# print("shapes for proj",orthogonal_dims)
 
+		orthogonal_basis = tf.concat([orthogonal_dims,tf.transpose(qud_matrix[qi])],axis=0)
+		print("orthogonal_basis",orthogonal_basis)
+		print("qr check",np.identity(NUM_DIMS),sess.run(tf.matmul(tf.transpose(orthogonal_basis),orthogonal_basis)))
+		
+		# raise Exception
+		# print("qr check",orthogonal_dims,qud_matrix[qi])
+		# print("projection shapes 2",tf.expand_dims(listener_world,1),tf.transpose(orthogonal_dims))
+		projected_orthogonal_means = projection_into_subspace_tf(tf.expand_dims(listener_world,1),tf.transpose(orthogonal_dims))
 
+		print("full mean shapes",projected_orthogonal_means,tf.transpose(qud_matrix[qi]))
 		# PROJECT THE LISTENER WORLD (e.g. man in "man is shark") into each orthogonal_dim: 
 		# SHAPE: [1, NUM_DIMS-NUM_QUD_DIMS, NUM_QUD_DIMS]
 			# WOULD BE GOOD TO DOUBLE CHECK THIS!!
-		# projected_means = tf.expand_dims(projection_into_subspace(tf.expand_dims(listener_world,1),orthogonal_dims),0)
-		# print("projected means",projected_means)
+		# print("projected_orthogonal_means",projected_orthogonal_means)
+		# ? WHAT IS THE OPERATION TO UNPROJECT THE PROJECTED MEANS
+		# DO ELEMENTWISE MULTIPLICATION WITH ORTHONGAL DIMS
+		full_basis_orthogonal_means = projected_orthogonal_means*tf.transpose(qud_matrix[qi])
+			#multidim version
+		# print("full_basis_orthogonal_means",full_basis_orthogonal_means)
+		concat_means = tf.concat([full_basis_orthogonal_means,full_basis_qud_mean],axis=0)
+		full_mean = tf.reduce_sum(concat_means,axis=0)
+		# print("full mean shape",full_mean)
+		means.append(full_mean)
 
-		# REPARAMETRIZED SAMPLING
-		# SHAPE: [SAMPLE_NUMBER, NUM_DIMS-NUM_QUD_DIMS,NUM_QUD_DIMS]
-		# orthogonal_samples = unit_normal.sample([inference_params.sample_number,NUM_DIMS-NUM_QUD_DIMS,NUM_QUD_DIMS])
-		# print("orthogonal samples",orthogonal_samples)
+		# WHAT ORDER SHOULD THESE BE IN?
+		covariance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,qworld.variance()],axis=0)
+		
+		two_pi_cov = 2*pi*covariance
+		# print(covariance,"covariance")
+		determinant = tf.matrix_determinant(tf.diag(covariance))
 
-		gaussian_samples = unit_normal.sample([inference_params.sample_number,NUM_DIMS-NUM_QUD_DIMS,NUM_QUD_DIMS])
-		unprojected_samples = tf.einsum("ijk,jk->ijk",gaussian_samples,orthogonal_dims)
-
-		# add mean and variance:
-		unprojected_samples_with_mean = unprojected_samples + tf.expand_dims(tf_expand_dims(listener_world,0),0)
-		# add variance
-		unprojected_samples_with_variance = unprojected_samples_with_mean
-		# TODO
-
-		# sample_from_orthog = (projected_means+orthogonal_samples)*inference_params.l1_sig1
-		# print(projected_means,orthogonal_samples,sample_from_orthog)
-		# raise Exception
-
-		# unprojected_samples = tf.matmul(sample_from_orthog,tf.transpose(orthogonal_dims))
-
-		# print("unprojected samples",sess.run(unprojected_samples))
-
-		# print("shapes",unprojected_samples,unprojected_qud_dim_sample)
-
-		#
-		all_samples = tf.concat([unprojected_samples,unprojected_qud_dim_sample],axis=1)
+		determinants.append(determinant)
 
 
 
-		# print(all_samples)
+		# m = means[qi]
 
-		combined_sample = tf.reduce_sum(all_samples,axis=1)
-
-		combined_samples.append(combined_sample)
-
-	# print(combined_sample,sess.run(combined_sample))
-
-		# combined_samples.append(combined_sample)
-
-	combined_samples = tf.squeeze(tf.stack(combined_samples))
-
-		# print(sess.run(orthogonal_dims))
-
-		# raise Exception
+	def posterior_prob(w,qi):
 
 
-	# SHAPE: [NUM_QUDS,NUM_DIMS]
-	# print(sess.run([inferred_world_variances,inferred_world_means]))
+
+		det = determinants[qi]
+
+		term_1 = tf.log(tf.sqrt(det))
+
+		# print(w)
+		# print(tf.expand_dims(w))
+
+		term_2 = tf_s1(inference_params,s1_world=tf.expand_dims(w,0))[qi][utt]
+		term_3 = tf.reduce_prod(full_space_prior.log_prob(w))
+
+		# print(term_1,term_2,term_3, "terms")
+
+		return term_1+term_2+term_3
+
+
+
+
+	# print("test func", posterior_prob(means[0],0))
+
+	qud_scores = tf.stack([posterior_prob(means[qi],qi) for qi in range(len(qud_combinations))])
+
+	qud_distribution = qud_scores - tf.reduce_logsumexp(qud_scores,axis=0)
+
+	def world_sampler():
+		# pass
+		unit_gaussian = Normal(loc=0.0,scale=1.0)
+		full_basis_qud_sample = tf.transpose(qworld.sample()*inference_params.qud_matrix[qi])
+		orthogonal_dims = tf.transpose(orthogonal_complement_tf(qud_matrix[qi]))
+		projected_orthogonal_means = projection_into_subspace_tf(tf.expand_dims(listener_world,1),tf.transpose(orthogonal_dims))
+		samples = unit_gaussian.sample(NUM_DIMS-NUM_QUD_DIMS,1)
+		projected_orthogonal_samples = projected_orthogonal_means+(samples*inference_params.l1_sig1)
+		print("full mean shapes",projected_orthogonal_means,tf.transpose(qud_matrix[qi]))
+		full_basis_orthogonal_samples = projected_orthogonal_means*tf.transpose(qud_matrix[qi])
+			#multidim version
+		# print("full_basis_orthogonal_means",full_basis_orthogonal_means)
+		concat_samples = tf.concat([full_basis_orthogonal_samples,full_basis_qud_sample],axis=0)
+		full_samples = tf.reduce_sum(concat_samples,axis=0) 
+
+		return full_samples
+
+	# def world_sampler():
+	# 	# pass
+	# 	unit_gaussian = np.random.normal(loc=np.zeros([NUM_DIMS-NUM_QUD_DIMS,1]),scale=1.0)
+	# 	full_basis_qud_sample = np.transpose(np.random.normal(loc=sess.run(qworld.mean()*inference_params.qud_matrix[qi]),scale=sess.run(qworld.variance())))
+	# 	orthogonal_dims = sess.run(tf.transpose(orthogonal_complement_tf(qud_matrix[qi])))
+	# 	projected_orthogonal_means = projection_into_subspace_np(np.expand_dims(inference_params.subject_vector,1),np.transpose(orthogonal_dims))
+	# 	samples = unit_gaussian
+	# 	projected_orthogonal_samples = projected_orthogonal_means+(samples*inference_params.l1_sig1)
+	# 	# print("full mean shapes",projected_orthogonal_means,np.transpose(qud_matrix[qi]))
+	# 	full_basis_orthogonal_samples = projected_orthogonal_means*sess.run(tf.transpose(qud_matrix[qi]))
+	# 		#multidim version
+	# 	# print("full_basis_orthogonal_means",full_basis_orthogonal_means)
+	# 	concat_samples = np.concatenate([full_basis_orthogonal_samples,full_basis_qud_sample],axis=0)
+	# 	full_samples = np.sum(concat_samples,axis=0) 
+
+	# 	return full_samples
+
+	# world_samples = sess.run([world_sampler() for _ in range(inference_params.sample_number)])
+	world_samples=None
+
+	# print(qud_distribution,np.exp(sess.run(qud_distribution)))
+
 	# raise Exception
-	# modes = tf.squeeze(tf.stack(modes))
-	combined_samples = tf.squeeze(tf.stack(combined_samples))
-	print(sess.run(combined_samples))
-	# SHAPE: [NUM_SAMPLES=NUM_QUDS,NUM_QUDS,NUM_UTTS]
-	s1_outputs = tf.map_fn(lambda w: tf_s1(inference_params,s1_world=tf.expand_dims(w,0)),combined_samples)
-
-	# SHAPE: [NUM_SAMPLES,NUM_QUDS]
-	s1_at_utt = s1_outputs[:,:,utt]
-	# FOR EACH ROW: SUBTRACT SUM OF ROW FROM EACH ELEMENT OF ROW
-	# SHAPE: [NUM_SAMPLES,NUM_QUDS]
-	inferred_qud = tf.subtract(s1_at_utt,tf.expand_dims(tf.reduce_logsumexp(s1_at_utt,axis=-1),1))
-	# TAKE MEAN ACROSS WORLD SAMPLES
-	# SHAPE: [NUM_QUDS]
-	inferred_qud = tf.subtract(tf.reduce_logsumexp(inferred_qud,axis=0),tf.log(tf.cast(tf.shape(inferred_qud)[0],dtype=tf.float32)))
-	
-	# PAIR QUD PROBABILITIES WITH THEIR QUDS AND SORT BY LARGEST PROB MASS
-	results = list(zip(qud_combinations,sess.run(inferred_qud)))
+	results = list(zip(qud_combinations,sess.run(qud_distribution)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
 
-	return results,sess.run(inferred_world_means)
+	print([(x,np.exp(y)) for (x,y) in results])
 
+	print(world_samples)
+	# raise Exception
 
+	return results,world_samples
 
 
 

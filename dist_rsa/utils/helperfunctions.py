@@ -9,7 +9,7 @@ import tensorflow as tf
 from collections import defaultdict
 from scipy.misc import logsumexp
 
-def orthogonal_complement(a):
+def orthogonal_complement_np(a):
 	q,_ = np.linalg.qr(a,mode='complete')
 	num_subspace_dims = a.shape[1]
 	return q[:,num_subspace_dims:]
@@ -59,6 +59,13 @@ def projection(x,m):
 	projection_weights = np.dot(inverse_covariance_matrix,uncorrected_projection_weights)
 	return np.dot(m,projection_weights)
 
+def projection_into_subspace_tf(x,m):
+	uncorrected_projection_weights = tf.matmul(tf.transpose(m),x)
+	covariance_matrix = tf.matmul(tf.transpose(m),m)
+	inverse_covariance_matrix = tf.matrix_inverse(covariance_matrix)
+	projection_weights = tf.matmul(inverse_covariance_matrix,uncorrected_projection_weights)
+	return projection_weights
+
 def tensor_projection_matrix(m):
 	covariance_matrix = tf.matmul(tf.transpose(m),m)
 	inverse_covariance_matrix = tf.matrix_inverse(covariance_matrix)
@@ -78,19 +85,14 @@ def double_tensor_projection_matrix_into_subspace(m):
 	return intermed
 
 
-def projection_debug(x,m):
+def projection_into_subspace_np(x,m):
 	uncorrected_projection_weights = np.dot(np.transpose(m),x)
 	covariance_matrix = np.dot(np.transpose(m),m)
 	inverse_covariance_matrix = np.linalg.inv(covariance_matrix)
 	projection_weights = np.dot(inverse_covariance_matrix,uncorrected_projection_weights)
 	return projection_weights
 
-def projection_into_subspace(x,m):
-	uncorrected_projection_weights = tf.matmul(tf.transpose(m),x)
-	covariance_matrix = tf.matmul(tf.transpose(m),m)
-	inverse_covariance_matrix = tf.matrix_inverse(covariance_matrix)
-	projection_weights = tf.matmul(inverse_covariance_matrix,uncorrected_projection_weights)
-	return projection_weights
+
 
 def projection_matrix(m):
 	covariance_matrix = np.dot(np.transpose(m),m)

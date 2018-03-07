@@ -189,11 +189,14 @@ class Dist_RSA_Inference:
         if vectorization==1: self.s1_results=tf_s1_old(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
         elif vectorization==2: self.s1_results=tf_s1(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
         elif vectorization==3: self.s1_results=tf_s1_triple_vec(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
-    def compute_s2(self,s2_world):
+    def compute_s2(self,s2_world,s2_qud):
 
         s2_world = tf.cast(s2_world,dtype=tf.float32)
+        if self.baseline:
+            
+            self.s2_results = tf_s2_qud_only(self.inference_params,s2_world,s2_qud)
 
-        self.s2_results=tf_s2(self.inference_params,s2_world)
+        self.s2_results=tf_s2(self.inference_params,s2_world,s2_qud)
 
 
 

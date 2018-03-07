@@ -1,12 +1,12 @@
-from dist_rsa.utils.helperfunctions import projection_debug
+from dist_rsa.utils.helperfunctions import projection_into_subspace_np
 import numpy as np
 from dist_rsa.tuning import metaphors
 from dist_rsa.utils.load_data import load_vecs
 
 
 def distance_under_projection(subj,pred,target,vecs):
-	projected_subj_on_target = projection_debug(subj,np.asarray([vecs[t] for t in target]).T)
-	projected_pred_on_target = projection_debug(pred,np.asarray([vecs[t] for t in target]).T)
+	projected_subj_on_target = projection_into_subspace_np(subj,np.asarray([vecs[t] for t in target]).T)
+	projected_pred_on_target = projection_into_subspace_np(pred,np.asarray([vecs[t] for t in target]).T)
 	# projected_pred_on_target,projected_subj_on_target
 	return projected_pred_on_target-projected_subj_on_target
 
