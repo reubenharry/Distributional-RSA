@@ -123,11 +123,11 @@ class Dist_RSA_Inference:
 
 
         if self.inference_params.discrete_l1:
+            print("RUNNING DISCRETE MODEL")
             if self.inference_params.only_trivial:
                 tf_results = tf_l1_discrete_only_trivial(self.inference_params)
             else: 
                 tf_results = tf_l1_discrete(self.inference_params)
-                print(len(tf_results))
             self.tf_results=tf_results
             return None
 
