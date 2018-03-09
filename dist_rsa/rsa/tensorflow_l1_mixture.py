@@ -87,6 +87,7 @@ def tf_l1(inference_params):
 	"""
 
 	determinants=[]
+	covariances=[]
 	means=[]
 	std = tf.sqrt(inference_params.l1_sig1)
 
@@ -184,23 +185,32 @@ def tf_l1(inference_params):
 		# print("full mean shape",full_mean)
 		means.append(full_mean)
 
+
+
 		# WHAT ORDER SHOULD THESE BE IN?
-		covariance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,qworld.variance()],axis=0)
+		covariance = tf.diag(tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,qworld.variance()],axis=0))
 		
+		covariances.append(covariance)
+
 		two_pi_cov = 2*pi*covariance
 		# print(covariance,"covariance")
-		determinant = tf.matrix_determinant(tf.diag(covariance))
+		determinant = tf.matrix_determinant(covariance)
 
 		determinants.append(determinant)
 
-
+	means = tf.stack(means)
+	covariances = tf.stack(covariances)
+	determinants = tf.stack(determinants)
 
 		# m = means[qi]
 
-	print(sess.run(means),"MEANS")
-	raise Exception
+	# print(qud_combinations,sess.run(means),"MEANS")
+	# raise Exception
 
-	def posterior_prob(w,qi):
+	# a function which computes a number proportional to the integral of the area under the normal distribution
+	#  corresponding to a particular qud
+	# WAIT, not quite, why is w in there? i'm confused
+	def qud_score(w,qi):
 
 
 
@@ -221,28 +231,45 @@ def tf_l1(inference_params):
 
 
 
-	# print("test func", posterior_prob(means[0],0))
+	# print("test func", qud_score(means[0],0))
 
-	qud_scores = tf.stack([posterior_prob(means[qi],qi) for qi in range(len(qud_combinations))])
+	qud_scores = tf.stack([qud_score(means[qi],qi) for qi in range(len(qud_combinations))])
 
 	qud_distribution = qud_scores - tf.reduce_logsumexp(qud_scores,axis=0)
 
-	def world_sampler():
-		# pass
-		unit_gaussian = Normal(loc=0.0,scale=1.0)
-		full_basis_qud_sample = tf.transpose(qworld.sample()*inference_params.qud_matrix[qi])
-		orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
-		projected_orthogonal_means = projection_into_subspace_tf(tf.expand_dims(listener_world,1),orthogonal_dims)
-		samples = unit_gaussian.sample(NUM_DIMS-NUM_QUD_DIMS,1)
-		projected_orthogonal_samples = projected_orthogonal_means+(samples*inference_params.l1_sig1)
-		print("full mean shapes",projected_orthogonal_means,orthogonal_dims)
-		full_basis_orthogonal_samples = tf.transpose(projected_orthogonal_means)*tf.transpose(orthogonal_dims)
-			#multidim version
-		# print("full_basis_orthogonal_means",full_basis_orthogonal_means)
-		concat_samples = tf.concat([full_basis_orthogonal_samples,full_basis_qud_sample],axis=0)
-		full_samples = tf.reduce_sum(concat_samples,axis=0) 
+	def posterior_likelihood(w,qi):
 
-		return full_samples
+		normal = tf.contrib.distributions.MultivariateNormalFullCovariance(loc=means[qi],covariance_matrix=covariances[qi])
+		return tf.reduce_sum(normal.log_prob(w))+qud_distribution[qi]
+
+	# print(sess.run(posterior_likelihood([0.0,1.0],0)),"posterior_likelihood")
+	size,amount = inference_params.resolution
+	discrete_worlds = np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
+	
+	def world_sampler():
+
+		qi = Categorical(logits=qud_distribution)
+		print(sess.run(qi))
+		print(sess.run(means[qi]))
+		normal = tf.contrib.distributions.MultivariateNormalFullCovariance(loc=means[qi],covariance_matrix=covariances[qi])
+		return normal.sample()
+		# pass
+		# unit_gaussian = Normal(loc=0.0,scale=1.0)
+
+		# # WRONG
+		# # full_basis_qud_sample = tf.transpose(qworld.sample()*inference_params.qud_matrix[qi])
+		# orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
+		# projected_orthogonal_means = projection_into_subspace_tf(tf.expand_dims(listener_world,1),orthogonal_dims)
+		# samples = unit_gaussian.sample(NUM_DIMS-NUM_QUD_DIMS,1)
+		# projected_orthogonal_samples = projected_orthogonal_means+(samples*inference_params.l1_sig1)
+		# print("full mean shapes",projected_orthogonal_means,orthogonal_dims)
+		# full_basis_orthogonal_samples = tf.transpose(projected_orthogonal_means)*tf.transpose(orthogonal_dims)
+		# 	#multidim version
+		# # print("full_basis_orthogonal_means",full_basis_orthogonal_means)
+		# concat_samples = tf.concat([full_basis_orthogonal_samples,full_basis_qud_sample],axis=0)
+		# full_samples = tf.reduce_sum(concat_samples,axis=0) 
+
+		# return full_samples
 
 	# def world_sampler():
 	# 	# pass
@@ -261,7 +288,10 @@ def tf_l1(inference_params):
 
 	# 	return full_samples
 
+
 	world_samples = sess.run([world_sampler() for _ in range(inference_params.sample_number)])
+	# world_samples = tf.map_fn(lambda x : posterior_likelihood(x,0),discrete_worlds)
+
 	# world_samples=None
 
 	# print(qud_distribution,np.exp(sess.run(qud_distribution)))
