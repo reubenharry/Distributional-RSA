@@ -151,7 +151,8 @@ class Dist_RSA_Inference:
                 tf_results = tf_l1_with_trivial(self.inference_params)
             elif self.inference_params.mixture_variational:
                 print("RUNNING MIXTURE VARIATIONAL MODEL")
-                tf_results = tf_l1_mixture(self.inference_params)
+                self.tf_results = tf_l1_mixture(self.inference_params)
+                return None
             else:
                 print("RUNNING CAT WITHOUT TRIVIAL MODEL")
                 tf_results = tf_l1(self.inference_params)

@@ -63,11 +63,11 @@ def tf_l1(inference_params):
 	qud_projection_matrix = double_tensor_projection_matrix_into_subspace(inference_params.qud_matrix)
 	# SHAPE: [NUM_QUDS,1,NUM_QUD_DIMS]
 	# CHANGE FOR 2D CASE
-	print("projection shapes",tf.expand_dims(listener_world,1),tf.transpose(tf.squeeze(qud_matrix)))
-	projected_listener_worlds = projection_into_subspace_tf(tf.expand_dims(listener_world,1),tf.transpose(tf.squeeze(qud_matrix)))
+	# print("projection shapes",tf.expand_dims(listener_world,1),qud_matrix,qud_matrix[:,:,0],tf.transpose(tf.squeeze(qud_matrix)))
+	projected_listener_worlds = projection_into_subspace_tf(tf.expand_dims(listener_world,1),tf.transpose(qud_matrix[:,:,0]))
 
 	# print("shape qud matrix squeezed",tf.squeeze(qud_matrix))
-	print("shape projected listener worlds",projected_listener_worlds,sess.run(projected_listener_worlds))
+	# print("shape projected listener worlds",projected_listener_worlds,sess.run(projected_listener_worlds))
 
 	pi = tf.constant(np.pi)
 	
@@ -105,21 +105,22 @@ def tf_l1(inference_params):
 
 		# SHAPE: scalar
 		projected_listener_world = projected_listener_worlds[qi]
-		# print("shape of projected listener world",projected_listener_world)
+		print("projected listener world",sess.run(projected_listener_world))
 		# SHAPE: [1]
 		world = Normal(loc=projected_listener_world, scale=[std] * inference_params.number_of_qud_dimensions)
 
-		print(sess.run(world.mean()),"sample")
+		# print(sess.run(world.mean()),"sample")
 		# FEED S1 the world sample in the dimension of the original space
 		# SHAPE: [NUM_QUDS,NUM_UTTS]
 
 		# print("world shape",world)
 		# print("input shape", world*tf.transpose(inference_params.qud_matrix[qi]))
 		# NEEDS changing for 2d
-		print("s1_world",sess.run(world*tf.transpose(inference_params.qud_matrix[qi])))
+		# print("s1_world",sess.run(world*tf.transpose(inference_params.qud_matrix[qi])))
 		l = tf_s1(inference_params,s1_world=world*tf.transpose(inference_params.qud_matrix[qi]))
+		# print(inference_params.possible_utterances)
+		# print("utterance index",sess.run(utt))
 		print(inference_params.possible_utterances)
-		print("utterance index",sess.run(utt))
 		print(sess.run(tf.exp(l[qi])),"likelihoods")
 			# tf.matmul(tf.expand_dims(world,0),tf.transpose(inference_params.qud_matrix[qi])))
 		# SHAPE: scalar
@@ -166,7 +167,7 @@ def tf_l1(inference_params):
 		# print("projection shapes 2",tf.expand_dims(listener_world,1),tf.transpose(orthogonal_dims))
 		projected_orthogonal_means = tf.transpose(projection_into_subspace_tf(tf.expand_dims(listener_world,1),orthogonal_dims))
 
-		print("full mean shapes",projected_orthogonal_means,orthogonal_dims)
+		# print("full mean shapes",projected_orthogonal_means,orthogonal_dims)
 		# PROJECT THE LISTENER WORLD (e.g. man in "man is shark") into each orthogonal_dim: 
 		# SHAPE: [1, NUM_DIMS-NUM_QUD_DIMS, NUM_QUD_DIMS]
 			# WOULD BE GOOD TO DOUBLE CHECK THIS!!
@@ -178,23 +179,23 @@ def tf_l1(inference_params):
 
 		full_basis_orthogonal_means = tf.transpose(projected_orthogonal_means)*tf.transpose(orthogonal_dims)
 			#multidim version
-		print("full_basis_orthogonal_means",full_basis_orthogonal_means)
+		# print("full_basis_orthogonal_means",full_basis_orthogonal_means)
 		# raise Exception
 		concat_means = tf.concat([full_basis_orthogonal_means,full_basis_qud_mean],axis=0)
 		full_mean = tf.reduce_sum(concat_means,axis=0)
-		# print("full mean shape",full_mean)
+		print("full mean",sess.run(full_mean))
 		means.append(full_mean)
 
 
 
 		# WHAT ORDER SHOULD THESE BE IN?
-		covariance = tf.diag(tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,qworld.variance()],axis=0))
+		covariance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,qworld.variance()],axis=0)
 		
 		covariances.append(covariance)
 
 		two_pi_cov = 2*pi*covariance
 		# print(covariance,"covariance")
-		determinant = tf.matrix_determinant(covariance)
+		determinant = tf.matrix_determinant(tf.diag(covariance))
 
 		determinants.append(determinant)
 
@@ -239,20 +240,25 @@ def tf_l1(inference_params):
 
 	def posterior_likelihood(w,qi):
 
-		normal = tf.contrib.distributions.MultivariateNormalFullCovariance(loc=means[qi],covariance_matrix=covariances[qi])
-		return tf.reduce_sum(normal.log_prob(w))+qud_distribution[qi]
+		normal = Normal(loc=means[qi],scale=tf.sqrt(covariances[qi]))
+		orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
+		# print("orthogonal_dims",orthogonal_dims)
+		orthogonal_basis = tf.concat([tf.transpose(orthogonal_dims),tf.transpose(qud_matrix[qi])],axis=0)
+		proj_w = projection_into_subspace_tf(tf.expand_dims(w,1),orthogonal_basis)
+		# print("proj_w",proj_w)
+		return tf.reduce_sum(normal.log_prob(proj_w))+qud_distribution[qi]
 
 	# print(sess.run(posterior_likelihood([0.0,1.0],0)),"posterior_likelihood")
 	size,amount = inference_params.resolution
 	discrete_worlds = np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
 	
 	def world_sampler():
-
-		qi = Categorical(logits=qud_distribution)
-		print(sess.run(qi))
-		print(sess.run(means[qi]))
-		normal = tf.contrib.distributions.MultivariateNormalFullCovariance(loc=means[qi],covariance_matrix=covariances[qi])
-		return normal.sample()
+		pass
+		# qi = Categorical(logits=qud_distribution)
+		# print(sess.run(qi))
+		# print(sess.run(means[qi]))
+		# normal = tf.contrib.distributions.MultivariateNormalFullCovariance(loc=means[qi],covariance_matrix=covariances[qi])
+		# return normal.sample()
 		# pass
 		# unit_gaussian = Normal(loc=0.0,scale=1.0)
 
@@ -289,8 +295,8 @@ def tf_l1(inference_params):
 	# 	return full_samples
 
 
-	world_samples = sess.run([world_sampler() for _ in range(inference_params.sample_number)])
-	# world_samples = tf.map_fn(lambda x : posterior_likelihood(x,0),discrete_worlds)
+	# world_samples = sess.run([world_sampler() for _ in range(inference_params.sample_number)])
+	world_samples = tf.map_fn(lambda x : posterior_likelihood(x,0),discrete_worlds)
 
 	# world_samples=None
 
@@ -303,9 +309,9 @@ def tf_l1(inference_params):
 	print([(x,np.exp(y)) for (x,y) in results])
 
 	print(world_samples)
-	# raise Exception
+	raise Exception
 
-	return results,world_samples
+	return sess.run(tf.reshape(world_samples,(size*2,size*2))),results
 
 
 
