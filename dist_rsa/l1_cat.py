@@ -83,7 +83,7 @@ def l1_model(metaphor):
         variational=True,
         variational_steps=300,
         baseline=is_baseline,
-        mixture_variational=True,
+        mixture_variational=False,
         # world_movement=True
         )
 

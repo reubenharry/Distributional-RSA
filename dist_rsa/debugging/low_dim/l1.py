@@ -66,12 +66,20 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,mixture_variational,resolution,quds,onl
 
 
 
-    tf_results = run.tf_results
-    return tf_results
+    # tf_results = run.tf_results
+    return run
 
 if __name__ == "__main__":
 
     quds=['vicious','swims']
-    a = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=1.0,l1_sig1=1.0,resolution=(100,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
-    print([(x,np.exp(y)) for (x,y) in a[1]]) 
+    poss_utts=["shark","swimmer"]
+    # b = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(200,0.01),quds=["vicious"],possible_utterances=poss_utts, only_trivial=False,just_s1=False,just_l0=False,discrete=True,variational=False,step_size=1e-10,mixture_variational=False)
+    a = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(200,0.01),quds=["vicious"],possible_utterances=poss_utts, only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
+
+    
+
+    print("\n\nRESULTS:\n")
+    print("")
+    print("mixture:",[(x,np.exp(y)) for (x,y) in a.tf_results[1]]) 
+    print("discrete:",[(x,np.exp(y)) for (x,y) in b.tf_results[1]])
 

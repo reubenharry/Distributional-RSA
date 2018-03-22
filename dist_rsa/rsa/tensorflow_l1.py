@@ -61,7 +61,7 @@ def tf_l1(inference_params):
 	u=inference_params.predicate
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
 	# world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.sig1] * inference_params.vec_length)
-	world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.l1_sig1] * inference_params.vec_length)
+	world = Normal(loc=tf.squeeze(listener_world), scale=[tf.sqrt(inference_params.l1_sig1)] * inference_params.vec_length)
 	l = tf_s1(inference_params,s1_world=tf.expand_dims(world,0))
 	# l = tf.squeeze(l)
 	# print("l shape",l.get_shape())
@@ -104,7 +104,7 @@ def tf_l1(inference_params):
 	# full_l = Categorical(logits=full_l)
 	if inference_params.variational:
 		# qworld = Normal(loc=tf.Variable(tf.zeros(inference_params.vec_length)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
-		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[0.1] * inference_params.vec_length)
+		qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=tf.Variable([tf.sqrt(inference_params.l1_sig1)] * inference_params.vec_length))
 		# qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=tf.exp(tf.Variable(tf.ones(inference_params.vec_length))))
 		# qworld = Normal(loc=tf.Variable(tf.squeeze(listener_world)),scale=[inference_params.sigma1] * inference_params.vec_length)
 		# qworld = Normal(loc=tf.Variable(tf.squeeze(mu_new)),scale=[inference_params.sigma1] * inference_params.vec_length)
@@ -177,6 +177,7 @@ def tf_l1(inference_params):
 	# print(tuc-tec)
 	results = list(zip(qud_combinations,sess.run(inferred_qud)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
+	print( [(x,np.exp(y)) for (x,y) in results] )
 	# if return_tf:
 	# 	return inferred_qud, inferred_world
 	# else:

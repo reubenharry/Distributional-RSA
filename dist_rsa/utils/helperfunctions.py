@@ -19,6 +19,12 @@ def orthogonal_complement_tf(a):
 	num_subspace_dims = a.get_shape()[1]
 	return q[:,num_subspace_dims:]
 
+def mean_and_variance_of_dist_array(probs,support):
+	MEAN = tf.reduce_sum(probs*support,axis=0)
+	mean_of_square_of_posterior = tf.reduce_sum(probs*(support**2),axis=0)
+	VARIANCE = mean_of_square_of_posterior - tf.square(MEAN)
+	return MEAN,VARIANCE
+
 
 # a = np.transpose(array([[1,0,0,0]]))
 
@@ -59,11 +65,20 @@ def projection(x,m):
 	projection_weights = np.dot(inverse_covariance_matrix,uncorrected_projection_weights)
 	return np.dot(m,projection_weights)
 
+#PROJECTS VECTORS INTO SUBSPACE, REPRESENTING OUTPUT IN SUBSPACE BASIS
+# TYPE: [FULL_DIMS,NUM_VECS], [FULL_DIMS,SUBSPACE_DIMS] -> [NUM_VECS,SUBSPACE_DIMS] - I think
 def projection_into_subspace_tf(x,m):
 	uncorrected_projection_weights = tf.matmul(tf.transpose(m),x)
 	covariance_matrix = tf.matmul(tf.transpose(m),m)
 	inverse_covariance_matrix = tf.matrix_inverse(covariance_matrix)
 	projection_weights = tf.matmul(inverse_covariance_matrix,uncorrected_projection_weights)
+	return projection_weights
+
+def projection_into_subspace_np(x,m):
+	uncorrected_projection_weights = np.dot(np.transpose(m),x)
+	covariance_matrix = np.dot(np.transpose(m),m)
+	inverse_covariance_matrix = np.linalg.inv(covariance_matrix)
+	projection_weights = np.dot(inverse_covariance_matrix,uncorrected_projection_weights)
 	return projection_weights
 
 def tensor_projection_matrix(m):
@@ -85,12 +100,6 @@ def double_tensor_projection_matrix_into_subspace(m):
 	return intermed
 
 
-def projection_into_subspace_np(x,m):
-	uncorrected_projection_weights = np.dot(np.transpose(m),x)
-	covariance_matrix = np.dot(np.transpose(m),m)
-	inverse_covariance_matrix = np.linalg.inv(covariance_matrix)
-	projection_weights = np.dot(inverse_covariance_matrix,uncorrected_projection_weights)
-	return projection_weights
 
 
 
