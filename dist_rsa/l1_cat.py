@@ -71,7 +71,7 @@ def l1_model(metaphor):
         qud_weight=0.0,freq_weight=0.0,
         categorical="categorical",
         sample_number = 1000,
-        number_of_qud_dimensions=1,
+        number_of_qud_dimensions=2,
         # burn_in=900,
         seed=False,trivial_qud_prior=False,
         step_size=1e-3,
@@ -91,8 +91,8 @@ def l1_model(metaphor):
     run.compute_l1(load=0,save=False)
     results = run.qud_results()
 
-    world_means = run.world_samples
-    print(world_means[:5],"MEANS")
+    # world_means = run.world_samples
+    # print(world_means[:5],"MEANS")
 
     # print(results[:5])
 
@@ -129,6 +129,8 @@ if __name__ == "__main__":
     # for x in range(1):
     #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
     for x in range(1):
-        l1_model(("man","lion",1.0,1.0,1.0,0,100,False))
+        l1_model(("man","lion",1.0,0.1,1.0,0,100,True))
+        l1_model(("man","rose",1.0,0.1,1.0,0,100,True))
+        l1_model(("woman","rose",1.0,0.1,1.0,0,100,True))
 
 

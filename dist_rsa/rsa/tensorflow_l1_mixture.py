@@ -78,7 +78,7 @@ def tf_l1(inference_params):
 
 	print("discrete_worlds",discrete_worlds)
 
-	# CALCULATE MEAN AND SIGMA OF p(w|q=qi,u=u) in the projected space; currently with VI
+	# CALCULATE MEAN AND SIGMA OF p(w|q=qi,u=u) in the projected space
 	#ALL THIS CODE IS WRONG FOR MULTIDIMENSIONAL QUDS
 	full_space_prior = Normal(loc=tf.squeeze(listener_world), scale=[std] * inference_params.vec_length)
 	for qi in range(len(qud_combinations)):
@@ -86,146 +86,83 @@ def tf_l1(inference_params):
 		print(qud_combinations[qi],"CURRENT QUD")
 		projected_listener_world = projected_listener_worlds[qi]
 		world = Normal(loc=projected_listener_world, scale=[std] * inference_params.number_of_qud_dimensions)
-
-		'''
-		# VARIATIONAL INFERENCE
-
-		# SHAPE: scalar
-		# print("projected listener world",sess.run(projected_listener_world))
-		# SHAPE: [1]
-		# FEED S1 the world sample in the dimension of the original space
-		# SHAPE: [NUM_QUDS,NUM_UTTS]
-		# NEEDS changing for 2d
-		# print("s1_world",sess.run(world*tf.transpose(inference_params.qud_matrix[qi])))
-		l = tf_s1(inference_params,s1_world=world*tf.transpose(inference_params.qud_matrix[qi]))
-		# SHAPE: []
-		full_l = Categorical(logits=l[qi])
-		# SHAPE: [1]
-		qworld = Normal(loc=tf.Variable(projected_listener_world*inference_params.number_of_qud_dimensions),scale=tf.Variable([std] * inference_params.number_of_qud_dimensions))
-		
-		init = tf.global_variables_initializer()
-		inference_variational = ed.KLqp({world: qworld}, data={full_l: utt})
-		optimizer = tf.train.RMSPropOptimizer(learning_rate=inference_params.step_size)
-		inference_variational.initialize(optimizer=optimizer)
-		tf.global_variables_initializer().run()
-		inference_variational.run(n_iter=inference_params.variational_steps)
-		print(sess.run([qworld.mean(),qworld.variance()]),"VARIATIONAL MEAN AND VARIANCE\n\n")
-		# MEAN,VARIANCE = qworld.mean(),qworld.variance()
-		'''
 				
-		#EXACT INFERENCE:
-
-
+		# the discrete support: tf.stack turns list of vectors (each a point lying along qud) into tensor where each row is vector
+		# shape: [num_worlds,num_qud_dims,num_dims] (n.b. num_worlds = size*2+1)
 		discrete_worlds_along_qud = tf.stack([tf.transpose(inference_params.qud_matrix[qi])*amount*x for x in range(-size,size+1)])
-		# (start=-size*amount,limit=size*amount,delta=amount)
-
 		# print("shapes",discrete_worlds_along_qud,sess.run(discrete_worlds_along_qud[0]))
 
-		# print(sess.run(world.log_prob(discrete_worlds_along_qud[0])))
-		# shape: [(size*2)**2, 1] use the world gaussian to calculate the prior at each point.
-		# CHECK IF REDUCE SUM PATHOLOGICAL FOR 1 D
+		# shape: [num_worlds]
 		discrete_worlds_along_qud_prior = tf.map_fn(lambda w: tf.reduce_sum(full_space_prior.log_prob(w)),discrete_worlds_along_qud)
-		# print("discrete_worlds_along_qud_prior shape",sess.run(discrete_worlds_along_qud_prior))
-		# raise Exception
 
+		# shape: [num_worlds,num_quds,num_utts]
+		s1_scores =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=w),discrete_worlds_along_qud)
 
-		s1_scores =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=w),
-			discrete_worlds_along_qud)
-
+		# [num_worlds]
 		fixed_s1_scores = s1_scores[:,qi,utt]
-		print("shapes of discrete_worlds_along_qud_prior and fixed_s1_scores",discrete_worlds_along_qud_prior,fixed_s1_scores)
 
+		# shape: [num_worlds]
 		l1_posterior_unnormed = discrete_worlds_along_qud_prior + fixed_s1_scores
-
-		# print("s1 scres",sess.run(fixed_s1_scores))
-		# raise Exception
-		# shape: [(size*2)**2, num_of_quds]
+		# shape: [num_worlds]
 		l1_posterior_normed = tf.exp(l1_posterior_unnormed - tf.reduce_logsumexp(l1_posterior_unnormed))
 
-		#VARIANCE
-		
-		# print("discrete worlds",sess.run(discrete_worlds_along_qud))
-		# print("shapes",tf.transpose(discrete_worlds_along_qud[0]),tf.transpose(qud_matrix[qi]))
-		# single_proj = projection_into_subspace_tf(tf.transpose(discrete_worlds_along_qud[0]),qud_matrix[qi])
-		# print("squeezed transposed worlds",tf.transpose(tf.squeeze(discrete_worlds_along_qud)))
+		# project the vectors lying along qud into the subspace
+		# shape: [num_worlds]
 		projected_worlds = tf.squeeze(projection_into_subspace_tf(tf.transpose(tf.squeeze(discrete_worlds_along_qud)),qud_matrix[qi]))
 
-		# print("single projection of to", sess.run([tf.transpose(discrete_worlds_along_qud[0]),single_proj]))
-		# projection_into_subspace_tf(tf.reshape(discrete_worlds_along_qud,shape=[NUM_DIMS,size*2+1]),qud_matrix[qi])
-
-		# print("Shapes",discrete_worlds_along_qud,qud_matrix[qi])
-		# projected_worlds = tf.stack([amount*x for x in range(-size,size+1)])
-		print("probs and support",l1_posterior_normed,projected_worlds)
+		#  shapes: scalar
 		subspace_mean,subspace_variance = mean_and_variance_of_dist_array(probs=l1_posterior_normed,support=projected_worlds)
 
 		print("subspace_mean",sess.run(subspace_mean))
-		# projected_heatmap_worlds = tf.squeeze(projection_into_subspace_tf(tf.transpose(tf.squeeze(discrete_worlds)),qud_matrix[qi]))		
-		
 
-		# print("projected worlds", sess.run(projected_worlds))
-
-		# print("mean and var",sess.run([mean,variance]))
-
+		# [num dims-num_qud_dims,num_qud_dims]	
 		orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
-		print("orthog dims, qud",orthogonal_dims,qud_matrix[qi])
+		# add qud to list of basis vectors to obtain full basis
 		orthogonal_basis = tf.concat([tf.transpose(orthogonal_dims),tf.transpose(qud_matrix[qi])],axis=0)
+		#project the full space prior mean along each of the orthogonal vectors to the qud
+		# shape: [num_dims-num_qud_dims,num_qud_dims]
 		projected_orthogonal_means = tf.transpose(projection_into_subspace_tf(tf.expand_dims(listener_world,1),orthogonal_dims))
 
-		print("projected_orthogonal_means",projected_orthogonal_means)
 
-		# new_basis_orthog_means = projected_orthogonal_means+tf.zeros([1,NUM_DIMS])
-		# new_basis_qud_mean = tf.pad([subspace_mean],paddings=[[NUM_DIMS-1,0]])
-
+		# I use tf.diag to give the appropriate zeros, thus representing the basis in the NUM_DIMS dimensional space
 		new_basis_means = tf.diag(tf.concat([projected_orthogonal_means[:,0],[subspace_mean]],axis=0))
-		# tf.pad(projected_orthogonal_means,paddings=[[0,0],[0,1]])
+		# sum all components
 		new_basis_mean = tf.reduce_sum(new_basis_means,axis=0)
-		# new_basis_mean = tf.reduce_sum(new_basis_orthog_means+new_basis_qud_mean
 
+		# as before: just concatenate new variance with prior variance in each dimension
 		new_basis_variance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,[subspace_variance]],axis=0)
 
-		# print("means",sess.run(new_basis_means))
-
-		# raise Exception
-
-		# print(sess.run([new_basis_orthog_means,new_basis_qud_mean,new_basis_orthog_means+new_basis_qud_mean]))
-
-		# print("mean",mean)
-
+		# define new normal in basis of qud and orthog dims
 		new_basis_normal=Normal(loc=new_basis_mean,scale=tf.sqrt(new_basis_variance))
-		print("discrete worlds, orthog basis",discrete_worlds,orthogonal_basis)
+		# shape: [heatmap_size,num_dims]
 		new_basis_support = tf.matmul(discrete_worlds,orthogonal_basis)
-		heatmap_probs = tf.map_fn(lambda w: tf.reduce_sum(new_basis_normal.log_prob(w)),
-		new_basis_support)
-
-		# print("heatmap",sess.run(heatmap_probs))
-
+		# shape: [heatmap_size]
+		heatmap_probs = tf.map_fn(lambda w: tf.reduce_sum(new_basis_normal.log_prob(w)),new_basis_support)
 		inference_params.heatmap = sess.run(tf.exp(tf.reshape(heatmap_probs,(size*2+1,size*2+1))))
-		# print(sess.run(heatmap_probs))
 
-		# raise Exception
-
+		# code ends here with return, now that the heatmap tensor has been obtained
 		return None,None		
 
-		# take vectors and project along qud
-		# project mean
-
-
-
-
-		# print("probs and support",l1_posterior_normed,discrete_worlds_along_qud)
-		# prior_mean,prior_variance = mean_and_variance_of_dist_array(probs=tf.exp(tf.reshape(discrete_worlds_prior,shape=[size*2+1,1,1])),support=discrete_worlds)
-		# print("prior mean and var", sess.run([prior_mean,prior_variance]))
-		# 	# ,tf.exp(discrete_worlds_prior),discrete_worlds]))
-
-
-		# MEAN,VARIANCE = mean_and_variance_of_dist_array(probs=l1_posterior_normed,support=discrete_worlds)
-
-		# MEAN,VARIANCE = tf.expand_dims(MEAN,0),tf.expand_dims(VARIANCE,0)
-
-		# print(sess.run([MEAN,VARIANCE]),"MEAN AND VARIANCE\n\n\n")
-		# print("TEST",sess.run(mean_and_variance_of_dist_array(probs=tf.constant([0.3,0.7]),support=tf.constant([0.0,1.0]))))
-		# raise Exception
 		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		#CALCULATE FULL MEAN AND COVARIANCE FOR A SINGLE GAUSSIAN:
 

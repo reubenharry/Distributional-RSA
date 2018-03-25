@@ -69,11 +69,13 @@ def tf_l1_discrete(inference_params):
 
 	# shape: [(size*2)**2, num_of_quds] n.b.: this is a [number_of_worlds,1]+[number_of_worlds,num_of_quds] sum, involving broadcasting
 	l1_joint_posterior_unnormed = discrete_worlds_prior + s1_scores
-	# shape: [(size*2)**2, num_of_quds]
 	l1_joint_posterior_normed = l1_joint_posterior_unnormed - tf.reduce_logsumexp(l1_joint_posterior_unnormed)
+	print(l1_joint_posterior_normed, "l1_joint_posterior_normed")
+	raise Exception
+	world_posterior = tf.exp(tf.reduce_logsumexp(l1_joint_posterior_normed,axis=1))
+	# shape: [(size*2)**2, num_of_quds]
 
 	# shape: [(size*2)**2,]
-	world_posterior = tf.exp(tf.reduce_logsumexp(l1_joint_posterior_normed,axis=1))
 
 
 	# SOME CODE TO LOOK AT THE PROJECTED VARIANCE AND MEAN: ASSUMES JUST A SINGLE QUD PRESENT
