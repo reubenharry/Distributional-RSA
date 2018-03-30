@@ -2,6 +2,9 @@
 def tf_s2(inference_params,s2_world):
 
 	from dist_rsa.rsa.tensorflow_l1 import tf_l1
+	import numpy as np
+	import edward as ed
+	import tensorflow as tf
 
 	def s2_utility(u,i):
 		print(i+1,"out of:",len(inference_params.possible_utterances))

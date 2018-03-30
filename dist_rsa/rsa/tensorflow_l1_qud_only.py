@@ -1,5 +1,5 @@
 #calculates the quds directly from the world mean and demarginalization
-def tf_l1_baseline(inference_params):
+def tf_l1_qud_only(inference_params):
 
 	from dist_rsa.rsa.tensorflow_s1 import tf_s1
 	import numpy as np

@@ -7,9 +7,10 @@ import nltk
 from dist_rsa.rsa.tensorflow_l1 import tf_l1
 from dist_rsa.rsa.tensorflow_l1_mixture import tf_l1 as tf_l1_mixture
 from dist_rsa.rsa.tensorflow_s2 import tf_s2
+from dist_rsa.rsa.tensorflow_s2_qud_only import tf_s2_qud_only
 from dist_rsa.rsa.tensorflow_l1_with_trivial import tf_l1_with_trivial
 from dist_rsa.rsa.tensorflow_l1_only_trivial import tf_l1_only_trivial
-from dist_rsa.rsa.tensorflow_l1_baseline import tf_l1_baseline
+from dist_rsa.rsa.tensorflow_l1_qud_only import tf_l1_qud_only
 from dist_rsa.rsa.tensorflow_l1_noncat import tf_l1_noncat
 from dist_rsa.rsa.tensorflow_l1_discrete import tf_l1_discrete
 from dist_rsa.rsa.tensorflow_l1_discrete_only_trivial import tf_l1_discrete_only_trivial
@@ -142,8 +143,8 @@ class Dist_RSA_Inference:
             print("is baseline?",self.inference_params.baseline)
             if self.inference_params.baseline:  
                 print("RUNNING BASELINE MODEL")
-                # tf_results = tf_l1_baseline(self.inference_params)  
-                self.qud_samples = tf_l1_baseline(self.inference_params)  
+                # tf_results = tf_l1_qud_only(self.inference_params)  
+                self.qud_samples = tf_l1_qud_only(self.inference_params)  
                 return None
 
             elif self.inference_params.trivial_qud_prior:
@@ -193,9 +194,9 @@ class Dist_RSA_Inference:
     def compute_s2(self,s2_world,s2_qud):
 
         s2_world = tf.cast(s2_world,dtype=tf.float32)
-        if self.baseline:
+        if self.inference_params.baseline:
             
-            self.s2_results = tf_s2_qud_only(self.inference_params,s2_world,s2_qud)
+            self.s2_results = tf_s2_qud_only(self.inference_params,s2_qud)
 
         self.s2_results=tf_s2(self.inference_params,s2_world,s2_qud)
 
