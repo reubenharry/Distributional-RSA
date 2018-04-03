@@ -4,11 +4,8 @@ import numpy as np
 import pickle
 import itertools
 from dist_rsa.dbm import *
-# from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import *
-from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
-# from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
 from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
 import itertools

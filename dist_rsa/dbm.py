@@ -51,6 +51,7 @@ class Inference_Params:
         just_l0=False,
         target_qud=None,
         mixture_variational=False,
+        heatmap=True
         ):
 
 
@@ -87,6 +88,7 @@ class Inference_Params:
             self.just_s1=just_s1
             self.just_l0=just_l0
             self.target_qud=target_qud
+            self.heatmap=heatmap
             
             if norm_vectors:
                 for vec in vecs:

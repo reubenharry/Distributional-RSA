@@ -85,7 +85,7 @@ def tf_l1(inference_params):
 		
 		print(qud_combinations[qi],"CURRENT QUD")
 		projected_listener_world = projected_listener_worlds[qi]
-		world = Normal(loc=projected_listener_world, scale=[std] * inference_params.number_of_qud_dimensions)
+		# world = Normal(loc=projected_listener_world, scale=[std] * inference_params.number_of_qud_dimensions)
 				
 		# the discrete support: tf.stack turns list of vectors (each a point lying along qud) into tensor where each row is vector
 		# shape: [num_worlds,num_qud_dims,num_dims] (n.b. num_worlds = size*2+1)
@@ -117,31 +117,44 @@ def tf_l1(inference_params):
 
 		# [num dims-num_qud_dims,num_qud_dims]	
 		orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
+		print("orthogonal_dims", orthogonal_dims)
 		# add qud to list of basis vectors to obtain full basis
 		orthogonal_basis = tf.concat([tf.transpose(orthogonal_dims),tf.transpose(qud_matrix[qi])],axis=0)
 		#project the full space prior mean along each of the orthogonal vectors to the qud
 		# shape: [num_dims-num_qud_dims,num_qud_dims]
 		projected_orthogonal_means = tf.transpose(projection_into_subspace_tf(tf.expand_dims(listener_world,1),orthogonal_dims))
-
+		print("projected_orthogonal_means", projected_orthogonal_means)
 
 		# I use tf.diag to give the appropriate zeros, thus representing the basis in the NUM_DIMS dimensional space
-		new_basis_means = tf.diag(tf.concat([projected_orthogonal_means[:,0],[subspace_mean]],axis=0))
+		new_basis_means = tf.diag(tf.concat([projected_orthogonal_means[0],[subspace_mean]],axis=0))
+		print("new_basis_means", new_basis_means)
 		# sum all components
 		new_basis_mean = tf.reduce_sum(new_basis_means,axis=0)
 
 		# as before: just concatenate new variance with prior variance in each dimension
 		new_basis_variance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,[subspace_variance]],axis=0)
 
-		# define new normal in basis of qud and orthog dims
-		new_basis_normal=Normal(loc=new_basis_mean,scale=tf.sqrt(new_basis_variance))
-		# shape: [heatmap_size,num_dims]
-		new_basis_support = tf.matmul(discrete_worlds,orthogonal_basis)
-		# shape: [heatmap_size]
-		heatmap_probs = tf.map_fn(lambda w: tf.reduce_sum(new_basis_normal.log_prob(w)),new_basis_support)
-		inference_params.heatmap = sess.run(tf.exp(tf.reshape(heatmap_probs,(size*2+1,size*2+1))))
+		print("mean and var",new_basis_mean,new_basis_variance)
 
-		# code ends here with return, now that the heatmap tensor has been obtained
-		return None,None		
+		determinant = tf.matrix_determinant(tf.diag(new_basis_variance*2*pi))
+		determinants.append(determinant)
+		means.append(new_basis_mean)
+		covariances.append(new_basis_variance)
+		# define new normal in basis of qud and orthog dims
+		# shape: [heatmap_size,num_dims]
+		# shape: [heatmap_size]
+
+		# print(sess.run([new_basis_mean,new_basis_variance]))
+		# raise Exception
+
+		if inference_params.heatmap:
+	
+			new_basis_normal=Normal(loc=new_basis_mean,scale=tf.sqrt(new_basis_variance))
+			new_basis_support = tf.matmul(discrete_worlds,orthogonal_basis)
+			heatmap_probs = tf.map_fn(lambda w: tf.reduce_sum(new_basis_normal.log_prob(w)),new_basis_support)
+			inference_params.heatmap = sess.run(tf.exp(tf.reshape(heatmap_probs,(size*2+1,size*2+1))))
+			# code ends here with return, now that the heatmap tensor has been obtained
+			return None,None		
 
 		
 
@@ -170,7 +183,7 @@ def tf_l1(inference_params):
 
 		# SHAPE of inference_params.qud_matrix[qi] : [NUM_DIMS, NUM_QUD_DIMS]
 
-		full_basis_qud_mean = tf.transpose(MEAN*inference_params.qud_matrix[qi])
+		# full_basis_qud_mean = tf.transpose(MEAN*inference_params.qud_matrix[qi])
 			#multidim version
 			# tf.matmul(MEAN,tf.transpose(inference_params.qud_matrix[qi]))
 		# print("full_basis_qud_mean",full_basis_qud_mean)
@@ -183,7 +196,7 @@ def tf_l1(inference_params):
 		# change for 2d
 		# a = sess.run(tf.transpose(qud_matrix[qi]))
 		# print(a,orthogonal_complement_np(a),orthogonal_complement_np(a.T))
-		orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
+		# orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
 		# print("shapes for proj",orthogonal_dims)
 
 		# orthogonal_basis = tf.concat([orthogonal_dims,tf.transpose(qud_matrix[qi])],axis=0)
@@ -193,7 +206,7 @@ def tf_l1(inference_params):
 		# raise Exception
 		# print("qr check",orthogonal_dims,qud_matrix[qi])
 		# print("projection shapes 2",tf.expand_dims(listener_world,1),tf.transpose(orthogonal_dims))
-		projected_orthogonal_means = tf.transpose(projection_into_subspace_tf(tf.expand_dims(listener_world,1),orthogonal_dims))
+		# projected_orthogonal_means = tf.transpose(projection_into_subspace_tf(tf.expand_dims(listener_world,1),orthogonal_dims))
 
 		# print("full mean shapes",projected_orthogonal_means,orthogonal_dims)
 		# PROJECT THE LISTENER WORLD (e.g. man in "man is shark") into each orthogonal_dim: 
@@ -205,28 +218,29 @@ def tf_l1(inference_params):
 
 		#FIX: 
 
-		full_basis_orthogonal_means = tf.transpose(projected_orthogonal_means)*tf.transpose(orthogonal_dims)
+		# full_basis_orthogonal_means = tf.transpose(projected_orthogonal_means)*tf.transpose(orthogonal_dims)
 			#multidim version
 		# print("full_basis_orthogonal_means",full_basis_orthogonal_means)
 		# raise Exception
-		concat_means = tf.concat([full_basis_orthogonal_means,full_basis_qud_mean],axis=0)
-		full_mean = tf.reduce_sum(concat_means,axis=0)
-		print("MEAN for qud"+str(qi),sess.run(full_mean))
-		means.append(full_mean)
+		# concat_means = tf.concat([full_basis_orthogonal_means,full_basis_qud_mean],axis=0)
+		# full_mean = tf.reduce_sum(concat_means,axis=0)
+		# print("MEAN for qud"+str(qi),sess.run(full_mean))
+		# means.append(full_mean)
 
 
 
 		# WHAT ORDER SHOULD THESE BE IN?
-		covariance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,VARIANCE],axis=0)
+		# covariance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,VARIANCE],axis=0)
 		
-		print("subspace variance for qud"+str(qi),sess.run(VARIANCE))
-		covariances.append(covariance)
+		# print("subspace variance for qud"+str(qi),sess.run(VARIANCE))
+		# covariances.append(covariance)
 
-		two_pi_cov = 2*pi*covariance
+		# two_pi_cov = 2*pi*covariance
 		# print(covariance,"covariance")
-		determinant = tf.matrix_determinant(tf.diag(covariance))
+		# determinant = tf.matrix_determinant(new_basis_variance*2*pi)
+		# determinants.append(determinant)
 
-		determinants.append(determinant)
+
 
 	means = tf.stack(means)
 	covariances = tf.stack(covariances)
@@ -278,8 +292,8 @@ def tf_l1(inference_params):
 		return tf.reduce_sum(normal.log_prob(proj_w))+qud_distribution[qi]
 
 	# print(sess.run(posterior_likelihood([0.0,1.0],0)),"posterior_likelihood")
-	size,amount = inference_params.resolution
-	discrete_worlds = np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
+	# size,amount = inference_params.resolution
+	# discrete_worlds = np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
 	
 	def world_sampler():
 		pass
@@ -325,7 +339,7 @@ def tf_l1(inference_params):
 
 
 	# world_samples = sess.run([world_sampler() for _ in range(inference_params.sample_number)])
-	world_samples = tf.map_fn(lambda x : posterior_likelihood(x,0),discrete_worlds)
+	# world_samples = tf.map_fn(lambda x : posterior_likelihood(x,0),discrete_worlds)
 
 	# world_samples=None
 
@@ -335,7 +349,7 @@ def tf_l1(inference_params):
 	results = list(zip(qud_combinations,sess.run(qud_distribution)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
 
-	# print([(x,np.exp(y)) for (x,y) in results])
+	print([(x,np.exp(y)) for (x,y) in results])
 
 	# print(world_samples)
 	# raise Exception
