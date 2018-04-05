@@ -60,9 +60,9 @@ def tf_l1_discrete(inference_params):
 		discrete_worlds)
 
 
-	if inference_params.just_s1:
-		assert s1_scores.get_shape()[1]==1
-		return sess.run(tf.reshape(s1_scores[:,0,utt],(size*2+1,size*2+1))),None
+	# if inference_params.just_s1:
+	# 	assert s1_scores.get_shape()[1]==1
+	# 	return sess.run(tf.reshape(s1_scores[:,0,utt],(size*2+1,size*2+1))),None
 
 	# shape: [(size*2)**2, num_of_quds]
 	s1_scores = s1_scores[:,:,utt]
@@ -70,8 +70,8 @@ def tf_l1_discrete(inference_params):
 	# shape: [(size*2)**2, num_of_quds] n.b.: this is a [number_of_worlds,1]+[number_of_worlds,num_of_quds] sum, involving broadcasting
 	l1_joint_posterior_unnormed = discrete_worlds_prior + s1_scores
 	l1_joint_posterior_normed = l1_joint_posterior_unnormed - tf.reduce_logsumexp(l1_joint_posterior_unnormed)
-	print(l1_joint_posterior_normed, "l1_joint_posterior_normed")
-	raise Exception
+	# print(l1_joint_posterior_normed, "l1_joint_posterior_normed")
+	# raise Exception
 	world_posterior = tf.exp(tf.reduce_logsumexp(l1_joint_posterior_normed,axis=1))
 	# shape: [(size*2)**2, num_of_quds]
 
@@ -103,7 +103,9 @@ def tf_l1_discrete(inference_params):
 	results = list(zip(qud_combinations,sess.run(qud_posterior)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
 
-	return sess.run(tf.reshape(world_posterior,(size*2+1,size*2+1))),results
+	inference_params.heatmap=sess.run(tf.reshape(world_posterior,(size*2+1,size*2+1)))
+
+	return inference_params.heatmap,results
 
 
 
