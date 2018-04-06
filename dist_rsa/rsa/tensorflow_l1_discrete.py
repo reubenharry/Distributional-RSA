@@ -105,7 +105,7 @@ def tf_l1_discrete(inference_params):
 
 	inference_params.heatmap=sess.run(tf.reshape(world_posterior,(size*2+1,size*2+1)))
 
-	return inference_params.heatmap,results
+	return inference_params.heatmap,[(x,np.exp(y)) for (x,y) in results]
 
 
 

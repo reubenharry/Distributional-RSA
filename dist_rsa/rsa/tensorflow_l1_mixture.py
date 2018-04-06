@@ -43,7 +43,8 @@ def tf_l1(inference_params):
 		weighted_qud_frequency_array = tf.expand_dims(tf.zeros([number_of_qud_words])+tf.log(1/number_of_qud_words),1)
 	else: weighted_qud_frequency_array = tf.cast(tf.expand_dims(qud_freqs-scipy.misc.logsumexp(qud_freqs),1),dtype=tf.float32)
 	qud_combinations = combine_quds(inference_params.quds,inference_params.number_of_qud_dimensions)
-	print("qud_combinations",len(qud_combinations),qud_combinations)
+	NUM_QUDS = len(qud_combinations)
+	print("qud_combinations",NUM_QUDS,qud_combinations)
 	print("quds",len(inference_params.quds))
 	# SHAPE: [NUM_QUDS, NUM_DIMS, NUM_QUD_DIMS]
 	qud_matrix = tf.cast((np.asarray([np.asarray([inference_params.vecs[word]/np.linalg.norm(inference_params.vecs[word]) for word in words]).T for words in qud_combinations])),dtype=tf.float32)
@@ -72,6 +73,7 @@ def tf_l1(inference_params):
 	determinants=[]
 	covariances=[]
 	means=[]
+	heatmaps = []
 	std = tf.sqrt(inference_params.l1_sig1)
 
 	discrete_worlds = tf.constant(np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32))
@@ -147,16 +149,16 @@ def tf_l1(inference_params):
 		# print(sess.run([new_basis_mean,new_basis_variance]))
 		# raise Exception
 
+
 		if inference_params.heatmap:
 	
 			new_basis_normal=Normal(loc=new_basis_mean,scale=tf.sqrt(new_basis_variance))
 			new_basis_support = tf.matmul(discrete_worlds,orthogonal_basis)
 			heatmap_probs = tf.map_fn(lambda w: tf.reduce_sum(new_basis_normal.log_prob(w)),new_basis_support)
-			inference_params.heatmap = sess.run(tf.exp(tf.reshape(heatmap_probs,(size*2+1,size*2+1))))
-			# code ends here with return, now that the heatmap tensor has been obtained
-			return None,None		
-
-		
+			heatmap = tf.reshape(heatmap_probs,(size*2+1,size*2+1))
+			# 	# code ends here with return, now that the heatmap tensor has been obtained
+			# 	return None,None		
+			heatmaps.append(heatmap)
 
 
 
@@ -245,6 +247,8 @@ def tf_l1(inference_params):
 	means = tf.stack(means)
 	covariances = tf.stack(covariances)
 	determinants = tf.stack(determinants)
+	if inference_params.heatmap:
+		stacked_worlds = tf.stack(heatmaps)
 
 		# m = means[qi]
 
@@ -281,22 +285,25 @@ def tf_l1(inference_params):
 
 	qud_distribution = qud_scores - tf.reduce_logsumexp(qud_scores,axis=0)
 
-	def posterior_likelihood(w,qi):
+	print("stacked_worlds,qud_distribution",stacked_worlds,qud_distribution)
+	inference_params.heatmap = sess.run(tf.reduce_sum(tf.exp(stacked_worlds)+tf.exp(tf.reshape(qud_distribution,(NUM_QUDS,1,1))),axis=0))
 
-		normal = Normal(loc=means[qi],scale=tf.sqrt(covariances[qi]))
-		orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
-		# print("orthogonal_dims",orthogonal_dims)
-		orthogonal_basis = tf.concat([tf.transpose(orthogonal_dims),tf.transpose(qud_matrix[qi])],axis=0)
-		proj_w = projection_into_subspace_tf(tf.expand_dims(w,1),orthogonal_basis)
-		# print("proj_w",proj_w)
-		return tf.reduce_sum(normal.log_prob(proj_w))+qud_distribution[qi]
+	# def posterior_likelihood(w,qi):
 
-	# print(sess.run(posterior_likelihood([0.0,1.0],0)),"posterior_likelihood")
-	# size,amount = inference_params.resolution
-	# discrete_worlds = np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
+	# 	normal = Normal(loc=means[qi],scale=tf.sqrt(covariances[qi]))
+	# 	orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
+	# 	# print("orthogonal_dims",orthogonal_dims)
+	# 	orthogonal_basis = tf.concat([tf.transpose(orthogonal_dims),tf.transpose(qud_matrix[qi])],axis=0)
+	# 	proj_w = projection_into_subspace_tf(tf.expand_dims(w,1),orthogonal_basis)
+	# 	# print("proj_w",proj_w)
+	# 	return tf.reduce_sum(normal.log_prob(proj_w))+qud_distribution[qi]
+
+	# # print(sess.run(posterior_likelihood([0.0,1.0],0)),"posterior_likelihood")
+	# # size,amount = inference_params.resolution
+	# # discrete_worlds = np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size),range(-size,size))],dtype=np.float32)
 	
-	def world_sampler():
-		pass
+	# def world_sampler():
+	# 	pass
 		# qi = Categorical(logits=qud_distribution)
 		# print(sess.run(qi))
 		# print(sess.run(means[qi]))
@@ -349,12 +356,12 @@ def tf_l1(inference_params):
 	results = list(zip(qud_combinations,sess.run(qud_distribution)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
 
-	print([(x,np.exp(y)) for (x,y) in results])
+	# print([(x,np.exp(y)) for (x,y) in results])
 
 	# print(world_samples)
 	# raise Exception
-
-	return sess.run(tf.reshape(world_samples,(size*2,size*2))),results
+	return inference_params.heatmap,[(x,np.exp(y)) for (x,y) in results]
+	# return sess.run(tf.reshape(world_samples,(size*2,size*2))),results
 
 
 
