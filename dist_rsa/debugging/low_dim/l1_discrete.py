@@ -4,11 +4,8 @@ import numpy as np
 import pickle
 import itertools
 from dist_rsa.dbm import *
-# from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import *
-from dist_rsa.lm_1b_eval import predict
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
-# from dist_rsa.utils.distance_under_projection import distance_under_projection
 import edward as ed
 from dist_rsa.utils.simple_vecs import real_vecs as simple_vecs
 import itertools
@@ -118,8 +115,8 @@ if __name__ == "__main__":
     # a = l1_model(subj="man",pred="shark",sig1=1.0,sig2=1.0,l1_sig1=1.0,resolution=(100,0.01),quds=quds,possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=True,variational=False,step_size=1e-10,mixture_variational=False)
     # print([(x,np.exp(y)) for (x,y) in a[1]])
 
-    a = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(100,0.01),quds=['vicious'],possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=True,variational=False,step_size=1e-10,mixture_variational=False)
-    print([(x,np.exp(y)) for (x,y) in a[1]]) 
+    a = l1_model(subj="man",pred="shark",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(100,0.01),quds=['vicious','swims'],possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=True,variational=False,step_size=1e-10,mixture_variational=False)
+    print(a[1]) 
 
 
     # a = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(100,0.01),quds=["vicious"],possible_utterances=["shark","swimmer","man"], only_trivial=False,just_s1=False,just_l0=False,discrete=True,variational=True,step_size=1e-10,mixture_variational=False)
