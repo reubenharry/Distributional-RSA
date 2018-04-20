@@ -32,23 +32,25 @@ def l1_model(metaphor):
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
 
-    qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
+    # qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
 
-    quds = sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+    # quds = sorted(qud_words,\
+    #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
         # key=lambda x:freqs[x],reverse=True)
 
-    noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
-    possible_utterance_nouns = sorted(noun_words,\
-        # key=lambda x:freqs[x],reverse=True)
-        key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
-    # possible_utterance_nouns = 
-    # break
-    quds = quds[:100]
-    possible_utterance_adjs = quds
-    possible_utterances = possible_utterance_nouns[start:stop]
+    # noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
+    # possible_utterance_nouns = sorted(noun_words,\
+    #     # key=lambda x:freqs[x],reverse=True)
+    #     key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+    # # possible_utterance_nouns = 
+    # # break
+
+    # # quds[:100]
+    # possible_utterance_adjs = quds
+    # possible_utterances = possible_utterance_nouns[start:stop]
     # +possible_utterance_adjs
-
+    quds = ["beautiful","red"]
+    possible_utterances = ["lovely","gorgeous","beautiful"]
 
     for x in possible_utterances:
         if x not in real_vecs:
@@ -90,7 +92,7 @@ def l1_model(metaphor):
     run.compute_l1(load=0,save=False)
 
 
-    results = run.qud_results()
+    results = run.tf_results[1]
 
     # world_means = run.world_samples
     # print(world_means[:5],"MEANS")
@@ -107,9 +109,9 @@ def l1_model(metaphor):
     # print("BASELINE:\n",sorted(qud_words,\
     #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:5])
 
-    print("RESULTS\n",[(x,np.exp(y)) for (x,y) in results[:5]])
-    demarg = demarginalize_product_space(results)
-    print("\ndemarginalized:\n,",demarg[:5])
+    print("RESULTS\n",results[:5])
+    # demarg = demarginalize_product_space(results)
+    # print("\ndemarginalized:\n,",demarg[:5])
     # out.write("\ndemarginalized:\n")
     # out.write((str(demarg)))
 
@@ -130,8 +132,9 @@ if __name__ == "__main__":
     # for x in range(1):
     #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
     for x in range(1):
-        l1_model(("woman","rose",1.0,1.0,1.0,0,1000,True))
-        l1_model(("man","workhorse",1.0,1.0,1.0,0,100,True))
-        l1_model(("man","rose",1.0,1.0,1.0,0,100,True))
+        l1_model(("wall","red",1.0,1.0,1.0,0,1000,True))
+        l1_model(("plant","red",1.0,1.0,1.0,0,1000,True))
+        # l1_model(("man","workhorse",1.0,1.0,1.0,0,100,True))
+        # l1_model(("man","rose",1.0,1.0,1.0,0,100,True))
 
 

@@ -109,9 +109,12 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,mixture_variational,resolution,quds,onl
 
 if __name__ == "__main__":
 
-    quds=['vicious','swims']
-    a = l1_model(subj="man",pred="shark",sig1=1.0,sig2=1.0,l1_sig1=1.0,resolution=(100,0.01),quds=["vicious","swims"],possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
-    # print([(x,np.exp(y)) for (x,y) in a[1]]) 
+    a = l1_model(subj="man",pred="shark",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(100,0.1),quds=["swims","vicious"],possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
+    print(a[1])
+    # a = l1_model(subj="man",pred="shark",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(100,0.1),quds=["swims"],possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
+    # print(a[1])
+    # a = l1_model(subj="man",pred="shark",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(100,0.1),quds=["vicious"],possible_utterances=["shark","swimmer"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
+    # print(a[1])
 
     # a = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=0.1,l1_sig1=1.0,resolution=(100,0.01),quds=["vicious"],possible_utterances=["shark","swimmer","man"], only_trivial=False,just_s1=False,just_l0=False,discrete=False,variational=True,step_size=1e-10,mixture_variational=True)
     # print([(x,np.exp(y)) for (x,y) in a[1]]) 
