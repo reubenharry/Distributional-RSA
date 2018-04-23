@@ -18,39 +18,38 @@ from dist_rsa.utils.refine_vectors import h_dict,processVecMatrix
 # from dist_rsa.utils.load_data import 
 from dist_rsa.utils.helperfunctions import *
 
-
+class Resolution:
+    def __init__(
+        self,
+        span,
+        number):
+        """
+        span: the area covered
+        number: the number of points
+        size: synonym for number
+        amount: the increment: i.e. distance between two points
+        """
+        self.size=number
+        self.amount=span/number
+        print("RESOLUTION. SIZE:",self.size,"AMOUNT:",self.amount)
 
 class Inference_Params:
     def __init__(
         self,
+        model_type,
+        resolution,
         vecs,
         subject,predicate,
         quds,possible_utterances,
         sig1,sig2,
         qud_weight,freq_weight,
-        categorical,
-        sample_number,
         number_of_qud_dimensions,
-        seed,
-        trivial_qud_prior,
         l1_sig1,
-        burn_in=0,
-        step_size=0.25,
         poss_utt_frequencies=None,
         qud_frequencies=None,
         qud_prior_weight=0.5,
         rationality=1.0,
         norm_vectors=False,
-        variational=True,
-        variational_steps=100,
-        baseline=False,
-        only_trivial=False,
-        discrete_l1=False,
-        resolution=(100,0.1),
-        just_s1=False,
-        just_l0=False,
-        target_qud=None,
-        mixture_variational=False,
         heatmap=True
         ):
 
@@ -64,31 +63,17 @@ class Inference_Params:
             self.possible_utterances=possible_utterances
             self.sig1=sig1
             self.sig2=sig2
-            self.model_type=categorical
-            self.sample_number=sample_number
-            self.burn_in=burn_in
             self.number_of_qud_dimensions=number_of_qud_dimensions
-            self.trivial_qud_prior=trivial_qud_prior
             self.qud_prior_weight=qud_prior_weight
             self.rationality=rationality
             self.poss_utt_frequencies=poss_utt_frequencies
             self.qud_frequencies = qud_frequencies
             self.qud_weight=qud_weight
             self.freq_weight=freq_weight
-            self.seed=seed
-            self.step_size=step_size
             self.vec_length = self.vecs["the"].shape[0]
-            self.variational=variational
-            self.mixture_variational=mixture_variational
-            self.variational_steps=variational_steps
-            self.only_trivial=only_trivial
-            self.baseline=baseline
-            self.discrete_l1=discrete_l1
             self.resolution=resolution
-            self.just_s1=just_s1
-            self.just_l0=just_l0
-            self.target_qud=target_qud
             self.heatmap=heatmap
+            self.model_type=model_type
             
             if norm_vectors:
                 for vec in vecs:
@@ -113,60 +98,71 @@ class Dist_RSA_Inference:
         print("predicate",self.inference_params.predicate)
         print("SIGs 1&2:",self.inference_params.sig1,self.inference_params.sig2)
         print("L1 SIG",self.inference_params.l1_sig1)
-        print("step_size",self.inference_params.step_size)
-        print("utt weight, qud weight",self.inference_params.freq_weight,self.inference_params.qud_weight)
+        # print("step_size",self.inference_params.step_size)
+        # print("utt weight, qud weight",self.inference_params.freq_weight,self.inference_params.qud_weight)
         print("number of qud dimensions:",self.inference_params.number_of_qud_dimensions)
-        print("trival qud prior on?",self.inference_params.trivial_qud_prior)
+        # print("trival qud prior on?",self.inference_params.trivial_qud_prior)
         print("rationality:",self.inference_params.rationality)
-        print("sample number",self.inference_params.sample_number)
+        # print("sample number",self.inference_params.sample_number)
 
         
         message = "Running "+self.inference_params.model_type+" RSA with "+str(len(self.inference_params.possible_utterances))+" possible utterances and " + str(len(self.inference_params.quds))
         print(message)
 
+        # tf_l1_discrete_only_trivial : discrete without quds: can drop : 
+        # tf_l1_noncat : continuous quds: deprecate for now
 
-        if self.inference_params.discrete_l1:
-            print("RUNNING DISCRETE MODEL")
-            if self.inference_params.only_trivial:
-                tf_results = tf_l1_discrete_only_trivial(self.inference_params)
-            else: 
-                tf_results = tf_l1_discrete(self.inference_params)
-            self.tf_results=tf_results
-            return None
+        # tf_l1_discrete : rename to: exact
+        # tf_l1_qud_only : the baseline model: rename
+        # tf_l1_with_trivial : includes the trivial qud: omit for now
+        # tf_l1_mixture : rename to: discrete approximate  
 
-        elif self.inference_params.only_trivial:
-            print("RUNNING MODEL WITHOUT QUDS")
-            tf_results = tf_l1_only_trivial(self.inference_params)
-            self.world_samples = tf_results
-            return None
+        # tf_l1_only_trivial : rename
+        # tf_l1: rename to: continuous approximate
 
-        elif self.inference_params.model_type=='categorical':
+        # options: exact, approximate, then: later: make object: approximate.hmm: remove hmm vs var from inference_params
 
-            print("is baseline?",self.inference_params.baseline)
-            if self.inference_params.baseline:  
-                print("RUNNING BASELINE MODEL")
-                # tf_results = tf_l1_qud_only(self.inference_params)  
-                self.qud_samples = tf_l1_qud_only(self.inference_params)  
-                return None
 
-            elif self.inference_params.trivial_qud_prior:
-                print("RUNNING CAT WITH TRIVIAL MODEL")
-                tf_results = tf_l1_with_trivial(self.inference_params)
-            elif self.inference_params.mixture_variational:
-                print("RUNNING MIXTURE VARIATIONAL MODEL")
-                self.tf_results = tf_l1_mixture(self.inference_params)
-                return None
-            else:
-                print("RUNNING CAT WITHOUT TRIVIAL MODEL")
-                tf_results = tf_l1(self.inference_params)
+        if self.inference_params.model_type=="discrete_exact":
+            print("RUNNING DISCRETE EXACT MODEL")
+            # if self.inference_params.only_trivial:
+            #     tf_results = tf_l1_discrete_only_trivial(self.inference_params)
+            # else: 
+            self.tf_results = tf_l1_discrete(self.inference_params)
+            # return None
+
+        # elif self.inference_params.only_trivial:
+        #     print("RUNNING MODEL WITHOUT QUDS")
+        #     tf_results = tf_l1_only_trivial(self.inference_params)
+        #     self.world_samples = tf_results
+        #     return None
+
+        # elif self.inference_params.model_type=='categorical':
+
+            # print("is baseline?",self.inference_params.baseline)
+            # if self.inference_params.baseline:  
+            #     print("RUNNING BASELINE MODEL")
+            #     # tf_results = tf_l1_qud_only(self.inference_params)  
+            #     self.qud_samples = tf_l1_qud_only(self.inference_params)  
+            #     return None
+
+            # elif self.inference_params.trivial_qud_prior:
+            #     print("RUNNING CAT WITH TRIVIAL MODEL")
+            #     tf_results = tf_l1_with_trivial(self.inference_params)
+        if self.inference_params.model_type=="discrete_mixture":
+            print("RUNNING DISCRETE MIXTURE MODEL")
+            self.tf_results = tf_l1_mixture(self.inference_params)
+        # else:
+        #         print("RUNNING CAT WITHOUT TRIVIAL MODEL")
+        #         tf_results = tf_l1(self.inference_params)
     
 
 
-        elif self.inference_params.model_type=='non-categorical':
-            print("RUNNING NONCAT WITHOUT TRIVIAL MODEL")
-            tf_results = tf_l1_noncat(self.inference_params)
+        # elif self.inference_params.model_type=='non-categorical':
+        #     print("RUNNING NONCAT WITHOUT TRIVIAL MODEL")
+        #     tf_results = tf_l1_noncat(self.inference_params)
             
-        self.qud_samples,self.world_samples = tf_results
+        # self.qud_samples,self.world_samples = tf_results
 
     def compute_s1(self,s1_world,world_movement=False,debug=False,vectorization=1):
         from dist_rsa.rsa.tensorflow_s1 import tf_s1

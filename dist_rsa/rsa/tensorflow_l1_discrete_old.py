@@ -38,19 +38,20 @@ def tf_l1_discrete(inference_params):
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
 	world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.l1_sig1] * inference_params.vec_length)
 
-	size,amount = inference_params.resolution.size, inference_params.resolution.amount
+	size,amount = inference_params.resolution
+
 	# shape: [(size*2)**2, 2] : for each of the world positions, an array of its position
 	discrete_worlds = np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32)
 	# shape: [(size*2)**2, 1] use the world gaussian to calculate the prior at each point.
-	discrete_worlds_prior = tf.expand_dims(tf.map_fn(lambda w: tf.reduce_sum(world.log_prob(w)),
-		discrete_worlds),1)
+	discrete_worlds_prior_unnorm = tf.map_fn(lambda w: tf.reduce_sum(world.log_prob(w)),
+		discrete_worlds)
 
 	# unnorm_prior_mean, unnorm_prior_var = mean_and_variance_of_dist_array(probs=tf.exp(discrete_worlds_prior_unnorm),support=discrete_worlds)
 	# print("unnorm prior",sess.run([unnorm_prior_mean,unnorm_prior_var]))
 
 
 
-	# discrete_worlds_prior = tf.expand_dims(discrete_worlds_prior_unnorm-tf.reduce_logsumexp(discrete_worlds_prior_unnorm),1)
+	discrete_worlds_prior = tf.expand_dims(discrete_worlds_prior_unnorm-tf.reduce_logsumexp(discrete_worlds_prior_unnorm),1)
 	
 	# norm_prior_mean, norm_prior_var = mean_and_variance_of_dist_array(probs=tf.exp(discrete_worlds_prior),support=discrete_worlds)
 	# print("norm prior",sess.run([norm_prior_mean,norm_prior_var]))
