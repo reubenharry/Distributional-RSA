@@ -10,11 +10,18 @@ from dist_rsa.utils.helperfunctions import *
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 
 
-vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='word2vec')
-vec_size,vec_kind = 25,'glove.twitter.27B.'
+# vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='word2vec')
+# vec_size,vec_kind = 25,'glove.twitter.27B.'
+vec_size,vec_kind = 300,'glove.6B.'
 freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
 nouns,adjs = get_words(with_freqs=False)
-real_vecs = load_vecs(mean=True,pca=True,vec_length=vec_size,vec_type=vec_kind)  
+real_vecs = load_vecs(mean=True,pca=True,vec_length=vec_size,vec_type=vec_kind) 
+
+  
+print("swims",np.linalg.norm(real_vecs['swims']))
+print("swimmer",np.linalg.norm(real_vecs['swimmer']))
+print("distance",scipy.spatial.distance.cosine(real_vecs['swims'],real_vecs['swimmer']))
+
 
 # qud_words = [a for a in list(adjs) if a in vecs and a in real_vecs]
 # quds = sorted(qud_words,key=lambda x:freqs[x],reverse=True)
@@ -49,8 +56,12 @@ def l1_model(metaphor):
     # possible_utterance_adjs = quds
     # possible_utterances = possible_utterance_nouns[start:stop]
     # +possible_utterance_adjs
-    quds = ["beautiful","red"]
-    possible_utterances = ["lovely","gorgeous","beautiful"]
+    # quds = ["balloon","red"]
+    quds = ["vicious","swims"]
+    # possible_utterances = ["angry","frog"]
+    # possible_utterances = ["wall","party"]
+
+    possible_utterances = ["shark","swimmer","man"]
 
     for x in possible_utterances:
         if x not in real_vecs:
@@ -69,30 +80,21 @@ def l1_model(metaphor):
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
         sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,
         qud_weight=0.0,freq_weight=0.0,
-        categorical="categorical",
-        sample_number = 1000,
         number_of_qud_dimensions=1,
-        # burn_in=900,
-        seed=False,trivial_qud_prior=False,
-        step_size=1e-3,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
-        qud_prior_weight=0.5,
         rationality=1.0,
         norm_vectors=False,
-        variational=True,
-        variational_steps=300,
-        baseline=False,
-        mixture_variational=True,
-        heatmap=False
-        # world_movement=True
+        heatmap=False,
+        resolution=Resolution(span=100,number=100),
+        model_type="discrete_mixture",
         )
 
     run = Dist_RSA_Inference(params)
     run.compute_l1(load=0,save=False)
 
 
-    results = run.tf_results[1]
+    return run.tf_results
 
     # world_means = run.world_samples
     # print(world_means[:5],"MEANS")
@@ -109,7 +111,6 @@ def l1_model(metaphor):
     # print("BASELINE:\n",sorted(qud_words,\
     #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:5])
 
-    print("RESULTS\n",results[:5])
     # demarg = demarginalize_product_space(results)
     # print("\ndemarginalized:\n,",demarg[:5])
     # out.write("\ndemarginalized:\n")
@@ -132,9 +133,22 @@ if __name__ == "__main__":
     # for x in range(1):
     #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
     for x in range(1):
-        l1_model(("wall","red",1.0,1.0,1.0,0,1000,True))
-        l1_model(("plant","red",1.0,1.0,1.0,0,1000,True))
-        # l1_model(("man","workhorse",1.0,1.0,1.0,0,100,True))
-        # l1_model(("man","rose",1.0,1.0,1.0,0,100,True))
+        # worlds,quds=l1_model(("wall","angry",1.0,1.0,1.0,0,1000,True))
+        # print(quds[:10])
+        # worlds,quds=l1_model(("wall","frog",1.0,1.0,1.0,0,1000,True))
+        # print(quds[:10])
+
+        # worlds,quds=l1_model(("angry","wall",1.0,1.0,1.0,0,1000,True))
+        # print(quds[:10])
+        # worlds,quds=l1_model(("frog","wall",1.0,1.0,1.0,0,1000,True))
+        # print(quds[:10])
+
+        worlds,quds=l1_model(("man","swimmer",1.0,1.0,1.0,0,1000,True))
+        print(quds[:10])
+        # worlds,quds=l1_model(("man","shark",1.0,1.0,1.0,0,1000,True))
+        # print(quds[:10])
+        # worlds,quds=l1_model(("wall","frog",1.0,1.0,1.0,0,1000,True))
+        # print(quds[:10])
+
 
 

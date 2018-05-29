@@ -47,7 +47,6 @@ class Inference_Params:
         l1_sig1,
         poss_utt_frequencies=None,
         qud_frequencies=None,
-        qud_prior_weight=0.5,
         rationality=1.0,
         norm_vectors=False,
         heatmap=True
@@ -64,7 +63,6 @@ class Inference_Params:
             self.sig1=sig1
             self.sig2=sig2
             self.number_of_qud_dimensions=number_of_qud_dimensions
-            self.qud_prior_weight=qud_prior_weight
             self.rationality=rationality
             self.poss_utt_frequencies=poss_utt_frequencies
             self.qud_frequencies = qud_frequencies

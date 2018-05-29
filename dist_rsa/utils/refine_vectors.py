@@ -9,12 +9,15 @@ import re
 DEFAULT_FILE_PATH = "dist_rsa/data/word_vectors/"
 
 
-def processVecMatrix(remove_top=False, remove_bottom=0,name="vecMatrix",remove_mean=False,vec_length=50,original_vecs="glove.6B.",tsne=False):
+def processVecMatrix(set_words=None,remove_top=False, remove_bottom=0,name="vecMatrix",remove_mean=False,vec_length=50,original_vecs="glove.6B.",tsne=False):
 
 	number_of_vecs = 400000
 
+
+
 	word_vectors = np.zeros((number_of_vecs, vec_length))
 	words = []
+	relevant_indices = []
 	with open("dist_rsa/data/glove_texts/"+original_vecs+str(vec_length)+"d.txt") as ifs:
 		for i,line in enumerate(ifs):
 			line = line.strip()
@@ -46,8 +49,11 @@ def processVecMatrix(remove_top=False, remove_bottom=0,name="vecMatrix",remove_m
 				print(row[1]," not included")
 #				raise RuntimeError("wrong number of dimensions")
 				continue
-			word_vectors[i] = np.asarray(data)
-			words.append(token)
+			if (not set_words) or token in set_words:
+				word_vectors[i] = np.asarray(data)
+				words.append(token)
+				relevant_indices.append(i)
+
 			if i >= number_of_vecs-1:
 				break
 
@@ -62,7 +68,10 @@ def processVecMatrix(remove_top=False, remove_bottom=0,name="vecMatrix",remove_m
 		from sklearn.manifold import TSNE
 		model = TSNE(n_components=2, random_state=0)
 		np.set_printoptions(suppress=True)
-		word_vectors = model.fit_transform(word_vectors) 
+		new_word_vectors = np.zeros((len(relevant_indices), vec_length))
+		for i,index in enumerate(relevant_indices):
+			new_word_vectors[i]=word_vectors[index]
+		word_vectors = model.fit_transform(new_word_vectors) 
 	# print('mean norm', np.linalg.norm(mean))
 	# norms = np.linalg.norm(vecMatrix, axis = 1)
 	# print('norm mean', np.average(norms), 'std', np.std(norms))

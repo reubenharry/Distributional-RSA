@@ -118,7 +118,7 @@ def tf_l1(inference_params):
 		subspace_mean,subspace_variance = mean_and_variance_of_dist_array(probs=tf.exp(l1_posterior_normed),support=projected_worlds)
 		# print("projected worlds",sess.run(projected_worlds))
 		# print("l1_posterior_normed",sess.run(l1_posterior_normed))
-		print("subspace mean and var",sess.run([subspace_mean,subspace_variance]))
+		# print("subspace mean and var",sess.run([subspace_mean,subspace_variance]))
 		# raise Exception
 		# print(sess.run([discrete_worlds_along_qud_prior,projected_worlds]))
 		# TEST_PRIOR_MEAN, TEST_PRIOR_VAR = mean_and_variance_of_dist_array_np(probs=sess.run(tf.exp(discrete_worlds_along_qud_prior)),support=sess.run(projected_worlds))
@@ -160,8 +160,8 @@ def tf_l1(inference_params):
 		# print("new_basis_means", new_basis_means)
 		# sum all components
 		new_basis_mean = tf.reduce_sum(new_basis_means,axis=0)
-		print("new_basis_mean", new_basis_mean)
-		print("shapes",tf.expand_dims(new_basis_mean,0),tf.transpose(orthogonal_basis))
+		# print("new_basis_mean", new_basis_mean)
+		# print("shapes",tf.expand_dims(new_basis_mean,0),tf.transpose(orthogonal_basis))
 		old_basis_mean = tf.einsum('n,nm->m', new_basis_mean, tf.transpose(orthogonal_basis))
 
 		# tf.matmul(tf.expand_dims(new_basis_mean,0),tf.transpose(orthogonal_basis))
@@ -173,7 +173,7 @@ def tf_l1(inference_params):
 
 		determinant = tf.matrix_determinant(tf.diag(new_basis_variance*2*pi))
 		determinants.append(determinant)
-		print("old basis mean",sess.run(old_basis_mean),old_basis_mean)
+		# print("old basis mean",sess.run(old_basis_mean),old_basis_mean)
 		means.append(old_basis_mean)
 		covariances.append(new_basis_variance)
 		# define new normal in basis of qud and orthog dims
@@ -307,11 +307,11 @@ def tf_l1(inference_params):
 		term_3 = tf.reduce_sum(full_space_prior.log_prob(means[qi]))
 
 		# print(term_1,term_2,term_3, "terms")
-		print("QUD",qud_combinations[qi])
-		print("DETERMINANT",sess.run(determinants[qi]))
-		print("MEAN",sess.run(means[qi]))
-		print("QUD SCORE TERMS",sess.run([term_1,term_2,term_3]))
-		print("QUD SCORE",sess.run(term_1+term_2+term_3))
+		# print("QUD",qud_combinations[qi])
+		# print("DETERMINANT",sess.run(determinants[qi]))
+		# print("MEAN",sess.run(means[qi]))
+		# print("QUD SCORE TERMS",sess.run([term_1,term_2,term_3]))
+		# print("QUD SCORE",sess.run(term_1+term_2+term_3))
 		# print("S1s",sess.run([
 		# 	tf_s1(inference_params,s1_world=tf.expand_dims(means[qi],0))[qi][utt],
 		# 	tf_s1(inference_params,s1_world=tf.expand_dims(means[qi],0))[qi][utt],

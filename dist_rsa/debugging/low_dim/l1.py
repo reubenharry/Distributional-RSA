@@ -31,7 +31,6 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,quds,possible_utterances):
         number_of_qud_dimensions=1,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
-        qud_prior_weight=0.5,
         rationality=1.0,
         norm_vectors=False,
         resolution=Resolution(span=10,number=100),
@@ -46,7 +45,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,quds,possible_utterances):
 
 if __name__ == "__main__":
 
-    worlds,quds = l1_model(subj="man",pred="shark",sig1=1.0,sig2=0.1,l1_sig1=1.0,quds=["swims","vicious"],possible_utterances=["shark","swimmer"])
+    worlds,quds = l1_model(subj="man",pred="swimmer",sig1=1.0,sig2=1.0,l1_sig1=1.0,quds=["vicious","swims"],possible_utterances=["shark","swimmer","man"])
     print(quds)
 
 

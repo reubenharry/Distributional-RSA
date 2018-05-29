@@ -16,7 +16,7 @@ real_vecs['the']=np.asarray([0.0,0.0])
 real_vecs["swimmer"]=np.asarray([0.0,1.0])
 real_vecs["shark"]=np.asarray([1.0,1.0])
 real_vecs["man"]=np.asarray([0.0,0.0])
-real_vecs["vicious"]=np.asarray([2.0,0.0])
+real_vecs["vicious"]=np.asarray([1.0,0.0])
 real_vecs["swims"]=np.asarray([0.0,3.0])
 
 
