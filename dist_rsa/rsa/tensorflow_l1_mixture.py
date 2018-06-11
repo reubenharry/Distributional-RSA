@@ -159,7 +159,10 @@ def tf_l1(inference_params):
 		orthogonal_basis = tf.concat([tf.transpose(orthogonal_dims),tf.transpose(qud_matrix[qi])],axis=0)
 		#project the full space prior mean along each of the orthogonal vectors to the qud
 		# shape: [num_dims-num_qud_dims,num_qud_dims]
-		
+
+		# print("Shapes",qud_matrix[qi],orthogonal_basis)
+		# print("CHECK", sess.run(tf.matmul(orthogonal_basis,qud_matrix[qi])))
+		# print(tf.matmul(tf.expand_dims(orthogonal_basis[0],0),tf.expand_dims(orthogonal_basis[1],1)))
 
 		# projected_orthogonal_means_list = []
 		# # print("orth dims shape:",orthogonal_dims)
@@ -182,12 +185,16 @@ def tf_l1(inference_params):
 		new_basis_means = tf.diag(tf.concat([projected_orthogonal_means[0],[subspace_mean]],axis=0))
 		# sum all components
 		new_basis_mean = tf.reduce_sum(new_basis_means,axis=0)
-		# print("new_basis_mean", new_basis_mean)
+		# print("new_basis_mean", sess.run(listener_world-new_basis_mean))
 		# print("trans orth basis",tf.transpose(orthogonal_basis))
-		old_basis_mean = tf.einsum('n,nm->m', new_basis_mean, tf.transpose(orthogonal_basis))
+		# old_basis_mean = tf.einsum('n,nm->m', new_basis_mean, tf.transpose(orthogonal_basis))
+
+		print("new basis mean shape",new_basis_mean)
+
+		old_basis_mean = tf.matmul(tf.transpose(orthogonal_basis),tf.expand_dims(new_basis_mean,1))
 
 		print("shape",old_basis_mean)
-		print("projected", sess.run(projection_into_subspace_tf(tf.expand_dims(old_basis_mean,1),qud_matrix[0])))
+		print("projected", sess.run(projection_into_subspace_tf(old_basis_mean,qud_matrix[0])))
 
 		# concatenate new variance with prior variance in each dimension
 		new_basis_variance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,[subspace_variance]],axis=0)

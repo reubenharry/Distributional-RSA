@@ -151,10 +151,10 @@ if __name__ == "__main__":
 
         means1,worlds,quds=l1_model(subj="man",pred="swimmer")
         print(quds[:10])
-        means2,worlds,quds=l1_model(subj="man",pred="shark")
-        print(quds[:10])
+        # means2,worlds,quds=l1_model(subj="man",pred="shark")
+        # print(quds[:10])
 
-        print(scipy.spatial.distance.cosine(vecs['man']-means1[0],vecs['man']-means2[0]))
+        # print(scipy.spatial.distance.cosine(vecs['man']-means1[0],vecs['man']-means2[0]))
         # worlds,quds=l1_model(("wall","frog",1.0,1.0,1.0,0,1000,True))
         # print(quds[:10])
 
