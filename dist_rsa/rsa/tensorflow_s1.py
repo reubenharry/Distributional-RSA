@@ -56,14 +56,16 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 		# print("mus",mus,ed.get_session().run(mus))
 	s1_world = tf.transpose(s1_world)
 	# SHAPE: [NUM_DIMS,NUM_UTTS]
-	mus = tf.transpose(mus) #mus now contains a listener interpretation in each column
+	transposed_mus = tf.transpose(mus) #mus now contains a listener interpretation in each column
 	# SHAPE: [NUM_QUDS,NUM_UTTS,NUM_DIMS]
-	projected_mus = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,mus),perm=[0,2,1])
+	projected_mus = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,transposed_mus),perm=[0,2,1])
 	# SHAPE: [NUM_QUDS,1,NUM_DIMS]
 	projected_world = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,s1_world),perm=[0,2,1])
 	# print("new projected world",ed.get_session().run(tf.shape(projected_world)),"new projected mus",ed.get_session().run(tf.shape(projected_mus)))
+	# inference_params.mus=mus
+	# inference_params.projected_mus=projected_mus
 
-	print(projected_mus.get_shape(),projected_world.get_shape())
+	# print(projected_mus.get_shape(),projected_world.get_shape())
 
 	if debug:
 		pass
@@ -96,5 +98,5 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 	norm = tf.expand_dims(tf.reduce_logsumexp(utterance_scores,axis=1),1)
 	out = tf.subtract(utterance_scores, norm)
 
-	print(out.get_shape(),"shape out")
+	# print(out.get_shape(),"shape out")
 	return out

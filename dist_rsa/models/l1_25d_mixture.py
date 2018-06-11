@@ -15,26 +15,36 @@ from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 vec_size,vec_kind = 300,'glove.6B.'
 freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
 nouns,adjs = get_words(with_freqs=False)
-real_vecs = load_vecs(mean=True,pca=True,vec_length=vec_size,vec_type=vec_kind) 
+vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind) 
 
   
-print("swims",np.linalg.norm(real_vecs['swims']))
-print("swimmer",np.linalg.norm(real_vecs['swimmer']))
-print("distance",scipy.spatial.distance.cosine(real_vecs['swims'],real_vecs['swimmer']))
+print("swims",np.linalg.norm(vecs['swims']))
+print("swimmer",np.linalg.norm(vecs['swimmer']))
+print("distance",scipy.spatial.distance.cosine(vecs['swims'],vecs['swimmer']))
 
 
-# qud_words = [a for a in list(adjs) if a in vecs and a in real_vecs]
+# qud_words = [a for a in list(adjs) if a in vecs and a in vecs]
 # quds = sorted(qud_words,key=lambda x:freqs[x],reverse=True)
 
-# possible_utterance_nouns = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs and n in real_vecs]
+# possible_utterance_nouns = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs and n in vecs]
 # possible_utterances = sorted(possible_utterance_nouns,key=lambda x:freqs[x],reverse=True)
 # possible_utterances=possible_utterances[:100]
 
 # quds = quds[:70]
 # print(quds[:100])
+# for vec in ['man','shark','swimmer']:
+for vec in ['predator','swims']:
+    vecs[vec] /= np.linalg.norm(vecs[vec])
 
-def l1_model(metaphor):
-    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline = metaphor
+print("VECTOR MEASUREMENTS")
+print("man on swims",projection_into_subspace_np(np.expand_dims(vecs['man'],1),np.expand_dims(vecs['swims'],1)))
+print("shark on swims",projection_into_subspace_np(np.expand_dims(vecs['shark'],1),np.expand_dims(vecs['swims'],1)))
+print("swimmer on swims",projection_into_subspace_np(np.expand_dims(vecs['swimmer'],1),np.expand_dims(vecs['swims'],1)))
+print("man on predator",projection_into_subspace_np(np.expand_dims(vecs['man'],1),np.expand_dims(vecs['predator'],1)))
+print("shark on predator",projection_into_subspace_np(np.expand_dims(vecs['shark'],1),np.expand_dims(vecs['predator'],1)))
+print("swimmer on predator",projection_into_subspace_np(np.expand_dims(vecs['swimmer'],1),np.expand_dims(vecs['predator'],1)))
+
+def l1_model(subj,pred):
 
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
@@ -57,14 +67,14 @@ def l1_model(metaphor):
     # possible_utterances = possible_utterance_nouns[start:stop]
     # +possible_utterance_adjs
     # quds = ["balloon","red"]
-    quds = ["vicious","swims"]
+    quds = ["predator"]
     # possible_utterances = ["angry","frog"]
     # possible_utterances = ["wall","party"]
 
-    possible_utterances = ["shark","swimmer","man"]
+    possible_utterances = ["shark","swimmer"]
 
     for x in possible_utterances:
-        if x not in real_vecs:
+        if x not in vecs:
             # print(x,"not in vecs")
             possible_utterances.remove(x)
             # raise Exception("utterance not in vecs")
@@ -74,11 +84,11 @@ def l1_model(metaphor):
 
 
     params = Inference_Params(
-        vecs=real_vecs,
+        vecs=vecs,
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,
+        sig1=1.0,sig2=1.0,l1_sig1=0.01,
         qud_weight=0.0,freq_weight=0.0,
         number_of_qud_dimensions=1,
         poss_utt_frequencies=defaultdict(lambda:1),
@@ -86,7 +96,7 @@ def l1_model(metaphor):
         rationality=1.0,
         norm_vectors=False,
         heatmap=False,
-        resolution=Resolution(span=100,number=100),
+        resolution=Resolution(span=10,number=100),
         model_type="discrete_mixture",
         )
 
@@ -102,12 +112,12 @@ def l1_model(metaphor):
     # print(results[:5])
 
     # if not is_baseline:
-    #     worldm = run.world_movement("cosine",comparanda=[x for x in qud_words if x in real_vecs])
+    #     worldm = run.world_movement("cosine",comparanda=[x for x in qud_words if x in vecs])
     #     # print("\nworld\n",worldm[:5])
     # else: worldm = None
         # out.write("\nWORLD MOVEMENT:\n")
         # out.write(str(worldm))
-    # print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in real_vecs],do_projection=True)[:50])
+    # print("WORLD MOVEMENT WITH PROJECTION\n:",run.world_movement("cosine",comparanda=[x for x in quds if x in vecs],do_projection=True)[:50])
     # print("BASELINE:\n",sorted(qud_words,\
     #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)[:5])
 
@@ -124,10 +134,6 @@ def l1_model(metaphor):
     # one_d = results2
     # one_d=None
 
-
-
-    return results
-
 if __name__ == "__main__":
 
     # for x in range(1):
@@ -143,10 +149,12 @@ if __name__ == "__main__":
         # worlds,quds=l1_model(("frog","wall",1.0,1.0,1.0,0,1000,True))
         # print(quds[:10])
 
-        worlds,quds=l1_model(("man","swimmer",1.0,1.0,1.0,0,1000,True))
+        means1,worlds,quds=l1_model(subj="man",pred="swimmer")
         print(quds[:10])
-        # worlds,quds=l1_model(("man","shark",1.0,1.0,1.0,0,1000,True))
-        # print(quds[:10])
+        means2,worlds,quds=l1_model(subj="man",pred="shark")
+        print(quds[:10])
+
+        print(scipy.spatial.distance.cosine(vecs['man']-means1[0],vecs['man']-means2[0]))
         # worlds,quds=l1_model(("wall","frog",1.0,1.0,1.0,0,1000,True))
         # print(quds[:10])
 
