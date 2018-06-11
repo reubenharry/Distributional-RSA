@@ -206,7 +206,7 @@ def tf_l1(inference_params):
 		determinant = tf.reduce_sum(tf.log(new_basis_variance*2*pi))
 		determinants.append(determinant)
 		# print("old basis mean",sess.run(old_basis_mean),old_basis_mean)
-		means.append(old_basis_mean)
+		means.append(tf.squeeze(old_basis_mean))
 		covariances.append(new_basis_variance)
 
 
@@ -275,6 +275,7 @@ def tf_l1(inference_params):
 	# vec_size,vec_kind = 300,'glove.6B.'
 	# vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind) 
 
+	conditional_mean_deltas=[]
 	for i in range(NUM_QUDS):
 
 
@@ -284,20 +285,23 @@ def tf_l1(inference_params):
 		# print("PROJECTION")
 		# print(qud_combinations[i],sess.run([means[i]]))
 		print("QUD",qud_combinations[i])
-		print("PRIOR",sess.run([projection_into_subspace_tf(tf.expand_dims(listener_world,1),qud_matrix[i])]))
-		print("MUS",sess.run([projection_into_subspace_tf(tf.expand_dims(mus[utt],1),qud_matrix[i])]))
+		# print("PRIOR",sess.run([projection_into_subspace_tf(tf.expand_dims(listener_world,1),qud_matrix[i])]))
+		# print("MUS",sess.run([projection_into_subspace_tf(tf.expand_dims(mus[utt],1),qud_matrix[i])]))
 
 		# print("man on qud",sess.run(projection_into_subspace_tf(tf.expand_dims(vecs['man'],1),tf.expand_dims(vecs[qud_combinations[i][0]],1))))
 		# print("man on qud",sess.run(projection_into_subspace_tf(tf.expand_dims(tf.cast(vecs['man'],dtype=tf.float32),1),qud_matrix[i])))
 		# print("difference of differences",scipy.spatial.distance.cosine())
 
 		# print("MUS",sess.run([projection_into_subspace_tf(tf.expand_dims(inference_params.mus[i],1),qud_matrix[i])]))
-		print("CONDITIONAL MEAN")
-		print(sess.run(projection_into_subspace_tf(tf.expand_dims(means[i],1),qud_matrix[i])))
-		print("MARGINAL MEAN")
-		print(sess.run(projection_into_subspace_tf(tf.expand_dims(marginal_mean,1),qud_matrix[i])))
+		# print("CONDITIONAL MEAN")
+		# print(sess.run(projection_into_subspace_tf(tf.expand_dims(means[i],1),qud_matrix[i])))
+		# print("MARGINAL MEAN")
+		# print(sess.run(projection_into_subspace_tf(tf.expand_dims(marginal_mean,1),qud_matrix[i])))
+		conditional_mean_delta = sess.run([projection_into_subspace_tf(tf.expand_dims(means[i],1),qud_matrix[i]) - projection_into_subspace_tf(tf.expand_dims(listener_world,1),qud_matrix[i])])
+		conditional_mean_deltas.append(conditional_mean_delta)
+		print("CONDITIONAL MEAN DELTA",conditional_mean_delta)
 
-	return sess.run(means), sess.run(worlds),[(x,np.exp(y)) for (x,y) in results]
+	return conditional_mean_deltas, sess.run(worlds),[(x,np.exp(y)) for (x,y) in results]
 
 
 

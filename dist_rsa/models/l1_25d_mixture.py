@@ -22,27 +22,16 @@ print("swims",np.linalg.norm(vecs['swims']))
 print("swimmer",np.linalg.norm(vecs['swimmer']))
 print("distance",scipy.spatial.distance.cosine(vecs['swims'],vecs['swimmer']))
 
-
-# qud_words = [a for a in list(adjs) if a in vecs and a in vecs]
-# quds = sorted(qud_words,key=lambda x:freqs[x],reverse=True)
-
-# possible_utterance_nouns = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs and n in vecs]
-# possible_utterances = sorted(possible_utterance_nouns,key=lambda x:freqs[x],reverse=True)
-# possible_utterances=possible_utterances[:100]
-
-# quds = quds[:70]
-# print(quds[:100])
-# for vec in ['man','shark','swimmer']:
 for vec in ['predator','swims']:
     vecs[vec] /= np.linalg.norm(vecs[vec])
 
-print("VECTOR MEASUREMENTS")
-print("man on swims",projection_into_subspace_np(np.expand_dims(vecs['man'],1),np.expand_dims(vecs['swims'],1)))
-print("shark on swims",projection_into_subspace_np(np.expand_dims(vecs['shark'],1),np.expand_dims(vecs['swims'],1)))
-print("swimmer on swims",projection_into_subspace_np(np.expand_dims(vecs['swimmer'],1),np.expand_dims(vecs['swims'],1)))
-print("man on predator",projection_into_subspace_np(np.expand_dims(vecs['man'],1),np.expand_dims(vecs['predator'],1)))
-print("shark on predator",projection_into_subspace_np(np.expand_dims(vecs['shark'],1),np.expand_dims(vecs['predator'],1)))
-print("swimmer on predator",projection_into_subspace_np(np.expand_dims(vecs['swimmer'],1),np.expand_dims(vecs['predator'],1)))
+# print("VECTOR MEASUREMENTS")
+# print("man on swims",projection_into_subspace_np(np.expand_dims(vecs['man'],1),np.expand_dims(vecs['swims'],1)))
+# print("shark on swims",projection_into_subspace_np(np.expand_dims(vecs['shark'],1),np.expand_dims(vecs['swims'],1)))
+# print("swimmer on swims",projection_into_subspace_np(np.expand_dims(vecs['swimmer'],1),np.expand_dims(vecs['swims'],1)))
+# print("man on predator",projection_into_subspace_np(np.expand_dims(vecs['man'],1),np.expand_dims(vecs['predator'],1)))
+# print("shark on predator",projection_into_subspace_np(np.expand_dims(vecs['shark'],1),np.expand_dims(vecs['predator'],1)))
+# print("swimmer on predator",projection_into_subspace_np(np.expand_dims(vecs['swimmer'],1),np.expand_dims(vecs['predator'],1)))
 
 def l1_model(subj,pred):
 
@@ -67,11 +56,11 @@ def l1_model(subj,pred):
     # possible_utterances = possible_utterance_nouns[start:stop]
     # +possible_utterance_adjs
     # quds = ["balloon","red"]
-    quds = ["predator"]
+    quds = ["predator","swims"]
     # possible_utterances = ["angry","frog"]
     # possible_utterances = ["wall","party"]
 
-    possible_utterances = ["shark","swimmer"]
+    possible_utterances = ["shark","swimmer","man"]
 
     for x in possible_utterances:
         if x not in vecs:
@@ -88,7 +77,7 @@ def l1_model(subj,pred):
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=1.0,sig2=1.0,l1_sig1=0.01,
+        sig1=1.0,sig2=1.0,l1_sig1=1.0,
         qud_weight=0.0,freq_weight=0.0,
         number_of_qud_dimensions=1,
         poss_utt_frequencies=defaultdict(lambda:1),
@@ -149,8 +138,8 @@ if __name__ == "__main__":
         # worlds,quds=l1_model(("frog","wall",1.0,1.0,1.0,0,1000,True))
         # print(quds[:10])
 
-        means1,worlds,quds=l1_model(subj="man",pred="swimmer")
-        print(quds[:10])
+        deltas,worlds,quds=l1_model(subj="man",pred="swimmer")
+        print(list(zip(quds,deltas)))
         # means2,worlds,quds=l1_model(subj="man",pred="shark")
         # print(quds[:10])
 
