@@ -1,4 +1,5 @@
 import time
+import tqdm
 import numpy as np
 import edward as ed
 import scipy
@@ -15,6 +16,8 @@ from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_
 from edward.inferences import HMC
 import itertools
 from dist_rsa.rsa.tensorflow_s1 import tf_s1
+from dist_rsa.rsa.tensorflow_s1_triple_vec import tf_s1 as tf_s1_triple_vec
+
 
 def tf_l1(inference_params):
 
@@ -22,9 +25,9 @@ def tf_l1(inference_params):
 	# NUM_UTTS = number_of_utts
 	NUM_DIMS = inference_params.subject_vector.shape[0]
 	NUM_QUD_DIMS = inference_params.number_of_qud_dimensions
+
 	#ALL THE SETUP STUFF
-	sess = ed.get_session()
-	# listener_world = tf.zeros((300))
+	sess = tf.Session()
 	listener_world = tf.cast(inference_params.subject_vector,dtype=tf.float32)
 	number_of_qud_words = len(inference_params.quds)
 	poss_utts = tf.cast(as_a_matrix(inference_params.possible_utterances,inference_params.vecs),dtype=tf.float32)
@@ -51,11 +54,9 @@ def tf_l1(inference_params):
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
 
 	# SHAPE: [NUM_QUDS,NUM_DIMS,NUM_QUD_DIMS]
-	qud_projection_matrix = double_tensor_projection_matrix_into_subspace(inference_params.qud_matrix)
+	# qud_projection_matrix = double_tensor_projection_matrix_into_subspace(inference_params.qud_matrix)
 	# SHAPE: [NUM_QUDS,1,NUM_QUD_DIMS]
 	# CHANGE FOR 2D CASE
-	print("QUD MATRIX SHAPE",qud_matrix)
-	# projected_listener_worlds = projection_into_subspace_tf(tf.expand_dims(listener_world,1),tf.transpose(qud_matrix[:,:,0]))
 	pi = tf.constant(np.pi)
 	size,amount = inference_params.resolution.size, inference_params.resolution.amount
 	print("SIZE,AMOUNT",size,amount)
@@ -68,47 +69,45 @@ def tf_l1(inference_params):
 	if inference_params.heatmap:
 		discrete_worlds = tf.constant(np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32))
 
-		print("discrete_worlds",discrete_worlds)
-
 	# CALCULATE MEAN AND SIGMA OF p(w|q=qi,u=u) in the projected space
 	#ALL THIS CODE IS WRONG FOR MULTIDIMENSIONAL QUDS
 	full_space_prior = Normal(loc=tf.squeeze(listener_world), scale=[std] * inference_params.vec_length)
-	for qi in range(len(qud_combinations)):
+	tic = time.time()
+	for qi in tqdm.tqdm(range(len(qud_combinations))):
 		
-		print(qud_combinations[qi],"CURRENT QUD")
+		# print(qud_combinations[qi],"CURRENT QUD")
 		# projected_listener_world = projected_listener_worlds[qi]	
 		projected_listener_world = projection_into_subspace_tf(tf.expand_dims(listener_world,1),qud_matrix[qi])			
 		# the discrete support: tf.stack turns list of vectors (each a point lying along qud) into tensor where each row is vector
 		# shape: [num_worlds,num_qud_dims,num_dims] (n.b. num_worlds = size*2+1)
 
-
-		# w = tf.transpose(inference_params.qud_matrix[qi]*amount*10)
-		
-
-		# def f(x):
-		# 	return tf.exp(tf_s1(inference_params,s1_world=x)[qi,utt])
-
-
-
-				# convex optimization, nbd
+		# convex optimization, nbd
 		approximate_mean = tf.Variable(0.0)
-		w = tf.transpose(inference_params.qud_matrix[qi]*approximate_mean)
 		init = tf.global_variables_initializer()
 		sess.run(init)
-		f_w = tf.reduce_sum(full_space_prior.log_prob(w))+tf_s1(inference_params,s1_world=w)[qi,utt]
-		# print("fw",sess.run(f_w))
-		grad = tf.gradients(f_w,approximate_mean)[0]
-		# print("original grad",sess.run(grad))
-		optimize_op = approximate_mean.assign(approximate_mean + 0.01 * grad)
 
-		for i in range(1000):
-			sess.run(optimize_op)
-			# print(sess.run(x))
+		optimize = True
+		if optimize:
 
-		print("grad and mean",sess.run([grad,approximate_mean]))
+			w = tf.transpose(qud_matrix[qi]*approximate_mean)
+			inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
+			f_w = tf.reduce_sum(full_space_prior.log_prob(w))+tf_s1(inference_params,s1_world=w)[0,utt]
+			# print("fw",sess.run(f_w))
+			grad = tf.gradients(f_w,approximate_mean)[0]
+			# print("original grad",sess.run(grad))
 
-		discrete_worlds_along_qud = tf.stack([tf.transpose(inference_params.qud_matrix[qi])*((amount*x)+approximate_mean) for x in range(-size,size+1)])
-		# shape: [num_worlds]
+			# optimizer = tf.train.GradientDescentOptimizer()
+			# train = optimizer.minimize(log_x_squared)
+
+			optimize_op = approximate_mean.assign(approximate_mean + 0.01 * grad)
+
+			for i in range(100):
+				sess.run(optimize_op)
+
+			# print("grad and mean",sess.run([grad,approximate_mean]))
+
+		discrete_worlds_along_qud = tf.stack([tf.transpose(qud_matrix[qi])*((amount*x)+approximate_mean) for x in range(-size,size+1)])
+		
 		# see how far you need to go out
 		# print(sess.run(f_w))
 		# span = tf.Variable(10.0)
@@ -135,9 +134,21 @@ def tf_l1(inference_params):
 
 		discrete_worlds_along_qud_prior = tf.map_fn(lambda w: tf.reduce_sum(full_space_prior.log_prob(w)),discrete_worlds_along_qud)
 		# shape: [num_worlds,num_quds,num_utts]
-		s1_scores =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=w),discrete_worlds_along_qud)
+		# print(qud_matrix,qi,"shapes")
+		inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
+
+		# print("seg?")
+		# print(discrete_worlds_along_qud)
+		# print("nah")
+
+		# raise Exception
+
+		# s1_scores =  tf.map_fn(lambda w: tf_s1(inference_params,s1_world=w),discrete_worlds_along_qud)
+		# print("shape",s1_scores)
+		s1_scores = tf_s1_triple_vec(inference_params,s1_world=tf.squeeze(discrete_worlds_along_qud))
+		# print("shape new",s1_scores_new)
 		# [num_worlds]
-		fixed_s1_scores = s1_scores[:,qi,utt]
+		fixed_s1_scores = s1_scores[:,0,utt]
 
 		# shape: [num_worlds]
 		l1_posterior_unnormed = discrete_worlds_along_qud_prior + fixed_s1_scores
@@ -151,7 +162,7 @@ def tf_l1(inference_params):
 		#  shapes: scalar
 		subspace_mean,subspace_variance = mean_and_variance_of_dist_array(probs=tf.exp(l1_posterior_normed),support=projected_worlds)
 		
-		print(sess.run([subspace_mean]),"subspace mean")
+		# print(sess.run([subspace_mean]),"subspace mean")
 
 		# [num dims-num_qud_dims,num_qud_dims]	
 		orthogonal_dims = orthogonal_complement_tf(qud_matrix[qi])
@@ -161,7 +172,7 @@ def tf_l1(inference_params):
 		# shape: [num_dims-num_qud_dims,num_qud_dims]
 
 		# print("Shapes",qud_matrix[qi],orthogonal_basis)
-		# print("CHECK", sess.run(tf.matmul(orthogonal_basis,qud_matrix[qi])))
+		# print("time", sess.run(tf.matmul(orthogonal_basis,qud_matrix[qi])))
 		# print(tf.matmul(tf.expand_dims(orthogonal_basis[0],0),tf.expand_dims(orthogonal_basis[1],1)))
 
 		# projected_orthogonal_means_list = []
@@ -189,12 +200,12 @@ def tf_l1(inference_params):
 		# print("trans orth basis",tf.transpose(orthogonal_basis))
 		# old_basis_mean = tf.einsum('n,nm->m', new_basis_mean, tf.transpose(orthogonal_basis))
 
-		print("new basis mean shape",new_basis_mean)
+		# print("new basis mean shape",new_basis_mean)
 
 		old_basis_mean = tf.matmul(tf.transpose(orthogonal_basis),tf.expand_dims(new_basis_mean,1))
 
-		print("shape",old_basis_mean)
-		print("projected", sess.run(projection_into_subspace_tf(old_basis_mean,qud_matrix[0])))
+		# print("shape",old_basis_mean)
+		# print("projected", sess.run(projection_into_subspace_tf(old_basis_mean,qud_matrix[0])))
 
 		# concatenate new variance with prior variance in each dimension
 		new_basis_variance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,[subspace_variance]],axis=0)
@@ -220,20 +231,27 @@ def tf_l1(inference_params):
 			# 	# code ends here with return, now that the heatmap tensor has been obtained
 			# 	return None,None		
 			heatmaps.append(heatmap)
+		else: heatmaps = None
 
 
 	means = tf.stack(means)
 	covariances = tf.stack(covariances)
 	determinants = tf.stack(determinants)
+	# print(sess.run([means,determinants]))
+	toc = time.time()
+	print("time",toc-tic)
+	# print(sess.run(means[0][0]))
 
 	# a function which computes a number proportional to the integral of the area under the normal distribution
 	#  corresponding to a particular qud
 	def qud_score(qi):
 
+
 		det = determinants[qi]
 		# print("det",sess.run(det))
 		term_1 = det/2
-		term_2 = tf_s1(inference_params,s1_world=tf.expand_dims(means[qi],0))[qi][utt]
+		inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
+		term_2 = tf_s1(inference_params,s1_world=tf.expand_dims(means[qi],0))[0][utt]
 		term_3 = tf.reduce_sum(full_space_prior.log_prob(means[qi]))
 
 		# print("QUD",qud_combinations[qi])
@@ -246,6 +264,7 @@ def tf_l1(inference_params):
 		# gaussian(mean=means[qi],variance=)
 
 		return term_1+term_2+term_3
+		# print("qud")
 
 	qud_scores = tf.stack([qud_score(qi) for qi in range(len(qud_combinations))])
 	# print(sess.run(qud_scores),"scores")
@@ -262,46 +281,55 @@ def tf_l1(inference_params):
 	def world_sampler():
 		pass
 
-	results = list(zip(qud_combinations,sess.run(qud_distribution)))
-	results = (sorted(results, key=lambda x: x[1], reverse=True))
 
 	# print("means",sess.run(means))
 
-	marginal_mean = tf.reduce_sum(means*tf.expand_dims(tf.exp(qud_distribution),1),axis=0)
 
-	mus = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1,inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
+	# mus = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1,inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
 
 	# from dist_rsa.utils.load_data import load_vecs
 	# vec_size,vec_kind = 300,'glove.6B.'
 	# vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind) 
 
-	conditional_mean_deltas=[]
-	for i in range(NUM_QUDS):
+	conditional_mean_deltas=["n/a"]*NUM_QUDS
+
+	debug = True
+	if debug:
+
+		marginal_mean_np = sess.run(tf.reduce_sum(means*tf.expand_dims(tf.exp(qud_distribution),1),axis=0))
+		qud_matrix_np = sess.run(qud_matrix)
+		means_np = sess.run(means)
+		for i in range(NUM_QUDS):
 
 
 
 
-		# print(sess.run([inference_params.mus[utt],inference_params.projected_mus[i][utt],projection_into_subspace_tf(tf.expand_dims(inference_params.mus[i],1),qud_matrix[i])]))
-		# print("PROJECTION")
-		# print(qud_combinations[i],sess.run([means[i]]))
-		print("QUD",qud_combinations[i])
-		# print("PRIOR",sess.run([projection_into_subspace_tf(tf.expand_dims(listener_world,1),qud_matrix[i])]))
-		# print("MUS",sess.run([projection_into_subspace_tf(tf.expand_dims(mus[utt],1),qud_matrix[i])]))
+			# print(sess.run([inference_params.mus[utt],inference_params.projected_mus[i][utt],projection_into_subspace_tf(tf.expand_dims(inference_params.mus[i],1),qud_matrix[i])]))
+			# print("PROJECTION")
+			# print(qud_combinations[i],sess.run([means[i]]))
+			# print("QUD",qud_combinations[i])
+			# print("PRIOR",sess.run([projection_into_subspace_tf(tf.expand_dims(listener_world,1),qud_matrix[i])]))
+			# print("MUS",sess.run([projection_into_subspace_tf(tf.expand_dims(mus[utt],1),qud_matrix[i])]))
 
-		# print("man on qud",sess.run(projection_into_subspace_tf(tf.expand_dims(vecs['man'],1),tf.expand_dims(vecs[qud_combinations[i][0]],1))))
-		# print("man on qud",sess.run(projection_into_subspace_tf(tf.expand_dims(tf.cast(vecs['man'],dtype=tf.float32),1),qud_matrix[i])))
-		# print("difference of differences",scipy.spatial.distance.cosine())
+			# print("man on qud",sess.run(projection_into_subspace_tf(tf.expand_dims(vecs['man'],1),tf.expand_dims(vecs[qud_combinations[i][0]],1))))
+			# print("man on qud",sess.run(projection_into_subspace_tf(tf.expand_dims(tf.cast(vecs['man'],dtype=tf.float32),1),qud_matrix[i])))
+			# print("difference of differences",scipy.spatial.distance.cosine())
 
-		# print("MUS",sess.run([projection_into_subspace_tf(tf.expand_dims(inference_params.mus[i],1),qud_matrix[i])]))
-		# print("CONDITIONAL MEAN")
-		# print(sess.run(projection_into_subspace_tf(tf.expand_dims(means[i],1),qud_matrix[i])))
-		# print("MARGINAL MEAN")
-		# print(sess.run(projection_into_subspace_tf(tf.expand_dims(marginal_mean,1),qud_matrix[i])))
-		conditional_mean_delta = sess.run([projection_into_subspace_tf(tf.expand_dims(means[i],1),qud_matrix[i]) - projection_into_subspace_tf(tf.expand_dims(listener_world,1),qud_matrix[i])])
-		conditional_mean_deltas.append(conditional_mean_delta)
-		print("CONDITIONAL MEAN DELTA",conditional_mean_delta)
+			# print("MUS",sess.run([projection_into_subspace_tf(tf.expand_dims(inference_params.mus[i],1),qud_matrix[i])]))
+			# print("CONDITIONAL MEAN")
+			# print(sess.run(projection_into_subspace_tf(tf.expand_dims(means[i],1),qud_matrix[i])))
+			# print("MARGINAL MEAN")
+			# print(projection_into_subspace_np(np.expand_dims(marginal_mean_np,1),qud_matrix_np[i])
+			conditional_mean_delta = projection_into_subspace_np(np.expand_dims(means_np[i],1),qud_matrix_np[i]) - projection_into_subspace_np(np.expand_dims(inference_params.subject_vector,1),qud_matrix_np[i])
+			conditional_mean_deltas[i]=conditional_mean_delta
+			# print("CONDITIONAL MEAN DELTA",conditional_mean_delta)
 
-	return conditional_mean_deltas, sess.run(worlds),[(x,np.exp(y)) for (x,y) in results]
+	results = list(zip(qud_combinations, conditional_mean_deltas, sess.run(tf.exp(qud_distribution))))
+	tac = time.time()
+	print("time",tac-toc)
+	results = (sorted(results, key=lambda x: x[-1], reverse=True))
+
+	return heatmaps, results
 
 
 

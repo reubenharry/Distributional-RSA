@@ -2,7 +2,9 @@
 # For the semantics of the s1, try looking at the numpy version instead (numpy_rsa.py)
 
 
-def tf_s1_triple_vec(inference_params,s1_world,world_movement=False,debug=False):
+def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
+
+	# print("shape triple_vec",s1_world)
 
 	from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
 		normalize,as_a_matrix,tensor_projection_matrix,\
@@ -73,4 +75,5 @@ def tf_s1_triple_vec(inference_params,s1_world,world_movement=False,debug=False)
 
 	out = tf.subtract(utterance_scores, norm)
 	# print("out pre transpose",out)
+	# print(out,"shapey")
 	return tf.transpose(out,[1,0,2])

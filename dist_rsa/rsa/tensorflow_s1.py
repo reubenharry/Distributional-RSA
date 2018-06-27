@@ -27,6 +27,7 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 	mus = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
 		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
 
+
 	if world_movement:
 		pass
 		# print("LISTENER MUS SHAPE",mus.shape)

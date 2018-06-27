@@ -9,58 +9,28 @@ from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import *
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 
-
-# vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='word2vec')
 # vec_size,vec_kind = 25,'glove.twitter.27B.'
 vec_size,vec_kind = 300,'glove.6B.'
-freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
+# freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
 nouns,adjs = get_words(with_freqs=False)
 vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind) 
-
-  
-print("swims",np.linalg.norm(vecs['swims']))
-print("swimmer",np.linalg.norm(vecs['swimmer']))
-print("distance",scipy.spatial.distance.cosine(vecs['swims'],vecs['swimmer']))
-
-# for vec in ['predator','swims']:
-#     vecs[vec] /= np.linalg.norm(vecs[vec])
-
-# print("VECTOR MEASUREMENTS")
-# print("man on swims",projection_into_subspace_np(np.expand_dims(vecs['man'],1),np.expand_dims(vecs['swims'],1)))
-# print("shark on swims",projection_into_subspace_np(np.expand_dims(vecs['shark'],1),np.expand_dims(vecs['swims'],1)))
-# print("swimmer on swims",projection_into_subspace_np(np.expand_dims(vecs['swimmer'],1),np.expand_dims(vecs['swims'],1)))
-# print("man on predator",projection_into_subspace_np(np.expand_dims(vecs['man'],1),np.expand_dims(vecs['predator'],1)))
-# print("shark on predator",projection_into_subspace_np(np.expand_dims(vecs['shark'],1),np.expand_dims(vecs['predator'],1)))
-# print("swimmer on predator",projection_into_subspace_np(np.expand_dims(vecs['swimmer'],1),np.expand_dims(vecs['predator'],1)))
 
 def l1_model(subj,pred):
 
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
 
-    # qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
+    qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
 
-    # quds = sorted(qud_words,\
-    #     key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
+    quds = sorted(qud_words,\
+        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[pred],vecs[pred]],axis=0)),reverse=False)
         # key=lambda x:freqs[x],reverse=True)
 
-    # noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
-    # possible_utterance_nouns = sorted(noun_words,\
-    #     # key=lambda x:freqs[x],reverse=True)
-    #     key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
-    # # possible_utterance_nouns = 
-    # # break
+    noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
+    possible_utterances = sorted(noun_words,\
+        key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+        # key=lambda x:freqs[x],reverse=True)
 
-    # # quds[:100]
-    # possible_utterance_adjs = quds
-    # possible_utterances = possible_utterance_nouns[start:stop]
-    # +possible_utterance_adjs
-    # quds = ["balloon","red"]
-    quds = ["predator","swims"]
-    # possible_utterances = ["angry","frog"]
-    # possible_utterances = ["wall","party"]
-
-    possible_utterances = ["shark","swimmer","man"]
 
     for x in possible_utterances:
         if x not in vecs:
@@ -68,8 +38,11 @@ def l1_model(subj,pred):
             possible_utterances.remove(x)
             # raise Exception("utterance not in vecs")
 
-    print("QUDS",quds[:50]) 
-    print("UTTERANCES:\n",possible_utterances[:20])
+    quds = quds[:20]
+    possible_utterances = possible_utterances[:1000]
+
+    print("QUDS",quds[:10]) 
+    print("UTTERANCES:\n",possible_utterances[:10])
 
 
     params = Inference_Params(
@@ -83,7 +56,7 @@ def l1_model(subj,pred):
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         rationality=1.0,
-        norm_vectors=False,
+        norm_vectors=True,
         heatmap=False,
         resolution=Resolution(span=10,number=100),
         model_type="discrete_mixture",
@@ -127,22 +100,11 @@ if __name__ == "__main__":
 
     # for x in range(1):
     #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
-    for x in range(1):
-        # worlds,quds=l1_model(("wall","angry",1.0,1.0,1.0,0,1000,True))
-        # print(quds[:10])
-        # worlds,quds=l1_model(("wall","frog",1.0,1.0,1.0,0,1000,True))
-        # print(quds[:10])
+    for subj,pred in metaphors[:1]:
+        print(l1_model(subj=subj,pred=pred))
 
-        # worlds,quds=l1_model(("angry","wall",1.0,1.0,1.0,0,1000,True))
-        # print(quds[:10])
-        # worlds,quds=l1_model(("frog","wall",1.0,1.0,1.0,0,1000,True))
-        # print(quds[:10])
 
         # print(l1_model(subj="man",pred="swimmer"))
-        print(l1_model(subj="man",pred="shark"))
-
-        # means2,worlds,quds=l1_model(subj="man",pred="shark")
-        # print(quds[:10])
 
         # print(scipy.spatial.distance.cosine(vecs['man']-means1[0],vecs['man']-means2[0]))
         # worlds,quds=l1_model(("wall","frog",1.0,1.0,1.0,0,1000,True))
