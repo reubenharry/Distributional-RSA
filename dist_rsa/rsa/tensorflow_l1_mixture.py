@@ -207,7 +207,7 @@ def tf_l1(inference_params):
 
 	if inference_params.heatmap:
 		stacked_worlds = tf.stack(heatmaps)
-		worlds = tf.reduce_sum(tf.exp(stacked_worlds+tf.reshape(qud_distribution,(NUM_QUDS,1,1))),axis=0)
+		worlds = sess.run(tf.reduce_sum(tf.exp(stacked_worlds+tf.reshape(qud_distribution,(NUM_QUDS,1,1))),axis=0))
 
 	conditionals=["n/a"]*NUM_QUDS
 
@@ -223,18 +223,18 @@ def tf_l1(inference_params):
 		# returns:
 			# a mean and variance in the basis of the subspace
 		qud_vector = qud_matrix_np[qud_index]
-		print(qud_vector.shape)
-		print(subspace_vector.shape)
+		# print(qud_vector.shape)
+		# print(subspace_vector.shape)
 		line_in_noncovariant_space = np.dot((orthogonal_basis_np),subspace_vector)
 		covariance = np.diag(covariances_np[qud_index])
-		print(covariance.shape,line_in_noncovariant_space.shape)
+		# print(covariance.shape,line_in_noncovariant_space.shape)
 		variance = np.dot(np.dot(np.transpose(line_in_noncovariant_space),covariance),line_in_noncovariant_space)
 
 		projected_mean = projection_into_subspace_np(np.expand_dims(means_np[qud_index],1),subspace_vector)
-		print(inference_params.subject_vector.shape,"IMPORTANT SHAPE")
+		# print(inference_params.subject_vector.shape,"IMPORTANT SHAPE")
 		projected_prior_mean = projection_into_subspace_np(np.expand_dims(inference_params.subject_vector,1),qud_matrix_np[qud_index])
 
-		print("mean and variance",projected_mean,variance)
+		# print("mean and variance",projected_mean,variance)
 
 		return np.squeeze(projected_mean),np.squeeze(projected_prior_mean),np.squeeze(variance)
 
@@ -359,7 +359,7 @@ def tf_l1(inference_params):
 	results = (sorted(results, key=lambda x: x[-1], reverse=True))
 
 	sess.close()
-	return heatmaps, results
+	return worlds, results
 
 
 
