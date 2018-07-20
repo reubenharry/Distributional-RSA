@@ -1,4 +1,7 @@
 from __future__ import division
+
+log_path = input("logging path: ")
+
 from collections import defaultdict
 import scipy
 import numpy as np
@@ -8,6 +11,8 @@ from dist_rsa.dbm import *
 from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import *
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
+
+import tensorflow as tf
 
 # vec_size,vec_kind = 25,'glove.twitter.27B.'
 vec_size,vec_kind = 300,'glove.6B.'
@@ -38,8 +43,8 @@ def l1_model(subj,pred):
             possible_utterances.remove(x)
             # raise Exception("utterance not in vecs")
 
-    quds = quds[:20]
-    possible_utterances = possible_utterances[:1000]
+    quds = quds[:10]
+    possible_utterances = possible_utterances[:10]
 
     print("QUDS",quds[:10]) 
     print("UTTERANCES:\n",possible_utterances[:10])
@@ -50,7 +55,7 @@ def l1_model(subj,pred):
         subject=[subj],predicate=pred,
         quds=quds,
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=1.0,sig2=0.1,l1_sig1=1.0,
+        sig1=20.0,sig2=0.1,l1_sig1=20.0,
         qud_weight=0.0,freq_weight=0.0,
         number_of_qud_dimensions=1,
         poss_utt_frequencies=defaultdict(lambda:1),
@@ -65,8 +70,13 @@ def l1_model(subj,pred):
     run = Dist_RSA_Inference(params)
     run.compute_l1(load=0,save=False)
 
+    print("marginal",params.marginals[0])
 
-    return run.tf_results
+    out = run.tf_results
+    del run
+    del params
+    tf.reset_default_graph()
+    return out
 
     # world_means = run.world_samples
     # print(world_means[:5],"MEANS")
@@ -98,10 +108,19 @@ def l1_model(subj,pred):
 
 if __name__ == "__main__":
 
+    
+    logfile = open('dist_rsa/debugging/logging/log'+log_path,'w')
+
     # for x in range(1):
     #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
-    for subj,pred in metaphors[:1]:
-        print(l1_model(subj=subj,pred=pred))
+    for subj,pred in metaphors:
+        logfile.write(str(subj)+str(pred))
+        result = l1_model(subj=subj,pred=pred)
+        print(result)
+        logfile.write(str(result))
+        logfile.write('\n')
+
+        # print()
 
 
         # print(l1_model(subj="man",pred="swimmer"))
