@@ -28,7 +28,7 @@ def l1_model(subj,pred):
     qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
 
     quds = sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[pred],vecs[pred]],axis=0)),reverse=False)
+        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[pred],vecs[subj]],axis=0)),reverse=False)
         # key=lambda x:freqs[x],reverse=True)
 
     noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
@@ -43,8 +43,8 @@ def l1_model(subj,pred):
             possible_utterances.remove(x)
             # raise Exception("utterance not in vecs")
 
-    quds = quds[:10]
-    possible_utterances = possible_utterances[:10]
+    quds = quds[:50]
+    possible_utterances = possible_utterances[:200]
 
     print("QUDS",quds[:10]) 
     print("UTTERANCES:\n",possible_utterances[:10])
@@ -65,6 +65,7 @@ def l1_model(subj,pred):
         heatmap=False,
         resolution=Resolution(span=10,number=100),
         model_type="discrete_mixture",
+        calculate_projected_marginal_world_posterior=False,
         )
 
     run = Dist_RSA_Inference(params)
@@ -107,6 +108,8 @@ def l1_model(subj,pred):
     # one_d=None
 
 if __name__ == "__main__":
+
+
 
     
     logfile = open('dist_rsa/debugging/logging/log'+log_path,'w')

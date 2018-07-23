@@ -35,7 +35,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,quds,possible_utterances):
         norm_vectors=False,
         resolution=Resolution(span=10,number=100),
         model_type="discrete_mixture",
-        heatmap=False
+        heatmap=True
         )
 
     run = Dist_RSA_Inference(params)
@@ -45,7 +45,7 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,quds,possible_utterances):
 
 if __name__ == "__main__":
 
-    heatmaps, quds = l1_model(subj="man",pred="shark",sig1=1.0,sig2=1.0,l1_sig1=1.0,quds=["vicious","swims"],possible_utterances=["shark","swimmer","man"])
+    heatmaps, quds = l1_model(subj="child",pred="swimmer",sig1=1.0,sig2=1.0,l1_sig1=1.0,quds=["vicious","swims"],possible_utterances=["shark","swimmer","man"])
     print(quds)
 
 

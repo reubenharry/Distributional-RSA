@@ -40,7 +40,7 @@ def tf_l1_discrete(inference_params):
 
 	size,amount = inference_params.resolution.size, inference_params.resolution.amount
 	# shape: [(size*2)**2, 2] : for each of the world positions, an array of its position
-	discrete_worlds = np.asarray([[y*amount,x*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32)
+	discrete_worlds = np.asarray([[y*amount,-x*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32)
 	# shape: [(size*2)**2, 1] use the world gaussian to calculate the prior at each point.
 	discrete_worlds_prior = tf.expand_dims(tf.map_fn(lambda w: tf.reduce_sum(world.log_prob(w)),
 		discrete_worlds),1)
@@ -71,7 +71,7 @@ def tf_l1_discrete(inference_params):
 	l1_joint_posterior_normed = l1_joint_posterior_unnormed - tf.reduce_logsumexp(l1_joint_posterior_unnormed)
 	# print(l1_joint_posterior_normed, "l1_joint_posterior_normed")
 	# raise Exception
-	world_posterior = tf.exp(tf.reduce_logsumexp(l1_joint_posterior_normed,axis=1))
+	world_posterior_np = sess.run(tf.exp(tf.reduce_logsumexp(l1_joint_posterior_normed,axis=1)))
 	# shape: [(size*2)**2, num_of_quds]
 
 	# shape: [(size*2)**2,]
@@ -91,9 +91,23 @@ def tf_l1_discrete(inference_params):
 
 	# world_squash_1 = tf.reduce_mean(tf.reshape(world_posterior,(size*2,size*2)),axis=1)
 	# print("MEAN AND VARIANCE AXIS 1",sess.run([mean_and_variance_of_dist_array(world_squash_1,tf.constant(np.array([x*amount for x in range(-size,size)]),dtype=tf.float32))]))
-
-	mean,_ = sess.run(mean_and_variance_of_dist_array(probs=tf.reshape(world_posterior,shape=[(size*2+1)**2,1]),support=discrete_worlds))
+	# shaped_post = np.reshape(world_posterior_np,newshape=(size*2+1,size*2+1))
+	# print(np.ndarray.tolist(world_posterior_np))
+	# print(shaped_post)
+	# print(shaped_post[8][3])
+	# raise Exception
+	# print(discrete_worlds)
+	# hm = (np.reshape(discrete_worlds,newshape=(size*2+1,size*2+1,2)))
+	# print(hm)
+	# print(hm[4][7])
+	mean,_ = sess.run(mean_and_variance_of_dist_array(probs=np.expand_dims(world_posterior_np,1),support=discrete_worlds))
 	print("MEAN",mean)
+	# print("support", amount*np.arange(-size,(size+1)))
+	# print("amount",amount)
+	# print(np.sum(np.reshape(world_posterior_np,newshape=(size*2+1,size*2+1)),axis=0))
+	# print("CHECK MEAN", np.sum(np.sum(np.reshape(world_posterior_np,newshape=(size*2+1,size*2+1)),axis=1)*-amount*np.arange(-size,(size+1))))
+	# ,
+		# tf.reduce_sum(tf.reduce_sum(world_posterior,axis=1)*-np.arange(-size,size+1))]) )
 	# print(sess.run(tf.nn.moments(tf.constant(np.array([0.0,0.7])), axes=[0])))
 
 	# shape: [num_of_quds]
@@ -102,7 +116,7 @@ def tf_l1_discrete(inference_params):
 	results = list(zip(qud_combinations,sess.run(qud_posterior)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
 
-	inference_params.heatmap=sess.run(tf.reshape(world_posterior,(size*2+1,size*2+1)))
+	inference_params.heatmap=np.reshape(world_posterior_np,newshape=(size*2+1,size*2+1))
 
 	return inference_params.heatmap,[(x,np.exp(y)) for (x,y) in results]
 

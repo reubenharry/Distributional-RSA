@@ -49,7 +49,8 @@ class Inference_Params:
         qud_frequencies=None,
         rationality=1.0,
         norm_vectors=False,
-        heatmap=True
+        heatmap=True,
+        calculate_projected_marginal_world_posterior=True,
         ):
 
 
@@ -72,6 +73,7 @@ class Inference_Params:
             self.resolution=resolution
             self.heatmap=heatmap
             self.model_type=model_type
+            self.calculate_projected_marginal_world_posterior=calculate_projected_marginal_world_posterior
             
             if norm_vectors:
                 for vec in vecs:
