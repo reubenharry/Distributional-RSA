@@ -23,6 +23,8 @@ real_vecs["swims"]=np.asarray([0.0,3.0])
 real_vecs["child"]=np.asarray([0.1,-1.0])
 real_vecs["nightmare"]=np.asarray([1.0,1.0])
 real_vecs["wonder"]=np.asarray([1.0,-1.0])
+# simple_vecs['monster']=np.asarray([2.0,2.0])
+
 
 
 

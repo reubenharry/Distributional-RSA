@@ -44,6 +44,7 @@ def tf_l1(inference_params):
 	qud_freqs = -np.log(np.array([lookup(inference_params.qud_frequencies,x,'ADJ') for x in inference_params.quds]))
 	weighted_qud_frequency_array = tf.cast(tf.expand_dims(qud_freqs-scipy.misc.logsumexp(qud_freqs),1),dtype=tf.float32)
 	qud_combinations = combine_quds(inference_params.quds,inference_params.number_of_qud_dimensions)
+	inference_params.qud_combinations = qud_combinations
 	NUM_QUDS = len(qud_combinations)
 	print("qud_combinations",NUM_QUDS,qud_combinations)
 	print("quds",len(inference_params.quds))
@@ -55,6 +56,8 @@ def tf_l1(inference_params):
 	inference_params.listener_world=listener_world 
 	u=inference_params.predicate
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
+
+	# print("QUD MATRIX",sess.run(qud_matrix))
 
 	# SHAPE: [NUM_QUDS,NUM_DIMS,NUM_QUD_DIMS]
 	# qud_projection_matrix = double_tensor_projection_matrix_into_subspace(inference_params.qud_matrix)
@@ -179,7 +182,9 @@ def tf_l1(inference_params):
 			new_basis_support = tf.matmul(discrete_worlds,orthogonal_basis)
 			# print("new basis support element",sess.run(tf.reshape(new_basis_support,(size*2+1,size*2+1,2))[8][3]))
 			heatmap_probs = tf.map_fn(lambda w: tf.reduce_sum(new_basis_normal.log_prob(w)),new_basis_support)
-			heatmap = tf.reshape(heatmap_probs,(size*2+1,size*2+1))
+			heatmap = tf.reshape(heatmap_probs,(size*2+1,size*2+1)) - tf.reduce_logsumexp(heatmap_probs)
+			# print("unit also",np.sum(sess.run(tf.exp(heatmap))))
+			# raise Exception
 			# print("CHECK",sess.run([
 				# heatmap[8][3],
 				# tf.reduce_sum(new_basis_normal.log_prob([9.7,9.2])),
@@ -219,7 +224,7 @@ def tf_l1(inference_params):
 	qud_distribution = qud_scores - tf.reduce_logsumexp(qud_scores,axis=0)
 	qud_distribution_np = sess.run(tf.exp(qud_distribution))
 	inference_params.qud_marginals=qud_distribution_np
-	means_np=sess.run(means)
+	# means_np=sess.run(means)
 	tac = time.time()
 	print("time:",tac-toc)
 
@@ -227,7 +232,18 @@ def tf_l1(inference_params):
 
 	if inference_params.heatmap:
 		stacked_worlds = tf.stack(heatmaps)
+		# print(stacked_worlds)
+		# print("VAL",sess.run(stacked_worlds[0][0][0]))
+		# print("unit also",np.sum(sess.run(tf.exp(stacked_worlds[0]))))
 		worlds = sess.run(tf.reduce_sum(tf.exp(stacked_worlds+tf.reshape(qud_distribution,(NUM_QUDS,1,1))),axis=0))
+		# print("shape",worlds.shape)
+		# print("sum should be unit", np.sum(worlds))
+		mean,_ = sess.run(mean_and_variance_of_dist_array(probs=np.reshape(worlds,newshape=((size*2+1)*(size*2+1),1)),support=discrete_worlds))
+		inference_params.worlds=worlds
+		inference_params.heatmap_mean=mean
+		print("HEATMAP MEAN",mean)
+		# print("heatmap mean", mean)
+		# raise Exception
 	else: worlds = None
 	conditionals=["n/a"]*NUM_QUDS
 
@@ -251,8 +267,13 @@ def tf_l1(inference_params):
 		variance = np.dot(np.dot(np.transpose(line_in_orthogonal_basis),covariance),line_in_orthogonal_basis)
 
 		projected_mean = projection_into_subspace_np(np.expand_dims(means_np[qud_index],1),subspace_vector)
+		# print("projected mean",qud_index,subspace_vector,projected_mean)
+
+		# print("qud matrix[qi]",qud_matrix_np[qi],qud_matrix_np[qi].shape)
 		# print(inference_params.subject_vector.shape,"IMPORTANT SHAPE")
-		projected_prior_mean = projection_into_subspace_np(np.expand_dims(inference_params.subject_vector,1),qud_matrix_np[qud_index])
+		projected_prior_mean = projection_into_subspace_np(np.expand_dims(inference_params.subject_vector,1),subspace_vector)
+		# print(projected_prior_mean)
+		# raise Exception
 
 		# print("mean and variance",projected_mean,variance)
 
@@ -261,6 +282,8 @@ def tf_l1(inference_params):
 
 	if inference_params.calculate_projected_marginal_world_posterior:
 		means_np = sess.run(means)
+		# print("cond means",means_np)
+		# print("normed")
 		orthogonal_basis_np = sess.run(orthogonal_basis)
 		qud_matrix_np = sess.run(qud_matrix)
 		covariances_np = sess.run(covariances)
@@ -301,8 +324,10 @@ def tf_l1(inference_params):
 
 		# inference_params.marginals=marginals
 		# inference_params.uncompressed=uncompressed
-		marginal_means = np.sum(subspace_means*np.expand_dims(qud_distribution_np,1),axis=0)
-		print("marginal means",marginal_means)
+		# print("subspace cond means",subspace_means)
+		# erm, yeah .T cause they're...stuff. etc.
+		marginal_means = np.sum(subspace_means.T*np.expand_dims(qud_distribution_np,1),axis=0)
+		# print("marginal means",marginal_means)
 		inference_params.subspace_means=subspace_means
 		inference_params.subspace_prior_means=subspace_prior_means
 		inference_params.subspace_variances=subspace_variances
@@ -377,7 +402,7 @@ def tf_l1(inference_params):
 
 	tuc = time.time()
 	print("time:",tuc-tac)
-	results = list(zip(qud_combinations, conditionals, qud_distribution_np))
+	results = list(zip(qud_combinations, qud_distribution_np))
 	results = (sorted(results, key=lambda x: x[-1], reverse=True))
 
 	sess.close()

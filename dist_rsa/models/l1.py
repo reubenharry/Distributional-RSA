@@ -1,6 +1,6 @@
 from __future__ import division
 
-log_path = input("logging path: ")
+# log_path = input("logging path: ")
 
 from collections import defaultdict
 import scipy
@@ -43,7 +43,7 @@ def l1_model(subj,pred):
             possible_utterances.remove(x)
             # raise Exception("utterance not in vecs")
 
-    quds = quds[:50]
+    quds = sorted(quds[:50])
     possible_utterances = possible_utterances[:200]
 
     print("QUDS",quds[:10]) 
@@ -71,7 +71,7 @@ def l1_model(subj,pred):
     run = Dist_RSA_Inference(params)
     run.compute_l1(load=0,save=False)
 
-    print("marginal",params.marginals[0])
+    print("marginal",params.qud_marginals[0])
 
     out = run.tf_results
     del run
@@ -112,16 +112,16 @@ if __name__ == "__main__":
 
 
     
-    logfile = open('dist_rsa/debugging/logging/log'+log_path,'w')
+    # logfile = open('dist_rsa/debugging/logging/log'+log_path,'w')
 
     # for x in range(1):
     #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
-    for subj,pred in metaphors:
-        logfile.write(str(subj)+str(pred))
+    for subj,pred in metaphors[:2]:
+        # logfile.write(str(subj)+str(pred))
         result = l1_model(subj=subj,pred=pred)
         print(result)
-        logfile.write(str(result))
-        logfile.write('\n')
+        # logfile.write(str(result))
+        # logfile.write('\n')
 
         # print()
 

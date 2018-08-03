@@ -40,7 +40,7 @@ def tf_l1_discrete(inference_params):
 
 	size,amount = inference_params.resolution.size, inference_params.resolution.amount
 	# shape: [(size*2)**2, 2] : for each of the world positions, an array of its position
-	discrete_worlds = np.asarray([[y*amount,-x*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32)
+	discrete_worlds = np.asarray([[x*amount,y*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32)
 	# shape: [(size*2)**2, 1] use the world gaussian to calculate the prior at each point.
 	discrete_worlds_prior = tf.expand_dims(tf.map_fn(lambda w: tf.reduce_sum(world.log_prob(w)),
 		discrete_worlds),1)
@@ -68,8 +68,18 @@ def tf_l1_discrete(inference_params):
 
 	# shape: [(size*2)**2, num_of_quds] n.b.: this is a [number_of_worlds,1]+[number_of_worlds,num_of_quds] sum, involving broadcasting
 	l1_joint_posterior_unnormed = discrete_worlds_prior + s1_scores
+
+
 	l1_joint_posterior_normed = l1_joint_posterior_unnormed - tf.reduce_logsumexp(l1_joint_posterior_unnormed)
-	# print(l1_joint_posterior_normed, "l1_joint_posterior_normed")
+	# a = sess.run(tf.exp(l1_joint_posterior_normed))
+	# mean,_ = sess.run(mean_and_variance_of_dist_array(probs=np.expand_dims(a[:,0],1),support=discrete_worlds))
+	# # print("sum should be unit", np.sum(world_posterior_np))
+	# print("cond MEAN 1",mean)
+	# a[:,1]
+	# mean,_ = sess.run(mean_and_variance_of_dist_array(probs=np.expand_dims(a[:,1],1),support=discrete_worlds))
+	# # print("sum should be unit", np.sum(world_posterior_np))
+	# print("cond MEAN 2",mean)
+	# raise Exception
 	# raise Exception
 	world_posterior_np = sess.run(tf.exp(tf.reduce_logsumexp(l1_joint_posterior_normed,axis=1)))
 	# shape: [(size*2)**2, num_of_quds]
@@ -101,7 +111,9 @@ def tf_l1_discrete(inference_params):
 	# print(hm)
 	# print(hm[4][7])
 	mean,_ = sess.run(mean_and_variance_of_dist_array(probs=np.expand_dims(world_posterior_np,1),support=discrete_worlds))
+	print("sum should be unit", np.sum(world_posterior_np))
 	print("MEAN",mean)
+	
 	# print("support", amount*np.arange(-size,(size+1)))
 	# print("amount",amount)
 	# print(np.sum(np.reshape(world_posterior_np,newshape=(size*2+1,size*2+1)),axis=0))

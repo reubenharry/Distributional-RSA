@@ -14,7 +14,7 @@ import itertools
 
 
 def l1_model(subj,pred,sig1,sig2,l1_sig1,quds,possible_utterances):
-    vec_size,vec_kind = 25,'glove.twitter.27B.'
+    # vec_size,vec_kind = 25,'glove.twitter.27B.'
 
     vecs = simple_vecs
     real_vecs= simple_vecs
@@ -33,19 +33,24 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,quds,possible_utterances):
         qud_frequencies=defaultdict(lambda:1),
         rationality=1.0,
         norm_vectors=False,
-        resolution=Resolution(span=10,number=100),
+        resolution=Resolution(span=20,number=200),
         model_type="discrete_mixture",
+        # model_type="discrete_exact",
         heatmap=True
         )
 
     run = Dist_RSA_Inference(params)
     run.compute_l1(load=0,save=False)
     tf_results = run.tf_results
+
+    print(params.subspace_means)
+
     return tf_results
 
 if __name__ == "__main__":
 
-    heatmaps, quds = l1_model(subj="child",pred="swimmer",sig1=1.0,sig2=1.0,l1_sig1=1.0,quds=["vicious","swims"],possible_utterances=["shark","swimmer","man"])
+    # heatmaps, quds = l1_model(subj="child",pred="shark",sig1=5.0,sig2=0.5,l1_sig1=5.0,quds=["vicious","wonder"],possible_utterances=["shark","swimmer","man"])
+    heatmaps, quds = l1_model(subj="man",pred="swimmer",sig1=5.0,sig2=0.5,l1_sig1=5.0,quds=["swims","vicious"],possible_utterances=["shark","swimmer","man"])
     print(quds)
 
 
