@@ -36,7 +36,7 @@ def tf_l1_discrete(inference_params):
 
 	u=inference_params.predicate
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
-	world = Normal(loc=tf.squeeze(listener_world), scale=[inference_params.l1_sig1] * inference_params.vec_length)
+	world = Normal(loc=tf.squeeze(listener_world), scale=[tf.sqrt(inference_params.l1_sig1)] * inference_params.vec_length)
 
 	size,amount = inference_params.resolution.size, inference_params.resolution.amount
 	# shape: [(size*2)**2, 2] : for each of the world positions, an array of its position

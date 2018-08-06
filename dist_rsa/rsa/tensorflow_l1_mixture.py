@@ -73,7 +73,7 @@ def tf_l1(inference_params):
 	std = tf.sqrt(inference_params.l1_sig1)
 
 	if inference_params.heatmap:
-		discrete_worlds = tf.constant(np.asarray([[y*amount,-x*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32))
+		discrete_worlds = tf.constant(np.asarray([[x*amount,y*amount] for (x,y) in itertools.product(range(-size,size+1),range(-size,size+1))],dtype=np.float32))
 		# print("DISCRETE WORLDS", sess.run(discrete_worlds))
 		# print(sess.run(tf.reshape(discrete_worlds,(size*2+1,size*2+1,2)))[8][3])
 		# raise Exception
@@ -232,10 +232,17 @@ def tf_l1(inference_params):
 
 	if inference_params.heatmap:
 		stacked_worlds = tf.stack(heatmaps)
+		inference_params.heatmaps=np.flip(np.flip(sess.run(tf.exp(stacked_worlds)),axis=1),axis=2)
+
+		# mean,_ = sess.run(mean_and_variance_of_dist_array(probs=np.reshape(stacked_worlds[0],newshape=((size*2+1)*(size*2+1),1)),support=discrete_worlds))
+		# print("mean 0",mean)
+		# mean,_ = sess.run(mean_and_variance_of_dist_array(probs=np.reshape(stacked_worlds[1],newshape=((size*2+1)*(size*2+1),1)),support=discrete_worlds))
+		# print("mean 1",mean)
 		# print(stacked_worlds)
 		# print("VAL",sess.run(stacked_worlds[0][0][0]))
 		# print("unit also",np.sum(sess.run(tf.exp(stacked_worlds[0]))))
-		worlds = sess.run(tf.reduce_sum(tf.exp(stacked_worlds+tf.reshape(qud_distribution,(NUM_QUDS,1,1))),axis=0))
+		# inference_params.flipped_worlds = np.flip(sess.run(tf.reduce_sum(tf.exp(stacked_worlds+tf.reshape(qud_distribution,(NUM_QUDS,1,1))),axis=0)),axis=1)
+		worlds =   np.flip(np.flip(sess.run(tf.reduce_sum(tf.exp(stacked_worlds+tf.reshape(qud_distribution,(NUM_QUDS,1,1))),axis=0)),axis=0),axis=1)
 		# print("shape",worlds.shape)
 		# print("sum should be unit", np.sum(worlds))
 		mean,_ = sess.run(mean_and_variance_of_dist_array(probs=np.reshape(worlds,newshape=((size*2+1)*(size*2+1),1)),support=discrete_worlds))
@@ -282,6 +289,7 @@ def tf_l1(inference_params):
 
 	if inference_params.calculate_projected_marginal_world_posterior:
 		means_np = sess.run(means)
+		inference_params.means = means_np
 		# print("cond means",means_np)
 		# print("normed")
 		orthogonal_basis_np = sess.run(orthogonal_basis)
@@ -326,7 +334,7 @@ def tf_l1(inference_params):
 		# inference_params.uncompressed=uncompressed
 		# print("subspace cond means",subspace_means)
 		# erm, yeah .T cause they're...stuff. etc.
-		marginal_means = np.sum(subspace_means.T*np.expand_dims(qud_distribution_np,1),axis=0)
+		inference_params.marginal_means = np.sum(subspace_means.T*np.expand_dims(qud_distribution_np,1),axis=0)
 		# print("marginal means",marginal_means)
 		inference_params.subspace_means=subspace_means
 		inference_params.subspace_prior_means=subspace_prior_means
