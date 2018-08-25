@@ -2,7 +2,7 @@
 # For the semantics of the s1, try looking at the numpy version instead (numpy_rsa.py)
 
 
-def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
+def tf_s1(inference_params,s1_world,world_movement=False,debug=False,NUMPY=False,):
 
 	"""
 	s1_world: SHAPE: [1, NUM_DIMS]
@@ -10,12 +10,23 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 
 	"""
 
+
+
 	import tensorflow as tf
 	import edward as ed
 	import numpy as np
 	import scipy
 	from dist_rsa.utils.helperfunctions import projection,tensor_projection,as_a_matrix,double_tensor_projection_matrix,combine_quds, lookup
 	from dist_rsa.rsa.tensorflow_l0_sigma import tf_l0_sigma
+
+	if NUMPY:
+		qud_matrix = tf.cast(inference_params.qud_matrix,dtype=tf.float32)
+		listener_world = tf.cast(inference_params.listener_world,dtype=tf.float32)
+		s1_world = tf.cast(s1_world,dtype=tf.float32)
+	else:
+		qud_matrix = inference_params.qud_matrix
+		listener_world = inference_params.listener_world
+
 
 
 	inference_params.sigma1,inference_params.sigma2,inference_params.inverse_sd,inference_params.sigma,inference_params.inverse_sigma = tf_l0_sigma(inference_params)

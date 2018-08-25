@@ -16,7 +16,7 @@ import tensorflow as tf
 
 # vec_size,vec_kind = 25,'glove.twitter.27B.'
 vec_size,vec_kind = 300,'glove.6B.'
-# freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
+freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
 nouns,adjs = get_words(with_freqs=False)
 vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind) 
 
@@ -28,13 +28,13 @@ def l1_model(subj,pred):
     qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
 
     quds = sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[pred],vecs[subj]],axis=0)),reverse=False)
-        # key=lambda x:freqs[x],reverse=True)
+        # key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[pred],vecs[subj]],axis=0)),reverse=False)
+        key=lambda x:freqs[x],reverse=True)
 
     noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
     possible_utterances = sorted(noun_words,\
-        key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
-        # key=lambda x:freqs[x],reverse=True)
+        # key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+        key=lambda x:freqs[x],reverse=True)
 
 
     for x in possible_utterances:
@@ -43,7 +43,7 @@ def l1_model(subj,pred):
             possible_utterances.remove(x)
             # raise Exception("utterance not in vecs")
 
-    quds = sorted(quds[:50])
+    quds = sorted(quds[:100])
     possible_utterances = possible_utterances[:200]
 
     print("QUDS",quds[:10]) 

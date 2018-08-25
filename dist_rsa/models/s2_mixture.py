@@ -10,12 +10,12 @@ from dist_rsa.utils.helperfunctions import *
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 
 
-vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='word2vec')
-vec_size,vec_kind = 25,'glove.twitter.27B.'
+# vecs = load_vecs(mean=True,pca=False,vec_length=300,vec_type='word2vec')
+vec_size,vec_kind = 300,'glove.6B.'
 freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
 nouns,adjs = get_words(with_freqs=False)
-real_vecs = load_vecs(mean=True,pca=True,vec_length=vec_size,vec_type=vec_kind)  
-
+real_vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind)  
+vecs = real_vecs
 # qud_words = [a for a in list(adjs) if a in vecs and a in real_vecs]
 # quds = sorted(qud_words,key=lambda x:freqs[x],reverse=True)
 
@@ -26,8 +26,10 @@ real_vecs = load_vecs(mean=True,pca=True,vec_length=vec_size,vec_type=vec_kind)
 # quds = quds[:70]
 # print(quds[:100])
 
-def l1_model(metaphor):
-    subj,pred,sig1,sig2,l1_sig1,start,stop,is_baseline = metaphor
+def s2_qud_only_model(subj,qud):
+
+
+    qud = sorted(qud)
 
     print('abstract_threshold',abstract_threshold)
     print('concrete_threshold',concrete_threshold)
@@ -35,20 +37,33 @@ def l1_model(metaphor):
     qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
 
     quds = sorted(qud_words,\
-        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[pred]],axis=0)),reverse=False)
-        # key=lambda x:freqs[x],reverse=True)
+        key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+    #     # key=lambda x:prob_dict[x],reverse=True)
 
     noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
-    possible_utterance_nouns = sorted(noun_words,\
-        # key=lambda x:freqs[x],reverse=True)
-        key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
+    # possible_utterance_nouns = sorted(noun_words,\
+    #     key=lambda x:freqs[x],reverse=True)
+        # key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[qud[0]],vecs[qud[1]]],axis=0)),reverse=False)
+        # key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[qud[0]],vecs[qud[1]]],axis=0)),reverse=False)
+
+
+    possible_utterance_nouns = animals
     # possible_utterance_nouns = 
     # break
-    quds = quds[:20]
-    possible_utterance_adjs = quds
-    possible_utterances = possible_utterance_nouns[start:stop]
+    quds = quds[:5]
+    # possible_utterance_adjs = quds
+    possible_utterances = possible_utterance_nouns[0:2]
+
+    baseline = sorted(noun_words,\
+    #     key=lambda x:freqs[x],reverse=True)
+        key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[qud[0]],vecs[subj[0]]],axis=0)),reverse=False)
+    print("baseline",baseline[:10])
+    # raise Exception
+
     # +possible_utterance_adjs
 
+    # quds = ["stubborn","gentle","wise"]
+    # possible_utterances = ["ox","rabbit","owl","idiot","hill"]
 
     for x in possible_utterances:
         if x not in real_vecs:
@@ -62,31 +77,26 @@ def l1_model(metaphor):
 
     params = Inference_Params(
         vecs=real_vecs,
-        subject=[subj],predicate=pred,
-        quds=quds,
-        possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,
+        subject=[subj],predicate=subj,
+        quds=sorted(quds+qud),
+        possible_utterances=list(set(possible_utterances)),
+        sig1=20.0,sig2=0.1,l1_sig1=20.0,
         qud_weight=0.0,freq_weight=0.0,
-        categorical="categorical",
-        sample_number = 1000,
-        number_of_qud_dimensions=2,
-        # burn_in=900,
-        seed=False,trivial_qud_prior=False,
-        step_size=1e-3,
+        number_of_qud_dimensions=1,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
-        qud_prior_weight=0.5,
         rationality=1.0,
-        norm_vectors=False,
-        variational=True,
-        variational_steps=300,
-        baseline=is_baseline,
-        mixture_variational=False,
-        # world_movement=True
+        norm_vectors=True,
+        # model_type="qud_only",
+        heatmap=False,
+        model_type='discrete_mixture',
+        resolution=Resolution(span=10,number=100),
+        calculate_projected_marginal_world_posterior=False,
         )
 
     run = Dist_RSA_Inference(params)
-    run.compute_l1(load=0,save=False)
+    # run.compute_l1(load=0,save=False)
+    run.compute_s2(s2_qud=qud)
 
 
     results = run.qud_results()
@@ -129,8 +139,7 @@ if __name__ == "__main__":
     # for x in range(1):
     #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
     for x in range(1):
-        l1_model(("man","workhorse",1.0,0.1,1.0,0,100,True))
-        # l1_model(("man","rose",1.0,0.1,1.0,0,100,True))
-        # l1_model(("woman","rose",1.0,0.1,1.0,0,100,True))
-
+        s2_qud_only_model(subj="man",qud=["slippery"])
+        # s2_qud_only_model(subj="ocean",qud=["alive","mysterious"])
+        # s2_qud_only_model(subj="man",qud=["dependable","unpredictable"])
 

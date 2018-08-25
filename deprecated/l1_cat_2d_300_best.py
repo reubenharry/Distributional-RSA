@@ -83,8 +83,7 @@ def l1_cat_2d_300_best(metaphor):
             rationality=1.0,
             run_s2=False,
             speaker_world=vecs[subj],
-            s1_only=False,
-            variational_mixture=True
+            s1_only=False
             )
         real_vecs = pickle.load(open("dist_rsa/data/word_vectors/"+vec_kind+"pca and mean"+str(vec_size),'rb'),encoding='latin1')
         # print(real_vecs[subj],real_vecs[pred])

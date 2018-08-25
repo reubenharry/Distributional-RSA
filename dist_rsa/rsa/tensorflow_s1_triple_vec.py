@@ -2,7 +2,7 @@
 # For the semantics of the s1, try looking at the numpy version instead (numpy_rsa.py)
 
 
-def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
+def tf_s1(inference_params,s1_world,world_movement=False,debug=False,NUMPY=False,):
 
 	# print("shape triple_vec",s1_world)
 
@@ -14,6 +14,17 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 	import numpy as np
 	import scipy
 	from dist_rsa.utils.vectorized_subtraction import fast_vectorized_subtraction
+
+	if NUMPY:
+		qud_matrix = tf.cast(inference_params.qud_matrix,dtype=tf.float32)
+		listener_world = tf.cast(inference_params.listener_world,dtype=tf.float32)
+		s1_world = tf.cast(s1_world,dtype=tf.float32)
+	else:
+		qud_matrix = inference_params.qud_matrix
+		listener_world = inference_params.listener_world
+
+
+
 
 	def l0_sigma(sig1=1.0,sig2=1.0):
 		sigma1 = sig1 ** 2
@@ -30,12 +41,13 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False):
 	# print("tf qud mat", inference_params.qud_matrix, ed.get_session().run(inference_params.qud_matrix))
 
 
-	qud_projection_matrix = double_tensor_projection_matrix(inference_params.qud_matrix)
-	mus = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
+	qud_projection_matrix = double_tensor_projection_matrix(qud_matrix)
+	mus = tf.divide(tf.add(listener_world/inference_params.sigma1, 
 		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
 
 	s1_world = tf.transpose(s1_world)
 	mus = tf.transpose(mus) #mus now contains a listener interpretation in each column
+	# print(qud_projection_matrix,mus,"THINGS THINGS")
 	projected_mus = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,mus),perm=[0,2,1])
 	projected_world = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,s1_world),perm=[0,2,1])
 	if debug:

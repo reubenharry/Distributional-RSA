@@ -4,16 +4,18 @@ import numpy as np
 import pickle
 import itertools
 import nltk
-from dist_rsa.rsa.tensorflow_l1 import tf_l1
+# from dist_rsa.rsa.tensorflow_l1 import tf_l1
 from dist_rsa.rsa.tensorflow_l1_mixture import tf_l1 as tf_l1_mixture
+from dist_rsa.rsa.numpy_l1_mixture import np_l1 as np_l1_mixture
 from dist_rsa.rsa.tensorflow_s2 import tf_s2
 from dist_rsa.rsa.tensorflow_s2_qud_only import tf_s2_qud_only
-from dist_rsa.rsa.tensorflow_l1_with_trivial import tf_l1_with_trivial
-from dist_rsa.rsa.tensorflow_l1_only_trivial import tf_l1_only_trivial
+from dist_rsa.rsa.tensorflow_s2_mixture import tf_s2_mixture
+# from dist_rsa.rsa.tensorflow_l1_with_trivial import tf_l1_with_trivial
+# from dist_rsa.rsa.tensorflow_l1_only_trivial import tf_l1_only_trivial
 from dist_rsa.rsa.tensorflow_l1_qud_only import tf_l1_qud_only
-from dist_rsa.rsa.tensorflow_l1_noncat import tf_l1_noncat
+# from dist_rsa.rsa.tensorflow_l1_noncat import tf_l1_noncat
 from dist_rsa.rsa.tensorflow_l1_discrete import tf_l1_discrete
-from dist_rsa.rsa.tensorflow_l1_discrete_only_trivial import tf_l1_discrete_only_trivial
+# from dist_rsa.rsa.tensorflow_l1_discrete_only_trivial import tf_l1_discrete_only_trivial
 from dist_rsa.utils.refine_vectors import h_dict,processVecMatrix
 # from dist_rsa.utils.load_data import 
 from dist_rsa.utils.helperfunctions import *
@@ -149,9 +151,21 @@ class Dist_RSA_Inference:
             # elif self.inference_params.trivial_qud_prior:
             #     print("RUNNING CAT WITH TRIVIAL MODEL")
             #     tf_results = tf_l1_with_trivial(self.inference_params)
-        if self.inference_params.model_type=="discrete_mixture":
+        elif self.inference_params.model_type=="discrete_mixture":
             print("RUNNING DISCRETE MIXTURE MODEL")
             self.tf_results = tf_l1_mixture(self.inference_params)
+
+        elif self.inference_params.model_type=="qud_only":
+            print("RUNNING QUD ONLY MODEL")
+            self.tf_results = tf_l1_qud_only(self.inference_params)
+            print("results",self.tf_results)
+
+        elif self.inference_params.model_type=="numpy_discrete_mixture":
+            print("RUNNING NUMPY DISCRETE MIXTURE MODEL")
+            self.tf_results = np_l1_mixture(self.inference_params)
+            print("results",self.tf_results)
+
+
         # else:
         #         print("RUNNING CAT WITHOUT TRIVIAL MODEL")
         #         tf_results = tf_l1(self.inference_params)
@@ -189,14 +203,16 @@ class Dist_RSA_Inference:
         if vectorization==1: self.s1_results=tf_s1_old(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
         elif vectorization==2: self.s1_results=tf_s1(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
         elif vectorization==3: self.s1_results=tf_s1_triple_vec(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
-    def compute_s2(self,s2_world,s2_qud):
+    
+    def compute_s2(self,s2_qud,s2_world=None):
 
-        s2_world = tf.cast(s2_world,dtype=tf.float32)
-        if self.inference_params.baseline:
+        if self.inference_params.model_type=="qud_only":
             
             self.s2_results = tf_s2_qud_only(self.inference_params,s2_qud)
 
-        self.s2_results=tf_s2(self.inference_params,s2_world,s2_qud)
+        elif self.inference_params.model_type=="discrete_mixture":
+            # s2_world = tf.cast(s2_world,dtype=tf.float32)
+            self.s2_results=tf_s2_mixture(self.inference_params,s2_qud)
 
 
 

@@ -35,8 +35,10 @@ def l1_model(subj,pred,sig1,sig2,l1_sig1,quds,possible_utterances):
         norm_vectors=False,
         resolution=Resolution(span=10,number=100),
         # model_type="discrete_mixture",
-        model_type="discrete_exact",
-        heatmap=True
+        # model_type="discrete_exact",
+        model_type="numpy_discrete_mixture",
+        heatmap=False,
+        calculate_projected_marginal_world_posterior=True,
         )
 
     run = Dist_RSA_Inference(params)

@@ -1,7 +1,7 @@
 
-def tf_s2_qud_only(inference_params,s2_qud):
+def tf_s2_mixture(inference_params,s2_qud):
 
-	from dist_rsa.rsa.tensorflow_l1_qud_only import tf_l1_qud_only
+	from dist_rsa.rsa.tensorflow_l1_mixture import tf_l1
 	import numpy as np
 	# import edward as ed
 	# import tensorflow as tf
@@ -12,7 +12,7 @@ def tf_s2_qud_only(inference_params,s2_qud):
 
 	def s2_utility(u):
 		inference_params.predicate=u
-		l1_scores = tf_l1_qud_only(inference_params)
+		l1_scores = tf_l1(inference_params)
 		vals,probs = zip(*l1_scores)
 		# print("probs",probs)
 		# l1_quds = qud_combinations+[["TRIVIAL"]]

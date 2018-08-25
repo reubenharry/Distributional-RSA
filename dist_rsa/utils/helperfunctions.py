@@ -25,16 +25,13 @@ def mean_and_variance_of_dist_array(probs,support):
 	VARIANCE = mean_of_square_of_posterior - tf.square(MEAN)
 	return MEAN,VARIANCE
 
-# def mean_and_variance_of_dist_array_np(probs,support):
-# 	MEAN = np.sum(probs*support,axis=0)
+def mean_and_variance_of_dist_array_np(probs,support):
+	MEAN = np.sum(probs*support,axis=0)
+	mean_of_square_of_posterior = np.sum(probs*(support**2),axis=0)
+	VARIANCE = mean_of_square_of_posterior - np.square(MEAN)
+	return MEAN,VARIANCE
 
-	# print("POS?",(support-MEAN)**2)
 
-	# VARIANCE = np.sum(probs*((support-MEAN)**2))
-
-	# mean_of_square_of_posterior = tf.reduce_sum(probs*(support**2),axis=0)
-	# VARIANCE = mean_of_square_of_posterior - tf.square(MEAN)
-	# return MEAN,VARIANCE
 
 
 # a = np.transpose(array([[1,0,0,0]]))

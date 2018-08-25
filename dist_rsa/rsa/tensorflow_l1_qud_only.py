@@ -28,14 +28,14 @@ def tf_l1_qud_only(inference_params):
 	u=inference_params.predicate
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
 
-	if not inference_params.qud_frequencies:
-		qud_frequencies = inference_params.poss_utt_frequencies
+	# if not inference_params.qud_frequencies:
+	qud_frequencies = inference_params.poss_utt_frequencies
 
 	qud_freqs = -np.log(np.array([lookup(inference_params.qud_frequencies,x,'ADJ') for x in inference_params.quds]))
-	if inference_params.trivial_qud_prior:
-		weighted_qud_frequency_array = tf.expand_dims(tf.zeros([number_of_quds])+tf.log(1/number_of_quds),1)
-	else:
-		weighted_qud_frequency_array = tf.cast(tf.expand_dims(qud_freqs-scipy.misc.logsumexp(qud_freqs),1),dtype=tf.float32)
+	# if inference_params.trivial_qud_prior:
+	# 	weighted_qud_frequency_array = tf.expand_dims(tf.zeros([number_of_quds])+tf.log(1/number_of_quds),1)
+	# else:
+	weighted_qud_frequency_array = tf.cast(tf.expand_dims(qud_freqs-scipy.misc.logsumexp(qud_freqs),1),dtype=tf.float32)
 	
 	#remove to save worry about failing: needed for multidim categorical
 	qud_combinations = combine_quds(inference_params.quds,inference_params.number_of_qud_dimensions)
@@ -56,7 +56,7 @@ def tf_l1_qud_only(inference_params):
 
 	inferred_qud = tf.expand_dims(tf_s1(inference_params,s1_world=tf.expand_dims(listener_world,0)),0)
 	# tf.concat([out1,out2],axis=0)
-	inferred_qud = inferred_qud[inference_params.burn_in:]
+	# inferred_qud = inferred_qud[inference_params.burn_in:]
 
 
 
@@ -66,10 +66,11 @@ def tf_l1_qud_only(inference_params):
 
 	inferred_qud = tf.subtract(tf.reduce_logsumexp(inferred_qud,axis=0),tf.log(tf.cast(tf.shape(inferred_qud)[0],dtype=tf.float32)))
 
-	sess = ed.get_session()
+	sess = tf.Session()
 
 	results = list(zip(qud_combinations,sess.run(inferred_qud)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
+	inference_params.results=results
 
 	return results
 
