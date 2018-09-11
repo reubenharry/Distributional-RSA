@@ -86,7 +86,7 @@ def tf_l1(inference_params):
 		init = tf.global_variables_initializer()
 		sess.run(init)
 
-		optimize = True
+		optimize = False
 		if optimize:
 
 			w = tf.transpose(qud_matrix[qi]*approximate_mean)
@@ -130,6 +130,9 @@ def tf_l1(inference_params):
 		s1_scores = tf_s1_triple_vec(inference_params,s1_world=tf.squeeze(discrete_worlds_along_qud))
 		# [num_worlds]
 		fixed_s1_scores = s1_scores[:,0,utt]
+		# print("s1_scores",sess.run(fixed_s1_scores))
+		# print(sess.run(discrete_worlds_along_qud_prior))
+		# raise Exception
 
 		# shape: [num_worlds]
 		l1_posterior_unnormed = discrete_worlds_along_qud_prior + fixed_s1_scores
@@ -179,7 +182,10 @@ def tf_l1(inference_params):
 		else: heatmaps = None
 
 
+
 	means = tf.stack(means)
+	# print("mean",sess.run(means))
+	# raise Exception
 	covariances = tf.stack(covariances)
 	determinants = tf.stack(determinants)
 	orthogonal_basis_for_each_qud = tf.stack(orthogonal_basis_for_each_qud)

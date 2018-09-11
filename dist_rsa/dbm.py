@@ -283,3 +283,55 @@ class Dist_RSA_Inference:
         #         comparanda=self.inference_params.quds
         #     nearest = nearest_neighbours(support=comparanda,comp_point=np.expand_dims(np.mean(self.qud_samples,axis=0),0),vecs=new_vecs)
         #     return list(zip(*nearest))[:20]
+
+class Results_Pickler:
+    def __init__(self,path,results_dict=None):
+        self.path=path
+        self.results_dict=results_dict
+        
+    def save(self):   
+
+        pickleable_results_dict = {}
+        for r in self.results_dict:
+            pickleable_results_dict[r]=Pickleable_Params(self.results_dict[r])
+
+        pickle.dump(pickleable_results_dict,open(self.path,'wb'))
+
+    def open(self):
+        self.results_dict = pickle.load(open(self.path,'rb'))
+        # for t in self.results_dict:
+        #     pickle.dump(Pickleable_Params(self.results_dict[t]),open(self.path+t[0]+t[1],'wb'))
+        
+    # def retrieve(self,t):
+    #     return pickle.load(open(self.path+t[0]+t[1],'rb'))
+
+
+class Pickleable_Params:
+    def __init__(self,d):
+        self.marginal_means=d.marginal_means
+        self.quds=d.quds
+        self.qud_marginals=d.qud_marginals
+        self.subspace_prior_means=d.subspace_prior_means
+        self.subspace_means=d.subspace_means
+        self.subspace_variances=d.subspace_variances
+        self.l1_sig1=d.l1_sig1
+        self.sig1=d.sig1
+        self.sig2=d.sig2
+
+class Hyperparams:
+    def __init__(self,mean_center,remove_top_dims,sig1,sig2,l1_sig1,norm_vectors):
+        self.mean_center=mean_center
+        self.remove_top_dims=remove_top_dims
+        self.sig1=sig1
+        self.sig2=sig2
+        self.l1_sig1=l1_sig1
+        self.norm_vectors=norm_vectors
+
+    def show(self):
+        return ("mean_center:"+str(self.mean_center)+";"
+            +"remove_top_dims:"+str(self.remove_top_dims)+";"
+            "sig1:"+str(self.sig1)+";"
+            "sig2:"+str(self.sig2)+";"
+            "l1_sig1:"+str(self.l1_sig1)+";"
+            "norm_vectors:"+str(self.norm_vectors)+";"
+            )

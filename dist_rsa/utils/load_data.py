@@ -8,11 +8,23 @@ import csv
 import scipy
 
 
-controls = [["The man is a lion","brave","yellow","brave",'0'],
-    ["The man is a lion","bold","furry","bold",'1'],
-    ["The man is a lion","cowardly","yellow","cowardly",'2'],
-    ["Love is a poison","destructive","liquid","destructive",'0`']
-    ]
+# controls = [["The man is a lion","brave","yellow","brave",'0'],
+#     ["The man is a lion","bold","furry","bold",'1'],
+#     ["The man is a lion","cowardly","yellow","cowardly",'2'],
+#     ["Love is a poison","destructive","liquid","destructive",'0`']
+#     ]
+
+
+control_set = {
+	("love","poison"): ["noxious","harmful","potent","dangerous","cruel","strange","insidious","mysterious","destructive","vicious"],
+	("principal","dictator"): ["authoritarian", "autocratic", "beloved", "brutal", "corrupt", "cruel", "notorious", "oppresive", "paranoid", "tyrannical"],
+	('room','dungeon') : ["airy","bearable","beautiful","claustrophobic","creepy","ghoulish","hellish","macabre","nightmarish","primeval",],
+	('sin','sickness') : ["despicable","detestable","earthly","evil","horrible","incurable","survivable","wicked","widespread","worsening"],
+	('athletics','drug') : ["addictive","corrupt","dangerous","effective","lucrative","notorious","rampant","serious","widespread","promising"],
+	('voice','river') : ["authentic","continuous","dominant","dynamic","eloquent","forceful","lyrical","natural","soulful","wild"],
+	('life','river') : ["beautiful","broad","ancient","extensive","majestic","navigable","precious","romantic","treacherous","wild",],
+	('life','dream') : ["crazy","elusive","epic","fabulous","ideal","magical","memorable","normal","strange","wonderful",],
+				}
 
 metaphors = [('brain','muscle'),('brain','computer'),('brain','giant'),('life','dream'),
     ('life','gift'),('life','party'),('book','hug'),('body','city'),('biking','gateway'),
@@ -124,4 +136,86 @@ def get_freqs(preprocess=True):
 		freqs = compute_frequencies()
 		pickle.dump(freqs,open("dist_rsa/data/google_freqs","wb"))
 	return freqs
+
+def get_possible_utterances_and_quds(subj,pred,word_selection_vecs):
+
+	from dist_rsa.utils.config import abstract_threshold,concrete_threshold
+	
+	nouns,adjs = get_words(with_freqs=False)
+	# print('abstract_threshold',abstract_threshold)
+	# print('concrete_threshold',concrete_threshold)
+	noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in word_selection_vecs]
+	possible_utterances = sorted(noun_words,\
+		key=lambda x: scipy.spatial.distance.cosine(word_selection_vecs[x],np.mean([word_selection_vecs[subj],word_selection_vecs[subj]],axis=0)),reverse=False)
+		# key=lambda x:freqs[x],reverse=True)
+
+	qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in word_selection_vecs]
+	quds_near_subj = sorted(qud_words,\
+		key=lambda x:scipy.spatial.distance.cosine(word_selection_vecs[x],word_selection_vecs[subj]),reverse=False)
+
+	quds_near_pred = sorted(qud_words,\
+		key=lambda x:scipy.spatial.distance.cosine(word_selection_vecs[x],word_selection_vecs[pred]),reverse=False)
+		# key=lambda x:freqs[x],reverse=True)
+
+	return possible_utterances,[val for pair in zip(quds_near_subj, quds_near_pred) for val in pair]
+
+def load_trofi_data():
+	data = iter(open("dist_rsa/experiment/trofi_data.txt",'r').readlines())
+	
+	results = {}
+	literal_results = []
+	non_literal_results = []
+	
+	word = None
+
+	enter_literals = True
+	i = 0
+	while True:
+		print(i)
+		i += 1
+		try:
+			line = next(data).strip('\n')
+			
+		except StopIteration:
+			results[word] = {
+				'literal': literal_results,
+				'non_literal': non_literal_results,
+			}
+			break
+			
+		if line == '********************':
+			pass # do nowt
+		elif line.startswith('***'):
+			# dump results so far
+			results[word] = {
+				'literal': literal_results,
+				'non_literal': non_literal_results,
+			}
+
+			word = line.lstrip('***').rstrip('***')
+			literal_results = []
+			non_literal_results = []
+
+		elif line == '*literal cluster*':
+			enter_literals = True
+			pass # start loading literals
+		elif line == '*nonliteral cluster*':
+			enter_literals = False
+			pass # start loading nonliterals
+		elif line.startswith('w'):
+			line = line.split("\t")[2]
+
+			# spooge off the ugly line starts here
+			if enter_literals:
+				literal_results.append(line)
+			else:
+				non_literal_results.append(line)
+
+
+
+	# data = data.split("********************")
+	# data = [section.split("*literal cluster*") for section in data]
+
+
+	return results
 

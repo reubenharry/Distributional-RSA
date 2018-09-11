@@ -126,7 +126,7 @@ def np_l1(inference_params):
 		# print(sess.run(span))
 
 
-		discrete_worlds_along_qud_prior = np.asarray([full_space_prior.pdf(w) for w in discrete_worlds_along_qud])
+		discrete_worlds_along_qud_prior = np.asarray([np.log(full_space_prior.pdf(w)) for w in discrete_worlds_along_qud])
 		# shape: [num_worlds,num_quds,num_utts] : but note, num_quds=1 here: we are fixing a qud
 		inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
 
@@ -136,6 +136,9 @@ def np_l1(inference_params):
 		print("s1 time",time.time()-t1)
 		# [num_worlds]
 		fixed_s1_scores = s1_scores[:,0,utt]
+		# print(discrete_worlds_along_qud_prior)
+		# print("s1_scores",fixed_s1_scores)
+		# raise Exception
 
 		# shape: [num_worlds]
 		# print(discrete_worlds_along_qud_prior)
@@ -169,7 +172,7 @@ def np_l1(inference_params):
 		# concatenate new variance with prior variance in each dimension
 		new_basis_variance = np.concatenate([np.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,[subspace_variance]],axis=0)
 
-		determinant = np.sum(tf.log(new_basis_variance*2*pi))
+		determinant = np.sum(np.log(new_basis_variance*2*pi))
 		determinants.append(determinant)
 		means.append(np.squeeze(old_basis_mean))
 		covariances.append(new_basis_variance)
@@ -189,6 +192,8 @@ def np_l1(inference_params):
 
 
 	means = np.asarray(means)
+	# print("means",means)
+	# raise Exception
 	covariances = np.asarray(covariances)
 	determinants = np.asarray(determinants)
 	orthogonal_basis_for_each_qud = np.asarray(orthogonal_basis_for_each_qud)
@@ -202,11 +207,18 @@ def np_l1(inference_params):
 		det = determinants[qi]
 		term_1 = det/2
 		inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
-		term_2 = sess.run(tf_s1(inference_params,s1_world=tf.expand_dims(means[qi],0))[0][utt])
-		term_3 = full_space_prior.pdf(means[qi])
+		term_2 = sess.run(tf_s1(inference_params,s1_world=np.expand_dims(means[qi],0),NUMPY=True)[0][utt])
+		term_3 = np.log(full_space_prior.pdf(means[qi]))
+
+		# print(term_1)
+		# print(term_2)
+		# print(term_3)
+		# raise Exception
+
 		return term_1+term_2+term_3
 
-	qud_scores = tf.stack([qud_score(qi) for qi in range(len(qud_combinations))])
+	qud_scores = np.asarray([qud_score(qi) for qi in range(len(qud_combinations))])
+	# print(qud_scores[0])
 	qud_distribution = qud_scores - scipy.misc.logsumexp(qud_scores,axis=0)
 	qud_distribution_np = np.exp(qud_distribution)
 	inference_params.qud_marginals=qud_distribution_np
@@ -248,7 +260,7 @@ def np_l1(inference_params):
 
 
 	if inference_params.calculate_projected_marginal_world_posterior:
-		means_np,orthogonal_basis_for_each_qud_np,qud_matrix_np,covariances_np = sess.run([means,orthogonal_basis_for_each_qud,qud_matrix,covariances])
+		means_np,orthogonal_basis_for_each_qud_np,qud_matrix_np,covariances_np = means,orthogonal_basis_for_each_qud,qud_matrix,covariances
 		inference_params.means = means_np
 		subspace_means = np.zeros((NUM_QUDS,NUM_QUDS))
 		subspace_prior_means = np.zeros((NUM_QUDS,NUM_QUDS))

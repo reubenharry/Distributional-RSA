@@ -15,57 +15,62 @@ from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 import tensorflow as tf
 
 # vec_size,vec_kind = 25,'glove.twitter.27B.'
-vec_size,vec_kind = 300,'glove.6B.'
-freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
-nouns,adjs = get_words(with_freqs=False)
-vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind) 
+word_selection_vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='glove.6B.')
 
-def l1_model(subj,pred):
-
-    print('abstract_threshold',abstract_threshold)
-    print('concrete_threshold',concrete_threshold)
-
-    qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in vecs]
-
-    quds = sorted(qud_words,\
-        # key=lambda x:scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[pred],vecs[subj]],axis=0)),reverse=False)
-        key=lambda x:freqs[x],reverse=True)
-
-    noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in vecs]
-    possible_utterances = sorted(noun_words,\
-        # key=lambda x: scipy.spatial.distance.cosine(vecs[x],np.mean([vecs[subj],vecs[subj]],axis=0)),reverse=False)
-        key=lambda x:freqs[x],reverse=True)
+def l1_model(subj,pred,hyperparams):
+    vec_size,vec_kind = 300,'glove.6B.'
+    freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
 
 
-    for x in possible_utterances:
-        if x not in vecs:
-            # print(x,"not in vecs")
-            possible_utterances.remove(x)
-            # raise Exception("utterance not in vecs")
+    # get_possible_utterance
+    # get_quds
 
-    quds = sorted(quds[:100])
-    possible_utterances = possible_utterances[:200]
+    # word_selection_vecs = load_vecs(mean=False,pca=False,vec_length=vec_size,vec_type=vec_kind)
+    # nouns,adjs = get_words(with_freqs=False)
+    # print('abstract_threshold',abstract_threshold)
+    # print('concrete_threshold',concrete_threshold)
+    # qud_words = [a for a in list(adjs) if adjs[a] < abstract_threshold and a in word_selection_vecs]
+
+    # quds = sorted(qud_words,\
+    #     key=lambda x:scipy.spatial.distance.cosine(word_selection_vecs[x],np.mean([word_selection_vecs[pred],word_selection_vecs[subj]],axis=0)),reverse=False)
+    #     # key=lambda x:freqs[x],reverse=True)
+
+    # noun_words = [n for n in nouns if nouns[n] > concrete_threshold and n in word_selection_vecs]
+    # possible_utterances = sorted(noun_words,\
+    #     key=lambda x: scipy.spatial.distance.cosine(word_selection_vecs[x],np.mean([word_selection_vecs[subj],word_selection_vecs[subj]],axis=0)),reverse=False)
+    #     # key=lambda x:freqs[x],reverse=True)
+
+
+            # raise Exception("utterance not in word_selection_vecs")
+    possible_utterances, quds = get_possible_utterances_and_quds(subj=subj,pred=pred,word_selection_vecs=word_selection_vecs)
+    possible_utterances = sorted(possible_utterances[:200])
+    quds = sorted(list(set(quds[:100])))
 
     print("QUDS",quds[:10]) 
     print("UTTERANCES:\n",possible_utterances[:10])
 
+    vecs = load_vecs(mean=hyperparams.mean_center,pca=hyperparams.remove_top_dims,vec_length=vec_size,vec_type=vec_kind) 
+    for x in possible_utterances:
+        if x not in vecs:
+            # print(x,"not in vecs")
+            possible_utterances.remove(x)
 
     params = Inference_Params(
         vecs=vecs,
         subject=[subj],predicate=pred,
-        quds=quds,
+        quds=sorted(quds),
         possible_utterances=list(set(possible_utterances).union(set([pred]))),
-        sig1=20.0,sig2=0.1,l1_sig1=20.0,
+        sig1=hyperparams.sig1,sig2=hyperparams.sig2,l1_sig1=hyperparams.l1_sig1,
         qud_weight=0.0,freq_weight=0.0,
         number_of_qud_dimensions=1,
         poss_utt_frequencies=defaultdict(lambda:1),
         qud_frequencies=defaultdict(lambda:1),
         rationality=1.0,
-        norm_vectors=True,
+        norm_vectors=hyperparams.norm_vectors,
         heatmap=False,
         resolution=Resolution(span=10,number=100),
-        model_type="discrete_mixture",
-        calculate_projected_marginal_world_posterior=False,
+        model_type="numpy_discrete_mixture",
+        calculate_projected_marginal_world_posterior=True,
         )
 
     run = Dist_RSA_Inference(params)
@@ -75,9 +80,9 @@ def l1_model(subj,pred):
 
     out = run.tf_results
     del run
-    del params
+    del vecs
     tf.reset_default_graph()
-    return out
+    return params
 
     # world_means = run.world_samples
     # print(world_means[:5],"MEANS")
@@ -109,28 +114,9 @@ def l1_model(subj,pred):
 
 if __name__ == "__main__":
 
+    pass
 
 
-    
-    # logfile = open('dist_rsa/debugging/logging/log'+log_path,'w')
-
-    # for x in range(1):
-    #     l1_model(("father","shark",0.5,0.5,1.0,0,100,False))
-    for subj,pred in metaphors[:2]:
-        # logfile.write(str(subj)+str(pred))
-        result = l1_model(subj=subj,pred=pred)
-        print(result)
-        # logfile.write(str(result))
-        # logfile.write('\n')
-
-        # print()
-
-
-        # print(l1_model(subj="man",pred="swimmer"))
-
-        # print(scipy.spatial.distance.cosine(vecs['man']-means1[0],vecs['man']-means2[0]))
-        # worlds,quds=l1_model(("wall","frog",1.0,1.0,1.0,0,1000,True))
-        # print(quds[:10])
 
 
 

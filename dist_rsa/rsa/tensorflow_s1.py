@@ -33,16 +33,16 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False,NUMPY=False
 	# print(inference_params.listener_world.get_shape(),inference_params.sigma1.get_shape(),inference_params.poss_utts.get_shape(),inference_params.sigma2.get_shape())
 
 	# SHAPE: [NUM_QUDS,NUM_DIMS,NUM_DIMS] ?
-	qud_projection_matrix = double_tensor_projection_matrix(inference_params.qud_matrix)
+	qud_projection_matrix = double_tensor_projection_matrix(qud_matrix)
 	# SHAPE: [NUM_UTTS,NUM_DIMS]
-	mus = tf.divide(tf.add(inference_params.listener_world/inference_params.sigma1, 
+	mus = tf.divide(tf.add(listener_world/inference_params.sigma1, 
 		inference_params.poss_utts/inference_params.sigma2),inference_params.inverse_sd)
 
 
 	if world_movement:
 		pass
 		# print("LISTENER MUS SHAPE",mus.shape)
-		words_with_distance_to_prior = np.asarray(list(map(lambda x: scipy.spatial.distance.cosine(inference_params.vecs[x],ed.get_session().run(inference_params.listener_world)),inference_params.quds)))
+		words_with_distance_to_prior = np.asarray(list(map(lambda x: scipy.spatial.distance.cosine(inference_params.vecs[x],ed.get_session().run(listener_world)),inference_params.quds)))
 		words_with_distance_to_posterior = np.asarray(list(map((lambda y:   list(map((lambda x: scipy.spatial.distance.cosine(inference_params.vecs[x],y)),inference_params.quds))),ed.get_session().run(mus))))
 		mean_word_movement = np.expand_dims(np.mean(words_with_distance_to_posterior-words_with_distance_to_prior,axis=0),0)
 		out = sorted(list(zip(inference_params.quds,mean_word_movement)),key=lambda x:x[1],reverse=True)
@@ -51,7 +51,7 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False,NUMPY=False
 		for i in range(mus.get_shape()[0]):
 			dists=[]
 			for word in inference_params.quds:
-				subject = projection(ed.get_session().run(inference_params.listener_world),np.expand_dims(inference_params.vecs[word],-1))
+				subject = projection(ed.get_session().run(listener_world),np.expand_dims(inference_params.vecs[word],-1))
 				observation = np.expand_dims(projection(ed.get_session().run(mus[i]),np.expand_dims(inference_params.vecs[word],-1)),0)
 				dists.append((word,np.linalg.norm(observation-subject)))
 			out2 = sorted(dists,key=lambda x:x[1],reverse=True)
@@ -72,6 +72,8 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False,NUMPY=False
 	# SHAPE: [NUM_QUDS,NUM_UTTS,NUM_DIMS]
 	projected_mus = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,transposed_mus),perm=[0,2,1])
 	# SHAPE: [NUM_QUDS,1,NUM_DIMS]
+	# print(qud_projection_matrix)
+	# print(s1_world)
 	projected_world = tf.transpose(tf.einsum('aij,jk->aik',qud_projection_matrix,s1_world),perm=[0,2,1])
 	# print("new projected world",ed.get_session().run(tf.shape(projected_world)),"new projected mus",ed.get_session().run(tf.shape(projected_mus)))
 	# inference_params.mus=mus
