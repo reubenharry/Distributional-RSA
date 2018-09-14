@@ -18,11 +18,11 @@ stops = set(stopwords.words('english'))
 vec_size,vec_kind = 300,'glove.6B.'
 vecs = load_vecs(mean=True,pca=False,vec_length=vec_size,vec_type=vec_kind) 
 # projection_matrix = np.asarray([vecs["man"],vecs["paperwork"]]).T
-# print(scipy.spatial.distance.cosine(vecs["waded"],vecs["man"]+vecs["paperwork"]))
+# print(scipy.spatial.distance.euclidean(vecs["waded"],vecs["man"]+vecs["paperwork"]))
 # projected_man = np.dot(np.expand_dims(vecs["man"],0), projection_matrix)
 # projected_waded = np.dot(np.expand_dims(vecs["waded"],0), projection_matrix)
 # projected_paperwork = np.dot(np.expand_dims(vecs["paperwork"],0), projection_matrix)
-# print(scipy.spatial.distance.cosine(projected_waded,projected_man+projected_paperwork))
+# print(scipy.spatial.distance.euclidean(projected_waded,projected_man+projected_paperwork))
 # from nltk.tokenize import RegexpTokenizer
 # tokenizer = RegexpTokenizer(r'\w+')
 
@@ -78,25 +78,25 @@ def metrics(sent,verb_lemma):
 	# print(v)
 	# s_o = np.mean([s,o],axis=0)
 
-	distance_in_original_space = scipy.spatial.distance.cosine(v,s_o)
+	distance_in_original_space = scipy.spatial.distance.euclidean(v,s_o)
 
 
 	projected_s_o = np.dot(np.expand_dims(s_o,0), projection_matrix)
 	projected_v = np.dot(np.expand_dims(v,0), projection_matrix)
 
-	distance_in_subspace = scipy.spatial.distance.cosine(projected_s_o,projected_v)
+	distance_in_subspace = scipy.spatial.distance.euclidean(projected_s_o,projected_v)
 
-	return distance_in_original_space, distance_in_original_space-distance_in_subspace
+	return distance_in_original_space, distance_in_subspace
 
-data = load_trofi_data()
+# data = load_trofi_data()
+# lit_data = list(zip(*[metrics(s,"absorb") for s in data["absorb"]["literal"]+data["assault"]["literal"]  ]))
+# met_data = list(zip(*[metrics(s,"absorb") for s in data["absorb"]["non_literal"]+data["assault"]["non_literal"]  ]))
 
 # print(data["absorb"]["literal"])
 # keys = list(data.keys())
 # print(keys,"keys")
 
 
-lit_data = list(zip(*[metrics(s,"absorb") for s in data["absorb"]["literal"]+data["assault"]["literal"]  ]))
-met_data = list(zip(*[metrics(s,"absorb") for s in data["absorb"]["non_literal"]+data["assault"]["non_literal"]  ]))
 
 # print(lit_data)
 
