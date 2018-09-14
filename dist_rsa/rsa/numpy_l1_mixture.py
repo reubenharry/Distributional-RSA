@@ -85,7 +85,7 @@ def np_l1(inference_params):
 		# shape: [num_worlds,num_qud_dims,num_dims] (n.b. num_worlds = size*2+1)
 
 		approximate_mean = 0.0
-		print("NO OPTIMIZATION")
+
 		# approximate_mean = tf.Variable(0.0)
 		# init = tf.global_variables_initializer()
 		# sess.run(init)
@@ -136,6 +136,8 @@ def np_l1(inference_params):
 		print("s1 time",time.time()-t1)
 		# [num_worlds]
 		fixed_s1_scores = s1_scores[:,0,utt]
+
+
 		# print(discrete_worlds_along_qud_prior)
 		# print("s1_scores",fixed_s1_scores)
 		# raise Exception
@@ -144,6 +146,12 @@ def np_l1(inference_params):
 		# print(discrete_worlds_along_qud_prior)
 		# print(fixed_s1_scores)
 		l1_posterior_unnormed = discrete_worlds_along_qud_prior + fixed_s1_scores
+
+		print("OPTIMIZATION")
+		print("discrete_worlds_along_qud", discrete_worlds_along_qud)
+		print(np.gradient(l1_posterior_unnormed),discrete_worlds_along_qud[np.argmax(-np.abs(np.gradient(l1_posterior_unnormed)))])
+		raise Exception
+
 		# shape: [num_worlds]
 		l1_posterior_normed = l1_posterior_unnormed - scipy.misc.logsumexp(l1_posterior_unnormed)
 		# project the vectors lying along qud into the subspace
@@ -173,6 +181,8 @@ def np_l1(inference_params):
 		new_basis_variance = np.concatenate([np.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,[subspace_variance]],axis=0)
 
 		determinant = np.sum(np.log(new_basis_variance*2*pi))
+		print("new basis variance",new_basis_variance)
+		print("determinant",determinant)
 		determinants.append(determinant)
 		means.append(np.squeeze(old_basis_mean))
 		covariances.append(new_basis_variance)
@@ -208,19 +218,26 @@ def np_l1(inference_params):
 		term_1 = det/2
 		inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
 		term_2 = sess.run(tf_s1(inference_params,s1_world=np.expand_dims(means[qi],0),NUMPY=True)[0][utt])
+		# print("check 2")
 		term_3 = np.log(full_space_prior.pdf(means[qi]))
-
+		# print("check 3")
 		# print(term_1)
 		# print(term_2)
 		# print(term_3)
 		# raise Exception
+		# print(term_1)
 
 		return term_1+term_2+term_3
-
+	# print("check 1")
 	qud_scores = np.asarray([qud_score(qi) for qi in range(len(qud_combinations))])
+	# print("check 4")
 	# print(qud_scores[0])
+	# print("scores",qud_scores)
+	print(scipy.misc.logsumexp(qud_scores,axis=0))
 	qud_distribution = qud_scores - scipy.misc.logsumexp(qud_scores,axis=0)
+	# print("check 5")
 	qud_distribution_np = np.exp(qud_distribution)
+	# print("check 6")
 	inference_params.qud_marginals=qud_distribution_np
 	tac = time.time()
 	print("time:",tac-toc)

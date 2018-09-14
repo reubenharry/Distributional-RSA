@@ -171,7 +171,7 @@ def load_trofi_data():
 	enter_literals = True
 	i = 0
 	while True:
-		print(i)
+		# print(i)
 		i += 1
 		try:
 			line = next(data).strip('\n')
@@ -203,12 +203,11 @@ def load_trofi_data():
 			enter_literals = False
 			pass # start loading nonliterals
 		elif line.startswith('w'):
-			line = line.split("\t")[2]
+			val,line =  line.split("\t")[1],line.split("\t")[2]
 
-			# spooge off the ugly line starts here
-			if enter_literals:
+			if enter_literals and val=="L":
 				literal_results.append(line)
-			else:
+			elif not enter_literals and val=="N":
 				non_literal_results.append(line)
 
 
@@ -216,6 +215,6 @@ def load_trofi_data():
 	# data = data.split("********************")
 	# data = [section.split("*literal cluster*") for section in data]
 
-
+	del results[None]
 	return results
 

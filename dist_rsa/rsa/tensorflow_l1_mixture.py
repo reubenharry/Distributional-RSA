@@ -86,7 +86,7 @@ def tf_l1(inference_params):
 		init = tf.global_variables_initializer()
 		sess.run(init)
 
-		optimize = False
+		optimize = True
 		if optimize:
 
 			w = tf.transpose(qud_matrix[qi]*approximate_mean)
@@ -95,8 +95,11 @@ def tf_l1(inference_params):
 			grad = tf.gradients(f_w,approximate_mean)[0]
 			optimize_op = approximate_mean.assign(approximate_mean + 0.01 * grad)
 
-			for i in range(200):
+			for i in range(1000):
 				sess.run(optimize_op)
+
+		print(sess.run(approximate_mean))
+		raise Exception
 
 			# print("grad and mean",sess.run([grad,approximate_mean]))
 
