@@ -81,14 +81,25 @@ def metrics(sent,verb_lemma):
 	distance_in_original_space = scipy.spatial.distance.euclidean(v,s_o)
 
 
-	projected_s_o = np.dot(np.expand_dims(s_o,0), projection_matrix)
-	projected_v = np.dot(np.expand_dims(v,0), projection_matrix)
+	projected_s_o = np.squeeze(np.dot(np.expand_dims(s_o,0), projection_matrix))
+	projected_v = np.squeeze(np.dot(np.expand_dims(v,0), projection_matrix))
+
+	print("shapes",projected_s_o.shape)
+	print("shapes",projected_v.shape)
+
+	print("shapes",s_o.shape)
+	print("shapes",v.shape)
 
 	distance_in_subspace = scipy.spatial.distance.euclidean(projected_s_o,projected_v)
 
 	return distance_in_original_space, distance_in_subspace
 
 # data = load_trofi_data()
+
+# sent = data["attack"]["literal"][0]
+
+# out = metrics(sent,"attack")
+# print(out)
 # lit_data = list(zip(*[metrics(s,"absorb") for s in data["absorb"]["literal"]+data["assault"]["literal"]  ]))
 # met_data = list(zip(*[metrics(s,"absorb") for s in data["absorb"]["non_literal"]+data["assault"]["non_literal"]  ]))
 

@@ -98,8 +98,8 @@ def tf_l1(inference_params):
 			for i in range(1000):
 				sess.run(optimize_op)
 
-		print(sess.run(approximate_mean))
-		raise Exception
+		# print(sess.run(approximate_mean))
+		# raise Exception
 
 			# print("grad and mean",sess.run([grad,approximate_mean]))
 
@@ -168,6 +168,8 @@ def tf_l1(inference_params):
 		new_basis_variance = tf.concat([tf.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,[subspace_variance]],axis=0)
 
 		determinant = tf.reduce_sum(tf.log(new_basis_variance*2*pi))
+		print("new basis variance",sess.run(new_basis_variance))
+		print("determinant",sess.run(determinant))
 		determinants.append(determinant)
 		means.append(tf.squeeze(old_basis_mean))
 		covariances.append(new_basis_variance)

@@ -147,10 +147,10 @@ def np_l1(inference_params):
 		# print(fixed_s1_scores)
 		l1_posterior_unnormed = discrete_worlds_along_qud_prior + fixed_s1_scores
 
-		print("OPTIMIZATION")
-		print("discrete_worlds_along_qud", discrete_worlds_along_qud)
-		print(np.gradient(l1_posterior_unnormed),discrete_worlds_along_qud[np.argmax(-np.abs(np.gradient(l1_posterior_unnormed)))])
-		raise Exception
+		# print("OPTIMIZATION")
+		# print("discrete_worlds_along_qud", discrete_worlds_along_qud)
+		# print(np.gradient(l1_posterior_unnormed),discrete_worlds_along_qud[np.argmax(-np.abs(np.gradient(l1_posterior_unnormed)))])
+		# raise Exception
 
 		# shape: [num_worlds]
 		l1_posterior_normed = l1_posterior_unnormed - scipy.misc.logsumexp(l1_posterior_unnormed)

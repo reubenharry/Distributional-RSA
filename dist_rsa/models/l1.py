@@ -22,7 +22,12 @@ def l1_model(subj,pred,hyperparams):
 
     possible_utterances, quds = get_possible_utterances_and_quds(subj="voice",pred="river",word_selection_vecs=word_selection_vecs)
     possible_utterances = sorted(possible_utterances[:50])
-    quds = sorted(list(set(quds[:50])))
+    # possible_utterances = sorted(possible_utterances[:5])
+    # quds = sorted(list(set(quds[:50])))
+
+
+    quds = ["smaller","bigger"]
+    # possible_utterances = ["horse","man"]
 
     print("QUDS",quds[:10]) 
     print("UTTERANCES:\n",possible_utterances[:10])
@@ -48,13 +53,14 @@ def l1_model(subj,pred,hyperparams):
         heatmap=False,
         resolution=Resolution(span=10,number=100),
         model_type="numpy_discrete_mixture",
+        # model_type="discrete_mixture",
         calculate_projected_marginal_world_posterior=True,
         )
 
     run = Dist_RSA_Inference(params)
     run.compute_l1(load=0,save=False)
 
-    # print("marginal",params.qud_marginals[0])
+    print("marginal",params.qud_marginals)
 
     out = run.tf_results
     del run
