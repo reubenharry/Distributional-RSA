@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 from collections import defaultdict
 from scipy.misc import logsumexp
-
+from scipy.stats import rv_discrete
 def orthogonal_complement_np(a):
 	q,_ = np.linalg.qr(a,mode='complete')
 	num_subspace_dims = a.shape[1]
@@ -26,10 +26,17 @@ def mean_and_variance_of_dist_array(probs,support):
 	return MEAN,VARIANCE
 
 def mean_and_variance_of_dist_array_np(probs,support):
-	MEAN = np.sum(probs*support,axis=0)
-	mean_of_square_of_posterior = np.sum(probs*(support**2),axis=0)
-	VARIANCE = mean_of_square_of_posterior - np.square(MEAN)
-	return MEAN,VARIANCE
+
+	# MEAN = np.sum(probs*support,axis=0)
+	# mean_of_square_of_posterior = np.sum(probs*(support**2),axis=0)
+	# VARIANCE = mean_of_square_of_posterior - np.square(MEAN)
+	# print("old mean+var",MEAN,VARIANCE)
+	# print(probs,np.exp(probs),"probs")
+	dist = rv_discrete(values=(support,probs))
+	# print("new mean+var",dist.mean(),dist.var())
+	return dist.mean(),dist.var()
+
+	# return MEAN,VARIANCE
 
 
 

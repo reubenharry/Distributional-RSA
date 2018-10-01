@@ -2,20 +2,25 @@ from dist_rsa.dbm import *
 from dist_rsa.utils.load_data import *
 from dist_rsa.models.l1 import l1_model
 
-sig1_vals = [1.0,5.0,10.0,20.0]
+sig1_vals = [1e0]
 # [1.0,5.0]
 # [1.0,5.0,10.0,20.0]
-sig2_vals = [1.0,0.1,0.5,2.0,10.0,20.0]
+sig2_vals = [1e-1]
 # [1.0,0.5,2.0]
 # [1.0,0.5,0.1,0.05]
-l1_sig1_vals = [1.0,0.5,0.1,0.05]
+l1_sig1_vals = [1e-1]
 # [1.0,5.0]
 # [1.0,5.0,10.0,20.0]
-mean_center = [True,False]
-remove_top_dims = [True,False]
-norm_vectors = [True,False]
+mean_center = [True]
+remove_top_dims = [False]
+norm_vectors = [False]
 
-LOAD = True
+path = "dist_rsa/data/results/pickles/"
+items = control_set
+# path = "dist_rsa/data/results/pickles/s2memo/"
+# items = [("man","shark"),("man","banana")]
+
+LOAD = False
 
 for h in itertools.product(mean_center,remove_top_dims,norm_vectors,sig1_vals,sig2_vals,l1_sig1_vals):
     mean_center = h[0]
@@ -30,17 +35,18 @@ for h in itertools.product(mean_center,remove_top_dims,norm_vectors,sig1_vals,si
 
         results_dict={}
     #     for subj,pred in [("woman","rose"),("rose","woman")]:
-        for subj,pred in control_set:
+        for subj,pred in items:
         
             results = l1_model(subj=subj,pred=pred,hyperparams=hyperparams)
             results_dict[(subj,pred)]=results
 
-        r = Results_Pickler(results_dict=results_dict,path="dist_rsa/data/results/pickles/"+hyperparams.show())
+        r = Results_Pickler(results_dict=results_dict,path=path+hyperparams.show())
         r.save()
 
     else:
+        assert (items==control_set)
         try:
-            r = Results_Pickler(path="dist_rsa/data/results/pickles/"+hyperparams.show())
+            r = Results_Pickler(path=path+hyperparams.show())
             r.open()
             
             score = 0

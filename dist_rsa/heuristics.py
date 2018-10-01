@@ -4,6 +4,7 @@ import numpy as np
 import pickle
 import itertools
 from dist_rsa.utils.load_data import *
+from dist_rsa.utils.helperfunctions import projection
 import spacy
 nlp = spacy.load('en')
 from nltk.corpus import stopwords
@@ -66,10 +67,15 @@ def metrics(sent,verb_lemma):
 
 	# print("begin sent",sent,"end sent")
 	# print(sent.keys())
+	projection_words = sorted(list(set([w for w in sent["sent"] if (w in vecs) and (w not in sent["dobj"]+sent["nsubj"]+[sent["verb"]] )])))
+	print("projection words",projection_words)
+	projection_matrix = np.asarray([vecs[w] for w in projection_words]).T
 
-	projection_matrix = np.asarray([vecs[w] for w in sent["sent"] if w in vecs]).T
+	# projection_matrix = np.asarray([vecs["big"],vecs["small"]]).T
 
-	# print(s.shape,projection_matrix.shape)
+	print(projection_matrix)
+	print("proj mat shape",projection_matrix.shape)
+	# print(np.linalg.det(projection_matrix))
 	# raise Exception
 	s_o = np.mean([vecs[v] for v in sent["dobj"]+sent["nsubj"] if v in vecs],axis=0)
 	# print("O",o)
@@ -81,8 +87,8 @@ def metrics(sent,verb_lemma):
 	distance_in_original_space = scipy.spatial.distance.euclidean(v,s_o)
 
 
-	projected_s_o = np.squeeze(np.dot(np.expand_dims(s_o,0), projection_matrix))
-	projected_v = np.squeeze(np.dot(np.expand_dims(v,0), projection_matrix))
+	projected_s_o = np.squeeze(projection(np.expand_dims(s_o,1), projection_matrix))
+	projected_v = np.squeeze(projection(np.expand_dims(v,1), projection_matrix))
 
 	print("shapes",projected_s_o.shape)
 	print("shapes",projected_v.shape)
@@ -92,16 +98,16 @@ def metrics(sent,verb_lemma):
 
 	distance_in_subspace = scipy.spatial.distance.euclidean(projected_s_o,projected_v)
 
-	return distance_in_original_space, distance_in_subspace
+	# return distance_in_original_space, distance_in_original_space/distance_in_subspace
+	return distance_in_original_space,distance_in_subspace
 
-# data = load_trofi_data()
+data = load_trofi_data()
 
-# sent = data["attack"]["literal"][0]
+sent = data["attack"]["literal"][0]
 
 # out = metrics(sent,"attack")
 # print(out)
-# lit_data = list(zip(*[metrics(s,"absorb") for s in data["absorb"]["literal"]+data["assault"]["literal"]  ]))
-# met_data = list(zip(*[metrics(s,"absorb") for s in data["absorb"]["non_literal"]+data["assault"]["non_literal"]  ]))
+# lit_data = list(zip(*[metrics(s,"attack") for s in data["attack"]["literal"]]))
 
 # print(data["absorb"]["literal"])
 # keys = list(data.keys())

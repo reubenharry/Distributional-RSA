@@ -86,25 +86,18 @@ def np_l1(inference_params):
 
 		approximate_mean = 0.0
 
-		# approximate_mean = tf.Variable(0.0)
-		# init = tf.global_variables_initializer()
-		# sess.run(init)
+		optimize = False
+		if optimize:
 
-		# optimize = True
-		# if optimize:
-
-		# 	w = tf.transpose(qud_matrix[qi]*approximate_mean)
-		# 	inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
-		# 	f_w = tf.reduce_sum(full_space_prior.log_prob(w))+tf_s1(inference_params,s1_world=w)[0,utt]
-		# 	grad = tf.gradients(f_w,approximate_mean)[0]
-		# 	optimize_op = approximate_mean.assign(approximate_mean + 0.01 * grad)
-
-		# 	for i in range(200):
-		# 		sess.run(optimize_op)
-
-			# print("grad and mean",sess.run([grad,approximate_mean]))
-
-		discrete_worlds_along_qud = np.asarray([np.transpose(qud_matrix[qi])*((amount*x)+approximate_mean) for x in range(-size,size+1)])
+			discrete_worlds_along_qud = np.asarray([np.transpose(qud_matrix[qi])*((amount*x)+approximate_mean) for x in range(-size,size+1)])
+			discrete_worlds_along_qud_prior = np.asarray([np.log(full_space_prior.pdf(w)) for w in discrete_worlds_along_qud])
+			inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
+			t1 = time.time()
+			s1_scores = sess.run(tf_s1_triple_vec(inference_params,s1_world=np.squeeze(discrete_worlds_along_qud),NUMPY=True))
+			fixed_s1_scores = s1_scores[:,0,utt]
+			l1_posterior_unnormed = discrete_worlds_along_qud_prior + fixed_s1_scores
+			l1_posterior_normed = l1_posterior_unnormed - scipy.misc.logsumexp(l1_posterior_unnormed)
+			approximate_mean = (np.arange(-size,size+1)*amount)[np.argsort(-l1_posterior_normed)[0]]
 		
 		# see how far you need to go out
 		# print(sess.run(f_w))
@@ -126,6 +119,7 @@ def np_l1(inference_params):
 		# print(sess.run(span))
 
 
+		discrete_worlds_along_qud = np.asarray([np.transpose(qud_matrix[qi])*((amount*x)+approximate_mean) for x in range(-size,size+1)])
 		discrete_worlds_along_qud_prior = np.asarray([np.log(full_space_prior.pdf(w)) for w in discrete_worlds_along_qud])
 		# shape: [num_worlds,num_quds,num_utts] : but note, num_quds=1 here: we are fixing a qud
 		inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
@@ -154,6 +148,9 @@ def np_l1(inference_params):
 
 		# shape: [num_worlds]
 		l1_posterior_normed = l1_posterior_unnormed - scipy.misc.logsumexp(l1_posterior_unnormed)
+		# print(np.arange(-size,size+1)*amount)
+		# print((np.arange(-size,size+1)*amount)[np.argsort(-l1_posterior_normed)[0]])
+		# raise Exception
 		# project the vectors lying along qud into the subspace
 		# shape: [num_worlds]
 		projected_worlds = np.squeeze(projection_into_subspace_np(np.transpose(np.squeeze(discrete_worlds_along_qud)),qud_matrix[qi]))
@@ -181,8 +178,8 @@ def np_l1(inference_params):
 		new_basis_variance = np.concatenate([np.zeros([NUM_DIMS-NUM_QUD_DIMS])+inference_params.l1_sig1,[subspace_variance]],axis=0)
 
 		determinant = np.sum(np.log(new_basis_variance*2*pi))
-		print("new basis variance",new_basis_variance)
-		print("determinant",determinant)
+		# print("new basis variance",new_basis_variance)
+		# print("determinant",determinant)
 		determinants.append(determinant)
 		means.append(np.squeeze(old_basis_mean))
 		covariances.append(new_basis_variance)

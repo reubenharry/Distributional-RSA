@@ -16,17 +16,19 @@ import tensorflow as tf
 
 word_selection_vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='glove.6B.')
 
+
+
+
 def l1_model(subj,pred,hyperparams):
     vec_size,vec_kind = 300,'glove.6B.'
     freqs = pickle.load(open('dist_rsa/data/google_freqs/freqs','rb'))
 
-    possible_utterances, quds = get_possible_utterances_and_quds(subj="voice",pred="river",word_selection_vecs=word_selection_vecs)
-    possible_utterances = sorted(possible_utterances[:50])
-    # possible_utterances = sorted(possible_utterances[:5])
-    # quds = sorted(list(set(quds[:50])))
+    possible_utterances, quds = get_possible_utterances_and_quds(subj="man",pred="vicious",word_selection_vecs=word_selection_vecs)
+    possible_utterances = sorted(possible_utterances[:10])
+    quds = sorted(list(set(quds[:10])))
 
 
-    quds = ["smaller","bigger"]
+    # quds = ["smaller","bigger"]
     # possible_utterances = ["horse","man"]
 
     print("QUDS",quds[:10]) 
@@ -54,6 +56,7 @@ def l1_model(subj,pred,hyperparams):
         resolution=Resolution(span=10,number=100),
         model_type="numpy_discrete_mixture",
         # model_type="discrete_mixture",
+        # model_type="discrete_mixture",
         calculate_projected_marginal_world_posterior=True,
         )
 
@@ -77,9 +80,9 @@ if __name__ == "__main__":
     mean_center = True
     remove_top_dims = False
     norm_vectors = True
-    sig1 = 1.0
-    sig2 = 1e-2
-    l1_sig1 = 10.0
+    sig1 = 1e0
+    sig2 = 1e-1
+    l1_sig1 = 1e-1
     hyperparams = Hyperparams(mean_center=mean_center,remove_top_dims=remove_top_dims,norm_vectors=norm_vectors,sig1=sig1,sig2=sig2,l1_sig1=l1_sig1)
     print("HYPERPARAMS",hyperparams.show())
 
