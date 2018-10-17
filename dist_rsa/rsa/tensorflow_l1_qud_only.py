@@ -9,7 +9,7 @@ def tf_l1_qud_only(inference_params):
 	import pickle
 	import tensorflow as tf
 	from edward.models import Normal,Empirical, Bernoulli, Categorical
-	from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
+	from dist_rsa.utils.helperfunctions import projection,tensor_projection,demarginalize_product_space, weights_to_dist,\
         normalize,as_a_matrix,tensor_projection_matrix,\
         double_tensor_projection_matrix,combine_quds, lookup, s1_nonvect
 	from edward.inferences import HMC
@@ -40,7 +40,7 @@ def tf_l1_qud_only(inference_params):
 	#remove to save worry about failing: needed for multidim categorical
 	qud_combinations = combine_quds(inference_params.quds,inference_params.number_of_qud_dimensions)
 	# qud_combinations = [[q] for q in quds]
-
+	inference_params.qud_combinations = qud_combinations
 	print("qud_combinations",len(qud_combinations))
 	print("quds",len(inference_params.quds))
 
@@ -67,12 +67,41 @@ def tf_l1_qud_only(inference_params):
 	inferred_qud = tf.subtract(tf.reduce_logsumexp(inferred_qud,axis=0),tf.log(tf.cast(tf.shape(inferred_qud)[0],dtype=tf.float32)))
 
 	sess = tf.Session()
-
+	inference_params.qud_marginals = sess.run(tf.exp(inferred_qud))
 	results = list(zip(qud_combinations,sess.run(inferred_qud)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
-	inference_params.results=results
 
-	return results
+	results = list(list(zip(*results))[0])
+	
+
+
+	print("RESULTS",results[:10])
+	# indexes = [qud_combinations.index(result) for result in results]
+	# scores = np.arange(0,-len(qud_combinations),-1)
+	# inference_params.qud_marginals = scores[indexes]
+
+
+	# raise Exception
+	flattened_results = [item for sublist in results for item in sublist]
+
+	unique_results = []
+	for result in flattened_results:
+	    if result not in unique_results:
+	        unique_results.append(result)
+
+	unique_results = [[x] for x in unique_results]
+	# print output
+	# print("FLATTENED RESULTS",flattened_results[:10])
+	# unique_results = [[x] for x in list(dict.fromkeys(flattened_results))]
+	
+	inference_params.ordered_quds = unique_results
+
+	
+	# print("\n\n\nDEMARGED\n\n\n", demarginalize_product_space(results))
+	# print(results)
+	# inference_params.results=results
+	sess.close()
+	# return results
 
 
 

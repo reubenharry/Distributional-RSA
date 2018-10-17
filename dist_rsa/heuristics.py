@@ -40,8 +40,8 @@ def sent_to_dict(sent,verb_lemma):
 	dobj = [word for word in verb.children if word.dep_=="dobj"]
 	nsubj = [word for word in verb.children if (word.dep_=="nsubj" or word.dep_=="nsubjpass")]
 	if remove_stops(dobj) == [] and remove_stops(nsubj) == []:
-		print("BLAH BLAH")
-		print(list([c.dep_=="nsubjpass" for c in verb.children]))
+		# print("BLAH BLAH")
+		# print(list([c.dep_=="nsubjpass" for c in verb.children]))
 		# print(verb.children)
 		raise Exception
 	if not dobj==[]:
@@ -49,32 +49,31 @@ def sent_to_dict(sent,verb_lemma):
 	if not nsubj==[]:
 		nsubj = list(nsubj[0].subtree)
 	out = {"sent":remove_stops(parsed),"dobj":remove_stops(dobj),"verb":verb_lemma,"nsubj":remove_stops(nsubj)}
-	print(out)
+	# print(out)
 	return out
 
-
-
-def metrics(sent,verb_lemma):
+def failable_metrics(sent,verb_lemma,vecs):
 
 	# sent = sent_to_dict(sent,verb_lemma)
 	try:
 		sent = sent_to_dict(sent,verb_lemma)
-		print(sent)
+# 		print(sent)
 	except: 
-		print(sent)
-		print("FAILURE")
+# 		print(sent)
+# 		print("FAILURE")
 		return None,None
 
 	# print("begin sent",sent,"end sent")
 	# print(sent.keys())
 	projection_words = sorted(list(set([w for w in sent["sent"] if (w in vecs) and (w not in sent["dobj"]+sent["nsubj"]+[sent["verb"]] )])))
-	print("projection words",projection_words)
+	if projection_words == []: return None
+# 	print("projection words",projection_words)
 	projection_matrix = np.asarray([vecs[w] for w in projection_words]).T
 
 	# projection_matrix = np.asarray([vecs["big"],vecs["small"]]).T
 
-	print(projection_matrix)
-	print("proj mat shape",projection_matrix.shape)
+# 	print(projection_matrix)
+# 	print("proj mat shape",projection_matrix.shape)
 	# print(np.linalg.det(projection_matrix))
 	# raise Exception
 	s_o = np.mean([vecs[v] for v in sent["dobj"]+sent["nsubj"] if v in vecs],axis=0)
@@ -87,23 +86,80 @@ def metrics(sent,verb_lemma):
 	distance_in_original_space = scipy.spatial.distance.euclidean(v,s_o)
 
 
-	projected_s_o = np.squeeze(projection(np.expand_dims(s_o,1), projection_matrix))
+	try:projected_s_o = np.squeeze(projection(np.expand_dims(s_o,1), projection_matrix))
+	except: 
+# 		print(projection_words,sent["nsubj"],sent["dobj"],sent["verb"])
+		raise Exception
 	projected_v = np.squeeze(projection(np.expand_dims(v,1), projection_matrix))
 
-	print("shapes",projected_s_o.shape)
-	print("shapes",projected_v.shape)
+# 	print("shapes",projected_s_o.shape)
+# 	print("shapes",projected_v.shape)
 
-	print("shapes",s_o.shape)
-	print("shapes",v.shape)
+# 	print("shapes",s_o.shape)
+# 	print("shapes",v.shape)
 
 	distance_in_subspace = scipy.spatial.distance.euclidean(projected_s_o,projected_v)
 
 	# return distance_in_original_space, distance_in_original_space/distance_in_subspace
 	return distance_in_original_space,distance_in_subspace
 
-data = load_trofi_data()
+def metrics(sent,verb_lemma,vecs):
+# 	return failable_metrics(sent,verb_lemma)
+	try: out = failable_metrics(sent=sent,verb_lemma=verb_lemma,vecs=vecs)
+	except: out = (None,None)
+	return out
 
-sent = data["attack"]["literal"][0]
+
+# def metrics(sent,verb_lemma):
+
+# 	# sent = sent_to_dict(sent,verb_lemma)
+# 	try:
+# 		sent = sent_to_dict(sent,verb_lemma)
+# 		print(sent)
+# 	except: 
+# 		print(sent)
+# 		print("FAILURE")
+# 		return None,None
+
+# 	# print("begin sent",sent,"end sent")
+# 	# print(sent.keys())
+# 	projection_words = sorted(list(set([w for w in sent["sent"] if (w in vecs) and (w not in sent["dobj"]+sent["nsubj"]+[sent["verb"]] )])))
+# 	print("projection words",projection_words)
+# 	projection_matrix = np.asarray([vecs[w] for w in projection_words]).T
+
+# 	# projection_matrix = np.asarray([vecs["big"],vecs["small"]]).T
+
+# 	print(projection_matrix)
+# 	print("proj mat shape",projection_matrix.shape)
+# 	# print(np.linalg.det(projection_matrix))
+# 	# raise Exception
+# 	s_o = np.mean([vecs[v] for v in sent["dobj"]+sent["nsubj"] if v in vecs],axis=0)
+# 	# print("O",o)
+# 	v = vecs[sent["verb"]]
+# 	# print(o)
+# 	# print(v)
+# 	# s_o = np.mean([s,o],axis=0)
+
+# 	distance_in_original_space = scipy.spatial.distance.euclidean(v,s_o)
+
+
+# 	projected_s_o = np.squeeze(projection(np.expand_dims(s_o,1), projection_matrix))
+# 	projected_v = np.squeeze(projection(np.expand_dims(v,1), projection_matrix))
+
+# 	print("shapes",projected_s_o.shape)
+# 	print("shapes",projected_v.shape)
+
+# 	print("shapes",s_o.shape)
+# 	print("shapes",v.shape)
+
+# 	distance_in_subspace = scipy.spatial.distance.euclidean(projected_s_o,projected_v)
+
+# 	# return distance_in_original_space, distance_in_original_space/distance_in_subspace
+# 	return distance_in_original_space,distance_in_subspace
+
+# data = load_trofi_data()
+
+# sent = data["attack"]["literal"][0]
 
 # out = metrics(sent,"attack")
 # print(out)

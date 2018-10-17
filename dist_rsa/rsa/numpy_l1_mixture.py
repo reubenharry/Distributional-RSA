@@ -234,6 +234,7 @@ def np_l1(inference_params):
 	qud_distribution = qud_scores - scipy.misc.logsumexp(qud_scores,axis=0)
 	# print("check 5")
 	qud_distribution_np = np.exp(qud_distribution)
+	inference_params.ordered_quds = list(list(zip(sorted(list(zip(qud_combinations, qud_distribution_np)), key=lambda x: x[-1], reverse=True)))[0])
 	# print("check 6")
 	inference_params.qud_marginals=qud_distribution_np
 	tac = time.time()
@@ -300,13 +301,13 @@ def np_l1(inference_params):
 
 
 
-	tuc = time.time()
-	print("time:",tuc-tac)
+	# tuc = time.time()
+	# print("time:",tuc-tac)
 	results = list(zip(qud_combinations, qud_distribution_np))
 	results = (sorted(results, key=lambda x: x[-1], reverse=True))
-
+	print(results)
 	sess.close()
-	return results
+	# return results
 
 
 

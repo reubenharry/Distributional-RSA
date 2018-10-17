@@ -214,6 +214,9 @@ def tf_l1(inference_params):
 	qud_distribution = qud_scores - tf.reduce_logsumexp(qud_scores,axis=0)
 	qud_distribution_np = sess.run(tf.exp(qud_distribution))
 	inference_params.qud_marginals=qud_distribution_np
+
+	
+
 	tac = time.time()
 	print("time:",tac-toc)
 
@@ -279,11 +282,8 @@ def tf_l1(inference_params):
 
 	tuc = time.time()
 	print("time:",tuc-tac)
-	results = list(zip(qud_combinations, qud_distribution_np))
-	results = (sorted(results, key=lambda x: x[-1], reverse=True))
-
 	sess.close()
-	return results
+	return None
 
 
 

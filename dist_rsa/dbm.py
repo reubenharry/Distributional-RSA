@@ -165,6 +165,25 @@ class Dist_RSA_Inference:
             self.tf_results = np_l1_mixture(self.inference_params)
             print("results",self.tf_results)
 
+        elif self.inference_params.model_type=="baseline":
+            print("RUNNING NUMPY DISCRETE MIXTURE MODEL")
+            from dist_rsa.utils.load_data import get_words
+            vecs = self.inference_params.vecs
+            subj = self.inference_params.subject
+            pred = self.inference_params.predicate
+            self.inference_params.qud_combinations = [[q] for q in self.inference_params.quds]
+            nouns,adjs = get_words(with_freqs=False)
+            qud_words = [a for a in adjs if adjs[a] if a in vecs and a!=pred]
+            self.inference_params.qud_marginals = [-scipy.spatial.distance.cosine(np.mean([vecs[subj[0]],vecs[pred]],axis=0),vecs[qud]) for qud in qud_words][:100]
+
+            sorted_qud_words = sorted(qud_words,key=lambda x:scipy.spatial.distance.cosine(np.mean([vecs[subj[0]],vecs[pred]],axis=0),vecs[x]))
+
+            self.inference_params.ordered_quds = sorted_qud_words
+            # list(list(zip(*self.inference_params.qud_marginals))[0])
+
+            self.tf_results = None
+            print("results",self.tf_results)
+
 
         # else:
         #         print("RUNNING CAT WITHOUT TRIVIAL MODEL")
@@ -308,24 +327,32 @@ class Results_Pickler:
 
 class Pickleable_Params:
     def __init__(self,d):
-        self.marginal_means=d.marginal_means
+
+        self.model_type=d.model_type
+        
+        if self.model_type=="numpy_discrete_mixture":
+        
+            self.marginal_means=d.marginal_means
+            self.subspace_prior_means=d.subspace_prior_means
+            self.subspace_means=d.subspace_means
+            self.subspace_variances=d.subspace_variances
+        
         self.quds=d.quds
+        self.ordered_quds=d.ordered_quds
         self.qud_marginals=d.qud_marginals
-        self.subspace_prior_means=d.subspace_prior_means
-        self.subspace_means=d.subspace_means
-        self.subspace_variances=d.subspace_variances
         self.l1_sig1=d.l1_sig1
         self.sig1=d.sig1
         self.sig2=d.sig2
 
 class Hyperparams:
-    def __init__(self,mean_center,remove_top_dims,sig1,sig2,l1_sig1,norm_vectors):
+    def __init__(self,mean_center,remove_top_dims,sig1,sig2,l1_sig1,norm_vectors,model_type="numpy_discrete_mixture"):
         self.mean_center=mean_center
         self.remove_top_dims=remove_top_dims
         self.sig1=sig1
         self.sig2=sig2
         self.l1_sig1=l1_sig1
         self.norm_vectors=norm_vectors
+        self.model_type=model_type
 
     def show(self):
         return ("mean_center:"+str(self.mean_center)+";"
@@ -334,4 +361,5 @@ class Hyperparams:
             "sig2:"+str(self.sig2)+";"
             "l1_sig1:"+str(self.l1_sig1)+";"
             "norm_vectors:"+str(self.norm_vectors)+";"
+            +"model_type:"+str(self.model_type)
             )
