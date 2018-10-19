@@ -218,3 +218,21 @@ def load_trofi_data():
 	del results[None]
 	return results
 
+def load_tsvetkov_data():
+
+	xls = pd.ExcelFile("dist_rsa/data/TsvetkovEtAl_ACL2014_testsets.xlsx")
+
+	lit_dict = pd.read_excel(xls,"LIT_SVO_EN")
+	met_dict = pd.read_excel(xls,"MET_SVO_EN.txt")
+
+	lits = []
+	mets = []
+
+	for i in range(110):
+
+		lits.append({"verb":lit_dict["verb"][i],"nsubj":lit_dict["subject"][i],"dobj":lit_dict["object"][i],"sent":lit_dict["sentence"][i]})
+		mets.append({"verb":met_dict["verb"][i],"nsubj":met_dict["subject"][i],"dobj":met_dict["object"][i],"sent":met_dict["sentence"][i]})
+
+	return lits,mets
+
+
