@@ -2,6 +2,7 @@ from collections import Counter
 import nltk
 import pickle
 import numpy as np
+import pandas as pd
 from nltk.corpus import wordnet as wn
 from dist_rsa.utils.refine_vectors import h_dict
 import csv

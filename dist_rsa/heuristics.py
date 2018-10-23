@@ -73,7 +73,9 @@ def metrics_tsvetkov(sent_dict,vecs):
 	sent = remove_stops(sent_dict["sent"])
 
 	projection_words = sorted(list(set([w for w in sent if (w in vecs) and (w not in [sent_dict["dobj"],sent_dict["nsubj"],sent_dict["verb"]] )])))
-	if projection_words == []: return None,None
+	if projection_words == []: 
+		print("NO PROJECTION WORDS")
+		return None,None
 	projection_matrix = np.asarray([vecs[w] for w in projection_words]).T
 
 	# obj_and_subj = [x for x in [sent_dict["dobj"],sent_dict["nsubj"]] if not np.isNan(x)]
@@ -90,7 +92,7 @@ def metrics_tsvetkov(sent_dict,vecs):
 	projected_v = np.squeeze(projection(np.expand_dims(v,1), projection_matrix))
 	distance_in_subspace = scipy.spatial.distance.euclidean(projected_s_o,projected_v)
 
-
+	return distance_in_original_space,distance_in_subspace
 
 
 # if __name__ == "__main__":
@@ -168,6 +170,10 @@ def data_to_predictions(lit_data,met_data):
 
 if __name__ == "__main__":
 
-	lit_data,met_data = produce_trofi_data()
-	unzipped_lit_val_data, unzipped_met_val_data, unzipped_lit_train_data, unzipped_met_train_data = data_to_predictions(lit_data=lit_data,met_data=met_data)
-	print(unzipped_lit_train_data)
+	# lit_data,met_data = produce_trofi_data()
+
+	lit_data,met_data = produce_tsvetkov_data()
+	print(lit_data)
+
+	# unzipped_lit_val_data, unzipped_met_val_data, unzipped_lit_train_data, unzipped_met_train_data = data_to_predictions(lit_data=lit_data,met_data=met_data)
+	# print(unzipped_lit_train_data) 
