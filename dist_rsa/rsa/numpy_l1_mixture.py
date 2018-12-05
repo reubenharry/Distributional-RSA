@@ -86,7 +86,7 @@ def np_l1(inference_params):
 
 		approximate_mean = 0.0
 
-		optimize = False
+		optimize = True
 		if optimize:
 
 			discrete_worlds_along_qud = np.asarray([np.transpose(qud_matrix[qi])*((amount*x)+approximate_mean) for x in range(-size,size+1)])
