@@ -10,8 +10,8 @@ sigma_p = 1.0
 sigma_i = 1.0
 
 
-participants = ["p"]*100
-items = ['i']*100
+participants = ["p"+str(n) for n in range(100)]
+items = ['i'+str(n) for n in range(100)]
 
 participant_intercepts = np.random.normal(0.0,sigma_p,100)
 item_intercepts = np.random.normal(0.0,sigma_i,100)
