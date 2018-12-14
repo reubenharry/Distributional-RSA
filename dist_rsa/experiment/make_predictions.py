@@ -298,6 +298,6 @@ def join_list(l):
 
 metaphors = join_list(AN_corpus)
 
-results_to_json(metaphors=metaphors,LOAD=False)
+results_to_json(metaphors=metaphors,LOAD=True)
 
 
