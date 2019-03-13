@@ -1,0 +1,5 @@
+
+scp templates/exp.html reubencg@45.79.223.150:~/experiment/templates/exp.html
+scp static/scripts/stimuli.js reubencg@45.79.223.150:~/experiment/static/scripts/stimuli.js
+scp -r static/resources/exp6_rating/* reubencg@45.79.223.150:~/experiment/static/resources/exp6_rating/
+scp static/jsPsych/plugins/jspsych-html-slider-response.js reubencg@45.79.223.150:~/experiment/static/jsPsych/plugins/jspsych-html-slider-response.js

@@ -94,7 +94,7 @@ def get_words(with_freqs=False):
 	adjs = {}
 	words = set()
 
-	vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.6B.mean_vecs300",'rb'),encoding='latin1')
+	# vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.6B.mean_vecs300",'rb'),encoding='latin1')
 
 	with open('dist_rsa/data/concreteness.csv', newline='') as csvfile:
 		r = csv.reader(csvfile, delimiter=',', quotechar='|')

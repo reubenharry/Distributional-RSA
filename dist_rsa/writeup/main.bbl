@@ -1,0 +1,370 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Dai%
+\ \BBA {} Le%
+}{%
+Dai%
+\ \BBA {} Le%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+dai2015semi}
+\APACinsertmetastar {%
+dai2015semi}%
+\begin{APACrefauthors}%
+Dai, A\BPBI M.%
+\BCBT {}\ \BBA {} Le, Q\BPBI V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Semi-supervised sequence learning} {Semi-supervised
+  sequence learning}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Advances in neural information processing systems}
+  {Advances in neural information processing systems}\ (\BPGS\ 3079--3087).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Devlin%
+, Chang%
+, Lee%
+\BCBL {}\ \BBA {} Toutanova%
+}{%
+Devlin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+devlin2018bert}
+\APACinsertmetastar {%
+devlin2018bert}%
+\begin{APACrefauthors}%
+Devlin, J.%
+, Chang, M\BHBI W.%
+, Lee, K.%
+\BCBL {}\ \BBA {} Toutanova, K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Bert: Pre-training of deep bidirectional transformers
+  for language understanding} {Bert: Pre-training of deep bidirectional
+  transformers for language understanding}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{arXiv preprint arXiv:1810.04805}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Frank%
+\ \BBA {} Goodman%
+}{%
+Frank%
+\ \BBA {} Goodman%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+frank2012predicting}
+\APACinsertmetastar {%
+frank2012predicting}%
+\begin{APACrefauthors}%
+Frank, M\BPBI C.%
+\BCBT {}\ \BBA {} Goodman, N\BPBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Predicting pragmatic reasoning in language games}
+  {Predicting pragmatic reasoning in language games}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Science}{336}{6084}{998--998}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Golland%
+, Liang%
+\BCBL {}\ \BBA {} Klein%
+}{%
+Golland%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+golland2010game}
+\APACinsertmetastar {%
+golland2010game}%
+\begin{APACrefauthors}%
+Golland, D.%
+, Liang, P.%
+\BCBL {}\ \BBA {} Klein, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A game-theoretic approach to generating spatial
+  descriptions} {A game-theoretic approach to generating spatial
+  descriptions}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the 2010 conference on empirical methods
+  in natural language processing} {Proceedings of the 2010 conference on
+  empirical methods in natural language processing}\ (\BPGS\ 410--419).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Goodman%
+\ \BBA {} Stuhlm{\"u}ller%
+}{%
+Goodman%
+\ \BBA {} Stuhlm{\"u}ller%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+goodman}
+\APACinsertmetastar {%
+goodman}%
+\begin{APACrefauthors}%
+Goodman, N\BPBI D.%
+\BCBT {}\ \BBA {} Stuhlm{\"u}ller, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Knowledge and implicature: Modeling language
+  understanding as social cognition} {Knowledge and implicature: Modeling
+  language understanding as social cognition}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Topics in cognitive science}{5}{1}{173--184}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kao%
+, Bergen%
+\BCBL {}\ \BBA {} Goodman%
+}{%
+Kao%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+kao}
+\APACinsertmetastar {%
+kao}%
+\begin{APACrefauthors}%
+Kao, J\BPBI T.%
+, Bergen, L.%
+\BCBL {}\ \BBA {} Goodman, N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formalizing the Pragmatics of Metaphor Understanding.}
+  {Formalizing the pragmatics of metaphor understanding.}{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {CogSci.} {Cogsci.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lakoff%
+\ \BBA {} Johnson%
+}{%
+Lakoff%
+\ \BBA {} Johnson%
+}{%
+{\protect \APACyear {1980}}%
+}]{%
+lakoff1980metaphors}
+\APACinsertmetastar {%
+lakoff1980metaphors}%
+\begin{APACrefauthors}%
+Lakoff, G.%
+\BCBT {}\ \BBA {} Johnson, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1980}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Metaphors we live by} {Metaphors we live by}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Chicago, IL: University of}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mikolov%
+, Sutskever%
+, Chen%
+, Corrado%
+\BCBL {}\ \BBA {} Dean%
+}{%
+Mikolov%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+mikolov2013distributed}
+\APACinsertmetastar {%
+mikolov2013distributed}%
+\begin{APACrefauthors}%
+Mikolov, T.%
+, Sutskever, I.%
+, Chen, K.%
+, Corrado, G\BPBI S.%
+\BCBL {}\ \BBA {} Dean, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Distributed representations of words and phrases and
+  their compositionality} {Distributed representations of words and phrases and
+  their compositionality}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Advances in neural information processing systems}
+  {Advances in neural information processing systems}\ (\BPGS\ 3111--3119).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Pennington%
+, Socher%
+\BCBL {}\ \BBA {} Manning%
+}{%
+Pennington%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+pennington2014glove}
+\APACinsertmetastar {%
+pennington2014glove}%
+\begin{APACrefauthors}%
+Pennington, J.%
+, Socher, R.%
+\BCBL {}\ \BBA {} Manning, C\BPBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Glove: Global Vectors for Word Representation.} {Glove:
+  Global vectors for word representation.}{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {EMNLP} {Emnlp}\ (\BVOL~14, \BPGS\ 1532--1543).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Peters%
+\ \protect \BOthers {.}}{%
+Peters%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+peters2018deep}
+\APACinsertmetastar {%
+peters2018deep}%
+\begin{APACrefauthors}%
+Peters, M\BPBI E.%
+, Neumann, M.%
+, Iyyer, M.%
+, Gardner, M.%
+, Clark, C.%
+, Lee, K.%
+\BCBL {}\ \BBA {} Zettlemoyer, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Deep contextualized word representations} {Deep
+  contextualized word representations}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{arXiv preprint arXiv:1802.05365}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Radford%
+, Narasimhan%
+, Salimans%
+\BCBL {}\ \BBA {} Sutskever%
+}{%
+Radford%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+radford2018improving}
+\APACinsertmetastar {%
+radford2018improving}%
+\begin{APACrefauthors}%
+Radford, A.%
+, Narasimhan, K.%
+, Salimans, T.%
+\BCBL {}\ \BBA {} Sutskever, I.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+\APACrefbtitle {Improving language understanding with unsupervised learning}
+  {Improving language understanding with unsupervised learning}\
+  \APACbVolEdTR{}{\BTR{}}.
+\newblock
+\APACaddressInstitution{}{Technical report, OpenAI}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Shutova%
+}{%
+Shutova%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+shutova2016design}
+\APACinsertmetastar {%
+shutova2016design}%
+\begin{APACrefauthors}%
+Shutova, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Design and evaluation of metaphor processing systems}
+  {Design and evaluation of metaphor processing systems}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Computational Linguistics}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Socher%
+\ \protect \BOthers {.}}{%
+Socher%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+socher2013recursive}
+\APACinsertmetastar {%
+socher2013recursive}%
+\begin{APACrefauthors}%
+Socher, R.%
+, Perelygin, A.%
+, Wu, J\BPBI Y.%
+, Chuang, J.%
+, Manning, C\BPBI D.%
+, Ng, A\BPBI Y.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Recursive deep models for semantic compositionality over
+  a sentiment treebank} {Recursive deep models for semantic compositionality
+  over a sentiment treebank}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the conference on empirical methods in
+  natural language processing (EMNLP)} {Proceedings of the conference on
+  empirical methods in natural language processing (emnlp)}\ (\BVOL\ 1631,
+  \BPG~1642).
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

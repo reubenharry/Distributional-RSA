@@ -1,13 +1,11 @@
 import time
 import tqdm
 import numpy as np
-import edward as ed
 import scipy
 import scipy.stats
 from collections import Counter
 import pickle
 import tensorflow as tf
-from edward.models import Normal,Empirical, Bernoulli, Categorical
 from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
     normalize,as_a_matrix,tensor_projection_matrix,\
     double_tensor_projection_matrix,combine_quds, lookup,\
@@ -72,7 +70,7 @@ def tf_l1(inference_params):
 
 	# CALCULATE MEAN AND SIGMA OF p(w|q=qi,u=u) in the projected space
 	# CODE IS ONLY FOR 1D QUDS
-	full_space_prior = Normal(loc=tf.squeeze(listener_world), scale=[std] * inference_params.vec_length)
+	full_space_prior = tf.distributions.Normal(loc=tf.squeeze(listener_world), scale=[std] * inference_params.vec_length)
 	tic = time.time()
 	for qi in tqdm.tqdm(range(len(qud_combinations))):
 
@@ -181,7 +179,7 @@ def tf_l1(inference_params):
 		if inference_params.heatmap:
 	
 			# define new normal in basis of qud and orthog dims
-			new_basis_normal=Normal(loc=new_basis_mean,scale=tf.sqrt(new_basis_variance))
+			new_basis_normal=tf.distributions.Normal(loc=new_basis_mean,scale=tf.sqrt(new_basis_variance))
 			new_basis_support = tf.matmul(discrete_worlds,orthogonal_basis)
 			heatmap_probs = tf.map_fn(lambda w: tf.reduce_sum(new_basis_normal.log_prob(w)),new_basis_support)
 			heatmap = tf.transpose(tf.reshape(heatmap_probs,(size*2+1,size*2+1)) - tf.reduce_logsumexp(heatmap_probs))

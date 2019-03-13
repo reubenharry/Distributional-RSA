@@ -187,13 +187,27 @@ def results_to_json(metaphors,LOAD):
     type_to_unique_predictions = defaultdict(dict)
 
     lengths = []
+    full_count = 0
+    count12 = 0
+    count13 = 0
+    count23 = 0
     for i,metaphor in enumerate(metaphors):
+
+
 
 
 
         l1_predictions = type_to_predictions[metaphor]["numpy_discrete_mixture"]
         qud_only_predictions = type_to_predictions[metaphor]["qud_only"]
         baseline_predictions = type_to_predictions[metaphor]["baseline"]
+
+        full_count+=1
+
+        if len(list(set(l1_predictions[:2]+qud_only_predictions[:2]))) < 4: count12+=1
+        if len(list(set(l1_predictions[:2]+baseline_predictions[:2]))) < 4: count13+=1
+        if len(list(set(qud_only_predictions[:2]+baseline_predictions[:2]))) < 4: count23+=1
+
+
 
         lengths.append(len(list(set(l1_predictions[:2]+qud_only_predictions[:2]+baseline_predictions[:2]))))
         # # print("l1_predictions",l1_predictions)
@@ -234,6 +248,13 @@ def results_to_json(metaphors,LOAD):
         # assert len(list(set(l1_predictions[:2]+qud_only_predictions[:2]+baseline_predictions[:2])))==6
 
     # print(type_to_unique_predictions)
+
+    print("full count",full_count)
+    print("l1 and qud only overlaps",count12)
+    print("l1 and baseline overlaps",count13)
+    print("qud only and baseline overlaps",count23)
+
+    raise Exception
 
     print("lengths",np.mean(lengths),len(lengths))
     output = []

@@ -1,0 +1,43 @@
+[HIT Configuration]
+title = Look at 'miniature' visual languages (drawings) and tell us how structured they are.
+description = Look at visual symbols from miniature languages // HIT will take < 2mins ($0.40)
+amt_keywords = language, linguistics, psychology, learning, structure, perception, phonology, experiment, science, sound, bonus, study
+lifetime = 48
+us_only = true
+approve_requirement = 95
+contact_email_on_error = mitcpllab@gmail.com
+ad_group = psiTurk language learning experiment
+psiturk_keywords = linguistics
+organization_name = MIT
+browser_exclude_rule = MSIE, mobile, tablet
+allow_repeats = false
+
+[Database Parameters]
+database_url = sqlite:///participants.db
+table_name = survey
+
+[Server Parameters]
+host = 0.0.0.0
+port = 22362
+cutoff_time = 60
+logfile = server.log
+loglevel = 2
+debug = false
+login_username = examplename
+login_pw = examplepassword
+threads = auto
+
+[Task Parameters]
+experiment_code_version = 1.0
+num_conds = 1
+num_counters = 1
+
+[Shell Parameters]
+launch_in_sandbox_mode = false
+
+# If you are not using the psiturk ad server, set `use_psiturk_ad_server` to `false` and point `ad_location` to your proxy server <host> and <port>. Format the ad_location like this:
+#
+#   https://<host>:<port>/ad
+
+use_psiturk_ad_server = true
+ad_location = false

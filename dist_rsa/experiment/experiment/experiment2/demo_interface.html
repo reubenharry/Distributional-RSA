@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<title>Flute</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+
+	<!-- audio scripts -->
+  <script src="/static/scripts/Tone.min.js"></script>
+  <script src="/static/scripts/lib/jquery-3.3.1.min.js"></script>
+  <script src="/static/scripts/StartAudioContext.js"></script>
+
+  <!-- DTW -->
+  <script src="/static/scripts/dtw/matrix.js"></script>
+  <script src="/static/scripts/dtw/validate.js"></script>
+  <script src="/static/scripts/dtw/comparison.js"></script>
+  <script src="/static/scripts/dtw/distanceFunctions/euclidean.js"></script>
+  <script src="/static/scripts/dtw/distanceFunctions/manhattan.js"></script>
+  <script src="/static/scripts/dtw/distanceFunctions/squaredEuclidean.js"></script>
+  <script src="/static/scripts/dtw/dtw.js"></script>
+
+  <!-- whistle instrument scripts -->
+  <script src="/static/scripts/helpers.js"></script>
+  <script src="/static/scripts/whistle_core.js"></script>
+  <script src="/static/scripts/whistle_demo.js"></script>
+
+  <!-- style files -->
+  <link href="/static/css/whistle.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+
+	<div id="interface">
+		<h2>Slide whistle demo</h2>
+		<p>After pressing play/record, place your mouse inside the grey rectangle and press space to produce a sound.</p>
+		<p>Click playback to play the last recorded utterance.</p>
+  		<!-- <button id="play_button" type="button">Play mode</button> -->
+  		<button id="record_button" type="button">(R)ecord</button>
+  		<button id="playback_button" type="button">(P)layback</button>
+  		<button id="save_button" type="button">(S)ave .wav</button>
+
+      <div class="clear"></div>
+  		<input id="feedback_checkbox" type="checkbox" name="feedback" value="feedback">
+  		<label for="feedback_checkbox">Disable visual feedback</label>
+
+      <div class="clear"></div>
+      <input id="json_checkbox" type="checkbox" name="json" value="json">
+      <label for="json_checkbox">Save JSON</label>
+
+      <div class="clear"></div>
+      <input id="compare_checkbox" type="checkbox" name="compare" value="compare">
+      <label for="compare_checkbox">Compare to input</label>
+      <input type="text" id="distance-value-field" value="distance" name="distance" disabled>
+
+      <div class="clear"></div>
+      <div class="input-textfield-label">
+        <span class="label-min-width">Output filename</span>
+        <input type="text", id="output-filename-field", name="utterance">
+      </div>
+
+      <div class="input-textfield-label">
+        <span class="label-min-width">Input filename</span>
+        <input type="text", id="input-filename-field", name="utterance">
+      </div>
+
+      <div class="clear"></div>
+      <button id="reference_button" type="button">Listen to input</button>
+
+      <div id="file_container"></div>
+  	</div>
+
+  	<div id="flute-container">
+
+        <div id="inactive_wrapper">
+          <div id="inactive_box">
+            <p>The instrument is inactive.</p>
+            <p>Mouse over to activate.</p>
+          </div>
+        </div>
+
+  		<div id="left_container">
+  			<div id="piston"></div>
+  			<div id="body"></div>
+  		</div>
+  		<div id="right_container">
+  			<div id="plunger"></div>
+  		</div>
+  	</div>
+
+
+
+  </body>
+</html>

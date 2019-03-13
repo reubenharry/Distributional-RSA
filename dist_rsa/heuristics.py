@@ -7,12 +7,12 @@ import itertools
 from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import projection
 import spacy
-nlp = spacy.load('en')
 from nltk.corpus import stopwords
 import random
 import math
 from sklearn.linear_model import Perceptron,LogisticRegression
 
+nlp = spacy.load('en')
 random.seed(4)
 
 stops = set(stopwords.words('english'))

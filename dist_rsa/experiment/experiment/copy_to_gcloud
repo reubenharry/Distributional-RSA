@@ -1,0 +1,6 @@
+#gcloud compute scp --recurse experiment reubencg@instance-8:~/experiment --zone us-west1-b
+#gcloud compute scp  static/resources/exp6_rating/exp.js reubencg@instance-8:~/experiment2/static/resources/exp6_rating/exp.js --zone us-west1-b
+
+#gcloud compute scp  new_custom.py reubencg@instance-7:~/experiment2/new_custom.py --zone us-east1-b
+#gcloud compute scp /Users/reuben/.psiturkconfig reubencg@instance-8:~/.psiturkconfig --zone us-west1-b
+gcloud compute scp /Users/reuben/Dropbox/cplkeys reubencg@instance-8:~/cplkeys --zone us-west1-b

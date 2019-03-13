@@ -1,0 +1,60 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+The style file: apacite.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: metaphor.bib.bib
+Warning--I didn't find a database entry for "coecke"
+Warning--I didn't find a database entry for "CITATION"
+apacite.bst [2013/07/21 v6.03 APA bibliography style]
+Warning--No address in radford2018improving
+You've used 13 entries,
+            6951 wiz_defined-function locations,
+            1344 strings with 13043 characters,
+and the built_in function-call counts, 27374 in all, are:
+= -- 3496
+> -- 283
+< -- 1154
++ -- 1240
+- -- 28
+* -- 1644
+:= -- 4578
+add.period$ -- 64
+call.type$ -- 13
+change.case$ -- 227
+chr.to.int$ -- 0
+cite$ -- 27
+duplicate$ -- 790
+empty$ -- 1062
+format.name$ -- 454
+if$ -- 5362
+int.to.chr$ -- 0
+int.to.str$ -- 39
+missing$ -- 0
+newline$ -- 345
+num.names$ -- 104
+pop$ -- 598
+preamble$ -- 1
+purify$ -- 52
+quote$ -- 0
+skip$ -- 1838
+stack$ -- 0
+substring$ -- 1419
+swap$ -- 453
+text.length$ -- 66
+text.prefix$ -- 0
+top$ -- 1
+type$ -- 1424
+warning$ -- 1
+while$ -- 158
+width$ -- 0
+write$ -- 453
+(There were 3 warnings)

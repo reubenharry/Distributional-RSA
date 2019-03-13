@@ -1,0 +1,5 @@
+name: psiturk2
+channels:
+  - defaults
+prefix: /home/reubencg/.conda/envs/psiturk2
+

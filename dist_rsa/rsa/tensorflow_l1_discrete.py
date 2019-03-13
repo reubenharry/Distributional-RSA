@@ -128,9 +128,13 @@ def tf_l1_discrete(inference_params):
 	results = list(zip(qud_combinations,sess.run(qud_posterior)))
 	results = (sorted(results, key=lambda x: x[1], reverse=True))
 
-	inference_params.heatmap=np.reshape(world_posterior_np,newshape=(size*2+1,size*2+1))
+	inference_params.worlds=np.reshape(world_posterior_np,newshape=(size*2+1,size*2+1)).T
 
-	return inference_params.heatmap,[(x,np.exp(y)) for (x,y) in results]
+	inference_params.heatmap=inference_params.worlds
+
+	inference_params.qud_marginals=[(x,np.exp(y)) for (x,y) in results]
+
+	return inference_params.worlds,[(x,np.exp(y)) for (x,y) in results]
 
 
 

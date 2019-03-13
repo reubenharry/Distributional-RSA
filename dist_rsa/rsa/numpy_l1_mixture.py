@@ -3,14 +3,12 @@
 import time
 import tqdm
 import numpy as np
-import edward as ed
 import scipy
 import scipy.stats
 from collections import Counter
 import pickle
 from scipy.stats import multivariate_normal
 import tensorflow as tf
-# from edward.models import Normal,Empirical, Bernoulli, Categorical
 from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
     normalize,as_a_matrix,tensor_projection_matrix,\
     double_tensor_projection_matrix,combine_quds, lookup,\
