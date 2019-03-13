@@ -18,7 +18,8 @@ mean_center = True
 remove_top_dims = False
 norm_vectors = False
 
-path = "dist_rsa/data/results/pickles/s2memo/"
+# path = "dist_rsa/data/results/pickles/s2memo/"
+path = "dist_rsa/data/results/pickles/s2memo_with_opt/"
 # items = [("man","shark"),("man","banana")]
 vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='glove.6B.')
 word_selection_vecs = vecs
@@ -160,7 +161,7 @@ def results_to_json(metaphors,LOAD):
         mean_center = True
         remove_top_dims = False
         norm_vectors = False
-        sig1 = 1e0
+        sig1 = 1e-1
         sig2 = 1e-1
         l1_sig1 = 1e-1
         hyperparams = Hyperparams(mean_center=mean_center,remove_top_dims=remove_top_dims,norm_vectors=norm_vectors,sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,model_type=model_type)
@@ -182,15 +183,16 @@ def results_to_json(metaphors,LOAD):
 
             type_to_predictions[metaphor][model_type]=ordered_quds
 
-    print(type_to_predictions)
+    # print(type_to_predictions)
 
     type_to_unique_predictions = defaultdict(dict)
 
-    lengths = []
+
+    # lengths = []
     full_count = 0
-    count12 = 0
-    count13 = 0
-    count23 = 0
+    # count12 = 0
+    # count13 = 0
+    # count23 = 0
     for i,metaphor in enumerate(metaphors):
 
 
@@ -198,18 +200,24 @@ def results_to_json(metaphors,LOAD):
 
 
         l1_predictions = type_to_predictions[metaphor]["numpy_discrete_mixture"]
-        qud_only_predictions = type_to_predictions[metaphor]["qud_only"]
+        # qud_only_predictions = type_to_predictions[metaphor]["qud_only"]
         baseline_predictions = type_to_predictions[metaphor]["baseline"]
+
+
+
+        # if len(list(set(l1_predictions[:2]+qud_only_predictions[:2]))) < 4: count12+=1
+        # if len(list(set(l1_predictions[:2]+baseline_predictions[:2]))) < 4: count13+=1
+        # if len(list(set(qud_only_predictions[:2]+baseline_predictions[:2]))) < 4: count23+=1
+
+        if len(list(set(l1_predictions[:3]+baseline_predictions[:3]))) < 6:
+            print("removed")
+            continue
 
         full_count+=1
 
-        if len(list(set(l1_predictions[:2]+qud_only_predictions[:2]))) < 4: count12+=1
-        if len(list(set(l1_predictions[:2]+baseline_predictions[:2]))) < 4: count13+=1
-        if len(list(set(qud_only_predictions[:2]+baseline_predictions[:2]))) < 4: count23+=1
 
 
-
-        lengths.append(len(list(set(l1_predictions[:2]+qud_only_predictions[:2]+baseline_predictions[:2]))))
+        # lengths.append(len(list(set(l1_predictions[:2]+qud_only_predictions[:2]+baseline_predictions[:2]))))
         # # print("l1_predictions",l1_predictions)
         # removal_counter = 0
         # counter = 0
@@ -240,9 +248,12 @@ def results_to_json(metaphors,LOAD):
         #     else:
         #         counter+=1
 
-        type_to_unique_predictions[metaphor]["numpy_discrete_mixture"] = l1_predictions[:2]
-        type_to_unique_predictions[metaphor]["qud_only"] = qud_only_predictions[:2]
-        type_to_unique_predictions[metaphor]["baseline"] = baseline_predictions[:2]
+        type_to_unique_predictions[metaphor]["numpy_discrete_mixture"] = l1_predictions[:3]
+        # type_to_unique_predictions[metaphor]["qud_only"] = qud_only_predictions[:2]
+        type_to_unique_predictions[metaphor]["baseline"] = baseline_predictions[:3]
+
+        # print(l1_predictions[:2])
+        # print(baseline_predictions)
 
         # print(l1_predictions[:2]+qud_only_predictions[:2]+baseline_predictions[:2])
         # assert len(list(set(l1_predictions[:2]+qud_only_predictions[:2]+baseline_predictions[:2])))==6
@@ -250,20 +261,22 @@ def results_to_json(metaphors,LOAD):
     # print(type_to_unique_predictions)
 
     print("full count",full_count)
-    print("l1 and qud only overlaps",count12)
-    print("l1 and baseline overlaps",count13)
-    print("qud only and baseline overlaps",count23)
 
-    raise Exception
+    # print("l1 and qud only overlaps",count12)
+    # print("l1 and baseline overlaps",count13)
+    # print("qud only and baseline overlaps",count23)
 
-    print("lengths",np.mean(lengths),len(lengths))
+    # raise Exception
+
+    # print("lengths",np.mean(lengths),len(lengths))
     output = []
     for metaphor in type_to_unique_predictions:
 
 
 
-        new_dict = {type_to_label["numpy_discrete_mixture"]: type_to_unique_predictions[metaphor]["numpy_discrete_mixture"],
-        type_to_label["qud_only"]: type_to_unique_predictions[metaphor]["qud_only"],
+        new_dict = {
+        type_to_label["numpy_discrete_mixture"]: type_to_unique_predictions[metaphor]["numpy_discrete_mixture"],
+        # type_to_label["qud_only"]: type_to_unique_predictions[metaphor]["qud_only"],
         type_to_label["baseline"]: type_to_unique_predictions[metaphor]["baseline"],
         "topic": metaphor[1]+" "+metaphor[0],
         "metaphor": metaphor }
