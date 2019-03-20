@@ -1,6 +1,34 @@
 \begin{thebibliography}{}
 
 \bibitem [\protect \citeauthoryear {%
+Brysbaert%
+, Warriner%
+\BCBL {}\ \BBA {} Kuperman%
+}{%
+Brysbaert%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+brysbaert2014concreteness}
+\APACinsertmetastar {%
+brysbaert2014concreteness}%
+\begin{APACrefauthors}%
+Brysbaert, M.%
+, Warriner, A\BPBI B.%
+\BCBL {}\ \BBA {} Kuperman, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Concreteness ratings for 40 thousand generally known
+  English word lemmas} {Concreteness ratings for 40 thousand generally known
+  english word lemmas}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Behavior research methods}{46}{3}{904--911}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Dai%
 \ \BBA {} Le%
 }{%
@@ -25,6 +53,30 @@ Dai, A\BPBI M.%
 \newblock
 \BIn{} \APACrefbtitle {Advances in neural information processing systems}
   {Advances in neural information processing systems}\ (\BPGS\ 3079--3087).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Davies%
+}{%
+Davies%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+davies2011word}
+\APACinsertmetastar {%
+davies2011word}%
+\begin{APACrefauthors}%
+Davies, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Word frequency data: Corpus of contemporary American
+  English} {Word frequency data: Corpus of contemporary american
+  english}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Provo, UT: COCA}{}{}{}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -141,6 +193,31 @@ Goodman, N\BPBI D.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Grefenstette%
+}{%
+Grefenstette%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+grefenstette2013category}
+\APACinsertmetastar {%
+grefenstette2013category}%
+\begin{APACrefauthors}%
+Grefenstette, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Category-theoretic quantitative compositional
+  distributional models of natural language semantics} {Category-theoretic
+  quantitative compositional distributional models of natural language
+  semantics}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{arXiv preprint arXiv:1311.1539}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Kao%
 , Bergen%
 \BCBL {}\ \BBA {} Goodman%
@@ -223,6 +300,32 @@ Mikolov, T.%
 \newblock
 \BIn{} \APACrefbtitle {Advances in neural information processing systems}
   {Advances in neural information processing systems}\ (\BPGS\ 3111--3119).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mitchell%
+\ \BBA {} Lapata%
+}{%
+Mitchell%
+\ \BBA {} Lapata%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+mitchell2010composition}
+\APACinsertmetastar {%
+mitchell2010composition}%
+\begin{APACrefauthors}%
+Mitchell, J.%
+\BCBT {}\ \BBA {} Lapata, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Composition in distributional models of semantics}
+  {Composition in distributional models of semantics}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Cognitive science}{34}{8}{1388--1429}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -347,11 +450,11 @@ socher2013recursive}%
 \begin{APACrefauthors}%
 Socher, R.%
 , Perelygin, A.%
-, Wu, J\BPBI Y.%
+, Wu, J.%
 , Chuang, J.%
 , Manning, C\BPBI D.%
-, Ng, A\BPBI Y.%
-\BDBL {}others%
+, Ng, A.%
+\BCBL {}\ \BBA {} Potts, C.%
 \end{APACrefauthors}%
 \unskip\
 \newblock
@@ -361,10 +464,43 @@ Socher, R.%
   a sentiment treebank} {Recursive deep models for semantic compositionality
   over a sentiment treebank}.{\BBCQ}
 \newblock
-\BIn{} \APACrefbtitle {Proceedings of the conference on empirical methods in
-  natural language processing (EMNLP)} {Proceedings of the conference on
-  empirical methods in natural language processing (emnlp)}\ (\BVOL\ 1631,
-  \BPG~1642).
+\BIn{} \APACrefbtitle {Proceedings of the 2013 conference on empirical methods
+  in natural language processing} {Proceedings of the 2013 conference on
+  empirical methods in natural language processing}\ (\BPGS\ 1631--1642).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Tsvetkov%
+, Boytsov%
+, Gershman%
+, Nyberg%
+\BCBL {}\ \BBA {} Dyer%
+}{%
+Tsvetkov%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+tsvetkov2014metaphor}
+\APACinsertmetastar {%
+tsvetkov2014metaphor}%
+\begin{APACrefauthors}%
+Tsvetkov, Y.%
+, Boytsov, L.%
+, Gershman, A.%
+, Nyberg, E.%
+\BCBL {}\ \BBA {} Dyer, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Metaphor detection with cross-lingual model transfer}
+  {Metaphor detection with cross-lingual model transfer}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the 52nd Annual Meeting of the
+  Association for Computational Linguistics (Volume 1: Long Papers)}
+  {Proceedings of the 52nd annual meeting of the association for computational
+  linguistics (volume 1: Long papers)}\ (\BVOL~1, \BPGS\ 248--258).
 \PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}
