@@ -12,48 +12,47 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: metaphor.bib.bib
-Warning--I didn't find a database entry for "coecke"
 apacite.bst [2013/07/21 v6.03 APA bibliography style]
 Warning--No address in radford2018improving
-You've used 18 entries,
+You've used 20 entries,
             6951 wiz_defined-function locations,
-            1369 strings with 13903 characters,
-and the built_in function-call counts, 36961 in all, are:
-= -- 4669
-> -- 367
-< -- 1627
-+ -- 1687
-- -- 36
-* -- 2266
-:= -- 6333
-add.period$ -- 87
-call.type$ -- 18
-change.case$ -- 313
+            1377 strings with 14130 characters,
+and the built_in function-call counts, 40320 in all, are:
+= -- 5080
+> -- 396
+< -- 1780
++ -- 1834
+- -- 40
+* -- 2474
+:= -- 6930
+add.period$ -- 95
+call.type$ -- 20
+change.case$ -- 347
 chr.to.int$ -- 0
-cite$ -- 37
-duplicate$ -- 1037
-empty$ -- 1438
-format.name$ -- 588
-if$ -- 7188
+cite$ -- 41
+duplicate$ -- 1130
+empty$ -- 1582
+format.name$ -- 634
+if$ -- 7843
 int.to.chr$ -- 0
-int.to.str$ -- 54
+int.to.str$ -- 60
 missing$ -- 0
-newline$ -- 470
-num.names$ -- 144
-pop$ -- 753
+newline$ -- 518
+num.names$ -- 160
+pop$ -- 801
 preamble$ -- 1
-purify$ -- 72
+purify$ -- 80
 quote$ -- 0
-skip$ -- 2488
+skip$ -- 2735
 stack$ -- 0
-substring$ -- 1897
-swap$ -- 605
-text.length$ -- 81
+substring$ -- 2057
+swap$ -- 656
+text.length$ -- 85
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 1888
+type$ -- 2048
 warning$ -- 1
-while$ -- 204
+while$ -- 221
 width$ -- 0
-write$ -- 611
-(There were 2 warnings)
+write$ -- 670
+(There was 1 warning)

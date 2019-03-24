@@ -1,23 +1,15 @@
 
-var world_priors = [0.15,0.05,0.35,0.45]
-var worlds = [
-   
-    {vicious: false, animal: true},
-    {vicious: false, animal: false},
-   {vicious: true, animal: true}, 
-    {vicious: true, animal: false}, 
-    ]
 
 
 var world_prior = function(){
   Infer({method:'enumerate',model: function(){
-    var fast = flip()
-    var vicious = flip()
-    var animal = flip()
+    var fast = flip(0.75)
+    var vicious = flip(0.75)
+    var animal = flip(0.1)
     return {vicious:vicious,fast:fast,animal:animal}
   }})}
 
-var utterances = ["shark","silence","hawk"]
+var utterances = ["shark","silence","hummingbird"]
 
 
 
@@ -27,7 +19,7 @@ var sem = function(u,w){
 
 var l0 = function(utterance){
   Infer({method:'enumerate',model: function(){
-    var world = categorical({vs: worlds, ps: world_priors })
+    var world = sample(world_prior())
     condition(sem(utterance,world))
     return world    
   }})}
@@ -42,7 +34,7 @@ var s1 = function(w,q){
 
 var l1 = function(utterance){
   Infer({model: function(){
-    var w = categorical({vs: worlds, ps: world_priors })
+    var w = sample(world_prior())
     var q = uniformDraw(["vicious","animal","fast"])
     factor(s1(w,q).score(utterance))
     return [w,q]

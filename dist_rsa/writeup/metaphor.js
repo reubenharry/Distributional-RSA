@@ -1,23 +1,25 @@
 
-var world_priors = [0.15,0.05,0.35,0.45]
-var worlds = [
-    {vicious: true, aquatic: true}, 
-    {vicious: true, aquatic: false}, 
-    {vicious: false, aquatic: true},
-    {vicious: false, aquatic: false},
-    ]
 
-var utterances = ["shark","fish"]
+
+var world_prior = function(){
+  Infer({method:'enumerate',model: function(){
+    var vicious = flip(0.75)
+    var animal = flip(0.1)
+    return {vicious:vicious,animal:animal}
+  }})}
+
+var utterances = ["shark","silence"]
+
+
 
 var sem = function(u,w){
-  return u=="shark"?w["vicious"]&&w["aquatic"]:w["aquatic"]
+  return u=="shark"?w["vicious"]&&w["animal"]:true
 }
 
 var l0 = function(utterance){
   Infer({method:'enumerate',model: function(){
-    var world = categorical({vs: worlds, ps: world_priors })
-    var utility = sem(utterance,world)
-    factor(utility)
+    var world = sample(world_prior())
+    condition(sem(utterance,world))
     return world    
   }})}
 
@@ -31,14 +33,27 @@ var s1 = function(w,q){
 
 var l1 = function(utterance){
   Infer({model: function(){
-    var w = categorical({vs: worlds, ps: world_priors })
-    var q = uniformDraw(["vicious","aquatic"])
+    var w = sample(world_prior())
+    var q = uniformDraw(["vicious","animal"])
     factor(s1(w,q).score(utterance))
-    return [w]
+    return [w,q]
+    
+  }})
+}
+
+var l1Prior = function(){
+  Infer({model: function(){
+    var w = sample(world_prior())
+    var q = uniformDraw(["vicious","animal"])
+    return [w,q]
     
   }})
 }
 
 viz.table(l0('shark'))
+viz.table(l0('silence'))
+// viz.table(s1(worlds[0],"vicious"))
 viz.table(l1('shark'))
-viz.table(l1('fish'))
+viz.table(l1('silence'))
+viz.table(l1Prior())
+// viz.table(l1('fish'))

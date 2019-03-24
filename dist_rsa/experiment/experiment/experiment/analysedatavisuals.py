@@ -27,11 +27,14 @@ def trial_to_values(t):
 	values = []
 
 	comment = t["data"][2+NUM_OF_ITEMS]["trialdata"]
+	print("comment",comment)
 	# print("COMMENT",comment)
 	# raise Exception
 	test = t["data"][1]["trialdata"]["response"]
 	# adjectives = [test[0],test[2],test[4],test[6]]
 	# vals = [test[1],test[3],test[5],test[7]]
+
+	participants.append(t["workerId"])
 
 	if not (int(test[1])>50 and int(test[3])>50 and int(test[5])<50 and int(test[7])<50):
 		return None
@@ -56,6 +59,7 @@ def trial_to_values(t):
 		response = t["data"][i]["trialdata"]["response"]
 
 		participant = t['workerId']
+
 
 		# print(response)
 		# raise Exception
@@ -118,10 +122,23 @@ def trial_to_values(t):
 			preferred2 = "equal"
 
 
+
+
 		# values.append({})
 
-		values.append({"baseline1":baseline1val,"baseline2":baseline2val,"l11":l11val,"l12":l12val,"metaphor":topic,"participant":participant,"comment":comment})
+		values.append({"baseline1":baseline1val,
+			"baseline2":baseline2val,
+			"l11":l11val,"l12":l12val,
+			"metaphor":topic,
+			"participant":participant,
+			"comment":comment,
+			"baseline1met":baseline1,
+			"baseline2met":baseline2,
+			"l11met":l11,
+			"l12met":l12
 
+			})
+		# print({"baseline1":baseline1val,"baseline2":baseline2val,"l11":l11val,"l12":l12val,"metaphor":topic,"participant":participant,"comment":comment})
 
 		# values.append({"val1":preferred1,"val2":preferred2,"metaphor":topic,"participant":participant,"comment":comment})
 		# print(values)
@@ -144,9 +161,13 @@ metaphor_to_score_count = {}
 metaphor_to_score_count["l1"] = defaultdict(lambda: (0,0))
 metaphor_to_score_count["baseline"] = defaultdict(lambda: (0,0))
 
+metaphor_to_proposals = {}
+metaphor_to_proposals["l1"] = defaultdict(list)
+metaphor_to_proposals["baseline"] = defaultdict(list)
 
 
 
+participants=[]
 for i in range(len(data)-amount_of_data,len(data)):
 # for i in list(range(495,513))+list(range(len(data)-54,len(data))):
 # for i in :
@@ -173,20 +194,27 @@ for i in range(len(data)-amount_of_data,len(data)):
 			new_score = int(item[judgment])
 			previous_count = (metaphor_to_score_count["baseline"][item["metaphor"]][1])
 
-			print("THING",(previous_score+new_score,previous_count+1))
+			# print("THING",(previous_score+new_score,previous_count+1))
 			# print((previous_score+new_score,previous_count+1))
 			# print((metaphor_to_score_count["baseline"][0][0]+item[judgment],metaphor_to_score_count["baseline"][0][1]+1), "THING")
 			metaphor_to_score_count["baseline"][item["metaphor"]] = (previous_score+new_score,previous_count+1)
+			metaphor_to_proposals["baseline"][item["metaphor"]]+=[item[judgment+'met']]
+			# print(item[judgment+'met'],"it")
+			# raise Exception
+
 
 		for judgment in ["l11","l12",]:
 			previous_score = (metaphor_to_score_count["l1"][item["metaphor"]][0])
 			new_score = int(item[judgment])
 			previous_count = (metaphor_to_score_count["l1"][item["metaphor"]][1])
 
-			print("THING",(previous_score+new_score,previous_count+1))
+			# print("THING",(previous_score+new_score,previous_count+1))
 			# print((previous_score+new_score,previous_count+1))
 			# print((metaphor_to_score_count["baseline"][0][0]+item[judgment],metaphor_to_score_count["baseline"][0][1]+1), "THING")
 			metaphor_to_score_count["l1"][item["metaphor"]] = (previous_score+new_score,previous_count+1)
+			metaphor_to_proposals["l1"][item["metaphor"]]+=[item[judgment+'met']]
+
+		# participants.append(item["participant"])
 
 
 			# "l11","l12",]:
@@ -195,24 +223,44 @@ for i in range(len(data)-amount_of_data,len(data)):
 	# trials.append(result)
 
 print(metaphor_to_score_count)
+# print("participants",len(set(participants)))
 
 pickle.dump(metaphor_to_score_count,open("metaphor_to_score_count.pkl",'wb'))
 
 
-print("failures",failures,"aborts",aborts,"total",counter)
 # print("full_dict",full_dict)
 
 
-
+print(metaphor_to_proposals, "thing")
 # which = defaultdict(int)
 
 # end_counts=0
 # not_end_counts=0
+print("failures",failures,"aborts",aborts,"total",counter)
 
-# with open('data.csv', 'w', newline='') as csvfile:
+# mets = pickle.load(open("metaphors_ordered.pkl",'rb'))
+
+# with open('data.txt', 'w', newline='') as textfile:
+
+# 	#SORT
+# 	for metaphor in mets:
+
+# 		l11 = metaphor_to_proposals["l1"][metaphor][0]
+# 		l12 = metaphor_to_proposals["l1"][metaphor][1]
+# 		baseline1 = metaphor_to_proposals["baseline"][metaphor][0]
+# 		baseline2 = metaphor_to_proposals["baseline"][metaphor][1]
+
+# 		textfile.write("\\tiny "+l11+", "+l12+" & \\tiny "+baseline1+", "+baseline2+" & \\tiny "+metaphor+"\\\\\n")
+# 	# metaphor_to_proposals["baseline"]:
+
+
+
+# 	textfile.write("BLAHBLAH")
+# 	print("writing",trials)
 # 	w = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
-# 	for trial in trials:
+	# for trial in trials:
+	# 	textfile.write("a")
 
 # 		for result in trial:
 

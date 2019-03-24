@@ -51,7 +51,7 @@
 
 \begin{document}
 
-\title{Interpreting Metaphors}
+\title{Interpreting Metaphor}
 \subtitle{Distributional Semantics for Bayesian Pragmatics} %% Optional subtitle
 \author[]
 	{}
@@ -73,15 +73,13 @@
 \keywords{metaphor, informativity, Bayesian pragmatics, distributional semantics}
 \begin{abstract}
 
-	Humans interpret metaphors, like \emph{Life is a journey} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{journey, shark}) are true of the subject (\emph{life, my lawyer}).
-
-	One theory of the process underlying metaphor interpretation is Gricean: a listener reasons about a cooperative and informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the dimensional of meaning that the speaker is trying to convey.
+	Humans interpret metaphors, like \emph{Life is a journey} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{journey, shark}) are true of the subject (\emph{life, my lawyer}). One theory of the process underlying metaphor interpretation is introduced by \citep{grice}: a listener reasons about a cooperative and informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the dimensional of meaning that the speaker is trying to convey.
 
 	% and by doing so interprets a predicative metaphor (of the form ``A is a B''), by identifying the properties of B that are relevant to A. 
 	This reasoning process can be modeled in the \emph{Rational Speech Acts framework} \citep{frank2012predicting} as a nested inference, where listeners and speakers are Bayesian agents, who make inferences about the state of the world, and the optimal utterance, respectively.
 	However, previous instantiations of these models have required a hand-specified semantics, restricting the generality of the model and the scope of empirical investigation into the effectiveness of pragmatic reasoning for metaphor interpretation.
 
-	We present a method to combine empirically learned word embeddings with a Rational Speech Acts model of metaphor. This allows us to interpret arbitrary predicative metaphors without manually stipulating the denotations of the words they contain. We compare our model to a word embedding model without explicit pragmatic reasoning, on human judgments, and find a significant preference for our model.
+	We present a method to combine empirically learned word embeddings with a Rational Speech Acts model of metaphor. This allows us to interpret arbitrary predicative and adjectival metaphors without manually stipulating the denotations of the words they contain. We find a significant preference in human judgments for our model over a comparable word embedding model without explicit pragmatic reasoning.
 
 	% as compelling evidence for the Gricean view of metaphor interpretation.
 
@@ -89,33 +87,22 @@
 
 	% Previous Bayesian formalizations of the pragmatics of metaphor have required hand-crafted semantics and choices of utterance. We propose an elaboration of \citep{kao} which rests on a word embedding semantics, thereby replacing hand-crafted knowledge with information encoded in pretrained word vectors. We show that this model can interpret metaphors of the form ``A is a B'', by identifying the properties of B that are relevant to A. This work forms part of a more general project of scaling Bayesian models of pragmatics to real world data and distributional semantics.
 	\end{abstract}
-
-% todos:
-
-	% todo: easy now to switch to predicates, on the dynamic view
-
-	% gardenfors: conceptual spaces, coecke
-	
-	% general importance of metaphor as a core case of pragmatic enrichment
-
-	% discuss obvious issues like: generic vs non-generic, word vs object
-
+% gardenfors: conceptual spaces: a note on what these spaces can represent: IMPORTANT: todo
+% general importance of metaphor as a core case of pragmatic enrichment
+% discuss obvious issues like: generic vs non-generic, word vs object: todo
 \section{Introduction}
 
 	Metaphor presents a compelling theoretical challenge for the understanding of meaning in natural language. For instance, on hearing (\ref{met:1}) in a context where the subject, Jane, is known to be a consultant, a listener might infer that Jane is not literally a soldier, but rather that she shares certain attributes with soldiers (perhaps determination, endurance, or ruthlessness). 
-
 	% Similarly, on hearing a temper described as \emph{fiery}, a listener might infer that 
-
 	\begin{exe}
 	\ex Jane is a soldier \label{met:1}
 	\end{exe}
-
 	The Gricean view on metaphor takes the meaning conveyed by (\ref{met:1}) in a given context to be the result of a process of \emph{pragmatic reasoning}, about a speaker who is trying to communicate truthfully, informatively, and relevantly. That is, the listener attempts to jointly deduce what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker would have chosen the predicate \emph{soldier} over other alternatives.
 
 	% Our goal is to evaluate the accuracy of the Gricean view as a model of human cognition, regarding metaphor interpretation. To do so, we construct a model of metaphor which relies on pragmatic reasoning of this form, and elicit human judgments comparing its predictions to a non-pragmatic baseline. 
 		% Our goal is to provide evidence towards this view, by 
 	\paragraph{Modeling metaphor}
-	Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a probabilistic formalization of Gricean reasoning, the \emph{Rational Speech Acts} framework \citep{goodman}. This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
+	Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of Gricean reasoning, the \emph{Rational Speech Acts} framework \citep{goodman}. This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
 	% Pragmatic accounts of metaphor, stemming from \citep{davidson} and \citep{grice}, attempt to derive metaphorical meaning as the inference of a language user reasoning about an expression heard in a given context. For instance, on hearing (\ref{met:1}), a listener infers 
 
 	% Grice suggests that a listener infers that an expression they hear is metaphorical on account of the unlikelihood of its literal interpretation being true, and further infers which elements of the 
@@ -131,16 +118,12 @@
 
 	% Accounts of metaphor can be broadly divided on the basis of whether they treat metaphor as a semantic or pragmatic phenomenon. The former camp (e.g. \cite{lakoff}), treats metaphor as a fundamental part of semantic meaning, or even thought. The latter,
 
-	\citet{kao} extend the framework by introducing a new model, $\QLONE$, which is able to interpret metaphors. It does so by the mechanism of \emph{projection functions}\footnote{This is often referred to in RSA literature as a \emph{Question under Discussion}.} which dictate the dimension of the world that the speaker cares about communicating. This, in turn, allows for a model of a listener which jointly determines the state of the world (e.g. what Jane is like) and the aspect of the world the speaker cares to communicate (e.g. Jane's determination). Crucially, this listener assumes an informative speaker: one whose choice of utterance maximizes the probability of communicating the world $w$ up to the projection $q$ to the speaker's model of the listener.
-		% TODO: maybe mention literal listener
-
-				% todo: claim of the model: informativity and relevance is what metaphor is about
-
+	\citet{kao} extend the framework by introducing a new model, $\QLONE$, which is able to interpret metaphors. It does so by the mechanism of \emph{projection functions}\footnote{These are often referred to in RSA literature as \emph{Questions under Discussion}.} which dictate the dimension of the world that the speaker cares about communicating. This, in turn, allows for a model of a listener which jointly determines the state of the world (e.g. what Jane is like) and the aspect of the world the speaker cares to communicate (e.g. Jane's determination). Crucially, this listener assumes an informative speaker: one whose choice of utterance maximizes the probability of communicating the world $w$ to the speaker's model of the listener, up to the projection $q$ .
+	
 	This model provides an account of predicative metaphors (those of the form \emph{A is a B} like (\ref{met:1})) and adjectival metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to manually construct a semantics for the words involved. This makes empirical validation of the model difficult, because of the bias introduced by the hand-chosen semantics.
 
 	% This precludes a fair test of whether the model succeeds, because of the need for a stipulated (and therefore potentially biased) semantics.
-		% TODO: work out slightly better argumentation here
-
+	
 
 
 	% However, applications of this model have been restricted to cases with a hand-constructed semantics, where the meanings of the predicates in question has to be stipulated.
@@ -148,13 +131,11 @@
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
 
-	\subsubsection{Our contribution} We adapt the model proposed by \citet{kao} to a distributional semantics, where the denotations of words correspond to points in an abstract, and empirically determined, vector space. Such \emph{word embedding} spaces are a core NLP tool, and have been shown to represent various notions of semantic similarity via the geometry of the vector space.
+	\subsubsection{Our contribution} We adapt the model proposed by \citet{kao} to a distributional semantics, where the denotations of words correspond to points in an abstract, and empirically determined, vector space. Such \emph{word embedding} spaces are a core NLP tool, and have been shown to represent various notions of semantic similarity via the geometry of the space.
 		
-	Adapting the $\QLONE$ model to allow for denotations of this kind requires us to introduce a new semantics, to generalize the notion of a projection to a vector space, where it amounts to a linear projection, and to develop an approximate inference algorithm to calculate the now continuous posterior distribution of the listener model. 
+	Adapting the $\QLONE$ model to allow for denotations of this kind requires us to introduce a new semantics, to generalize the notion of a projection to a vector space, where it amounts to a linear projection, and to develop an approximate inference algorithm to calculate the now continuous posterior distribution of $\QLONE$. 
 
-	By doing so, we obtain a model capable of interpreting arbitrary predicative and adjectival metaphors, without the need for a hand-specified semantics.
-
-	This allows us to assess to efficacy of the Gricean view of metaphor (as formalized in $\QLONE$), by evaluating our model on human judgments. In particular, we show that our model significantly outperforms a baseline which uses a distributional semantics without explicit pragmatic reasoning.
+	By doing so, we obtain a model capable of interpreting arbitrary predicative and adjectival metaphors, without the need for a hand-specified semantics. This allows us to assess to efficacy of the Gricean view of metaphor (as formalized in $\QLONE$), by evaluating our model on human judgments. In particular, we show that our model significantly outperforms a baseline which uses a distributional semantics without explicit pragmatic reasoning.
 			% We take this to be evidence that the Gricean account of metaphor, formalizes as a joint inference over state of the world and 
 			% 	blah
 			% 		of the speaker, is a good theory of metaphor.
@@ -205,11 +186,12 @@
 	% The first example above is one of literal predication: the granite really is a rock. 
 \section{A Bayesian model of metaphor interpretation} \label{rsa}
 	
-	The Rational Speech Acts framework (RSA) provides an elegant and practical way of formalizing Gricean pragmatics as nested Bayesian inference \citep{frank2012predicting}.\footnote{For an interactive introduction, we recommend \url{http://gscontras.github.io/ESSLLI-2016/chapters/1-introduction.html}.}
+	The Rational Speech Acts framework (RSA) provides an elegant and practical way of formalizing Gricean pragmatics as nested Bayesian inference \citep{frank2012predicting}.
+	% \footnote{For an interactive introduction, we recommend \url{http://gscontras.github.io/ESSLLI-2016/chapters/1-introduction.html}.}
 
 	In this framework, listeners and speakers are represented as conditional probability distributions. Speakers are distributions $P(U\vert W)$ over possible utterances given worlds, and listeners distributions  $P(W\vert U)$ over possible worlds given utterances, where $W$ is the set of possible states, and $U$ is the set of utterances available to a speaker.
 	% Thus, speakers are distributions over possible utterances given worlds, and listeners are distributions over possible worlds given utterances.
-	The most basic version of RSA (see, for example, TODO CITATION) is incapable of interpreting metaphors, due to the strict adherence to truth observed by the speaker. To address this, \citet{kao} proposes a model $\QLONE$, defined in (\ref{defl1}). 
+	The most basic version of RSA, for example \citep{frank2012predicting}, is incapable of interpreting metaphors, due to the strict adherence to truth observed by the speaker. To address this, \citet{kao} proposes a model $\QLONE$, defined in (\ref{defl1}). 
 
 	% RSA works by defining successive levels of speaker and listener recursively. For instance, an informative speaker $S_1$ given a state $w$ chooses the utterance $u$ which maximizes the probability that $L_0$, a listener who interprets utterances literally according only to a semantics,  infers $w$. A pragmatic listener, on hearing some $u$, can then reason about what state $w$ a speaker must have had in mind in order to have said $u$.
 
@@ -231,86 +213,104 @@
 	% \end{exe}
 
 	\begin{exe}
-	\ex $L_0(w\vert u) = \frac{\llbracket u \rrbracket (w) P_L(w)}{\sum_{w'\in W}\llbracket u \rrbracket (w') P_L(w')} $ \label{defl0}
+	% \ex $L_0(w\vert u) = \frac{\llbracket u \rrbracket (w) P_L(w)}{\sum_{w'\in W}\llbracket u \rrbracket (w') P_L(w')} $ \label{defl0}
+	\ex $L_0(w\vert u) \propto \llbracket u \rrbracket (w) P_L(w)$ \label{defl0}
 	\ex $S_1(u\vert w,q) \propto \sum_{w'} \delta_{q(w)=q(w')} * L_0(w'\vert u)$ \label{defs0}
 	\ex $\QLONE(w,q\vert u) \propto S_1(u\vert q,w)*P_L(w) * P_{L_Q}(q)$ \label{defl1}
 	\end{exe}
 
-	\subsubsection{The literal listener} $L_0$ represents a model of an agent that updates their belief about the world strictly in accordance with the semantics $\llbracket\cdot\rrbracket$. This semantics represents the conventional association between states $w$ and utterances $u$ which the speaker and listener take as given. 
+	\subsubsection{The literal listener} $L_0$ represents a model of an agent that, given an utterance $u\in U$ updates their belief about the world $w\in W$ strictly in accordance with the semantics $\llbracket\cdot\rrbracket$. This semantics, typically a function $U\to(W\to\{True, False\})$, represents the conventional association between states $w$ and utterances $u$ which the speaker and listener take as given. 
 
 	\subsubsection{Projections} 
 	Functions $q\in Q$ formalize the notion of picking a particular \emph{aspect} or \emph{dimension} of $w$. Formally, they are surjective functions out of $W$.
-	TODO: make example consistent with rest of paper
-	A simple example is as follows: suppose that $W=AxB$, where $A = \{\textrm{Jane is hardworking}, \textrm{Jane is lazy}\}$ and $B = \{\textrm{Jane owns a gun}, \textrm{Jane doesn't own a gun}\}$, so that each $w\in W$ is a tuple $(a,b)$ for $a\in A, b\in B$. Then the two projections, which we could call $q_{\mathit{work-ethic}}$ and $q_{\mathit{gun-ownership}}$, are defined as $\lambda (x,y): x$ and $\lambda (x,y): y$ respectively. A third trivial projection is simply the identity function.
-	TODO: could be cut
-	TODO: general definition of $q$, because, could be multiple dimensions
-
-
-	\subsubsection{The informative speaker} $S_1$ has a state $w$, and reasons about $L_0$, preferring utterances $u$ which maximize the $L_0$ posterior probability on $w$, up to the aspect of $w$ specified by $q$. When $q$ is the identity, $S_1(u|w) \propto L_0(w|u)$, and is thus a model of a speaker who prefers to choose the most informative utterance available. For example, if trying to communicate state $w$, $S_1$ will prefer an utterance $u$ which is compatible under the semantics with only $w$, over an utterance $u'$ which is compatible with both $w$ and $w'$. 
+	% A simple example is as follows: suppose that $W=AxB$, where $A = \{\textrm{Jane is hardworking}, \textrm{Jane is lazy}\}$ and $B = \{\textrm{Jane owns a gun}, \textrm{Jane doesn't own a gun}\}$, so that each $w\in W$ is a tuple $(a,b)$ for $a\in A, b\in B$. Then the two projections, which we could call $q_{\mathit{work-ethic}}$ and $q_{\mathit{gun-ownership}}$, are defined as $\lambda (x,y): x$ and $\lambda (x,y): y$ respectively. A third trivial projection is simply the identity function.
 	
-	\subsubsection{The pragmatic listener} $\QLONE$ jointly infers values for $w$ and $q$, here with the assumption of a uniform prior over $Q$ (which can be relaxed). The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$) but where $u$ conveys some aspect of $w$ as determined by $q$. 
-	
-	We can view $\QLONE$ as a model of AN metaphor interpretation, the focus of our experiment in section \ref{exp}, in the following way.\footnote{Note that an account for predicative metaphors, with a more conventional truth-conditional semantics can be provided in a similar fashion.} Suppose that the goal of a speaker is to choose an adjective $u$, out of some set $U$, which communicates some modification of the noun (e.g. \emph{temper}). The goal of the listener is then to infer the desired modification of this noun, on hearing an adjective, like \emph{fiery}.
-	
-	To make this precise, and derive predictions from $\QLONE$, five things must be provided: a set $W$ of states, a set $U$ of utterances, a set $Q$ of projections, a prior $P_L$ representing the listener's uncertainty over $W$, and a semantics $\llbracket\cdot\rrbracket$. Jointly, we say that these determine an \emph{interpretation} of $\QLONE$. 
 
-	One possible interpretation, roughly what is provided by \citet{kao}, treats points in the state space $W$ as sets of properties $w\subset P$. We refer to this as a \emph{set theoretic} interpretation of $\QLONE$. We give a simple example below:
+	\subsubsection{The informative speaker} $S_1$ has a state $w$ they want to communicate, and reasons about $L_0$, preferring utterances $u$ which maximize the $L_0$ posterior probability on $w$, up to the aspect of $w$ specified by $q$. If $q$ is the identity function, $S_1(u|w) \propto L_0(w|u)$, and is thus a model of a speaker who prefers to choose the most informative utterance available. 
+	% For example, if trying to communicate state $w$, $S_1$ will prefer an utterance $u$ which is compatible under the semantics with only $w$, over an utterance $u'$ which is compatible with both $w$ and $w'$. 
+	
+	\subsubsection{The pragmatic listener} $\QLONE$ jointly infers values for $w$ and $q$. The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$) but where $u$ conveys some aspect of $w$ as determined by $q$. 
+	
+	We can view $\QLONE$ as a model of metaphor interpretation as follows, with the example of (\ref{johnshark}). Suppose that the goal of the speaker is to communicate a state $w$, representing what John is like. To this end, they choose a predicate $u$, here \emph{shark}. Conversely, the goal of the listener on hearing (\ref{johnshark}) is to infer $w$ as well as the \emph{aspect} of $w$ that the speaker cares about.
+
+	\begin{exe}
+	\ex John is a shark. \label{johnshark}
+	\end{exe}
+
+	% AN metaphor interpretation, the focus of our experiment in section \ref{exp}, in the following way.\footnote{Note that an account for predicative metaphors, with a more conventional truth-conditional semantics can be provided in a similar fashion.} 
+	% Suppose that the goal of a speaker is to choose an adjective $u$, out of some set $U$, which communicates some modification of the noun (e.g. \emph{temper}). The goal of the listener is then to infer the desired modification of this noun, on hearing an adjective, like \emph{fiery}.
+	
+	To make this precise, and derive predictions from $\QLONE$, five things must be provided: a set $W$ of states, a set $U$ of utterances, a set $Q$ of projections, a prior $P_L$ representing the listener's uncertainty over $W$, and a semantics $\llbracket\cdot\rrbracket$ (We assume throughout that the prior $P_{L_Q}$ over $Q$ is uniform.). Jointly, we say that these determine an \emph{interpretation} of $\QLONE$. 
+
+	One possible interpretation, similar to what is provided by \citet{kao}, treats points in the state space $W$ as n-tuples of truth values, corresponding to Boolean properties $w\subset P$.
+	% with a function $E:U\to \mathcal{P}(P)$ mapping utterances to sets of properties. 
+	We refer to this as a \emph{set theoretic} interpretation of $\QLONE$. We give a very simple example below, for $P = \{\textrm{vicious}, \textrm{non-human} \}$:
 
 	\begin{itemize}
-	\item $W = \{(\textrm{intense}=T,\textrm{warm}=T), (\textrm{intense}=T,\textrm{warm}=F), (\textrm{intense}=F,\textrm{warm}=T), (\textrm{intense}=F,\textrm{warm}=F) \}$
-	\item $P_L = \{(\textrm{intense}=T,\textrm{warm}=T): TODO, (\textrm{intense}=T,\textrm{warm}=F), (\textrm{intense}=F,\textrm{warm}=T), (\textrm{intense}=F,\textrm{warm}=F)\}$
-	\item $U = \{\textrm{fiery}, \textrm{intense}, \textrm{warm} \}$
-	\item $\llbracket\cdot\rrbracket$
-	\item $Q = \{q_1 (\lambda (x,y):x), q_2 (\lambda (x,y):y) \}$
+	\item $W = \{(\textrm{vicious}=T,\textrm{non-human}=T), (\textrm{vicious}=T,\textrm{non-human}=F), (\textrm{vicious}=F,\textrm{non-human}=T), (\textrm{vicious}=F,\textrm{non-human}=F) \}$
+	% \item $W = \{ \{\textrm{vicious}, \textrm{non-human}\}, \{\textrm{vicious}\}, \{\textrm{non-human}\}, \{\},   \}$
+	\item $P_L = W = \{(\textrm{vicious}=T,\textrm{non-human}=T) : 0.075, (\textrm{vicious}=T,\textrm{non-human}=F) : 0.675, (\textrm{vicious}=F,\textrm{non-human}=T) : 0.025, (\textrm{vicious}=F,\textrm{non-human}=F): 0.225\}$
+	% \item $W = \{ \{\textrm{vicious}, \textrm{non-human} \}, \{\textrm{vicious} \}, \{\textrm{non-human} \}, \{\},   \}$
+	\item $U = \{\textrm{shark}, \textrm{silence}\}$
+	% \item $\llbracket\cdot\rrbracket$
+	\item $Q = \{q_{vicious} (\lambda (x,y):x), q_{non-human} (\lambda (x,y):y) \}$ 
 	\end{itemize}
+
+	We assume a semantics $\llbracket\cdot\rrbracket$ in which \emph{shark} is compatible only with $(\textrm{vicious}, \textrm{non-human})$, and \emph{silence} is compatible with every state. Note that the projections map each tuple to its value at a single property. In theory, for larger n-tuples of properties, a projection could map to multiple properties, representing a speaker who wishes to communicate multiple aspects of the state $w$. We return to this point in our concluding discussion.
+	The results of $\QLONE$ hearing \emph{shark} are shown in figure \ref{fig:l1barplot}.
+	The key fact to note is that the prior belief that John is not literally an animal leads $\QLONE$ to conclude that the speaker cares about conveying the viciousness dimension (i.e. projection $q_{vicious}$), and that John is vicious.
+
+	Importantly, $\QLONE$ can do more than simply using prior knowledge to interpret literally false statements in a flexible way. It is also capable of reasoning about alternative utterances: for instance, suppose we further assume a third properties, \emph{speed}, so that shark is compatible only with $(\textrm{vicious}=T,\textrm{non-human}=F, \textrm{quick}=T)$, and a third utterance, \emph{hummingbird}, compatible with only $(\textrm{vicious}=F,\textrm{non-human}=T, \textrm{quick}=T)$.
 	
+	In this second example, when $\QLONE$ hears \emph{shark}, they infer only that John is vicious, and not fast, even though both are equally likely under $P_L$. This is because, had the speaker wanted to communicate that John is fast, \emph{hummingbird} would have been a more informative utterance.
+
+	todo: note on getting realistic predictions by using large experimentally collected data
+	
+	% on the assumption that it is compatible with only $(\textrm{intense}=T,\textrm{warm}=T)$ are shown in figure \ref{fig:l1barplot}. 
+
+		% Let the set of all properties under consideration be $P$, and call the function $E : U\to P$ take utterances to their corresponding sets.
 
 
-	The results of $\QLONE$ hearing \emph{fiery}, on the assumption that it is compatible with only $(\textrm{intense}=T,\textrm{warm}=T)$ are shown in figure \ref{fig:l1barplot}. The key point is that the prior belief that the temper is not literally warm leads $\QLONE$ to conclude that the speaker cares about conveying the intensity dimension (i.e. projection $q_1$). 
+	% In order to elicit human-like behavior from the model, \citet{kao} use a set of $\sim$100 animals as alternative utterances $u\in U$, and assemble a property set $P$ experimentally. However, the semantics, relating adjectives to properties 
+	% 	TODO finish: the semantics doesn't require hand-specification really. just slow to collect.
+	
+	$\QLONE$ can also model AN metaphors (the subject of our experiment) in the same way. For example, for a phrase like \emph{fiery temper}, we say that the goal of a listener is to decide what is true of the temper in question given that the speaker has modified it with \emph{fiery}.
 
-	Importantly, $\QLONE$ can do more than simply using prior knowledge to interpret literally false statements in a flexible way. It is also capable of reasoning about alternative utterances: for instance, suppose we further assume a third dimension, \emph{speed}, so that the utterance 
-		BLAH
-		``hummingbird'' is blah and blah but not blah
-		Let the set of all properties under consideration be $P$, and call the function $E : U\to P$ take utterances to their corresponding sets.
+	% choose an adjective $u$, out of some set $U$, which communicates some modification of the noun (e.g. \emph{temper}).
 
-		While 
-		TODO
-		it will infer that the intended projection is 
-			BLAH
-				since 
+
 
 
 	\begin{figure}
 	\centering
-	\begin{subfigure}{0.5\textwidth}
-	% \centering
-	\includegraphics[width=\textwidth]{images/l1posteriorquality.png}
-	\end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
-	% \centering
-	\includegraphics[width=\textwidth]{images/l1posteriorquantity.png}
-	\end{subfigure}
-	\caption{Figure showing the posterior distribution of $\protect\QLONE$ on hearing TODO}
+	\includegraphics[width=0.5\textwidth]{images/l1posteriorquality.png}
+	% \begin{subfigure}{0.5\textwidth}
+	% % \centering
+	% \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
+	% % \centering
+	% \includegraphics[width=\textwidth]{images/l1posteriorquantity.png}
+	% \end{subfigure}
+	\caption{Figure showing the posterior distribution of $\protect\QLONE$ on hearing \emph{shark}}
 	\label{fig:l1barplot}
 	\end{figure}
-	TODO change to minipage
-
-	% TODO: incorporate talk of predicates
+	% change to minipage
+% incorporate talk of predicates
 
 	% but note that predicative metaphors can be treated in a similar way. 
 	% We begin by describing an interpretation of $\QLONE$ where nouns and adjectives denote sets of properties, similar to the interpretation in \citep{kao}. 
-		% TODO: note that in standard compositional semantic analyses of adjectival modification, the meaning of $[a\quad n]$ is a truth-valued function on entities.
+		% : note that in standard compositional semantic analyses of adjectival modification, the meaning of $[a\quad n]$ is a truth-valued function on entities.
 		% 	say: not as different as it seems
 	% The posterior distribution of the literal listener $L_0$, which reasons about the semantics, represents the literal meaning of the AN metaphor, while $\QLONE$ has the capability of deriving a metaphorical interpretation.
 		% For a given AN metaphor $[a\quad n]$, the core idea is to take $w\ in W$ to be ways that $n$ could be, and $u\in U$ to be a set of adjectives (including $a$) which could be said. Then, the posterior of $L_0$ on hearing $a$ modifying $n$ represents the literal meaning of $[a\quad n]$. The posterior of the $\QLONE$ represents the metaphorical interpretation of $[a\quad n]$.
 
-	In this example, $P_L$ represents the listener's prior belief about what the temper in question is like. On hearing \emph{fiery}, they update their beliefs so that the temper has all the properties denotation by the adjective. This is a literal interpretation, in that the listener now believes that the temper is both warm and intense, the two properties we take \emph{fiery} to denote for the sake of this example.
+	% In this example, $P_L$ represents the listener's prior belief about what the temper in question is like. On hearing \emph{fiery}, they update their beliefs so that the temper has all the properties denotation by the adjective. This is a literal interpretation, in that the listener now believes that the temper is both warm and intense, the two properties we take \emph{fiery} to denote for the sake of this example.
 		% Note, however that the definition of $L_0$ only requires $\llbracket\cdot\rrbracket$ to be a function of type $U\to (W \to [0, 1])$, i.e. a function mapping an utterance and world to a real number $r$, with $0\leq r\leq 1$. This fact will be relevant when generalizing to a distributional semantics in section \ref{bayesdist}.
-% stuff for thesis version
+	% stuff for thesis version
 	% For example, for the case of an AN metaphor like \emph{fiery temper}, states $w$ are possible ways which a temper could be. After receiving the modifier \emph{fiery}, the literal listener updates their beliefs in a way which corresponds to the meaning of \emph{fiery}.
 
 	% In the case of metaphor, this prior will represent the listener's belief about the source of the metaphor, for example, what a temper is like
 		
-		% TODO: full generality: q is an idempotent function $W\to W$
+		% : full generality: q is an idempotent function $W\to W$
 
 
 	% For instance, on hearing (\ref{met:1}), the listener can infer that Jane is hardworking, but doesn't own a gun, even though \emph{soldier} would suggest both of these attributes to a literal listener.
@@ -346,14 +346,12 @@
 	
 
 
-	% TODO: rough correspondence to a compositional semantics
 
 
 	
 
 	% \subsubsection{Interpreting $\protect\QLONE$}
 
-	% TODO: HMMMM, so nouns map to distributions over properties???
 	% 	this is getting so so so messy
 
 
@@ -374,9 +372,7 @@
 
 	% The interpretation given to $\QLONE$ in \citep{kao} makes use of a very simple truth-conditional semantics
 
-		% TODO: fix: should only vary by the predicate
 	% \footnote{The model could equally be applied to adjectival metaphors like \emph{fiery temper}, \emph{cold personality}; in this case, the analogue of the predicate is the modifying adjective}.
-		% TODO: maybe take a bit of care with this
 			
 	% Each $w\in W$ is a subset of properties (for some entire set of properties $P$), representing the properties that the subject of a given metaphor has. For instance, when interpreting \emph{Time is a river}, each $w\in W$ is a possible set of the properties true of \emph{time}. For each property $p$, $q_p$ is a function which maps a set of properties $w$ to $1$ if $p\in w$, else $0$.
 	% Finally, we construct a semantics $\llbracket\cdot\rrbracket$ by having each predicate denote a set of properties too, so that $\llbracket u\rrbracket(w)$ iff the denotation of the predicate is a subset of $w$.
@@ -384,11 +380,10 @@
 	% the set $W_q$ of all worlds $w'$ which also contain property $p$.
 
 
-	We refer to this as a \emph{set-theoretic} interpretation of $\QLONE$, in anticipation of the \emph{vectorial} interpretation introduced in section \ref{bayesdist}.
+	
 
 		% a different interpretation of $\QLONE$, where $W$ is a vector space, and the semantics is not truth-conditional.
-	TODO:
-	A concrete example is as follows:
+
 
 		% fiery temper
 
@@ -476,11 +471,11 @@
 			 % As with standard RSA, distRSA exhibits an "explaining away" effect. This means that the presence of an S1 alternative can reduce probability mass for a particular QUD. More concretely, suppose we are doing L1 inference over worlds and QUDs, having heard "the man is a shark" (or rather, having started with a Gaussian prior centered at the word vector for "man", and receiving the utterance "shark"). "slippery" might be a good QUD here, in the sense that "shark" is informative about "slipperiness". However, suppose that "fish" and "snake" are both alternative utterance to "shark", in the S1. Supposing that these convey slipperiness better than "shark" does, "slippery" will be downrated as a QUD for shark. 
 \section{Distributional Semantics} \label{distmods}
 
-	From a linguistic corpus, it is possible to obtain a mapping from words to points in a high-dimensional vector space, which has the property that semantic similarity of a pair of words $a$ and $b$ corresponds to metrics, such as cosine distance, between the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$.
+	From a linguistic corpus, it is possible to obtain a mapping from words to points in a high-dimensional vector space that has the property that semantic similarity of a pair of words $a$ and $b$ corresponds to metrics, such as cosine distance, between the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$.
 
 	Mappings of this sort, commonly referred to as \emph{word embeddings} or a \emph{distributional model of word meaning}, can be obtained either by dimensionality reduction of a co-occurrence matrix \citep{pennington2014glove}, or by extracting the weights of a statistical model \citep{mikolov2013distributed,peters2018deep,devlin2018bert}.
 
-	In either case, word embeddings provide a way to empirically obtain fine grained connotations of lexical items \citep{mikolov2013distributed}, and have been used effectively in a number of NLP tasks \citep{dai2015semi,radford2018improving}. They have also been used to compute vectorial representations of phrases and sentences (\citep{socher2013recursive, coecke}).
+	In either case, word embeddings provide a way to empirically obtain fine grained connotations of lexical items \citep{mikolov2013distributed}, and have been used effectively in a number of NLP tasks \citep{dai2015semi,radford2018improving}. They have also been used to compute vectorial representations of phrases and sentences \citep{socher2013recursive, coecke2010mathematical}.
 			% word embeddings appear to encode syntactic and semantic information (\citep{mikolov2013linguistic}, and as such, are useful element in many NLP tasks such as sentiment analysis \citep{socher2013recursive}.
 
 	% (\cite{pennington2014glove}) argues that GloVe vectors exhibit a degree of linear structure, in the sense that for various quadruples of words (A,B,C,D), such that A is to B as C is to D, the corresponding pretrained vectors approximately satisfy the equation $\overrightarrow{\text{A}} - \overrightarrow{\text{B}} = \overrightarrow{\text{C}} - \overrightarrow{\text{D}}$, where $\overrightarrow{\text{A}}$ is the word vector corresponding to the word A. For instance, the nearest word vector by cosine distance to the point ($\overrightarrow{\text{king}}-\overrightarrow{\text{man}}+\overrightarrow{\text{woman}}$) in the Word2Vec embedding space is $\overrightarrow{\text{queen}}$.
@@ -490,7 +485,7 @@
 	Metaphor is an obvious candidate for approaches that use distributional semantics: a wide variety of attempts have been made to leverage the information inherent in pre-trained word vectors for the detection, interpretation and paraphrase of metaphor (see \cite{shutova2016design} for an overview of proposed systems.).
 		TODO: needs your own citations
 
-	Our hypothesis is that, while the information in high quality word embeddings captures important aspects of meaning, a cognitively realistic model of metaphor interpretation should also incorporate Gricean reasoning, of the sort formalized in section \ref{rsa}. We now explain how the $\QLONE$ model can be combined with a distributional model of word meaning.
+	Our hypothesis is that, while the information in high quality word embeddings captures important aspects of meaning, a cognitively realistic model of metaphor interpretation should also incorporate Gricean reasoning, of the sort formalized in the RSA framework. We now explain how the $\QLONE$ model can be combined with a distributional model of word meaning.
 
 	% An intuition which is voiced in many of these approaches is that metaphorical predicates should agree with only certain features of the subject. For instance:
 	% \begin{quote}	``Computing a meaning always involves activating context-appropriate features and inhibiting or deactivating inappropriate features.'' (\cite{kintsch})
@@ -519,7 +514,9 @@
 
 	The set-theoretic interpretation of $\QLONE$ takes states $w\in W$ to be sets of properties describing the source of the metaphor in question, and projections $q\in Q$ to be surjective functions out of $W$. The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
-	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space determined by a word embedding $E$, so that elements $\overrightarrow{w}\in W$ are vectors.\footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, given a basis set of properties $P=P_0...P_n$, a vector of $n$ 0s and 1s, with 1s corresponding to present properties and 0s corresponding to absent ones, is equivalent to a subset of $P$, i.e. the denotation of a word.} As before, $U$ is a set of adjectives. 
+	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space determined by a word embedding $E$, so that elements $\overrightarrow{w}\in W$ are vectors.\footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.}. As before, $U$ is a set of adjectives. 
+
+	% given a basis set of properties $P=P_0...P_n$, a vector of $n$ 0s and 1s, with 1s corresponding to present properties and 0s corresponding to absent ones, is equivalent to a subset of $P$, i.e. the denotation of a word.} 
 		
 
 		% but we now take the denotation of a word $u$ not to be a set of properties, but rather the vector $\overrightarrow{u}$ corresponding to $u$ under a word embedding $E$.
@@ -531,7 +528,7 @@
 	% in a vector space where the set of properties is a basis.
 	
 
-			% TODO: general notion of projection; idempotent function
+			% general notion of projection; idempotent function
 		% but more that: given an element of W, a projection induced by that element
 
 
@@ -541,7 +538,7 @@
 		
 	
 				% also before: for simplicity, we assume alternative utterances with same subject
-		% the set of possible utterances (\emph{The man is a shark}, \emph{TODO})
+		% the set of possible utterances (\emph{The man is a shark}, \emph{})
 				% the pragmatic meaning of u is a distribution over W, i.e. a distribution over points in
 
 
@@ -553,9 +550,9 @@
 
 	\subsubsection{The listener's prior} 
 
-		In the set-theoretic interpretation of $L_1^Q$, where $W$ can be finite, a discrete prior over $W$ sufficed. In the present case, where $W$ is necessary infinite (ranging continuously over real-valued vectors), we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix).
+		In the set-theoretic interpretation of $L_1^Q$, where $W$ can be finite, a discrete prior $P_L$ over $W$ sufficed. In the present case, where $W$ is necessary infinite (ranging continuously over real-valued vectors), we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). As for the prior $P_{L_Q}$ over $Q$, we take it to be uniform.
 
-		We can view the listener's prior $P_L$ as representing uncertainty over the position of the entity or concept that the source noun represents.\footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} The goal of the speaker is to convey a position in the space (which they think represents the nature of the source noun's denotation) to the listener, and the goal of the listener is to infer what this position is. In this sense, a spatial reference game \citep{golland2010game} is being played, in an abstract word embedding space.
+		We can view $P_L$ as representing uncertainty over the position of the entity or concept that the source noun represents.\footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} The goal of the speaker is to convey a position in the space (which they think represents the nature of the source noun's denotation) to the listener, and the goal of the listener is to infer what this position is. In this sense, a spatial reference game is being played  \citep{golland2010game}, in an abstract word embedding space.
 
 				% are near $\llbracket\mathit{time}\rrbracket$
 		
@@ -565,14 +562,12 @@
 		\end{exe}
 
 
-		The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean at the image of the source noun under $E$, we encode the assumption that the speaker's point is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model (see section \ref{exp})
+		The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean of the prior as $E$(\emph{source}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model.
 
 			% , e.g. $\overrightarrow{\text{temper}}$ for the metaphor \emph{fiery temper}. The points in the distribution represent meanings of \emph{temper} that might not be encoded in its vector. For instance, some points in the distribution might be closer to $\overrightarrow{\text{intense}}$ or $\overrightarrow{\text{unstable}}$. 
 
 		 % of the metaphor, we represent the listener's prior uncertainty over what the subject is like, or equivalently, what point in the space the subject occupies.
-			% todo: deal with fact that the prior depends on the utterance: kinda awkward
-			% todo: incorporate
-
+			
 			% On hearing 
 
 			% Updating one's prior on what time is like, namely the Gaussian centered on $\overrightarrow{\text{time}}$ so that these points have more weight, represents in this model an update regarding one's knowledge about time.
@@ -584,7 +579,7 @@
 
 		A word embedding space has no explicit representation of truth. That is to say, while we can compare the similarity of a noun and an adjective according to a variety of metrics, we do not have a means of categorically determining the compatibility of that adjective and noun.
 
-		Mathematically speaking, this is not a problem, since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket u\rrbracket$ be a function $W\to \mathbb{R}$. We can define such a function as follows:
+		Mathematically speaking, this is not a problem, since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows:
 
 		% However, despite the ``softness'' of a distributional meaning, will find that it is possible to use it to obtain a semantics capable of underlying $\QLONE$, 
 
@@ -598,21 +593,24 @@
 		The result of this definition is that the value of $\llbracket u\rrbracket(w)$ is a real number which scales quadratically with the Euclidean distance between $u$ and $w$. 
 				TODO: confirm
 
-		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions. As discussed in section \ref{technicaloverview}, this allows for a closed form solution of $L_0$. As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter $\sigma_2$.
+		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions, which allows for a closed form solution of $L_0$. As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
 	\subsubsection{Projections} 
 
+		\begin{figure}
+			\includegraphics[height=6.5cm]{images/diagram2.pdf}
+			\caption{In this example, the vectors for \emph{vicious} and \emph{aquatic} each parametrize a QUD mapping all the points in the space (such as \emph{man} and \emph{shark}) to new points. These new points can be thought of as the positions of \emph{man}, \emph{shark} and so on in a new space which cares only about the position of the points with respect to the \emph{vicious} vector.}
+			\label{fig:1}
+		\end{figure}
 		% Since, in a distributional setting, the axes of a world state vector do not neatly correspond to its attributes\footnote{If our space was formed by a basis of co-occurrence vectors, each word would be a dimension, but this is not the case in typical word embedding spaces, the dimensions of which are much fewer than the size of the vocabulary.}, our distributional QUD cannot simply be a projection along an axis. 
 
-		Finally, we need to supply an notion of a projection function $q$ that is defined on our vector space, and to specify a set $Q$ of projections. 
+		Finally, we need to supply an notion of a projection function $q$ that is defined on our vector space, and to specify a set $Q$ of such projections. 
 
-		Here, the natural counterpart of a partition function is the linear projection along a vector (or hyperplane) $\overrightarrow{v}$. This is a linear mapping from $W$ to a subspace given by $\overrightarrow{v}$, which captures the degree to which $\overrightarrow{w}$ extends along a vector (or hyperplane) $\overrightarrow{v}$, and ignores orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as is depicted in figure \ref{fig:1}.
-
-		To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.
+		For this, we use linear projections\footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} along a vector (or hyperplane) $\overrightarrow{v}$. This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, which captures the degree to which $\overrightarrow{w}$ extends along a vector (or hyperplane) $\overrightarrow{v}$, and ignores orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as is depicted in figure \ref{fig:1}.
 
 			% Alternatively, note that 
 				% Put another way, the definition of a projection on an object $X$ as an idempotent morphism $X\to X$, generalizes both cases. 
-				% TODO: ok yes this is deeply unnecessary
+				% ok yes this is deeply unnecessary
 
 
 				% World states and word denotations in QUD RSA, as described in (\cite{kao}), can already be understood as vectors over the set of two elements, \{0,1\}, or equivalently as relations between the subject and predicate. (For instance, suppose the meaning of \emph{shark} is $<$vicious=True,aquatic=False$>$. This can be rewritten as the vector $<$1,0$>$.) The intuition behind our model is to generalize QUD RSA to a vector space over the reals.
@@ -623,9 +621,10 @@
 
 		% What set of linear projections $Q$ should we choose? In the set-theoretic interpretation, $Q$ was simply the set of all one-dimensional projections, or equivalently, projections onto each of the natural basis vectors. In the word embedding case, however, the basis vectors of a word embedding $E$ have no simple interpretation as properties.
 
-		To obtain such a set $Q$, we first note that since the denotations of words are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of \emph{vicious} as parameterizing a \emph{viciousness} projection, which measures how far the denotations of all other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
+		To obtain such a set $Q$, we first note that since the denotations of words are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as parameterizing a \emph{viciousness} projection, which measures how far the denotations of all other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
 
-		As such, we can specify $Q$ as a set of words. In general, it makes sense to choose a set of gradable adjectives, so that the projection of a noun $n$ onto $\overrightarrow{v}$ amounts to asking: to what extent is $n$ $v$? We discuss the exact choice of $Q$ in section \ref{exp}.
+		As such, we can specify $Q$ as a set of words. In general, it makes sense to choose a set of gradable adjectives, so that the projection of a noun $n$ onto $\overrightarrow{v}$ amounts to asking: to what extent is $n$ $v$? 
+		% We discuss the exact choice of $Q$ in section \ref{exp}.
 
 
 		% The assumption that appropriate projections exist is based on the much observed linear substructure of word embeddings, which amounts to the claim that word vectors can be roughly decomposed as a sum of a set of other word vectors. 
@@ -636,11 +635,6 @@
 		% Thus, for a metaphor, such as ``Time is a river.'', we define the listener's prior as a multidimensional Gaussian distribution centered around the word vector for \emph{time}. The choice of a Gaussian is made for two reasons: firstly, they are well-behaved mathematically, and allow us to calculate the $L_0$ distribution analytically, which is necessary for our computational model. Secondly, as discussed in section (\ref{distmods}), the GloVe word encodes semantic similarity roughly as cosine distance in the embedding space. 
 
 		
-		\begin{figure}
-			\includegraphics[height=6.5cm]{images/diagram2.pdf}
-			\caption{In this example, the vectors for \emph{vicious} and \emph{aquatic} each parametrize a QUD mapping all the points in the space (such as \emph{man} and \emph{shark}) to new points. These new points can be thought of as the positions of \emph{man}, \emph{shark} and so on in a new space which cares only about the position of the points with respect to the \emph{vicious} vector.}
-			\label{fig:1}
-		\end{figure}
 			
 
 		
@@ -679,8 +673,8 @@
 		
 
 
-		% \subsubsection{The Bayesian agents in a distributional setting} TODO
-		% TODO: say something about the agents
+		% \subsubsection{The Bayesian agents in a distributional setting} 
+		% say something about the agents
 		% 		Interpretation of an utterance still amounts to the updating of a prior to a posterior distribution
 		% 		Intuitively, this corresponds to moving prior towards vec(utterance)
 		% 	% We can think of 
@@ -692,7 +686,16 @@
 				% we condition on the likelihood of the $S_1$ world state being drawn from the $L_0$ posterior after having heard any given possible utterance.
 \section{Inference} \label{technicaloverview}
 
-	Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. Because $P_L(w)$ is now a continuous distribution, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm. Our inference algorithm for $\QLONE$ is implemented in Tensorflow, and will be made publicly available. We describe this algorithm in parts, working up from the $L_0$.
+	\begin{figure}[htbp]
+	\centering
+	% \hspace*{-2.5cm}                                                           
+	\includegraphics[height=6.5cm]{images/diagram1.pdf}
+	   
+	  \caption{2D Visualization of $L\protect_0$}
+	  \label{fig:2d}
+	\end{figure}
+
+	Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. Because $P_L(w)$ is now a continuous distribution, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.}. We describe this algorithm in parts, working up from the $L_0$.
 
 	% While the general format of our model is analogous to previous models in the RSA paradigm, the vectorial setting produces a number of challenges which require novel solutions.
 
@@ -704,14 +707,6 @@
 
 	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of another point, the received utterance. To calculate $L_0$ analytically, we make use of Gaussian self-conjugacy, which allows a distribution with a Gaussian prior and likelihood term to be rewritten as a single Gaussian of different parameters. 
 
-	\begin{figure}[htbp]
-	\centering
-	% \hspace*{-2.5cm}                                                           
-	\includegraphics[height=6.5cm]{images/diagram1.pdf}
-	   
-	  \caption{2D Visualization of $L\protect_0$}
-	  \label{fig:2d}
-	\end{figure}
 
 	% This is the property that a distribution of the form $P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)P_{\mathcal{N}}(w\vert\mu=u,\sigma=\sigma_2)$
 
@@ -722,7 +717,7 @@
 	% e^f$ * e$^\mu$ \label{term}
 	% \end{exe}
 	% The left hand term represents the prior on the world state, and the right hand term represents the observation. By the self conjugacy of Gaussians, (\ref{term}) can be reduced analytically to a single Gaussian.
-	% 	todo: citation?
+	% 	 citation?
 \subsubsection{S\textsubscript{1} Inference}
 
 		Since $U$ remains a finite set of utterances, the $S_1$ posterior can be computed exactly, as for the set-theoretic interpretation of $S_1$. 
@@ -740,12 +735,13 @@
 	\centering
 	\begin{subfigure}{0.5\textwidth}
 	% \centering
-	\includegraphics[width=\textwidth]{images/mixturel1heatmap.png}
+	\includegraphics[width=0.85\textwidth]{images/denotations.png}
 	\end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
 	% \centering
 	\includegraphics[width=\textwidth]{images/discretel1heatmap.png}
 	\end{subfigure}
-	\caption{Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).}
+	\caption{Heatmap visualizing the $\protect\QLONE$ posterior (right), with the hand-chosen denotations of \emph{man}, \emph{shark}, and \emph{fish} used in this 2 dimensional example (left).}
+	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
 	\label{l1heatmaps}
 	\end{figure}
 
@@ -758,74 +754,58 @@
 	% % \centering
 	% \includegraphics[width=\textwidth]{images/cooldiscretel1heatmap.png}
 	% \end{subfigure}
-	% \caption{TODO Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).}
+	% \caption{ Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).}
 	% \label{l1heatmaps}
 	% \end{figure}
 
 	% caption: 
 	% 	heatmaps showing...
 	% 	an example of the difference between the $\protect\QLONE$ posterior under our inference algorithm and under the true posterior, in a two dimensional case where a (discretized) exact posterior can be computed exactly.
-	% 	this compares our inference algorithm (left) to an exact (discretized) inference in a tractable 2 dimensional case, for the metaphor: BLAH TODO
+	% 	this compares our inference algorithm (left) to an exact (discretized) inference in a tractable 2 dimensional case, for the metaphor: BLAH 
 	% 	with the following hand-specified word embeddings.
-
-	% TODO: figure for the hand-specified embeddings
 
 
 	% caption:
 	% 	heatmaps showing the l1 inference. 
 	% 		scalar implicature means that...
+	% We devise the following approximate inference algorithm.
 
-	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. We are unable to use conjugacy to compute it analytically, but equally unable to compute it exactly. 
+	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. We are unable to use conjugacy to compute it analytically, but equally unable to compute it exactly. However, because of the linear projections $q$, we are able to devise a near-exact inference algorithm\footnote{We verify the correctness of this algorithm in the 2 dimensional case by comparison to the exact posterior, which is calculable (up to discretization of the prior) in 2 dimensions.} for the marginal distribution over $Q$, derived as follows:
 
-		Moreover, we find that Mean Field Variational Inference TODO CITATION is not well suited
-			since the posterior is non-Gaussian (see figure \ref{l1heatmaps}).
+		% Moreover, we find that Mean Field Variational Inference TODO CITATION is not well suited
+		% 	since the posterior is non-Gaussian (see figure \ref{l1heatmaps}).
 
-	\begin{align}
-	L_1(w,q | u) &= \frac{P(w)P(q)S_1(u|w,q)}{\sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')} \\
-	&= \frac{P(w)P(q)S_1(u|w,q)}{K} 
-	\end{align}
-
-	In the equation above, we define $K = \sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')$.
-
-
-
-	To compute the marginal distribution over QUDs:
-
-	\begin{align}
-	L_1(q | u) &= \int_{w}L_1(w,q | u) \\
-	&= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w,q) \\
-	&= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w_q,q) \\
-	&= \frac{1}{K}P(q) \int_{w}P(w_q, w^\bot)S_1(u|w_q,q) \\
-	&= \frac{1}{K}P(q) \int_{w}P(w_q) P(w^\bot)S_1(u|w_q,q) \\
-	&= \frac{1}{K}P(q) \int_{w^\bot \in Q^\bot}P(w^\bot)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) \\
-	&= \frac{1}{K}P(q)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q)
-	\end{align}
-
-	Here $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. In addition, $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$.
+	% \begin{align}
+	% L_1(w,q | u) &= \frac{P(w)P(q)S_1(u|w,q)}{\sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')} \\
+	% &= \frac{P(w)P(q)S_1(u|w,q)}{K} 
+	% \end{align}
 
 
 
-	The final equation is a one-dimensional integral, and can be computed using a discrete approximation to the integral. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. 
 
-	details:
+	% To compute the marginal distribution over QUDs:
 
-	We devise the following approximate inference algorithm.
+	% \begin{align}
+	$$ L_1(q | u) = \int_{w}L_1(w,q | u)
+	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w,q)
+	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w_q,q)$$
+	$$= \frac{1}{K}P(q) \int_{w}P(w_q, w^\bot)S_1(u|w_q,q) 
+	= \frac{1}{K}P(q) \int_{w}P(w_q) P(w^\bot)S_1(u|w_q,q)$$
+	$$= \frac{1}{K}P(q) \int_{w^\bot \in Q^\bot}P(w^\bot)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q)
+	= \frac{1}{K}P(q)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) $$
+	% \end{align}
 
-		To compute the joint posterior over $W$ and $Q$, we first compute the conditional posterior $P(w|q,u)$ for each $q\in Q$, and then determine the marginal posterior on $Q$, $P(Q)$ TODO HOW THO? 
+	Let $K = \sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')$. $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. In addition, $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation . The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. Figure \ref{l1heatmaps} provides an example of the $\QLONE$ posterior in a simple 2D case, corresponding to the example used for the set-theoretic example in figure \ref{fig:l1barplot}.
+
+
+		% To compute the joint posterior over $W$ and $Q$, we first compute the conditional posterior $P(w|q,u)$ for each $q\in Q$, and then determine the marginal posterior on $Q$, $P(Q)$  HOW THO? 
 
 		
 
 		% fixing a particular projection $q$, we can compute the conditional probability of $w$ 
-			by the following observation:
-				for an orthonomal basis of $W$ including $q$, the mean and variance of this posterior is the same as the prior in every dimension except $q$. 
-				In the single dimension of interest, we approximate the conditional posterior by performing gradient descent to find the mean of the posterior, and discretizing the now one-dimensional prior. 
+			% for an orthonomal basis of $W$ including $q$, the mean and variance of this posterior is the same as the prior in every dimension except $q$. 
+			% 	In the single dimension of interest, we approximate the conditional posterior by performing gradient descent to find the mean of the posterior, and discretizing the now one-dimensional prior. 
 
-				with compute variance of this dimension by...
-				this allows us to compute the marginal distribution
-
-		To calculate the mixture weights (i.e. $P_c(q)$), we use the fact that the determinant of the covariance matrix
-			UM TODO: true?
-				is proportionally to the integral of 
 
 
 
@@ -852,7 +832,8 @@
 	% This completes the specification of the vectorial interpretation of $\QLONE$. In this setting, $\QLONE$ receives an utterance $u$ (e.g. \emph{Time is a river.}) and returns a joint distribution, assigning a probability to each pair $(q,w)\in QxW$. 
 
 
-	For example, on the metaphor 
+	For example, on the metaphor, (subject=\emph{man}, predicate=\emph{shark}), the 
+		blah with most mass
 		TODO example
 
 	% Qualitatively, these results are promising: for the most part, the projections identified seem appropriate. Note that the projection should not be taken as a paraphrase of the metaphorically used noun. For instance, \emph{tame} is a suitable projection for ``The man is a lion.'', because tameness is a topic that the use of the metaphor resolves, even though lions are the opposite of tame. 
@@ -865,25 +846,156 @@
 
 		\begin{figure}
 		\includegraphics[height=8.5cm]{images/slide.png}
-		\caption{An item in the experiment. Order of adjectives from $\protect\QLONE$ and baseline models is randomized in each item, as is item order.}
+		\caption{An item in the experiment. Item order, and in-item order of the 4 adjectives from $\protect\QLONE$ and baseline models is randomized.}
 		\label{fig:slide}
 		\end{figure}
 
-		Choice of metaphors
-		\citet{tsvetkov2014metaphor} provides a corpus of \~800 AN metaphors, gathered by human annotators. We take \~100 of least frequent of these by bigram count\footnote{We used Corpus of Contemporary American English bigrams: Davies, Mark. (2011) N-grams data from the Corpus of Contemporary American English \citep{davies2011word}.}. We do this to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
+		\begin{figure}
+		\begin{subfigure}{0.3\textwidth}
+			\begin{center}
+
+			\setlength\extrarowheight{-10pt}
+			\renewcommand{\arraystretch}{0.1}
+			\begin{tabular}{ c | c | c  }
+			 \tiny $\protect\QLONE$ adjectives & \tiny BASELINE adjectives & \tiny metaphor \\ 
+			\hline
+			 % cell4 & cell5 & cell6 \\ 
+			 % $\protect\QLONE$ adjectives & BASELINE adjectives & metaphor \\
+			\tiny undistorted, faceless & \tiny wolfish, pitiless & \tiny cut-throat competition\\
+			\tiny euphoric, giddy & \tiny despondent, chagrined & \tiny deflated emotions\\
+			\tiny greater, moral & \tiny alarming, impoverished & \tiny deeper poverty\\
+			\tiny traditional, fresh & \tiny homemade, organizational & \tiny corporate pie\\
+			\tiny imminent, speculative & \tiny recessionary, substantial & \tiny economic meltdown\\
+			\tiny evil, suicidal & \tiny angry, nasty & \tiny blind hate\\
+			\tiny stellar, untold & \tiny humiliating, regional & \tiny economic heap\\
+			\tiny unbearable, mental & \tiny afflicted, worse & \tiny debilitating poverty\\
+			\tiny bipartisan, anti & \tiny political, affordable & \tiny economic prescription\\
+			\tiny quiet, idyllic & \tiny important, everlasting & \tiny deserted friendship\\
+			\tiny beautiful, particular & \tiny fearful, sincere & \tiny blue feelings\\
+			\tiny unproductive, crummy & \tiny ungodly, undoable & \tiny backbreaking rent\\
+			\tiny dangerous, possible & \tiny alleged, guilty & \tiny criminal path\\
+			\tiny cynical, vulgar & \tiny lustful, insatiable & \tiny dirty desires\\
+			\tiny difficult, obvious & \tiny preliminary, analytical & \tiny deep analysis\\
+			\tiny easy, traditional & \tiny possible, social & \tiny economic pie\\
+			\tiny successive, miserable & \tiny fiscal, brutal & \tiny crushing unemployment\\
+			\tiny wrong, new & \tiny warmer, appropriate & \tiny cold justice\\
+			\tiny refreshing, copious & \tiny unopened, divine & \tiny bottled passion\\
+			\tiny awash, treacherous & \tiny undulating, unprecedented & \tiny crisscrossed chaos\\
+			\tiny jubilant, galvanized & \tiny buoyant, wobbly & \tiny deflated pride\\
+			\tiny desirable, modest & \tiny residential, fragile & \tiny durable middle-class\\
+			\tiny amusing, cynical & \tiny nasty, afraid & \tiny biting look\\
+			\tiny recent, likely & \tiny slight, annual & \tiny economic rise\\
+			\tiny enduring, rich & \tiny afflicted, global & \tiny deep poverty\\
+			\tiny gifted, renowned & \tiny illiterate, national & \tiny blind elite\\
+			\tiny federal, necessary & \tiny southern, aggressive & \tiny economic force\\
+			\tiny cyclical, breakneck & \tiny zippy, sluggish & \tiny economic laggard\\
+			\tiny immense, intellectual & \tiny overall, analogous & \tiny economic sphere\\
+			\tiny precarious, creaking & \tiny adequate, prolonged & \tiny collapsing health\\
+			\tiny stale, unrealistic & \tiny wobbly, metaphorical & \tiny deflated meaning\\
+			\tiny optimal, budgetary & \tiny potential, adequate & \tiny balanced growth\\
+			\tiny entrepreneurial, greater & \tiny agile, possible & \tiny economic mobility\\
+			\tiny wicked, dishonest & \tiny virtuous, righteous & \tiny dirty deeds\\
+			\tiny cultural, genuine & \tiny astonishing, parliamentary & \tiny democratic vitality\\
+			\tiny rewarding, excess & \tiny dry, lavish & \tiny draining expense\\
+			\tiny vibrant, medieval & \tiny worse, grotesque & \tiny economic tapestry\\
+			\tiny relentless, debilitating & \tiny battered, periodic & \tiny crushing cycle\\
+			\tiny conquering, immense & \tiny embarrassing, overwhelming & \tiny crushing difficulty\\
+			\tiny academic, practical & \tiny advanced, recent & \tiny economic medicine\\
+			\tiny pessimistic, bleak & \tiny worried, serious & \tiny clouded future\\
+			\tiny ambitious, vibrant & \tiny strategic, postwar & \tiny economic revitalization\\
+			\tiny accidental, divergent & \tiny unspoken, intolerable & \tiny colliding contradiction\\
+			\tiny appalling, wretched & \tiny alarming, inhuman & \tiny dehumanizing poverty\\
+			\tiny overblown, depressing & \tiny bizarre, depressed & \tiny deflated joke\\
+			\tiny alone, unclear & \tiny male, additional & \tiny dead money\\
+			\tiny enduring, evident & \tiny homogeneous, big & \tiny deep inequality\\
+			\tiny supreme, founding & \tiny constitutional, socialist & \tiny dissolved time\\
+			\tiny longstanding, unshakeable & \tiny baneful, underlying & \tiny deep-rooted belief\\
+			\tiny ambitious, innovative & \tiny outspoken, risky & \tiny aggressive program\\
+			\tiny unchecked, continual & \tiny phenomenal, zippy & \tiny breakneck expansion\\
+			\tiny rampant, worsening & \tiny acute, fatal & \tiny chronic poverty\\
+			\tiny immediate, immense & \tiny atomic, illegal & \tiny economic destruction\\
+			\tiny unable, wrong & \tiny heavy, anxious & \tiny broken hope\\
+			\tiny internal, sustained & \tiny neurological, apparent & \tiny economic muscle\\
+			\tiny inherent, legitimate & \tiny ancient, glaring & \tiny cultural impediment\\
+			\tiny ideological, fiscal & \tiny philosophical, administrative & \tiny academic gap\\
+			\tiny good, higher & \tiny poor, efficient & \tiny durable class\\
+			\tiny worsening, prevalent & \tiny adverse, global & \tiny acute poverty\\
+			\tiny successive, heartbreaking & \tiny aggravated, gigantic & \tiny crushing neglect\\
+			\tiny unrelenting, magnificent & \tiny windy, torrid & \tiny blazing desolation\\
+			\tiny moral, secular & \tiny parliamentary, flexible & \tiny civic fabric\\
+			\tiny interactive, competitive & \tiny nonlinear, real & \tiny dynamic company\\
+			\tiny principled, definite & \tiny lasting, flexible & \tiny clear-cut solution\\
+			\tiny subsidized, costly & \tiny senior, insolvent & \tiny burdened service\\
+			\tiny unsustainable, voluminous & \tiny macroeconomic, insufficient & \tiny ballooning expenditure\\
+			\tiny lonely, idyllic & \tiny monogamous, featureless & \tiny deserted relationships\\
+			\tiny disoriented, contorted & \tiny unexplored, undulating & \tiny choked gullies\\
+			\tiny conquering, heartbreaking & \tiny appalling, gigantic & \tiny crushing misery\\
+			\tiny dramatic, depressing & \tiny recent, greater & \tiny economic slide\\
+			\tiny quiet, nondescript & \tiny forlorn, patterned & \tiny blue obscurity\\
+			\tiny foreseeable, pessimistic & \tiny windless, worrisome & \tiny cloudy prospect\\
+			\tiny pervasive, debilitating & \tiny addictive, corporate & \tiny corrosive corruption\\
+			\tiny widespread, alarming & \tiny abject, escalating & \tiny acute ignorance\\
+			\tiny flamboyant, humorous & \tiny multicolored, garish & \tiny colorful personality\\
+			\tiny certain, other & \tiny painful, huge & \tiny deep rank\\
+			\tiny minor, whole & \tiny good, numerous & \tiny broken melody\\
+			\tiny optimistic, generous & \tiny national, ambitious & \tiny compassionate budget\\
+			\tiny provocative, unflattering & \tiny memorable, charming & \tiny colorful remark\\
+			\tiny feudal, authoritarian & \tiny great, aristocratic & \tiny backward tradition\\
+			\tiny civil, disastrous & \tiny sluggish, allied & \tiny economic battle\\
+			\tiny consequent, structural & \tiny apparent, freshwater & \tiny ecological collapse\\
+			\tiny terrible, oppressive & \tiny absolute, innate & \tiny crushing ignorance\\
+			\tiny potential, tremendous & \tiny ready, mild & \tiny big weakness\\
+			\tiny unbearable, nagging & \tiny escalating, playful & \tiny crippling awkwardness\\
+			\tiny impoverished, prone & \tiny parallel, important & \tiny backward area\\
+			\tiny scientific, theoretical & \tiny potential, advanced & \tiny economic field\\
+			\tiny economic, ongoing & \tiny bilateral, unprecedented & \tiny deepening crisis\\
+			\tiny succinct, emphatic & \tiny goddamned, possible & \tiny clear-cut answer\\
+			\tiny spiritual, immense & \tiny otherworldly, heavy & \tiny deep solitude\\
+			\tiny intelligent, creative & \tiny narcissistic, aggressive & \tiny dynamic personality\\
+			\tiny naive, suicidal & \tiny poor, bald & \tiny blind optimism\\
+			\tiny usual, strange & \tiny wet, unlikely & \tiny cold appearance\\
+			\tiny enduring, emotional & \tiny aesthetic, newfound & \tiny cultural strength\\
+			\tiny bleak, glum & \tiny ghastly, enduring & \tiny dim reminder\\
+			\tiny bittersweet, unimaginable & \tiny salty, baked & \tiny delicious agony\\
+			\tiny crippling, debilitating & \tiny afflicted, nationwide & \tiny crushing hunger\\
+			\tiny productive, scarce & \tiny active, hydrochloric & \tiny concentrated poverty\\
+			\tiny romantic, pure & \tiny youthful, pale & \tiny dark passion\\
+			\tiny aware, direct & \tiny administrative, unable & \tiny clear responsibility\\
+			\tiny pessimistic, bleak & \tiny enticing, heightened & \tiny dimmed prospect\\
+			\tiny longstanding, generational & \tiny ingrown, hallowed & \tiny deep-rooted tradition\\
+			\tiny sleazy, seedy & \tiny new, formal & \tiny dodgy bar\\
+			\tiny sacred, holy & \tiny yellow, kindred & \tiny burning soul\\
+			\tiny timeless, immortal & \tiny rejuvenated, mellow & \tiny ageless rhythms\\
+			\tiny serene, otherworldly & \tiny overgrown, lyrical & \tiny desolate beauty\\
+			\tiny disastrous, debilitating & \tiny fierce, avenging & \tiny crushing effect\\
+			\tiny wasteful, unsustainable & \tiny lifeless, tough & \tiny bloated spending\\
+			\tiny thriving, vibrant & \tiny pigtailed, unraveled & \tiny blossoming industry\\
+			 
+			\end{tabular}
+			\end{center}
+		\end{subfigure}\begin{subfigure}{0.5\textwidth}
+			\vspace*{-1.35cm}\hspace{10em}\includegraphics[width=21.2cm,height=4.5cm,angle=270]{images/resultsbarplot.png}
+		\end{subfigure}
+			\caption{This figure shows all 109 metaphors used in the experiment, and the corresponding baseline and $L\protect\QLONE$ proposals, with the height of the bar corresponding to the difference of the mean rating (across users and both proposed adjectives) given to that metaphor under the $L\protect\QLONE$ model and baseline model. This shows that for roughly 75\% of the metaphors, the $L\protect\QLONE$ interpretation is preferred.}
+			\label{fig:barplot}
+		\end{figure}
+		todo: fix alignment stuff
+
+		\citep{tsvetkov2014metaphor} provides a corpus of $\sim$800 AN metaphors, gathered by human annotators, of which we select $\sim$100 of the least frequent by bigram count\footnote{N-grams data from the Corpus of Contemporary American English \citep{davies2011word}.} for our experiment, in order to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
 
 		In our experiment, each participant is shown a series of 12 metaphors, selected randomly from the total 109. For each metaphor, they are asked to rate on a slider four adjectives representing interpretations of the metaphor, of which two are selected by $\QLONE$ and two from a baseline model (details below). An example is shown in figure \ref{fig:slide}.
 
-		The experiment was run on Mechanical Turk, with 99 participants, all of whom are native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants.
+		The experiment was run on Mechanical Turk, with 99 participants, all of whom are native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants (although this affects results very little, which remain significant without the exclusion).
 	
 	\subsubsection{Baseline model}
 
 
+
+
 		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. As such, a natural baseline model to compare against is a model with a distributional semantics that does not make use of the pragmatic reasoning process inherent in $\QLONE$.
 
-		Our baseline model is defined as follows: for a given metaphor of the form $(a n)$, we take the mean of the \emph{a} and \emph{n} (or noun and adjective). The two nearest adjectives (selected from \citep{brysbaert2014concreteness}) $q$ to this mean are our baseline interpretations for the metaphor. We take the mean (which is a weighted sum) in light of the effectiveness of vector addition in deriving representations of phrasal and sentence meanings from constituent words (see \citep{mitchell2010composition,grefenstette2013category,socher2013recursive}). Cosine distance is a standard metric of similarity used for word embeddings (see \citep{pennington2014glove}).
+		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the \emph{a} and \emph{n} (or noun and adjective). The two nearest adjectives $q$ to this mean are our baseline interpretations for the metaphor. We use the mean (a weighted sum) in light of the effectiveness of vector addition in deriving representations of phrasal and sentence meanings from constituent words, see \citep{mitchell2010composition,grefenstette2013category,socher2013recursive}. Cosine distance is a standard metric of similarity used for word embeddings \citep{pennington2014glove}.
 
-			% TODO: bit about concreteness needs to go above
 
 
 			% relevant literature on vector addition / cosine:
@@ -895,175 +1007,43 @@
 			% https://nlp.stanford.edu/pubs/glove.pdf
 			
 
-	\begin{figure}
-	\begin{subfigure}{0.4\textwidth}
-		\begin{center}
 
-		\setlength\extrarowheight{-10pt}
-		\renewcommand{\arraystretch}{0.1}
-		\begin{tabular}{ c | c | c  }
-		 \tiny $\protect\QLONE$ adjectives & \tiny BASELINE adjectives & \tiny metaphor \\ 
-		 % cell4 & cell5 & cell6 \\ 
-		 % $\protect\QLONE$ adjectives & BASELINE adjectives & metaphor \\
-		\tiny undistorted, faceless & \tiny wolfish, pitiless & \tiny cut-throat competition\\
-		\tiny euphoric, giddy & \tiny despondent, chagrined & \tiny deflated emotions\\
-		\tiny greater, moral & \tiny alarming, impoverished & \tiny deeper poverty\\
-		\tiny traditional, fresh & \tiny homemade, organizational & \tiny corporate pie\\
-		\tiny imminent, speculative & \tiny recessionary, substantial & \tiny economic meltdown\\
-		\tiny evil, suicidal & \tiny angry, nasty & \tiny blind hate\\
-		\tiny stellar, untold & \tiny humiliating, regional & \tiny economic heap\\
-		\tiny unbearable, mental & \tiny afflicted, worse & \tiny debilitating poverty\\
-		\tiny bipartisan, anti & \tiny political, affordable & \tiny economic prescription\\
-		\tiny quiet, idyllic & \tiny important, everlasting & \tiny deserted friendship\\
-		\tiny beautiful, particular & \tiny fearful, sincere & \tiny blue feelings\\
-		\tiny unproductive, crummy & \tiny ungodly, undoable & \tiny backbreaking rent\\
-		\tiny dangerous, possible & \tiny alleged, guilty & \tiny criminal path\\
-		\tiny cynical, vulgar & \tiny lustful, insatiable & \tiny dirty desires\\
-		\tiny difficult, obvious & \tiny preliminary, analytical & \tiny deep analysis\\
-		\tiny easy, traditional & \tiny possible, social & \tiny economic pie\\
-		\tiny successive, miserable & \tiny fiscal, brutal & \tiny crushing unemployment\\
-		\tiny wrong, new & \tiny warmer, appropriate & \tiny cold justice\\
-		\tiny refreshing, copious & \tiny unopened, divine & \tiny bottled passion\\
-		\tiny awash, treacherous & \tiny undulating, unprecedented & \tiny crisscrossed chaos\\
-		\tiny jubilant, galvanized & \tiny buoyant, wobbly & \tiny deflated pride\\
-		\tiny desirable, modest & \tiny residential, fragile & \tiny durable middle-class\\
-		\tiny amusing, cynical & \tiny nasty, afraid & \tiny biting look\\
-		\tiny recent, likely & \tiny slight, annual & \tiny economic rise\\
-		\tiny enduring, rich & \tiny afflicted, global & \tiny deep poverty\\
-		\tiny gifted, renowned & \tiny illiterate, national & \tiny blind elite\\
-		\tiny federal, necessary & \tiny southern, aggressive & \tiny economic force\\
-		\tiny cyclical, breakneck & \tiny zippy, sluggish & \tiny economic laggard\\
-		\tiny immense, intellectual & \tiny overall, analogous & \tiny economic sphere\\
-		\tiny precarious, creaking & \tiny adequate, prolonged & \tiny collapsing health\\
-		\tiny stale, unrealistic & \tiny wobbly, metaphorical & \tiny deflated meaning\\
-		\tiny optimal, budgetary & \tiny potential, adequate & \tiny balanced growth\\
-		\tiny entrepreneurial, greater & \tiny agile, possible & \tiny economic mobility\\
-		\tiny wicked, dishonest & \tiny virtuous, righteous & \tiny dirty deeds\\
-		\tiny cultural, genuine & \tiny astonishing, parliamentary & \tiny democratic vitality\\
-		\tiny rewarding, excess & \tiny dry, lavish & \tiny draining expense\\
-		\tiny vibrant, medieval & \tiny worse, grotesque & \tiny economic tapestry\\
-		\tiny relentless, debilitating & \tiny battered, periodic & \tiny crushing cycle\\
-		\tiny conquering, immense & \tiny embarrassing, overwhelming & \tiny crushing difficulty\\
-		\tiny academic, practical & \tiny advanced, recent & \tiny economic medicine\\
-		\tiny pessimistic, bleak & \tiny worried, serious & \tiny clouded future\\
-		\tiny ambitious, vibrant & \tiny strategic, postwar & \tiny economic revitalization\\
-		\tiny accidental, divergent & \tiny unspoken, intolerable & \tiny colliding contradiction\\
-		\tiny appalling, wretched & \tiny alarming, inhuman & \tiny dehumanizing poverty\\
-		\tiny overblown, depressing & \tiny bizarre, depressed & \tiny deflated joke\\
-		\tiny alone, unclear & \tiny male, additional & \tiny dead money\\
-		\tiny enduring, evident & \tiny homogeneous, big & \tiny deep inequality\\
-		\tiny supreme, founding & \tiny constitutional, socialist & \tiny dissolved time\\
-		\tiny longstanding, unshakeable & \tiny baneful, underlying & \tiny deep-rooted belief\\
-		\tiny ambitious, innovative & \tiny outspoken, risky & \tiny aggressive program\\
-		\tiny unchecked, continual & \tiny phenomenal, zippy & \tiny breakneck expansion\\
-		\tiny rampant, worsening & \tiny acute, fatal & \tiny chronic poverty\\
-		\tiny immediate, immense & \tiny atomic, illegal & \tiny economic destruction\\
-		\tiny unable, wrong & \tiny heavy, anxious & \tiny broken hope\\
-		\tiny internal, sustained & \tiny neurological, apparent & \tiny economic muscle\\
-		\tiny inherent, legitimate & \tiny ancient, glaring & \tiny cultural impediment\\
-		\tiny ideological, fiscal & \tiny philosophical, administrative & \tiny academic gap\\
-		\tiny good, higher & \tiny poor, efficient & \tiny durable class\\
-		\tiny worsening, prevalent & \tiny adverse, global & \tiny acute poverty\\
-		\tiny successive, heartbreaking & \tiny aggravated, gigantic & \tiny crushing neglect\\
-		\tiny unrelenting, magnificent & \tiny windy, torrid & \tiny blazing desolation\\
-		\tiny moral, secular & \tiny parliamentary, flexible & \tiny civic fabric\\
-		\tiny interactive, competitive & \tiny nonlinear, real & \tiny dynamic company\\
-		\tiny principled, definite & \tiny lasting, flexible & \tiny clear-cut solution\\
-		\tiny subsidized, costly & \tiny senior, insolvent & \tiny burdened service\\
-		\tiny unsustainable, voluminous & \tiny macroeconomic, insufficient & \tiny ballooning expenditure\\
-		\tiny lonely, idyllic & \tiny monogamous, featureless & \tiny deserted relationships\\
-		\tiny disoriented, contorted & \tiny unexplored, undulating & \tiny choked gullies\\
-		\tiny conquering, heartbreaking & \tiny appalling, gigantic & \tiny crushing misery\\
-		\tiny dramatic, depressing & \tiny recent, greater & \tiny economic slide\\
-		\tiny quiet, nondescript & \tiny forlorn, patterned & \tiny blue obscurity\\
-		\tiny foreseeable, pessimistic & \tiny windless, worrisome & \tiny cloudy prospect\\
-		\tiny pervasive, debilitating & \tiny addictive, corporate & \tiny corrosive corruption\\
-		\tiny widespread, alarming & \tiny abject, escalating & \tiny acute ignorance\\
-		\tiny flamboyant, humorous & \tiny multicolored, garish & \tiny colorful personality\\
-		\tiny certain, other & \tiny painful, huge & \tiny deep rank\\
-		\tiny minor, whole & \tiny good, numerous & \tiny broken melody\\
-		\tiny optimistic, generous & \tiny national, ambitious & \tiny compassionate budget\\
-		\tiny provocative, unflattering & \tiny memorable, charming & \tiny colorful remark\\
-		\tiny feudal, authoritarian & \tiny great, aristocratic & \tiny backward tradition\\
-		\tiny civil, disastrous & \tiny sluggish, allied & \tiny economic battle\\
-		\tiny consequent, structural & \tiny apparent, freshwater & \tiny ecological collapse\\
-		\tiny terrible, oppressive & \tiny absolute, innate & \tiny crushing ignorance\\
-		\tiny potential, tremendous & \tiny ready, mild & \tiny big weakness\\
-		\tiny unbearable, nagging & \tiny escalating, playful & \tiny crippling awkwardness\\
-		\tiny impoverished, prone & \tiny parallel, important & \tiny backward area\\
-		\tiny scientific, theoretical & \tiny potential, advanced & \tiny economic field\\
-		\tiny economic, ongoing & \tiny bilateral, unprecedented & \tiny deepening crisis\\
-		\tiny succinct, emphatic & \tiny goddamned, possible & \tiny clear-cut answer\\
-		\tiny spiritual, immense & \tiny otherworldly, heavy & \tiny deep solitude\\
-		\tiny intelligent, creative & \tiny narcissistic, aggressive & \tiny dynamic personality\\
-		\tiny naive, suicidal & \tiny poor, bald & \tiny blind optimism\\
-		\tiny usual, strange & \tiny wet, unlikely & \tiny cold appearance\\
-		\tiny enduring, emotional & \tiny aesthetic, newfound & \tiny cultural strength\\
-		\tiny bleak, glum & \tiny ghastly, enduring & \tiny dim reminder\\
-		\tiny bittersweet, unimaginable & \tiny salty, baked & \tiny delicious agony\\
-		\tiny crippling, debilitating & \tiny afflicted, nationwide & \tiny crushing hunger\\
-		\tiny productive, scarce & \tiny active, hydrochloric & \tiny concentrated poverty\\
-		\tiny romantic, pure & \tiny youthful, pale & \tiny dark passion\\
-		\tiny aware, direct & \tiny administrative, unable & \tiny clear responsibility\\
-		\tiny pessimistic, bleak & \tiny enticing, heightened & \tiny dimmed prospect\\
-		\tiny longstanding, generational & \tiny ingrown, hallowed & \tiny deep-rooted tradition\\
-		\tiny sleazy, seedy & \tiny new, formal & \tiny dodgy bar\\
-		\tiny sacred, holy & \tiny yellow, kindred & \tiny burning soul\\
-		\tiny timeless, immortal & \tiny rejuvenated, mellow & \tiny ageless rhythms\\
-		\tiny serene, otherworldly & \tiny overgrown, lyrical & \tiny desolate beauty\\
-		\tiny disastrous, debilitating & \tiny fierce, avenging & \tiny crushing effect\\
-		\tiny wasteful, unsustainable & \tiny lifeless, tough & \tiny bloated spending\\
-		\tiny thriving, vibrant & \tiny pigtailed, unraveled & \tiny blossoming industry\\
-		 
-		\end{tabular}
-		\end{center}
-	\end{subfigure}\begin{subfigure}{0.2\textwidth}
-		\includegraphics[height=10cm,angle=270,origin=c]{images/resultsbarplot.png}
-	\end{subfigure}
-		\caption{This figure shows all 109 metaphors used in the experiment, and the corresponding baseline and $L\protect\QLONE$ proposals, with the height of the bar corresponding to the difference of the mean rating (across users and both proposed adjectives) given to that metaphor under the $L\protect\QLONE$ model and baseline model. This shows that for roughly 75\% of the metaphors, the $L\protect\QLONE$ interpretation is preferred.}
-		\label{fig:barplot}
-	\end{figure}
-
-	\begin{figure}
-		\includegraphics[height=5cm,angle=270,origin=c]{images/comparison1}
+	% \begin{figure}
+	% 	\includegraphics[height=5cm,angle=270,origin=c]{images/comparison1}
 
 
-	\end{figure}
-	\begin{figure}
-		\includegraphics[height=5cm,angle=270,origin=c]{images/comparison2}
-	\end{figure}
+	% \end{figure}
+	% \begin{figure}
+	% 	\includegraphics[height=5cm,angle=270,origin=c]{images/comparison2}	
+	% \end{figure}
+
+
+
 	\subsubsection{$\protect\QLONE$ hyperparameters}
 
-		We use the largest available (300 dimensional) GloVe vectors, as our word embedding $E$. For each AN metaphor of the form $[a n]$, we specify $U$ as a set of 101 alternative utterances, consisting of $a$ and 100 of the nearest adjectives (by cosine distance) to $n$. These adjectives are chosen from the set of the 1425 adjectives with concreteness ranking $>3.0$, in the concreteness corpus of \citep{brysbaert2014concreteness}.
+		We use the largest available (300 dimensional) GloVe vectors, as our word embedding $E$. For each AN metaphor $(a$ $n)$, we specify $U$ as a set of 101 alternative utterances, consisting of $a$ and 100 of the nearest adjectives (by cosine distance) to $n$. These adjectives are chosen from the set of the 1425 adjectives with concreteness ranking $>3.0$ in the concreteness corpus of \citep{brysbaert2014concreteness}, to exclude abstract nouns.
 
-		Similarly, we select a set $Q$ of projections corresponding to the hundred closest adjectives to the mean of the subject and predicate (the method of adjective choice in the baseline model), and stipulate $P_{L_Q}(q)$ as uniform. 
+		Similarly, we select a set $Q$ of projections corresponding to the hundred closest adjectives to the mean of the subject and predicate (the method of adjective choice in the baseline model), and take $P_{L_Q}$ to be a uniform distribution over $Q$. 
 
-
-
-		% mean centering
-
-		By tuning on a validation set of hand-selected metaphors, we choose $\sigma_1=\sigma_2=0.1$ (the variances of the Gaussians used in the prior and semantics respectively).
-
-		We select the adjectives corresponding to the two projections with highest marginal posterior mass under $\QLONE$ as the interpretations provided from our model in the experiment.
+		By tuning on a validation set of hand-selected metaphors, we choose $\sigma_1=\sigma_2=0.1$ (the variances of the Gaussians used in the prior and semantics respectively). We select the adjectives corresponding to the two projections with highest marginal posterior mass under $\QLONE$ as the interpretations provided from our model in the experiment.
 
 	\subsubsection{Analysis}
 
-		The data were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations (beta=13.8, t=5.3, p<0.001)
+		The data, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations (beta=13.8, t=5.3, p$<$0.001).
 
 
 		
 		% We ran a linear mixed effects model, predicting slider rating from baseline vs. $L_1$ metaphor, with by-metaphor and by-participant random intercepts. We find a significant correlation
 
 			% As can be seen in Figure \ref{resultsbar}, there is a lot of variation in the average quality of proposed adjectives across both models, between metaphors. For the baseline model, we note that there is a subset of metaphors for which the baseline will perform well, as discussed in section (\ref{task1id}). These are metaphors where good projections $q$ are such that the subject and predicate are close when projected along $q$. In these cases, averaging the subject and predicate will generally give rise to a good interpretation. 
-\section{Discussion}
+\section{Discussion} \label{conc} 
 
-	TODO: say something about compositionality
 
 	The significant improvement of $\QLONE$ over a model with the same semantics but no pragmatic reasoning provides evidence that this reasoning is key to obtaining human-like interpretations of metaphors.
 
 	In building a tractable inference algorithm for $\QLONE$, we have also shown that the technical challenges in adapting a nested Bayesian model of pragmatics to a continuous setting are not insurmountable. We see this as an important step towards an open domain model of pragmatic language interpretation and production.
 
-	Two directions of future work we consider to be especially promising are the extension to multidimensional projections, since metaphors can plausibly convey multiple dimensions of meaning at once, and the development of a pragmatic speaker $S_2$ to model metaphor production. 
+	One direction of future work we consider to be especially promising is the extension of the system to multidimensional projections, since metaphors can plausibly convey multiple dimensions of meaning at once - in fact, we hypothesize that this is what motivates their use. We also aim to develop a pragmatic speaker $S_2$ as a model of metaphor production. More generally, optimization of our algorithm, in line with recent developments in word embeddings \citep{devlin2018bert,peters2018deep} should allow us to handle a broad range of metaphor in natural language. 
 			% However, the model is extensible to the more general case, which we regard as an important direction for future work, since it allows us to capture the ability of metaphors to talk about many dimensions of meaning simultaneously.
 
 	% valuable evidence that Gricean reasoning about informativity and relevance is key to the interpretation of metaphor, and language more generally.

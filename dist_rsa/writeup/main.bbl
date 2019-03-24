@@ -29,6 +29,34 @@ Brysbaert, M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Coecke%
+, Sadrzadeh%
+\BCBL {}\ \BBA {} Clark%
+}{%
+Coecke%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+coecke2010mathematical}
+\APACinsertmetastar {%
+coecke2010mathematical}%
+\begin{APACrefauthors}%
+Coecke, B.%
+, Sadrzadeh, M.%
+\BCBL {}\ \BBA {} Clark, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mathematical foundations for a compositional
+  distributional model of meaning} {Mathematical foundations for a
+  compositional distributional model of meaning}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{arXiv preprint arXiv:1003.4394}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Dai%
 \ \BBA {} Le%
 }{%
@@ -215,6 +243,28 @@ Grefenstette, E.%
   semantics}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{arXiv preprint arXiv:1311.1539}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Grice%
+}{%
+Grice%
+}{%
+{\protect \APACyear {1975}}%
+}]{%
+grice}
+\APACinsertmetastar {%
+grice}%
+\begin{APACrefauthors}%
+Grice, H\BPBI P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1975}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Logic and conversation} {Logic and conversation}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{1975}{}{}{41--58}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
