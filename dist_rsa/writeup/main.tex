@@ -264,7 +264,7 @@
 	
 	In this second example, when $\QLONE$ hears \emph{shark}, they infer only that John is vicious, and not fast, even though both are equally likely under $P_L$. This is because, had the speaker wanted to communicate that John is fast, \emph{hummingbird} would have been a more informative utterance.
 
-	todo: note on getting realistic predictions by using large experimentally collected data
+	% todo: note on getting realistic predictions by using large experimentally collected data
 	
 	% on the assumption that it is compatible with only $(\textrm{intense}=T,\textrm{warm}=T)$ are shown in figure \ref{fig:l1barplot}. 
 
@@ -290,7 +290,7 @@
 	% % \centering
 	% \includegraphics[width=\textwidth]{images/l1posteriorquantity.png}
 	% \end{subfigure}
-	\caption{Figure showing the posterior distribution of $\protect\QLONE$ on hearing \emph{shark}}
+	\caption{Figure showing the posterior distribution of $\protect\QLONE$ on hearing \emph{shark}. $v$ and $n$ abbreviate the Boolean variables \emph{vicious} and \emph{non-human} respectively.}
 	\label{fig:l1barplot}
 	\end{figure}
 	% change to minipage
@@ -483,7 +483,7 @@
 		
 
 	Metaphor is an obvious candidate for approaches that use distributional semantics: a wide variety of attempts have been made to leverage the information inherent in pre-trained word vectors for the detection, interpretation and paraphrase of metaphor (see \cite{shutova2016design} for an overview of proposed systems.).
-		TODO: needs your own citations
+		% TODO: needs your own citations
 
 	Our hypothesis is that, while the information in high quality word embeddings captures important aspects of meaning, a cognitively realistic model of metaphor interpretation should also incorporate Gricean reasoning, of the sort formalized in the RSA framework. We now explain how the $\QLONE$ model can be combined with a distributional model of word meaning.
 
@@ -590,14 +590,14 @@
 		\ex $\llbracket u\rrbracket(w) = P_{\mathcal{N}}(w\vert\mu=\overrightarrow{\mathit{predicate_u}},\sigma=\sigma_2)$ \label{vect:sem}
 		\end{exe}
 
-		The result of this definition is that the value of $\llbracket u\rrbracket(w)$ is a real number which scales quadratically with the Euclidean distance between $u$ and $w$. 
-				TODO: confirm
+		The result of this definition is that the value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
 
 		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions, which allows for a closed form solution of $L_0$. As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
 	\subsubsection{Projections} 
 
 		\begin{figure}
+		\centering
 			\includegraphics[height=6.5cm]{images/diagram2.pdf}
 			\caption{In this example, the vectors for \emph{vicious} and \emph{aquatic} each parametrize a QUD mapping all the points in the space (such as \emph{man} and \emph{shark}) to new points. These new points can be thought of as the positions of \emph{man}, \emph{shark} and so on in a new space which cares only about the position of the points with respect to the \emph{vicious} vector.}
 			\label{fig:1}
@@ -834,7 +834,7 @@
 
 	% For example, on the metaphor, (subject=\emph{man}, predicate=\emph{shark}), the 
 	% 	blah with most mass
-		TODO example
+		% TODO example
 
 	% Qualitatively, these results are promising: for the most part, the projections identified seem appropriate. Note that the projection should not be taken as a paraphrase of the metaphorically used noun. For instance, \emph{tame} is a suitable projection for ``The man is a lion.'', because tameness is a topic that the use of the metaphor resolves, even though lions are the opposite of tame. 
 \section{Experimental Validation} \label{exp}
@@ -974,12 +974,15 @@
 			\end{tabular}
 			\end{center}
 		\end{subfigure}\begin{subfigure}{0.5\textwidth}
-			\vspace*{-1.35cm}\hspace{10em}\includegraphics[width=21.2cm,height=4.5cm,angle=270]{images/resultsbarplot.png}
+			% \includegraphics[width=4.5cm]{images/top.png}\\ 
+			\vspace*{-1.35cm}\hspace{10em}\includegraphics[width=21.3cm,height=4.5cm,angle=270]{images/resultsbarplot.png}
 		\end{subfigure}
-			\caption{This figure shows all 109 metaphors used in the experiment, and the corresponding baseline and $L\protect\QLONE$ proposals, with the height of the bar corresponding to the difference of the mean rating (across users and both proposed adjectives) given to that metaphor under the $L\protect\QLONE$ model and baseline model. This shows that for roughly 75\% of the metaphors, the $L\protect\QLONE$ interpretation is preferred.}
+			\caption{The 109 metaphors used in the experiment, and corresponding baseline and $\protect\QLONE$ proposals, plotted against mean rating given to that metaphor under these two models. 
+			% This shows that for roughly 75\% of the metaphors, the $\protect\QLONE$ interpretation is preferred.
+			}
 			\label{fig:barplot}
 		\end{figure}
-		todo: fix alignment stuff
+		% todo: fix alignment stuff
 
 		\citep{tsvetkov2014metaphor} provides a corpus of $\sim$800 AN metaphors, gathered by human annotators, of which we select $\sim$100 of the least frequent by bigram count\footnote{N-grams data from the Corpus of Contemporary American English \citep{davies2011word}.} for our experiment, in order to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
 
