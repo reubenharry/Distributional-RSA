@@ -705,7 +705,10 @@
 \subsubsection{L\textsubscript{0} Inference}
 
 
-	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of another point, the received utterance. To calculate $L_0$ analytically, we make use of Gaussian self-conjugacy, which allows a distribution with a Gaussian prior and likelihood term to be rewritten as a single Gaussian of different parameters. 
+	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of another point, the received utterance. To calculate $L_0$ analytically, we make use of Gaussian conjugacy. When the prior $P_L$ is defined as in Equation \ref{vect:prior}, and the semantic interpretation is defined as in Equation \ref{vect:sem}, then conjugacy implies that the listener posterior is given by:
+	\begin{equation}
+	L_0(w|u) = P_{\mathcal{N}}(w\vert\mu=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}\cdot(\frac{\overrightarrow{\mathit{source}}}{\sigma_1^2}+\frac{\overrightarrow{\mathit{predicate_u}}}{\sigma_2^2}),\sigma=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})
+	\end{equation}
 
 
 	% This is the property that a distribution of the form $P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)P_{\mathcal{N}}(w\vert\mu=u,\sigma=\sigma_2)$
@@ -720,7 +723,7 @@
 	% 	 citation?
 \subsubsection{S\textsubscript{1} Inference}
 
-		Since $U$ remains a finite set of utterances, the $S_1$ posterior can be computed exactly, as for the set-theoretic interpretation of $S_1$. 
+		Since $U$ remains a finite set of utterances, the $S_1$ distribution over utterances from Equation \ref{defs0} can be computed exactly, as for the set-theoretic interpretation of $S_1$. 
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
 
@@ -770,7 +773,9 @@
 	% 		scalar implicature means that...
 	% We devise the following approximate inference algorithm.
 
-	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. We are unable to use conjugacy to compute it analytically, but equally unable to compute it exactly. However, because of the linear projections $q$, we are able to devise a near-exact inference algorithm\footnote{We verify the correctness of this algorithm in the 2 dimensional case by comparison to the exact posterior, which is calculable (up to discretization of the prior) in 2 dimensions.} for the marginal distribution over $Q$, derived as follows:
+	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. Unlike $L_0$, we are unable to use conjugacy to compute it analytically. However, because of the linear structure of the problem, we are able to devise a near-exact inference algorithm for the marginal distribution over $Q$, derived as follows:
+
+%\footnote{We verify the correctness of this algorithm in the 2 dimensional case by comparison to the exact posterior, which is calculable (up to discretization of the prior) in 2 dimensions.}
 
 		% Moreover, we find that Mean Field Variational Inference  CITATION is not well suited
 		% 	since the posterior is non-Gaussian (see figure \ref{l1heatmaps}).
@@ -785,17 +790,16 @@
 
 	% To compute the marginal distribution over QUDs:
 
-	% \begin{align}
-	$$ L_1(q | u) = \int_{w}L_1(w,q | u)
-	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w,q)
-	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w_q,q)$$
-	$$= \frac{1}{K}P(q) \int_{w}P(w_q, w^\bot)S_1(u|w_q,q) 
-	= \frac{1}{K}P(q) \int_{w}P(w_q) P(w^\bot)S_1(u|w_q,q)$$
-	$$= \frac{1}{K}P(q) \int_{w^\bot \in Q^\bot}P(w^\bot)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q)
-	= \frac{1}{K}P(q)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) $$
-	% \end{align}
+	 \begin{align}
+	&L_1(q | u) = \int_{w}L_1(w,q | u)
+	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w,q)  \\
+	&= \frac{1}{K}P(q) \int_{w}P(w_q, w^\bot)S_1(u|w_q,q) 
+	= \frac{1}{K}P(q) \int_{w}P(w_q) P(w^\bot)S_1(u|w_q,q) \\
+	&= \frac{1}{K}P(q) \int_{w^\bot \in Q^\bot}P(w^\bot)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q)
+	= \frac{1}{K}P(q)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) 
+	 \end{align}
 
-	Let $K = \sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')$. $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. In addition, $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation . The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. Figure \ref{l1heatmaps} provides an example of the $\QLONE$ posterior in a simple 2D case, corresponding to the example used for the set-theoretic example in figure \ref{fig:l1barplot}.
+	Here $K = \sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')$. $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation . The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. Figure \ref{l1heatmaps} provides an example of the $\QLONE$ posterior in a simple 2D case, corresponding to the example used for the set-theoretic example in figure \ref{fig:l1barplot}.
 
 
 		% To compute the joint posterior over $W$ and $Q$, we first compute the conditional posterior $P(w|q,u)$ for each $q\in Q$, and then determine the marginal posterior on $Q$, $P(Q)$  HOW THO? 
