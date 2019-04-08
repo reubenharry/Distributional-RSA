@@ -73,10 +73,10 @@
 \keywords{metaphor, informativity, Bayesian pragmatics, distributional semantics}
 \begin{abstract}
 
-	Humans interpret metaphors, like \emph{Life is a journey} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{journey, shark}) are true of the subject (\emph{life, my lawyer}). One theory of the process underlying metaphor interpretation is introduced by \citep{grice}: a listener reasons about a cooperative and informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the dimensional of meaning that the speaker is trying to convey.
+	Humans interpret metaphors, like \emph{Life is a journey} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{journey, shark}) are true of the subject (\emph{life, my lawyer}). One theory of the process underlying metaphor interpretation, proposed by \citet{grice} is that a listener reasons about an informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the relevant dimensional of meaning.
 
 	% and by doing so interprets a predicative metaphor (of the form ``A is a B''), by identifying the properties of B that are relevant to A. 
-	This reasoning process can be modeled in the \emph{Rational Speech Acts framework} \citep{frank2012predicting} as a nested inference, where listeners and speakers are Bayesian agents, who make inferences about the state of the world, and the optimal utterance, respectively.
+	This reasoning process can be modeled in the \emph{Rational Speech Acts framework} \citep{frank2012predicting} as a nested inference, where listeners and speakers are Bayesian agents who make inferences about the state of the world and the optimal utterance, respectively.
 	However, previous instantiations of these models have required a hand-specified semantics, restricting the generality of the model and the scope of empirical investigation into the effectiveness of pragmatic reasoning for metaphor interpretation.
 
 	We present a method to combine empirically learned word embeddings with a Rational Speech Acts model of metaphor. This allows us to interpret arbitrary predicative and adjectival metaphors without manually stipulating the denotations of the words they contain. We find a significant preference in human judgments for our model over a comparable word embedding model without explicit pragmatic reasoning.
@@ -92,12 +92,13 @@
 % discuss obvious issues like: generic vs non-generic, word vs object: todo
 \section{Introduction}
 
-	Metaphor presents a compelling theoretical challenge for the understanding of meaning in natural language. For instance, on hearing (\ref{met:1}) in a context where the subject, Jane, is known to be a consultant, a listener might infer that Jane is not literally a soldier, but rather that she shares certain attributes with soldiers (perhaps determination, endurance, or ruthlessness). 
+	Metaphor presents a compelling theoretical challenge for the understanding of meaning in natural language. On hearing (\ref{met:1}) in a context where the subject, Jane, is known to be a consultant, a listener might infer that Jane is not literally a soldier, but rather that she shares certain attributes with soldiers (perhaps determination, endurance, or ruthlessness). 
 	% Similarly, on hearing a temper described as \emph{fiery}, a listener might infer that 
 	\begin{exe}
+	\vspace{-1.0em}
 	\ex Jane is a soldier \label{met:1}
 	\end{exe}
-	The Gricean view on metaphor takes the meaning conveyed by (\ref{met:1}) in a given context to be the result of a process of \emph{pragmatic reasoning}, about a speaker who is trying to communicate truthfully, informatively, and relevantly. That is, the listener attempts to jointly deduce what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker would have chosen the predicate \emph{soldier} over other alternatives.
+	The \emph{Gricean} view on metaphor takes the meaning conveyed by (\ref{met:1}) in a given context to be the result of a process of \emph{pragmatic reasoning}, about a speaker who is trying to communicate truthfully, informatively, and relevantly. That is, the listener attempts to jointly deduce what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker would have chosen the predicate \emph{soldier} over other alternatives.
 
 	% Our goal is to evaluate the accuracy of the Gricean view as a model of human cognition, regarding metaphor interpretation. To do so, we construct a model of metaphor which relies on pragmatic reasoning of this form, and elicit human judgments comparing its predictions to a non-pragmatic baseline. 
 		% Our goal is to provide evidence towards this view, by 
@@ -120,7 +121,10 @@
 
 	\citet{kao} extend the framework by introducing a new model, $\QLONE$, which is able to interpret metaphors. It does so by the mechanism of \emph{projection functions}\footnote{These are often referred to in RSA literature as \emph{Questions under Discussion}.} which dictate the dimension of the world that the speaker cares about communicating. This, in turn, allows for a model of a listener which jointly determines the state of the world (e.g. what Jane is like) and the aspect of the world the speaker cares to communicate (e.g. Jane's determination). Crucially, this listener assumes an informative speaker: one whose choice of utterance maximizes the probability of communicating the world $w$ to the speaker's model of the listener, up to the projection $q$ .
 	
-	This model provides an account of predicative metaphors (those of the form \emph{A is a B} like (\ref{met:1})) and adjectival metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to manually construct a semantics for the words involved. This makes empirical validation of the model difficult, because of the bias introduced by the hand-chosen semantics.
+	This model provides an account of predicative metaphors (those of the form \emph{A is a B} like (\ref{met:1})) and adjectival metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to manually construct a semantics for the words involved, restricting the model's scalability.
+
+	% makes empirical validation of the model difficult
+	% , because of the bias introduced by the hand-chosen semantics.
 
 	% This precludes a fair test of whether the model succeeds, because of the need for a stipulated (and therefore potentially biased) semantics.
 	
@@ -131,11 +135,14 @@
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
 
-	\subsubsection{Our contribution} We adapt the model proposed by \citet{kao} to a distributional semantics, where the denotations of words correspond to points in an abstract, and empirically determined, vector space. Such \emph{word embedding} spaces are a core NLP tool, and have been shown to represent various notions of semantic similarity via the geometry of the space.
+	\subsubsection{Our contribution} We adapt $\QLONE$ to a distributional semantics, where the denotations of words are points in an abstract, and empirically determined, vector space. Such \emph{word embedding} spaces are a core NLP tool, and have been shown to represent various notions of semantic similarity via the geometry of the space.
+	This adaption requires a new semantics, a generalization of projection functions to the vectorial setting, and an inference algorithm to calculate the now continuous posterior distribution of $\QLONE$.
 		
-	Adapting the $\QLONE$ model to allow for denotations of this kind requires us to introduce a new semantics, to generalize the notion of a projection to a vector space, where it amounts to a linear projection, and to develop an approximate inference algorithm to calculate the now continuous posterior distribution of $\QLONE$. 
 
-	By doing so, we obtain a model capable of interpreting arbitrary predicative and adjectival metaphors, without the need for a hand-specified semantics. This allows us to assess to efficacy of the Gricean view of metaphor (as formalized in $\QLONE$), by evaluating our model on human judgments. In particular, we show that our model significantly outperforms a baseline which uses a distributional semantics without explicit pragmatic reasoning.
+	% Adapting the $\QLONE$ model to allow for denotations of this kind requires us to introduce a new semantics, to generalize the notion of a projection to a vector space, where it amounts to a linear projection, and to develop an approximate inference algorithm to calculate the now  
+
+	By doing so, we obtain a model capable of interpreting arbitrary predicative and adjectival metaphors, without the need for a hand-specified semantics. We show that our model significantly outperforms a baseline which uses a distributional semantics without explicit pragmatic reasoning.
+	% This allows us to assess to efficacy of the Gricean view of metaphor (as formalized in $\QLONE$), by evaluating our model on human judgments. In particular, w
 			% We take this to be evidence that the Gricean account of metaphor, formalizes as a joint inference over state of the world and 
 			% 	blah
 			% 		of the speaker, is a good theory of metaphor.
@@ -169,17 +176,21 @@
 		% The goal of a speaker is to produce an utterance which informs their interlocutor of the speaker's position in this space, to which end they may employ metaphorical language. For instance, if John is a ruthless businessman, then the sentence ``John is a shark.'' should enable the listener to infer John's position in the space.
 \section{Overview of metaphor}
 
-	Metaphor exists in many syntactic forms, and generally eludes easy definition. For present purposes, we focus on copular predicates (of the form: \emph{A is a B}, like \emph{Jane is a soldier}) and AN noun phrases (of the form [adjective noun] like \emph{fiery temper}). We refer to the predicated or modified noun (\emph{Jane}, \emph{temper}) as the \emph{target} of the metaphor and the predicate or adjective (\emph{soldier}, \emph{fiery}) as the \emph{source} (see \citep{lakoff1980metaphors} for the more general sense of these terms).
+	Metaphor exists in many syntactic forms.
+	% , and generally eludes easy definition. 
+	For present purposes, we focus on copular predicates (e.g. \emph{Jane is a soldier}) and AN noun phrases (e.g. \emph{fiery temper}). We refer to the predicated or modified noun (\emph{Jane}, \emph{temper}) as the \emph{target} of the metaphor and the predicate or adjective (\emph{soldier}, \emph{fiery}) as the \emph{source} (see \citep{lakoff1980metaphors} for the more general sense of these terms).
 
 	% We focus on predicative metaphors of the form ``A is a B'' (e.g. ``John is a shark.''), as well as metaphorical modification, e.g ``fiery temper'' or ``golden opportunity''. We further consider the possibility that the meaning of metaphorical phrases such as these can be interpreted as the posterior position of the head noun, after the model observes the modifying adjective.
 
-	For a given metaphor, only certain properties of the source are described by the target, and which these are depend on the metaphor and the context. For instance, (\ref{bread}) likely conveys that the bread is like a rock with respect to hardness, while (\ref{dog}) likely conveys that the sleeping dog is like a rock with respect to its responsiveness. However, we could also imagine a context in which the dog is very heavy, so that a more natural inference is that it is like a rock with respect to its weight.
+	For a given metaphor, only certain properties of the source are described by the target, and which these are depend on the metaphor and the context. For instance, (\ref{dog}), said of a sleeping dog, could convey that it is unresponsive, but said of a large alert dog, could convey that it is heavy.
+
+	% For instance, (\ref{bread}) likely conveys that the bread is like a rock with respect to hardness, while (\ref{dog}) likely conveys that the sleeping dog is like a rock with respect to its responsiveness. However, we could also imagine a context in which the dog is very heavy, so that a more natural inference is that it is like a rock with respect to its weight.
 	\begin{exe}
-	\ex The bread is a rock. \label{bread}
+	% \ex The bread is a rock. \label{bread}
 	\ex The sleeping dog is a rock. \label{dog}
 	\end{exe}
 
-	While certain metaphors are conventional - comparing someone to a lion tends to connote bravery - examples like (\ref{dog}) suggest that the interpretation of a metaphor is contextually dependent. The benefit of the Gricean view of metaphor is the ability to explain this dependence on context, in a way which takes into account an underlying semantics (e.g. the conventional meanings of \emph{bread}, \emph{dog} and \emph{rock}).
+	While certain metaphors are conventional - comparing someone to a lion tends to connote bravery - examples like (\ref{dog}) suggest that the interpretation of a metaphor is contextually dependent. The benefit of the Gricean view of metaphor is the ability to explain this dependence on context, in a way which takes into account an underlying semantics (e.g. the conventional meanings of \emph{dog} and \emph{rock}).
 	% requires the listener to reason about the context. It is this contextuality which makes the Gricean account appealing.	
 	% Parallel to metaphorical predication, one also finds cases of modification where an adjective modifies a noun in certain regards and not others. Thus, a \emph{fiery temper} shares with fire different properties to a \emph{fiery dish}, and in turn, both differs from a more literal usage, as with a \emph{fiery stove}.
 	
@@ -191,7 +202,7 @@
 
 	In this framework, listeners and speakers are represented as conditional probability distributions. Speakers are distributions $P(U\vert W)$ over possible utterances given worlds, and listeners distributions  $P(W\vert U)$ over possible worlds given utterances, where $W$ is the set of possible states, and $U$ is the set of utterances available to a speaker.
 	% Thus, speakers are distributions over possible utterances given worlds, and listeners are distributions over possible worlds given utterances.
-	The most basic version of RSA, for example \citep{frank2012predicting}, is incapable of interpreting metaphors, due to the strict adherence to truth observed by the speaker. To address this, \citet{kao} proposes a model $\QLONE$, defined in (\ref{defl1}). 
+	The most basic version of RSA \citep{frank2012predicting} is incapable of interpreting metaphors, due to the strict adherence to truth observed by the speaker. To address this, \citet{kao} proposes a model $\QLONE$, defined in (\ref{defl1}). 
 
 	% RSA works by defining successive levels of speaker and listener recursively. For instance, an informative speaker $S_1$ given a state $w$ chooses the utterance $u$ which maximizes the probability that $L_0$, a listener who interprets utterances literally according only to a semantics,  infers $w$. A pragmatic listener, on hearing some $u$, can then reason about what state $w$ a speaker must have had in mind in order to have said $u$.
 
@@ -221,6 +232,8 @@
 
 	\subsubsection{The literal listener} $L_0$ represents a model of an agent that, given an utterance $u\in U$ updates their belief about the world $w\in W$ strictly in accordance with the semantics $\llbracket\cdot\rrbracket$. This semantics, typically a function $U\to(W\to\{True, False\})$, represents the conventional association between states $w$ and utterances $u$ which the speaker and listener take as given. 
 
+
+
 	\subsubsection{Projections} 
 	Functions $q\in Q$ formalize the notion of picking a particular \emph{aspect} or \emph{dimension} of $w$. Formally, they are surjective functions out of $W$.
 	% A simple example is as follows: suppose that $W=AxB$, where $A = \{\textrm{Jane is hardworking}, \textrm{Jane is lazy}\}$ and $B = \{\textrm{Jane owns a gun}, \textrm{Jane doesn't own a gun}\}$, so that each $w\in W$ is a tuple $(a,b)$ for $a\in A, b\in B$. Then the two projections, which we could call $q_{\mathit{work-ethic}}$ and $q_{\mathit{gun-ownership}}$, are defined as $\lambda (x,y): x$ and $\lambda (x,y): y$ respectively. A third trivial projection is simply the identity function.
@@ -240,29 +253,31 @@
 	% AN metaphor interpretation, the focus of our experiment in section \ref{exp}, in the following way.\footnote{Note that an account for predicative metaphors, with a more conventional truth-conditional semantics can be provided in a similar fashion.} 
 	% Suppose that the goal of a speaker is to choose an adjective $u$, out of some set $U$, which communicates some modification of the noun (e.g. \emph{temper}). The goal of the listener is then to infer the desired modification of this noun, on hearing an adjective, like \emph{fiery}.
 	
-	To make this precise, and derive predictions from $\QLONE$, five things must be provided: a set $W$ of states, a set $U$ of utterances, a set $Q$ of projections, a prior $P_L$ representing the listener's uncertainty over $W$, and a semantics $\llbracket\cdot\rrbracket$ (We assume throughout that the prior $P_{L_Q}$ over $Q$ is uniform.). Jointly, we say that these determine an \emph{interpretation} of $\QLONE$. 
+	To make this precise, and derive predictions from $\QLONE$, five things must be provided: a set $W$ of states, a set $U$ of utterances, a set $Q$ of projections, a prior $P_L$ representing the listener's uncertainty over $W$, and a semantics $\llbracket\cdot\rrbracket$. (We assume throughout that the prior $P_{L_Q}$ over $Q$ is uniform.) Jointly, we say that these determine an \emph{interpretation} of $\QLONE$. 
 
 	One possible interpretation, similar to what is provided by \citet{kao}, treats points in the state space $W$ as n-tuples of truth values, corresponding to Boolean properties $w\subset P$.
 	% with a function $E:U\to \mathcal{P}(P)$ mapping utterances to sets of properties. 
 	We refer to this as a \emph{set theoretic} interpretation of $\QLONE$. We give a very simple example below, for $P = \{\textrm{vicious}, \textrm{non-human} \}$:
 
 	\begin{itemize}
-	\item $W = \{(\textrm{vicious}=T,\textrm{non-human}=T), (\textrm{vicious}=T,\textrm{non-human}=F), (\textrm{vicious}=F,\textrm{non-human}=T), (\textrm{vicious}=F,\textrm{non-human}=F) \}$
+	% \item $W = \{(\textrm{vicious}=T,\textrm{non-human}=T), \\ (\textrm{vicious}=T,\textrm{non-human}=F),\\ (\textrm{vicious}=F,\textrm{non-human}=T),\\ (\textrm{vicious}=F,\textrm{non-human}=F) \}$
 	% \item $W = \{ \{\textrm{vicious}, \textrm{non-human}\}, \{\textrm{vicious}\}, \{\textrm{non-human}\}, \{\},   \}$
-	\item $P_L = W = \{(\textrm{vicious}=T,\textrm{non-human}=T) : 0.075, (\textrm{vicious}=T,\textrm{non-human}=F) : 0.675, (\textrm{vicious}=F,\textrm{non-human}=T) : 0.025, (\textrm{vicious}=F,\textrm{non-human}=F): 0.225\}$
+	\item $P_L = \{(\textrm{vicious}=T,\textrm{non-human}=T) : 0.075, \\(\textrm{vicious}=T,\textrm{non-human}=F) : 0.675,\\ (\textrm{vicious}=F,\textrm{non-human}=T) : 0.025, \\(\textrm{vicious}=F,\textrm{non-human}=F): 0.225\}$
 	% \item $W = \{ \{\textrm{vicious}, \textrm{non-human} \}, \{\textrm{vicious} \}, \{\textrm{non-human} \}, \{\},   \}$
-	\item $U = \{\textrm{shark}, \textrm{silence}\}$
+	\item $U = \{\textrm{\emph{shark}}, \textrm{\emph{silence}}\}$
 	% \item $\llbracket\cdot\rrbracket$
 	\item $Q = \{q_{vicious} (\lambda (x,y):x), q_{non-human} (\lambda (x,y):y) \}$ 
 	\end{itemize}
 
-	We assume a semantics $\llbracket\cdot\rrbracket$ in which \emph{shark} is compatible only with $(\textrm{vicious}, \textrm{non-human})$, and \emph{silence} is compatible with every state. Note that the projections map each tuple to its value at a single property. In theory, for larger n-tuples of properties, a projection could map to multiple properties, representing a speaker who wishes to communicate multiple aspects of the state $w$. We return to this point in our concluding discussion.
+	We assume a semantics $\llbracket\cdot\rrbracket$ in which \emph{shark} is compatible only with $(\textrm{vicious}, \textrm{non-human})$, and \emph{silence} is compatible with every state. Note that the projections map each tuple to its value at a single property. 
+	% In theory, for larger n-tuples of properties, a projection could map to multiple properties, representing a speaker who wishes to communicate multiple aspects of the state $w$. We return to this point in our concluding discussion.
+	
 	The results of $\QLONE$ hearing \emph{shark} are shown in figure \ref{fig:l1barplot}.
 	The key fact to note is that the prior belief that John is not literally an animal leads $\QLONE$ to conclude that the speaker cares about conveying the viciousness dimension (i.e. projection $q_{vicious}$), and that John is vicious.
 
-	Importantly, $\QLONE$ can do more than simply using prior knowledge to interpret literally false statements in a flexible way. It is also capable of reasoning about alternative utterances: for instance, suppose we further assume a third properties, \emph{speed}, so that shark is compatible only with $(\textrm{vicious}=T,\textrm{non-human}=F, \textrm{quick}=T)$, and a third utterance, \emph{hummingbird}, compatible with only $(\textrm{vicious}=F,\textrm{non-human}=T, \textrm{quick}=T)$.
+	Importantly, $\QLONE$ can do more than simply using prior knowledge to interpret literally false statements in a flexible way. It is also capable of reasoning about alternative utterances: for instance, suppose we add a third property, \emph{quickness}, so that \emph{shark} is compatible only with $(\textrm{vicious}=T,\textrm{non-human}=T, \textrm{quick}=T)$, and also add a third utterance, \emph{hummingbird}, compatible with only $(\textrm{vicious}=F,\textrm{non-human}=T, \textrm{quick}=T)$.
 	
-	In this second example, when $\QLONE$ hears \emph{shark}, they infer only that John is vicious, and not fast, even though both are equally likely under $P_L$. This is because, had the speaker wanted to communicate that John is fast, \emph{hummingbird} would have been a more informative utterance.
+	In this second example, when $\QLONE$ hears \emph{shark}, it infers that John is more likely vicious than quick, even though both are equally probable under $P_L$. This is because, had the speaker wanted to communicate John's quickness, \emph{hummingbird} would have been a more informative utterance.
 
 	% todo: note on getting realistic predictions by using large experimentally collected data
 	
@@ -274,7 +289,7 @@
 	% In order to elicit human-like behavior from the model, \citet{kao} use a set of $\sim$100 animals as alternative utterances $u\in U$, and assemble a property set $P$ experimentally. However, the semantics, relating adjectives to properties 
 	% 	TODO finish: the semantics doesn't require hand-specification really. just slow to collect.
 	
-	$\QLONE$ can also model AN metaphors (the subject of our experiment) in the same way. For example, for a phrase like \emph{fiery temper}, we say that the goal of a listener is to decide what is true of the temper in question given that the speaker has modified it with \emph{fiery}.
+	$\QLONE$ can also model AN metaphors (the subject of our experiment) in a similar way. For instance, for a phrase like \emph{fiery temper}, we say that the goal of a listener is to decide what is true of the temper in question given that the speaker has modified it with \emph{fiery}.
 
 	% choose an adjective $u$, out of some set $U$, which communicates some modification of the noun (e.g. \emph{temper}).
 
@@ -471,9 +486,9 @@
 			 % As with standard RSA, distRSA exhibits an "explaining away" effect. This means that the presence of an S1 alternative can reduce probability mass for a particular QUD. More concretely, suppose we are doing L1 inference over worlds and QUDs, having heard "the man is a shark" (or rather, having started with a Gaussian prior centered at the word vector for "man", and receiving the utterance "shark"). "slippery" might be a good QUD here, in the sense that "shark" is informative about "slipperiness". However, suppose that "fish" and "snake" are both alternative utterance to "shark", in the S1. Supposing that these convey slipperiness better than "shark" does, "slippery" will be downrated as a QUD for shark. 
 \section{Distributional Semantics} \label{distmods}
 
-	From a linguistic corpus, it is possible to obtain a mapping from words to points in a high-dimensional vector space that has the property that semantic similarity of a pair of words $a$ and $b$ corresponds to metrics, such as cosine distance, between the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$.
+	From a linguistic corpus, it is possible to obtain a mapping from words to points in a high-dimensional vector space that has the property that semantic similarity of a pair of words $a$ and $b$ corresponds to a metric, such as cosine distance, between the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$.
 
-	Mappings of this sort, commonly referred to as \emph{word embeddings} or a \emph{distributional model of word meaning}, can be obtained either by dimensionality reduction of a co-occurrence matrix \citep{pennington2014glove}, or by extracting the weights of a statistical model \citep{mikolov2013distributed,peters2018deep,devlin2018bert}.
+	Mappings of this sort, commonly referred to as \emph{word embeddings} or \emph{distributional models of word meaning}, can be obtained either by dimensionality reduction of a co-occurrence matrix \citep{pennington2014glove}, or by extracting the weights of a statistical model \citep{mikolov2013distributed,peters2018deep,devlin2018bert} trained on a separate task.
 
 	In either case, word embeddings provide a way to empirically obtain fine grained connotations of lexical items \citep{mikolov2013distributed}, and have been used effectively in a number of NLP tasks \citep{dai2015semi,radford2018improving}. They have also been used to compute vectorial representations of phrases and sentences \citep{socher2013recursive, coecke2010mathematical}.
 			% word embeddings appear to encode syntactic and semantic information (\citep{mikolov2013linguistic}, and as such, are useful element in many NLP tasks such as sentiment analysis \citep{socher2013recursive}.
@@ -485,7 +500,7 @@
 	Metaphor is an obvious candidate for approaches that use distributional semantics: a wide variety of attempts have been made to leverage the information inherent in pre-trained word vectors for the detection, interpretation and paraphrase of metaphor (see \cite{shutova2016design} for an overview of proposed systems.).
 		% TODO: needs your own citations
 
-	Our hypothesis is that, while the information in high quality word embeddings captures important aspects of meaning, a cognitively realistic model of metaphor interpretation should also incorporate Gricean reasoning, of the sort formalized in the RSA framework. We now explain how the $\QLONE$ model can be combined with a distributional model of word meaning.
+	Our hypothesis is that, while the information in high quality word embeddings captures important aspects of meaning, a cognitively realistic model of metaphor interpretation should also incorporate Gricean reasoning, of the sort formalized in the RSA framework. We now explain how $\QLONE$ can be combined with a distributional model of word meaning.
 
 	% An intuition which is voiced in many of these approaches is that metaphorical predicates should agree with only certain features of the subject. For instance:
 	% \begin{quote}	``Computing a meaning always involves activating context-appropriate features and inhibiting or deactivating inappropriate features.'' (\cite{kintsch})
@@ -512,9 +527,10 @@
 	% The work closest to this, to our knowledge, is \cite{kintsch}, which proposes a single scheme for literal and metaphorical predication.	
 \section{Bayesian pragmatics with a distributional semantics} \label{bayesdist}
 
-	The set-theoretic interpretation of $\QLONE$ takes states $w\in W$ to be sets of properties describing the source of the metaphor in question, and projections $q\in Q$ to be surjective functions out of $W$. The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
+	The set-theoretic interpretation of $\QLONE$ takes states $w \in W$ to be sets of properties describing the source of the given metaphor, projections to be surjective functions out of $W$, and a semantics to be a function $U\to(W\to\{True, False\})$.
+	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
-	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space determined by a word embedding $E$, so that elements $\overrightarrow{w}\in W$ are vectors.\footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.}. As before, $U$ is a set of adjectives. 
+	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space determined by a word embedding $E : U\to W$, so that elements $\overrightarrow{w}\in W$ are vectors.\footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} As before, $U$ is a set of adjectives. 
 
 	% given a basis set of properties $P=P_0...P_n$, a vector of $n$ 0s and 1s, with 1s corresponding to present properties and 0s corresponding to absent ones, is equivalent to a subset of $P$, i.e. the denotation of a word.} 
 		
@@ -550,16 +566,22 @@
 
 	\subsubsection{The listener's prior} 
 
-		In the set-theoretic interpretation of $L_1^Q$, where $W$ can be finite, a discrete prior $P_L$ over $W$ sufficed. In the present case, where $W$ is necessary infinite (ranging continuously over real-valued vectors), we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). As for the prior $P_{L_Q}$ over $Q$, we take it to be uniform.
+		In the set-theoretic interpretation of $L_1^Q$, with finite $W$, a discrete prior $P_L$ over $W$ sufficed. In the present case, where $W$ is necessarily infinite (ranging continuously over real-valued vectors), we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). We define the prior over projections $P_{L_Q}$ to be uniform.
 
-		We can view $P_L$ as representing uncertainty over the position of the entity or concept that the source noun represents.\footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} The goal of the speaker is to convey a position in the space (which they think represents the nature of the source noun's denotation) to the listener, and the goal of the listener is to infer what this position is. In this sense, a spatial reference game is being played  \citep{golland2010game}, in an abstract word embedding space.
+		\begin{exe}
+		\ex $P_L(w) = P_{\mathcal{N}}(w\vert\mu=E(\textrm{\emph{source}}),\sigma=\sigma_1)$ \label{vect:prior}
+		% \overrightarrow{\mathit{source}}
+		\end{exe}
+
+		We can view $P_L$ as representing uncertainty over the position of the entity or concept that the source noun represents.
+		% \footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} 
+		The goal of the speaker is to convey a position in the space 
+		% (which they think represents the nature of the source noun's denotation) 
+		to the listener, and the goal of the listener is to infer what this position is. In this sense, a spatial reference game is being played  \citep{golland2010game}, in an abstract word embedding space.
 
 				% are near $\llbracket\mathit{time}\rrbracket$
 		
 		
-		\begin{exe}
-		\ex $P_L(w) = P_{\mathcal{N}}(w\vert\mu=\overrightarrow{\mathit{source}},\sigma=\sigma_1)$ \label{vect:prior}
-		\end{exe}
 
 
 		The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean of the prior as $E$(\emph{source}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model.
@@ -579,7 +601,7 @@
 
 		A word embedding space has no explicit representation of truth. That is to say, while we can compare the similarity of a noun and an adjective according to a variety of metrics, we do not have a means of categorically determining the compatibility of that adjective and noun.
 
-		Mathematically speaking, this is not a problem, since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows:
+		Mathematically speaking, this is not a problem, since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
 
 		% However, despite the ``softness'' of a distributional meaning, will find that it is possible to use it to obtain a semantics capable of underlying $\QLONE$, 
 
@@ -587,43 +609,51 @@
 
 
 		\begin{exe}
-		\ex $\llbracket u\rrbracket(w) = P_{\mathcal{N}}(w\vert\mu=\overrightarrow{\mathit{predicate_u}},\sigma=\sigma_2)$ \label{vect:sem}
+		\vspace{-1em}
+		\ex $\llbracket u\rrbracket(w) = P_{\mathcal{N}}(w\vert\mu=E(\textrm{\emph{target}}),\sigma=\sigma_2)$ \label{vect:sem}
+		% \overrightarrow{\mathit{predicate_u}}
 		\end{exe}
 
 		The result of this definition is that the value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
 
-		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions, which allows for a closed form solution of $L_0$. As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
+		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions, which allows for a closed form solution of $L_0$. 
+		% As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
 	\subsubsection{Projections} 
 
 		\begin{figure}
 		\centering
-			\includegraphics[height=6.5cm]{images/diagram2.pdf}
-			\caption{In this example, the vectors for \emph{vicious} and \emph{aquatic} each parametrize a QUD mapping all the points in the space (such as \emph{man} and \emph{shark}) to new points. These new points can be thought of as the positions of \emph{man}, \emph{shark} and so on in a new space which cares only about the position of the points with respect to the \emph{vicious} vector.}
+			\includegraphics[height=6.5cm]{images/diagram2.png}
+			\caption{In this 2D example, the vectors representing \emph{Jane} and \emph{John} are mapped onto $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$.}
+			% In this 2D example, the vectors for \emph{endurance} and \emph{ruthlessness} each parametrize a projection mapping all the points in the space (such as \emph{Jane} and \emph{John}) to new points. These new points can be thought of as the positions of \emph{John}, \emph{Jane} and so on in a new space which cares only about the position of the points with respect to $\protect\overrightarrow{endurance}$ or $\protect\overrightarrow{ruthlessness}$.
 			\label{fig:1}
 		\end{figure}
-		% Since, in a distributional setting, the axes of a world state vector do not neatly correspond to its attributes\footnote{If our space was formed by a basis of co-occurrence vectors, each word would be a dimension, but this is not the case in typical word embedding spaces, the dimensions of which are much fewer than the size of the vocabulary.}, our distributional QUD cannot simply be a projection along an axis. 
+		% Since, in a distributional setting, the axes of a world state vector do not neatly correspond to its attributes\footnote{If our space was formed by a basis of co-occurrence vectors, each word would be a dimension, but this is not the case in typical word embedding spaces, the dimensions of which are much fewer than the size of the vocabulary.}, our distributional  cannot simply be a projection along an axis. 
 
 		Finally, we need to supply an notion of a projection function $q$ that is defined on our vector space, and to specify a set $Q$ of such projections. 
-
-		For this, we use linear projections\footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} along a vector (or hyperplane) $\overrightarrow{v}$. This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, which captures the degree to which $\overrightarrow{w}$ extends along a vector (or hyperplane) $\overrightarrow{v}$, and ignores orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as is depicted in figure \ref{fig:1}.
+		For this, we use linear projections\footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} along a vector (or hyperplane) $\overrightarrow{v}$ 
+		% This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, 
+		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}.
 
 			% Alternatively, note that 
 				% Put another way, the definition of a projection on an object $X$ as an idempotent morphism $X\to X$, generalizes both cases. 
 				% ok yes this is deeply unnecessary
 
 
-				% World states and word denotations in QUD RSA, as described in (\cite{kao}), can already be understood as vectors over the set of two elements, \{0,1\}, or equivalently as relations between the subject and predicate. (For instance, suppose the meaning of \emph{shark} is $<$vicious=True,aquatic=False$>$. This can be rewritten as the vector $<$1,0$>$.) The intuition behind our model is to generalize QUD RSA to a vector space over the reals.
-		As in the set-theoretic interpretation, we restrict ourselves to projections to a single dimension, i.e. projections along a vector, rather than a hyperplane. However, we no longer have an obvious set of projections $Q$, corresponding to an explicit set of properties $P$. This is because the basis vectors of a word embedding space such as GloVe or Word2Vec do not correspond to easily interpretable attributes of the words in the space.
+				% World states and word denotations in  RSA, as described in (\cite{kao}), can already be understood as vectors over the set of two elements, \{0,1\}, or equivalently as relations between the subject and predicate. (For instance, suppose the meaning of \emph{shark} is $<$vicious=True,aquatic=False$>$. This can be rewritten as the vector $<$1,0$>$.) The intuition behind our model is to generalize QUD RSA to a vector space over the reals.
+		% As in the set-theoretic interpretation, w
+		In practice, we restrict ourselves to projections along a vector, rather than a larger subspace. 
+		% However, we no longer have an obvious set of projections $Q$, corresponding to an explicit set of properties $P$. This is because the basis vectors of a word embedding space such as GloVe or Word2Vec do not correspond to easily interpretable attributes of the words in the space.
+		To obtain a set $Q$ of projections, we first note that since the denotations of words are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as parameterizing a \emph{viciousness} projection, which measures how far the denotations of all other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
+		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun $n$ onto $\overrightarrow{v}$ amounts to asking: to what extent is $n$ $v$? 
 
 
 					% For this reason, the natural implementation of a QUD in a vector space is as an orthogonal projection, parametrized by some hyperplane, which maps from the full space to a lower dimensional subspace. The simplest case is of a 1 dimensional projection, a line: here, every point in the original space is dropped in a perpendicular fashion onto the line. In the more general multidimensional case, given a hyperplane in our space we can obtain a function mapping points in the space to new positions, derived by dropping them perpendicularly onto the hyperplane. This projection is a linear transform to a subspace of the original vector space, pictured below in two dimension, for two word vectors, and two potential projection vectors (which here also correspond to words):
 
 		% What set of linear projections $Q$ should we choose? In the set-theoretic interpretation, $Q$ was simply the set of all one-dimensional projections, or equivalently, projections onto each of the natural basis vectors. In the word embedding case, however, the basis vectors of a word embedding $E$ have no simple interpretation as properties.
 
-		To obtain such a set $Q$, we first note that since the denotations of words are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as parameterizing a \emph{viciousness} projection, which measures how far the denotations of all other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
 
-		As such, we can specify $Q$ as a set of words. In general, it makes sense to choose a set of gradable adjectives, so that the projection of a noun $n$ onto $\overrightarrow{v}$ amounts to asking: to what extent is $n$ $v$? 
+		% As such, we can specify $Q$ as a set of words. In general, 
 		% We discuss the exact choice of $Q$ in section \ref{exp}.
 
 
@@ -689,13 +719,14 @@
 	\begin{figure}[htbp]
 	\centering
 	% \hspace*{-2.5cm}                                                           
-	\includegraphics[height=6.5cm]{images/diagram1.pdf}
+	\includegraphics[height=6.5cm]{images/diagram1.png}
 	   
-	  \caption{2D Visualization of $L\protect_0$}
+	  \caption{2D depiction of vectorial $L\protect_0$, for $\protect\overrightarrow{man}$ = (0,0) and $\protect\overrightarrow{shark}$ = (1,1).}
 	  \label{fig:2d}
 	\end{figure}
 
-	Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. Because $P_L(w)$ is now a continuous distribution, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.}. We describe this algorithm in parts, working up from the $L_0$.
+	% Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. 
+	Because $P_L(w)$ is a continuous distribution in the vectorial interpretation of $\QLONE$, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.}. We describe this algorithm in parts, working up from the $L_0$.
 
 	% While the general format of our model is analogous to previous models in the RSA paradigm, the vectorial setting produces a number of challenges which require novel solutions.
 
@@ -705,97 +736,187 @@
 \subsubsection{L\textsubscript{0} Inference}
 
 
-	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of another point, the received utterance. To calculate $L_0$ analytically, we make use of Gaussian self-conjugacy, which allows a distribution with a Gaussian prior and likelihood term to be rewritten as a single Gaussian of different parameters. 
+	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of the point corresponding to the received utterance. To calculate $L_0$ analytically, we make use of Gaussian conjugacy. When the prior $P_L$ is defined as in Equation \ref{vect:prior}, and the semantic interpretation is defined as in Equation \ref{vect:sem}, then conjugacy implies that the listener posterior is given by:
+
+	% \begin{equation}
+
+	$L_0(w|u) = P_{\mathcal{N}}(w\vert\mu=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}\cdot(\frac{{\textrm{\emph{source}}}}{\sigma_1^2}+\frac{{\textrm{\emph{target}}}}{\sigma_2^2}), \sigma=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})$
+
+	% \end{equation}
+
+
+
 
 
 	% This is the property that a distribution of the form $P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)P_{\mathcal{N}}(w\vert\mu=u,\sigma=\sigma_2)$
 
+
+
 	% Recall that $L_0$ is defined as follows, where \emph{subject} is the word being predicated (e.g. ``lawyer'' in ``The lawyer is a shark''):
 
+
+
 	% \begin{exe}
+
 	% \ex $L_0(w\vert u) \propto P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)P_{\mathcal{N}}(w\vert\mu=u,\sigma=\sigma_2)$ \label{term}
+
 	% e^f$ * e$^\mu$ \label{term}
+
 	% \end{exe}
+
 	% The left hand term represents the prior on the world state, and the right hand term represents the observation. By the self conjugacy of Gaussians, (\ref{term}) can be reduced analytically to a single Gaussian.
+
 	% 	 citation?
 \subsubsection{S\textsubscript{1} Inference}
 
-		Since $U$ remains a finite set of utterances, the $S_1$ posterior can be computed exactly, as for the set-theoretic interpretation of $S_1$. 
+		Since $U$ remains a finite set of utterances, the $S_1$ distribution over utterances from Equation \ref{defs0} can be computed exactly, as for the set-theoretic interpretation of $S_1$. 
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
 
+
+
 		% \begin{exe}
+
 		% \ex U(u,w,q) = $\log(\int_{w'} \delta_{q(w)=q(w')} * L_0(w'\vert u))$
+
 		% \ex S$_1(u\vert w,q) \propto e^{U(u,w,q)}$
+
 		% \end{exe}
 \subsubsection{L\textsubscript{1} Definition}
 
 
+
+
+
 	\begin{figure}
+
 	\centering
+
 	\begin{subfigure}{0.5\textwidth}
+
 	% \centering
+
 	\includegraphics[width=0.85\textwidth]{images/denotations.png}
+
 	\end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
+
 	% \centering
+
 	\includegraphics[width=\textwidth]{images/discretel1heatmap.png}
+
 	\end{subfigure}
+
 	\caption{Heatmap visualizing the $\protect\QLONE$ posterior (right), with the hand-chosen denotations of \emph{man}, \emph{shark}, and \emph{fish} used in this 2 dimensional example (left).}
+
 	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
+
 	\label{l1heatmaps}
+
 	\end{figure}
 
+
+
 	% \begin{figure}
+
 	% \centering
+
 	% \begin{subfigure}{0.5\textwidth}
+
 	% % \centering
+
 	% \includegraphics[width=\textwidth]{images/coolmixturel1heatmap.png}
+
 	% \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
+
 	% % \centering
+
 	% \includegraphics[width=\textwidth]{images/cooldiscretel1heatmap.png}
+
 	% \end{subfigure}
+
 	% \caption{ Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).}
+
 	% \label{l1heatmaps}
+
 	% \end{figure}
 
+
+
 	% caption: 
+
 	% 	heatmaps showing...
+
 	% 	an example of the difference between the $\protect\QLONE$ posterior under our inference algorithm and under the true posterior, in a two dimensional case where a (discretized) exact posterior can be computed exactly.
+
 	% 	this compares our inference algorithm (left) to an exact (discretized) inference in a tractable 2 dimensional case, for the metaphor: BLAH 
+
 	% 	with the following hand-specified word embeddings.
 
 
+
+
+
 	% caption:
+
 	% 	heatmaps showing the l1 inference. 
+
 	% 		scalar implicature means that...
+
 	% We devise the following approximate inference algorithm.
 
-	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. We are unable to use conjugacy to compute it analytically, but equally unable to compute it exactly. However, because of the linear projections $q$, we are able to devise a near-exact inference algorithm\footnote{We verify the correctness of this algorithm in the 2 dimensional case by comparison to the exact posterior, which is calculable (up to discretization of the prior) in 2 dimensions.} for the marginal distribution over $Q$, derived as follows:
+
+
+	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. 
+	% Unlike $L_0$, we are unable to use conjugacy to compute it analytically.
+	Because of the linear structure of the problem, we are able to devise a near-exact inference algorithm for the marginal distribution over $Q$, derived as follows:
+
+
+
+	%\footnote{We verify the correctness of this algorithm in the 2 dimensional case by comparison to the exact posterior, which is calculable (up to discretization of the prior) in 2 dimensions.}
+
+
 
 		% Moreover, we find that Mean Field Variational Inference  CITATION is not well suited
+
 		% 	since the posterior is non-Gaussian (see figure \ref{l1heatmaps}).
 
+
+
 	% \begin{align}
+
 	% L_1(w,q | u) &= \frac{P(w)P(q)S_1(u|w,q)}{\sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')} \\
+
 	% &= \frac{P(w)P(q)S_1(u|w,q)}{K} 
+
 	% \end{align}
+
+
+
+
+
 
 
 
 
 	% To compute the marginal distribution over QUDs:
 
-	% \begin{align}
-	$$ L_1(q | u) = \int_{w}L_1(w,q | u)
-	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w,q)
-	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w_q,q)$$
-	$$= \frac{1}{K}P(q) \int_{w}P(w_q, w^\bot)S_1(u|w_q,q) 
-	= \frac{1}{K}P(q) \int_{w}P(w_q) P(w^\bot)S_1(u|w_q,q)$$
-	$$= \frac{1}{K}P(q) \int_{w^\bot \in Q^\bot}P(w^\bot)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q)
-	= \frac{1}{K}P(q)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) $$
-	% \end{align}
 
-	Let $K = \sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')$. $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. In addition, $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation . The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. Figure \ref{l1heatmaps} provides an example of the $\QLONE$ posterior in a simple 2D case, corresponding to the example used for the set-theoretic example in figure \ref{fig:l1barplot}.
+
+	 \begin{align}
+	 \begin{split}
+	&L_1(q | u) = \int_{w}L_1(w,q | u)
+	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w,q)  \\
+	&= \frac{1}{K}P(q) \int_{w}P(w_q, w^\bot)S_1(u|w_q,q) 
+	= \frac{1}{K}P(q) \int_{w}P(w_q) P(w^\bot)S_1(u|w_q,q) \\
+	&= \frac{1}{K}P(q) \int_{w^\bot \in Q^\bot}P(w^\bot)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q)
+	= \frac{1}{K}P(q)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) \nonumber
+	\end{split}
+	 \end{align}
+	
+
+
+
+	Here $K = \sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')$. $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation . The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example used for the set-theoretic example in figure \ref{fig:l1barplot}.
 
 
 		% To compute the joint posterior over $W$ and $Q$, we first compute the conditional posterior $P(w|q,u)$ for each $q\in Q$, and then determine the marginal posterior on $Q$, $P(Q)$  HOW THO? 
@@ -1046,7 +1167,7 @@
 
 	In building a tractable inference algorithm for $\QLONE$, we have also shown that the technical challenges in adapting a nested Bayesian model of pragmatics to a continuous setting are not insurmountable. We see this as an important step towards an open domain model of pragmatic language interpretation and production.
 
-	One direction of future work we consider to be especially promising is the extension of the system to multidimensional projections, since metaphors can plausibly convey multiple dimensions of meaning at once - in fact, we hypothesize that this is what motivates their use. We also aim to develop a pragmatic speaker $S_2$ as a model of metaphor production. More generally, optimization of our algorithm, in line with recent developments in word embeddings \citep{devlin2018bert,peters2018deep} should allow us to handle a broad range of metaphor in natural language. 
+	% One direction of future work we consider to be especially promising is the extension of the system to multidimensional projections, since metaphors can plausibly convey multiple dimensions of meaning at once - in fact, we hypothesize that this is what motivates their use. We also aim to develop a pragmatic speaker $S_2$ as a model of metaphor production. More generally, optimization of our algorithm, in line with recent developments in word embeddings \citep{devlin2018bert,peters2018deep} should allow us to handle a broad range of metaphor in natural language. 
 			% However, the model is extensible to the more general case, which we regard as an important direction for future work, since it allows us to capture the ability of metaphors to talk about many dimensions of meaning simultaneously.
 
 	% valuable evidence that Gricean reasoning about informativity and relevance is key to the interpretation of metaphor, and language more generally.
@@ -1064,550 +1185,5 @@
 
 	% To address these shortcomings, a natural extension to our model would be the use of a neural speaker and listener (a direction pursued for simpler RSA models by \cite{andreas} and \cite{monroe2015learning}). Not only would this allow DistRSA to intake unprocessed language from an NL corpus, it would also result in a speaker who could produce potentially infinite utterances.
 \bibliography{metaphor.bib}
-\end{document}
-
-%%% End of Article
-%%% These elements should be used, with the exception of Appendices which
-%%% are optional.
-
-%%% \section{Supportive Information}
-% \acknowledgments
-% \authorcontributions 
-% \bibliography{<name of .bib file>}
-% \appendix % optional
-
-% \section{Supportive Information}
-% Here you enter further sources of information, if desired.
-
-%% A possible entry might be:
-% No supportive information is available at this time.
-
-% \acknowledgments
-% Enter your acknowledgments here.
-
-%% ie.,
-
-% The authors thank Laurence Aitchison for fruitful discussions.  RKN
-% and PD received funding from the Gatsby Charitable Foundation. Y-AB,
-% RBS, KC and PS received funding from Canadian Institutes of Health
-% Research grant $MOP74577$,
-% Fond de recherche Qu\'{e}bec - Sant\'{e} (Group grant to the Groupe 
-% de recherche en neurobiologie comportementale, Shimon Amir, P.I.), and
-% Concordia University Research Chair (Tier I). 
-
-% \authorcontributions 
-% Who helped formulate the project, who supplied data, analyses and
-% experiments, etc.
-
-%% ie.
-%% Project was formulated by RKN, PD, PS,
-%% based on substantial data, analyses and experiments of Y-AB, KC, RS,
-%% PS. RKN, PD formalised the model, RKN implemented and ran the model;
-%% RKN analysed the molecular ethogram data; Y-AB formalised and
-%% implemented a CTMC model. All authors wrote the manuscript.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%
-%% The bibliography
-
-%% The bibliography is made using only the entries that you cite using 
-%% \cite{}, or one of the Natbib citation entries, like \citep{}, \citet{} etc.
-
-
-%ie.,
-%\bibliography{bibsamp}
-
-%% Optional Appendix
-%\appendix
-
-%\section{Sample Appendix Section}
-
-
-
-Below are samples that may help when
-you want a quick example. They are taken from
-OpenMindSample.tex, so you can see the results
-in OpenMindSample.pdf.
-
-\section{Sample Section}
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-
-\subsection{Sample Subsection}
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-
-\subsubsection{Sample Subsubsection}
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-Text here. Text here. Text here. Text here.
-
-
-\subsection{Simple code sample}
-
-\begin{code}
-\begin{verbatim}
-procedure bubbleSort( A : list of sortable items )
-    n = length(A)
-    repeat
-       newn = 0
-       for i = 1 to n-1 inclusive do
-          if A[i-1] > A[i] then
-             swap(A[i-1], A[i])
-             newn = i
-          end if
-       end for
-       n = newn
-    until n = 0
-end procedure
-\end{verbatim}
-\end{code}
-
-
-
-\subsection{Algorithm environment}
-
-%% \begin{algorithm} takes option [p][b][t][h],  or some combination, like \begin{figure}
-%% See documentation for algorithmic.sty for more information on formatting algorithms.
-
-\begin{algorithm}[h]
-\caption{A sample in an algorithm environment.}
-\begin{algorithmic}
-\If {$i\geq maxval$}
-    \State $i\gets 0$
-\Else
-    \If {$i+k\leq maxval$}
-        \State $i\gets i+k$
-    \EndIf
-\EndIf
-\end{algorithmic}
-\end{algorithm}
-
-
-\section{Jargon definitions}
-
-\begin{wideboxedtext}
-\begin{glossary}
-\symbol{Term} Definition
-\symbol{Term} Definition
-%ie
-%\symbol{$1/\lambda$} mean of exponential effective prior probability density for leisure time
-%\symbol{CHT} Cumulative Handling Time 
-\end{glossary}
-\end{wideboxedtext}
-
-\begin{boxedtext}
-\begin{glossary}
-\symbol{Term} Definition
-\symbol{Term} Definition
-%ie
-%\symbol{$1/\lambda$} mean of exponential effective prior probability density for leisure time
-%\symbol{CHT} Cumulative Handling Time 
-\end{glossary}
-\end{boxedtext}
-
-\section{Itemized Lists}
-
-\subsection{Roman list:}
-
-\begin{enumerate}
-\item[(i)] at high 
-payoffs, subjects work almost continuously, engaging in little leisure
-in between work bouts; 
-\item[(ii)] at low payoffs, they 
-engage in leisure all at once, in long bouts after working, rather
-than distributing the same amount of leisure time into multiple short
-leisure bouts; 
-\item[(iii)] subjects work continuously for the entire price duration, as long as
-the price is not very long (as shown by an analysis conducted by Y-AB, to be published separately); %(\textbf{Figure \ref{fig:task_data}D}).
-\item[(iv)] the duration of leisure bouts is variable.
-\end{enumerate}
-
-\subsection{Numbered list:}
-
-\begin{enumerate}
-\item at high 
-payoffs, subjects work almost continuously, engaging in little leisure
-inbetween work bouts; 
-\item at low payoffs, they 
-engage in leisure all at once, in long bouts after working, rather
-than distributing the same amount of leisure time into multiple short
-leisure bouts; 
-\item subjects work continuously for the entire price duration, as long as
-the price is not very long (as shown by an analysis conducted by Y-AB, to be published separately); %(\textbf{Figure \ref{fig:task_data}D}).
-\item the duration of leisure bouts is variable.
-\end{enumerate}
-
-
-\subsection{Bulleted list:}
-
-\begin{itemize}
-\item at high 
-payoffs, subjects work almost continuously, engaging in little leisure
-inbetween work bouts; 
-\item at low payoffs, they 
-engage in leisure all at once, in long bouts after working, rather
-than distributing the same amount of leisure time into multiple short
-leisure bouts; 
-\item subjects work continuously for the entire price duration, as long as
-the price is not very long (as shown by an analysis conducted by Y-AB, to be published separately); %(\textbf{Figure \ref{fig:task_data}D}).
-\item the duration of leisure bouts is variable.
-\end{itemize}
-
-
-\section{Sample citations}
-For general information on the correct form for citations using
-the APA 6 format, see the following sites:
-\href{https://owl.english.purdue.edu/owl/resource/560/02/}
-{APA 6, In-text citations, The Basics} and
-\href{https://owl.english.purdue.edu/owl/resource/560/03/}
-{APA 6, In-text citations}
-
-\section{Natbib citation mark up}
-
-\subsection{Single citations}
-\noindent
-\begin{tabular}{ll}
-\bf Type&\bf Results\\
-\hline
-\verb+\citet{jon90}+&Jones et al. (1990)\\
-\verb+\citet[chap. 2]{jon90}+&Jones et al. (1990, chap. 2)\\
-    \verb+\citep{jon90}+	    &   	(Jones et al., 1990)\\
-    \verb+\citep[chap. 2]{jon90}+ 	&    	(Jones et al., 1990, chap. 2)\\
-    \verb+\citep[see][]{jon90}+ 	 &    	(see Jones et al., 1990)\\
-    \verb+\citep[see][chap. 2]{jon90}+ 	&    	(see Jones et al., 1990, chap. 2)\\
-    \verb+\citet*{jon90}+ 	    &    	Jones, Baker, and Williams (1990)\\
-    \verb+\citep*{jon90}+	    &    	(Jones, Baker, and Williams,
-    1990) \\
-\end{tabular}
-
-For example, some citations from the OpenMindSample bibliography:
-citet:\citet{anderson}, citep:\citep{antibayes}, and
-cite*: \citet*{anderson}.
-
-\subsection{Multiple citations}
-Multiple citations may be made by including more than one citation
-key in the \verb+\cite+ command argument.
-
-\noindent
-\begin{tabular}{ll}
-\bf Type&\bf Results\\
-\hline
-\verb+\citet{jon90,jam91}+&Jones et al. (1990); James et al. (1991)\\
-\verb+\citep{jon90,jam91}+&(Jones et al., 1990; James et al. 1991)\\
-\verb+\citep{jon90,jon91}+&(Jones et al., 1990, 1991)\\
-\verb+\citep{jon90a,jon90b}+&(Jones et al., 1990a,b)\\
-\end{tabular}
-
-For example, multiple citations from the OpenMindSample bibliography:
-citet:\citet{anderson,antibayes}, citep:\citep{anderson,antibayes}.
-As you see, the citations are automatically hyperlinked to their
-reference in the bibliography.
-
-\newpage
-
-\section{Sample figures}
-
-\begin{figure}[h] 
-\centerline{\includegraphics[width=\textwidth]{Fig1}}
-\caption{(Colour online) \textbf{Task and key features of the
- data.} \\
- A) Cumulative handling time (CHT) task. Grey bars denote work
-(depressing a lever), white gaps show leisure. The subject must
- accumulate work up to a total period of time called the
-\emph{price} ($P$) in order to obtain a single reward (black dot) of subjective reward
-intensity $RI$. The trial duration is $25\times \mathrm{price}$ (plus
-$2$s each time the price is attained, during which the lever is retracted so it cannot
-work; not shown).
-}
-\label{fig:task_data}
-\end{figure}
-
-\begin{figure}[ht] 
-\widefigure{\fullpagewidth}{Fig1}
-\caption{(Colour online) \textbf{Task and key features of the
- data.} \\
-A) Cumulative handling time (CHT) task. Grey bars denote work
-(depressing a lever), white gaps show leisure. The subject must
-accumulate work up to a total period of time called the
-\emph{price} ($P$) in order to obtain a single reward (black dot) of subjective reward
-intensity $RI$. The trial duration is $25\times \mathrm{price}$ (plus
-$2$s each time the price is attained, during which the lever is retracted so it cannot
-work; not shown).
-}
-\label{newfig:task_data}
-\end{figure}
-
-\clearpage
-\section{Sample tables}
-
-\begin{table}[!ht]
-\caption{Time of the Transition Between Phase 1 and Phase 2$^{a}$}
-\label{tab:label}
-\centering
-\begin{tabular}{lc}
-\hline
- Run  & Time (min)  \\
-\hline
-  $l1$  & 260   \\
-  $l2$  & 300   \\
-  $l3$  & 340   \\
-  $h1$  & 270   \\
-  $h2$  & 250   \\
-  $h3$  & 380   \\
-  $r1$  & 370   \\
-  $r2$  & 390   \\
-\hline
-\multicolumn{2}{l}{$^{a}$Table note text here.}
-\end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\widecaption{Sample table taken from [treu03]\label{tbl-1}}
-\begin{widetable}
-\advance\tabcolsep-1pt
-\small
-\begin{tabular}{ccrrccccccccc}
-\hline
-\bf 
-POS &\bf  chip &\multicolumn1c{\bf ID} &\multicolumn1c{\bf X}
-&\multicolumn1c{\bf Y} &\bf
-RA &\bf DEC &\bf IAU$\pm$ $\delta$ IAU &\bf
-IAP1$\pm$ $\delta$ IAP1 &\bf IAP2 $\pm$ $\delta$
-IAP2 &\bf star &\bf E &\bf Comment\\
-\hline
-0 & 2 & 1 & 1370.99 & 57.35\rlap{$^a$}    &   6.651120 &  17.131149 &
-21.344$\pm$0.006\rlap{$^b$}  & 2 4.385$\pm$0.016 & 23.528$\pm$0.013 & 0.0 & 9 & -    \\
-0 & 2 & 2 & 1476.62 & 8.03     &   6.651480 &  17.129572 & 21.641$\pm$0.005  & 2 3.141$\pm$0.007 & 22.007$\pm$0.004 & 0.0 & 9 & -    \\
-0 & 2 & 3 & 1079.62 & 28.92    &   6.652430 &  17.135000 & 23.953$\pm$0.030  & 2 4.890$\pm$0.023 & 24.240$\pm$0.023 & 0.0 & - & -    \\
-0 & 2 & 4 & 114.58  & 21.22    &   6.655560 &  17.148020 & 23.801$\pm$0.025  & 2 5.039$\pm$0.026 & 24.112$\pm$0.021 & 0.0 & - & -    \\
-0 & 2 & 5 & 46.78   & 19.46    &   6.655800 &  17.148932 & 23.012$\pm$0.012  & 2 3.924$\pm$0.012 & 23.282$\pm$0.011 & 0.0 & - & -    \\
-0 & 2 & 6 & 1441.84 & 16.16    &   6.651480 &  17.130072 & 24.393$\pm$0.045  & 2 6.099$\pm$0.062 & 25.119$\pm$0.049 & 0.0 & - & -    \\
-0 & 2 & 7 & 205.43  & 3.96     &   6.655520 &  17.146742 & 24.424$\pm$0.032  & 2 5.028$\pm$0.025 & 24.597$\pm$0.027 & 0.0 & - & -    \\
-0 & 2 & 8 & 1321.63 & 9.76     &   6.651950 &  17.131672 &
-22.189$\pm$0.011  & 2 4.743$\pm$0.021 & 23.298$\pm$0.011 & 0.0 & 4 &
-edge \\
-\hline
-\multicolumn{13}{l}{%
-Table 2 is published in its entirety in the electronic
-edition of the {\it Astrophysical Journal}.}\\[3pt]
-\multicolumn{13}{l}{%
-$^a$ Sample footnote for table 2.}\\[3pt]
-\multicolumn{13}{l}{%
-$^b$ Another sample footnote for table 2.}
-\end{tabular}
-\end{widetable}
-\end{table}
-
-\begin{table}[p]
-\rotatebox{90}{\vbox{\hsize=\textheight
-\caption{Here is a caption for a table that is found in landscape
-mode.}
-\begin{tabular}{ccrrccccccccc}
-\hline
-\bf 
-POS &\bf  chip &\multicolumn1c{\bf ID} &\multicolumn1c{\bf X}
-&\multicolumn1c{\bf Y} &\bf
-RA &\bf DEC &\bf IAU$\pm$ $\delta$ IAU &\bf
-IAP1$\pm$ $\delta$ IAP1 &\bf IAP2 $\pm$ $\delta$
-IAP2 &\bf star &\bf E &\bf Comment\\
-\hline
-0 & 2 & 1 & 1370.99 & 57.35\rlap{$^a$}    &   6.651120 &  17.131149 &
-21.344$\pm$0.006\rlap{$^b$}  & 2 4.385$\pm$0.016 & 23.528$\pm$0.013 & 0.0 & 9 & -    \\
-0 & 2 & 2 & 1476.62 & 8.03     &   6.651480 &  17.129572 & 21.641$\pm$0.005  & 2 3.141$\pm$0.007 & 22.007$\pm$0.004 & 0.0 & 9 & -    \\
-0 & 2 & 3 & 1079.62 & 28.92    &   6.652430 &  17.135000 & 23.953$\pm$0.030  & 2 4.890$\pm$0.023 & 24.240$\pm$0.023 & 0.0 & - & -    \\
-0 & 2 & 4 & 114.58  & 21.22    &   6.655560 &  17.148020 & 23.801$\pm$0.025  & 2 5.039$\pm$0.026 & 24.112$\pm$0.021 & 0.0 & - & -    \\
-0 & 2 & 5 & 46.78   & 19.46    &   6.655800 &  17.148932 & 23.012$\pm$0.012  & 2 3.924$\pm$0.012 & 23.282$\pm$0.011 & 0.0 & - & -    \\
-0 & 2 & 6 & 1441.84 & 16.16    &   6.651480 &  17.130072 & 24.393$\pm$0.045  & 2 6.099$\pm$0.062 & 25.119$\pm$0.049 & 0.0 & - & -    \\
-0 & 2 & 7 & 205.43  & 3.96     &   6.655520 &  17.146742 & 24.424$\pm$0.032  & 2 5.028$\pm$0.025 & 24.597$\pm$0.027 & 0.0 & - & -    \\
-0 & 2 & 8 & 1321.63 & 9.76     &   6.651950 &  17.131672 &
-22.189$\pm$0.011  & 2 4.743$\pm$0.021 & 23.298$\pm$0.011 & 0.0 & 4 &
-edge \\
-\hline
-\multicolumn{13}{l}{%
-Table 2 is published in its entirety in the electronic
-edition of the {\it Astrophysical Journal}.}\\[3pt]
-\multicolumn{13}{l}{%
-$^a$ Sample footnote for table 2.}\\[3pt]
-\multicolumn{13}{l}{%
-$^b$ Another sample footnote for table 2.}
-\end{tabular}
-}}
-\end{table}
-\clearpage
-
-
-\vglue 3in
-Example of table continuing over pages:
-
-
-\begin{center}
-\begin{longtable}{ccc@{}}
-\caption{ApJ costs from 1991 to 2013
-\label{tab:table}} \\[2pt]
-\hline
-\bf Year & \bf Subscription & \bf Publication \\
- & \bf cost &\bf charges\\
- & \bf(\$) & \bf (\$/page)\\
-\hline
-\endfirsthead
-
-\multicolumn3c{Table \thetable, \it continued from previous page.}\\[6pt]
-\multicolumn3c{ApJ costs from 1991 to 2013}\\[2pt]
-\hline
-\bf Year & \bf Subscription & \bf Publication \\
- & \bf cost &\bf charges\\
- & \bf(\$) & \bf (\$/page)\\
-\hline
-\endhead
-\\\hline
-\\[-8pt]
-\multicolumn{3}{r}{\it Table continued on next page}\\ 
-\endfoot
-
-\hline
-\endlastfoot
-
-1991 & 600 & 100 \\
-1992 & 650 & 105 \\
-1993 & 550 & 103 \\
-1994 & 450 & 110 \\
-1995 & 410 & 112 \\
-1996 & 400 & 114 \\
-1997 & 525 & 115 \\
-1998 & 590 & 116 \\
-1999 & 575 & 115 \\
-2000 & 450 & 103 \\
-2001 & 490 &  90 \\
-2002 & 500 &  88 \\
-2003 & 450 &  90 \\
-2004 & 460 &  88 \\
-2005 & 440 &  79 \\
-2006 & 350 &  77 \\
-2007 & 325 &  70 \\
-2008 & 320 &  65 \\
-2009 & 190 &  68 \\
-2010 & 280 &  70 \\
-2011 & 275 &  68 \\
-2012 & 150 &  56 \\
-2013 & 140 &  55 \\
-\end{longtable}
-\end{center}
-
-\section{Supportive Information}
-Here you enter further sources of information, if desired.
-
-%% A possible entry might be:
-% No supportive information is available at this time.
-
-
-\acknowledgments
-Enter your acknowledgments here.
-
-%% ie.,
-
-% The authors thank Laurence Aitchison for fruitful discussions.  RKN
-% and PD received funding from the Gatsby Charitable Foundation. Y-AB,
-% RBS, KC and PS received funding from Canadian Institutes of Health
-% Research grant $MOP74577$,
-% Fond de recherche Qu\'{e}bec - Sant\'{e} (Group grant to the Groupe 
-% de recherche en neurobiologie comportementale, Shimon Amir, P.I.), and
-% Concordia University Research Chair (Tier I). 
-
-\authorcontributions 
-Who helped formulate the project, who supplied data, analyses and
-experiments, etc.
-
-%% ie.
-%% Project was formulated by RKN, PD, PS,
-%% based on substantial data, analyses and experiments of Y-AB, KC, RS,
-%% PS. RKN, PD formalised the model, RKN implemented and ran the model;
-%% RKN analysed the molecular ethogram data; Y-AB formalised and
-%% implemented a CTMC model. All authors wrote the manuscript.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%
-%% The bibliography
-
-%% \nocite{*} is used here as a quick way to get every entry  in the .bib file to
-%% appear in the bibliography. Normally the bibliography is made using only
-%% the bibentries that you cite using \cite{}, or one of the Natbib citation
-%% entries, like \citep{}, \citet{} etc.
-
-\nocite{*}
-\bibliography{bibsamp}
-
-
-\appendix
-
-\section{Sample Appendix Section}
-We derive the result in Eq. \eqref{eq:analytical_linear}. We consider a linear $C_L(\tau_L+\taupav)=K_L(\tau_L+\taupav)$, and
-make two further 
-simplifications: (i) the subject does not
-engage in leisure in the pre-reward state (and so works for the whole
-price when it works); and (ii) \emph{a priori}, arbitrarily long leisure durations are possible
-($\lambda=0$).
-Then the reward rate in Eq. \eqref{eq:rhoCHT} becomes
-\begin{equation}\label{eq:analyticalrho}
-\rho^{\pi}= \frac{\vrule height 10pt width0pt RI + K_L \{~ \mathbb{E}[ \tau_L | \textrm{post} ] + \taupav  \} }
-     {P +
-\mathbb{E}[ \tau_L | \textrm{post} ] +\taupav  } 
-\end{equation} 
-As discussed in the \emph{Results} section, the probability of engaging in instrumental leisure in the post-reward state is $\pi([L,\tau_L]
-~| \textrm{post}) = \exp\left[-\{\beta (\rho^\pi-K_L) 
- \} \tau_L\right]$, which is an exponential distribution with
-mean 
-\begin{equation}
-\mathbb{E}[\tau_L | \textrm{post}]=\frac{1}{\beta (\rho^\pi-K_L) }
-\label{eq:analyticaltauL}
-\end{equation}  
-Re-arranging terms of this equation,
-\begin{equation}\label{eq:rhoversion2}
-\rho^{\pi}=\frac{1}{\beta ~\mathbb{E}[\tau_L | \textrm{post}]} +K_L 
-\end{equation} 
-Equating Eqs. \eqref{eq:analyticalrho} and \eqref{eq:rhoversion2} and solving for the mean instrumental leisure duration $\mathbb{E}[\tau_L | \textrm{post}]$, we derive
-\begin{equation}
-\mathbb{E}[\tau_L | \textrm{post}] = \frac{P+\taupav}{\beta ( RI - K_LP)-1} 
-\label{eq:solvedtauL}
-\end{equation}
-which is the second line of Eq.\eqref{eq:analytical_linear}. This is the mean instrumental leisure duration as long as  $RI - K_LP>1$, and  $\mathbb{E}[\tau_L | \textrm{post}] \rightarrow \infty$ otherwise. When the former condition holds, we may
-substitute Eq. \eqref{eq:solvedtauL} into Eq. \eqref{eq:analyticalrho} and solve for $\rho^{\pi}$
-\begin{figure}
-\widefigure{\fullpagewidth}{Fig1}
-\caption{Sample Appendix Caption}
-\end{figure}
-
-\newpage
-
-\section{Making Your Bibliography for an Open Mind Article}
-{\it Open Mind} uses the APA author-date  bibliography style,
-apacite.bst. For more
-information on apacite, for examples in how to make your .bib file and more, see:\\
-\href{http://mirror.jmu.edu/pub/CTAN/biblio/bibtex/contrib/apacite/apacite.pdf}
-{http://mirror.jmu.edu/pub/CTAN/biblio/bibtex/contrib/apacite/apacite.pdf}
-
-\noindent
-(In spite of the mention of apacite cite commands, please use only
-Natbib commands for in text citations, as shown above.)
-
-\subsection{BibTeX}
-You will need to use BibTeX to form your bibliography; typing in the
-references would be
-a huge and unpleasant task. Look at the openmindsample.bbl file and you'll see why
-typing in the bibitems would be difficult. 
-
-For a good basic introduction to using BibTeX, see
-\href{https://www.economics.utoronto.ca/osborne/latex/BIBTEX.HTM}
-{https://www.economics.utoronto.ca/osborne/latex/BIBTEX.HTM}
-
-When you use BibTeX, the form of the bibliography will be correct. You
-don't need to supply a bibliography style, since that is built into
-the stjour.cls file.
-
 \end{document}
 
