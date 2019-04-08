@@ -569,11 +569,11 @@
 		In the set-theoretic interpretation of $L_1^Q$, with finite $W$, a discrete prior $P_L$ over $W$ sufficed. In the present case, where $W$ is necessarily infinite (ranging continuously over real-valued vectors), we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). We define the prior over projections $P_{L_Q}$ to be uniform.
 
 		\begin{exe}
-		\ex $P_L(w) = P_{\mathcal{N}}(w\vert\mu=E(\textrm{\emph{source}}),\sigma=\sigma_1)$ \label{vect:prior}
+		\ex $P_L(w) = P_{\mathcal{N}}(w\vert\mu=E(\textrm{\emph{target}}),\sigma=\sigma_1)$ \label{vect:prior}
 		% \overrightarrow{\mathit{source}}
 		\end{exe}
 
-		We can view $P_L$ as representing uncertainty over the position of the entity or concept that the source noun represents.
+		We can view $P_L$ as representing uncertainty over the position of the entity or concept that the target noun (e.g. \emph{man} in ``The man is a shark'') represents.\footnote{This bears comparison to the \emph{conceptual space} semantics of \citet{gardenfors2004conceptual}.}
 		% \footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} 
 		The goal of the speaker is to convey a position in the space 
 		% (which they think represents the nature of the source noun's denotation) 
@@ -610,7 +610,7 @@
 
 		\begin{exe}
 		\vspace{-1em}
-		\ex $\llbracket u\rrbracket(w) = P_{\mathcal{N}}(w\vert\mu=E(\textrm{\emph{target}}),\sigma=\sigma_2)$ \label{vect:sem}
+		\ex $\llbracket u\rrbracket(w) = P_{\mathcal{N}}(w\vert\mu=E(\textrm{\emph{source}}),\sigma=\sigma_2)$ \label{vect:sem}
 		% \overrightarrow{\mathit{predicate_u}}
 		\end{exe}
 
@@ -624,7 +624,7 @@
 		\begin{figure}
 		\centering
 			\includegraphics[height=6.5cm]{images/diagram2.png}
-			\caption{In this 2D example, the vectors representing \emph{Jane} and \emph{John} are mapped onto $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$.}
+			\caption{In this hand-constructed 2D example, vectors for $\protect\overrightarrow{soldier}$ and $\protect\overrightarrow{predator}$ are mapped onto subspaces given by $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$.}
 			% In this 2D example, the vectors for \emph{endurance} and \emph{ruthlessness} each parametrize a projection mapping all the points in the space (such as \emph{Jane} and \emph{John}) to new points. These new points can be thought of as the positions of \emph{John}, \emph{Jane} and so on in a new space which cares only about the position of the points with respect to $\protect\overrightarrow{endurance}$ or $\protect\overrightarrow{ruthlessness}$.
 			\label{fig:1}
 		\end{figure}
@@ -726,7 +726,7 @@
 	\end{figure}
 
 	% Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. 
-	Because $P_L(w)$ is a continuous distribution in the vectorial interpretation of $\QLONE$, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.}. We describe this algorithm in parts, working up from the $L_0$.
+	Because $P_L(w)$ is a continuous distribution in the vectorial interpretation of $\QLONE$, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm.\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.} We describe this algorithm in parts, working up from the $L_0$.
 
 	% While the general format of our model is analogous to previous models in the RSA paradigm, the vectorial setting produces a number of challenges which require novel solutions.
 
@@ -740,7 +740,7 @@
 
 	% \begin{equation}
 
-	$L_0(w|u) = P_{\mathcal{N}}(w\vert\mu=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}\cdot(\frac{{\textrm{\emph{source}}}}{\sigma_1^2}+\frac{{\textrm{\emph{target}}}}{\sigma_2^2}), \sigma=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})$
+	$L_0(w|u) = P_{\mathcal{N}}(w\vert\mu=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}\cdot(\frac{{\textrm{\emph{E(target)}}}}{\sigma_1^2}+\frac{{\textrm{\emph{E(source)}}}}{\sigma_2^2}), \sigma=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})$
 
 	% \end{equation}
 
@@ -792,21 +792,23 @@
 
 	\centering
 
-	\begin{subfigure}{0.5\textwidth}
+	\includegraphics[width=\textwidth]{images/bothheatmaps.png}
+
+	% \begin{subfigure}{0.5\textwidth}
 
 	% \centering
 
-	\includegraphics[width=0.85\textwidth]{images/denotations.png}
+	% \includegraphics[width=0.85\textwidth]{images/denotations.png}
 
-	\end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
+	% \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
 
 	% \centering
 
-	\includegraphics[width=\textwidth]{images/discretel1heatmap.png}
+	% \includegraphics[width=\textwidth]{images/discretel1heatmap.png}
 
-	\end{subfigure}
+	% \end{subfigure}
 
-	\caption{Heatmap visualizing the $\protect\QLONE$ posterior (right), with the hand-chosen denotations of \emph{man}, \emph{shark}, and \emph{fish} used in this 2 dimensional example (left).}
+	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over worlds given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$.}
 
 	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
 

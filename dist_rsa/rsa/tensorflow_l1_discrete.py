@@ -2,12 +2,12 @@ def tf_l1_discrete(inference_params):
 
 	import time
 	import numpy as np
-	import edward as ed
+	# import edward as ed
 	import scipy
 	from collections import Counter
 	import pickle
 	import tensorflow as tf
-	from edward.models import Normal,Empirical, Bernoulli, Categorical
+	# from edward.models import Normal,Empirical, Bernoulli, Categorical
 	from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
         normalize,as_a_matrix,tensor_projection_matrix,\
         double_tensor_projection_matrix,combine_quds, lookup, s1_nonvect,mean_and_variance_of_dist_array,\
@@ -16,7 +16,8 @@ def tf_l1_discrete(inference_params):
 	from dist_rsa.rsa.tensorflow_s1 import tf_s1
 	from dist_rsa.rsa.tensorflow_l0_sigma import tf_l0_sigma
 
-	sess = ed.get_session()
+	# sess = ed.get_session()
+	sess = tf.Session()
 	listener_world = tf.cast(inference_params.subject_vector,dtype=tf.float32)
 	number_of_quds = len(inference_params.quds)
 	poss_utts = tf.cast(as_a_matrix(inference_params.possible_utterances,inference_params.vecs),dtype=tf.float32)
@@ -36,7 +37,7 @@ def tf_l1_discrete(inference_params):
 
 	u=inference_params.predicate
 	utt = tf.cast(inference_params.possible_utterances.index(u),dtype=tf.int32)
-	world = Normal(loc=tf.squeeze(listener_world), scale=[tf.sqrt(inference_params.l1_sig1)] * inference_params.vec_length)
+	world = tf.distributions.Normal(loc=tf.squeeze(listener_world), scale=[tf.sqrt(inference_params.l1_sig1)] * inference_params.vec_length)
 
 	size,amount = inference_params.resolution.size, inference_params.resolution.amount
 	# shape: [(size*2)**2, 2] : for each of the world positions, an array of its position

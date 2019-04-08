@@ -164,6 +164,29 @@ Frank, M\BPBI C.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+G{\"a}rdenfors%
+}{%
+G{\"a}rdenfors%
+}{%
+{\protect \APACyear {2004}}%
+}]{%
+gardenfors2004conceptual}
+\APACinsertmetastar {%
+gardenfors2004conceptual}%
+\begin{APACrefauthors}%
+G{\"a}rdenfors, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2004}.
+\newblock
+\APACrefbtitle {Conceptual spaces: The geometry of thought} {Conceptual spaces:
+  The geometry of thought}.
+\newblock
+\APACaddressPublisher{}{MIT press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Golland%
 , Liang%
 \BCBL {}\ \BBA {} Klein%
