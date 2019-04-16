@@ -73,10 +73,11 @@
 \keywords{metaphor, informativity, Bayesian pragmatics, distributional semantics}
 \begin{abstract}
 
-	Humans interpret metaphors, like \emph{Life is a journey} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{journey, shark}) are true of the subject (\emph{life, my lawyer}). One theory of the process underlying metaphor interpretation, proposed by \citet{grice} is that a listener reasons about an informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the relevant dimensional of meaning.
+	Humans interpret metaphors, like \emph{Life is a journey} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{journey, shark}) are true of the subject (\emph{life, my lawyer}). One theory of the process underlying metaphor interpretation, proposed by \citet{grice}, is that a listener reasons about an informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the relevant dimensional of meaning.
 
 	% and by doing so interprets a predicative metaphor (of the form ``A is a B''), by identifying the properties of B that are relevant to A. 
-	This reasoning process can be modeled in the \emph{Rational Speech Acts framework} \citep{frank2012predicting} as a nested inference, where listeners and speakers are Bayesian agents who make inferences about the state of the world and the optimal utterance, respectively.
+	This reasoning process can be modeled probabilistically in the \emph{Rational Speech Acts framework} \citep{frank2012predicting}.
+	% as a nested inference, where listeners and speakers are Bayesian agents who make inferences about the state of the world and the optimal utterance, respectively.
 	However, previous instantiations of these models have required a hand-specified semantics, restricting the generality of the model and the scope of empirical investigation into the effectiveness of pragmatic reasoning for metaphor interpretation.
 
 	We present a method to combine empirically learned word embeddings with a Rational Speech Acts model of metaphor. This allows us to interpret arbitrary predicative and adjectival metaphors without manually stipulating the denotations of the words they contain. We find a significant preference in human judgments for our model over a comparable word embedding model without explicit pragmatic reasoning.
@@ -95,15 +96,16 @@
 	Metaphor presents a compelling theoretical challenge for the understanding of meaning in natural language. On hearing (\ref{met:1}) in a context where the subject, Jane, is known to be a consultant, a listener might infer that Jane is not literally a soldier, but rather that she shares certain attributes with soldiers (perhaps determination, endurance, or ruthlessness). 
 	% Similarly, on hearing a temper described as \emph{fiery}, a listener might infer that 
 	\begin{exe}
-	\vspace{-1.0em}
+	% \vspace{-1.0em}
 	\ex Jane is a soldier \label{met:1}
 	\end{exe}
-	The \emph{Gricean} view on metaphor takes the meaning conveyed by (\ref{met:1}) in a given context to be the result of a process of \emph{pragmatic reasoning}, about a speaker who is trying to communicate truthfully, informatively, and relevantly. That is, the listener attempts to jointly deduce what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker would have chosen the predicate \emph{soldier} over other alternatives.
+	The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) in a given context to be the result of a process of \emph{pragmatic reasoning}, about a speaker who is trying to communicate truthfully, informatively, and relevantly. That is, the listener attempts to jointly deduce what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker would have chosen the predicate \emph{soldier} over other alternatives.
 
 	% Our goal is to evaluate the accuracy of the Gricean view as a model of human cognition, regarding metaphor interpretation. To do so, we construct a model of metaphor which relies on pragmatic reasoning of this form, and elicit human judgments comparing its predictions to a non-pragmatic baseline. 
 		% Our goal is to provide evidence towards this view, by 
+
 	\paragraph{Modeling metaphor}
-	Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of Gricean reasoning, the \emph{Rational Speech Acts} framework \citep{goodman}. This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
+	Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of Gricean reasoning, the \emph{Rational Speech Acts} framework \citep{frank2012predicting}. This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
 	% Pragmatic accounts of metaphor, stemming from \citep{davidson} and \citep{grice}, attempt to derive metaphorical meaning as the inference of a language user reasoning about an expression heard in a given context. For instance, on hearing (\ref{met:1}), a listener infers 
 
 	% Grice suggests that a listener infers that an expression they hear is metaphorical on account of the unlikelihood of its literal interpretation being true, and further infers which elements of the 
@@ -121,7 +123,7 @@
 
 	\citet{kao} extend the framework by introducing a new model, $\QLONE$, which is able to interpret metaphors. It does so by the mechanism of \emph{projection functions}\footnote{These are often referred to in RSA literature as \emph{Questions under Discussion}.} which dictate the dimension of the world that the speaker cares about communicating. This, in turn, allows for a model of a listener which jointly determines the state of the world (e.g. what Jane is like) and the aspect of the world the speaker cares to communicate (e.g. Jane's determination). Crucially, this listener assumes an informative speaker: one whose choice of utterance maximizes the probability of communicating the world $w$ to the speaker's model of the listener, up to the projection $q$ .
 	
-	This model provides an account of predicative metaphors (those of the form \emph{A is a B} like (\ref{met:1})) and adjectival metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to manually construct a semantics for the words involved, restricting the model's scalability.
+	This model provides an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, previous instantiations of the model have required the manual construction of a semantics for the words involved, restricting the model's scalability.
 
 	% makes empirical validation of the model difficult
 	% , because of the bias introduced by the hand-chosen semantics.
@@ -135,8 +137,8 @@
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
 
-	\subsubsection{Our contribution} We adapt $\QLONE$ to a distributional semantics, where the denotations of words are points in an abstract, and empirically determined, vector space. Such \emph{word embedding} spaces are a core NLP tool, and have been shown to represent various notions of semantic similarity via the geometry of the space.
-	This adaption requires a new semantics, a generalization of projection functions to the vectorial setting, and an inference algorithm to calculate the now continuous posterior distribution of $\QLONE$.
+	\subsubsection{Our contribution} We adapt $\QLONE$ to a setting where the denotations of words are points in an abstract, and empirically determined, vector space. Such \emph{word embedding} spaces are a core NLP tool, and have been shown to represent various notions of semantic similarity via the geometry of the space \citep{pennington2014glove}.
+	This adaption requires a new semantics, as well as a generalization of projection functions to the vectorial setting, and an inference algorithm to calculate the now continuous posterior distribution of $\QLONE$.
 		
 
 	% Adapting the $\QLONE$ model to allow for denotations of this kind requires us to introduce a new semantics, to generalize the notion of a projection to a vector space, where it amounts to a linear projection, and to develop an approximate inference algorithm to calculate the now  
@@ -182,12 +184,12 @@
 
 	% We focus on predicative metaphors of the form ``A is a B'' (e.g. ``John is a shark.''), as well as metaphorical modification, e.g ``fiery temper'' or ``golden opportunity''. We further consider the possibility that the meaning of metaphorical phrases such as these can be interpreted as the posterior position of the head noun, after the model observes the modifying adjective.
 
-	For a given metaphor, only certain properties of the source are described by the target, and which these are depend on the metaphor and the context. For instance, (\ref{dog}), said of a sleeping dog, could convey that it is unresponsive, but said of a large alert dog, could convey that it is heavy.
+	For a given metaphor, only certain properties of the target are described by the source, and which these are depend on the metaphor and the context. For instance, (\ref{dog}), said of a sleeping dog, could convey that it is unresponsive, but said of a large alert dog, could convey that it is heavy.
 
 	% For instance, (\ref{bread}) likely conveys that the bread is like a rock with respect to hardness, while (\ref{dog}) likely conveys that the sleeping dog is like a rock with respect to its responsiveness. However, we could also imagine a context in which the dog is very heavy, so that a more natural inference is that it is like a rock with respect to its weight.
 	\begin{exe}
 	% \ex The bread is a rock. \label{bread}
-	\ex The sleeping dog is a rock. \label{dog}
+	\ex The dog is a rock. \label{dog}
 	\end{exe}
 
 	While certain metaphors are conventional - comparing someone to a lion tends to connote bravery - examples like (\ref{dog}) suggest that the interpretation of a metaphor is contextually dependent. The benefit of the Gricean view of metaphor is the ability to explain this dependence on context, in a way which takes into account an underlying semantics (e.g. the conventional meanings of \emph{dog} and \emph{rock}).
@@ -225,12 +227,12 @@
 
 	\begin{exe}
 	% \ex $L_0(w\vert u) = \frac{\llbracket u \rrbracket (w) P_L(w)}{\sum_{w'\in W}\llbracket u \rrbracket (w') P_L(w')} $ \label{defl0}
-	\ex $L_0(w\vert u) \propto \llbracket u \rrbracket (w) P_L(w)$ \label{defl0}
-	\ex $S_1(u\vert w,q) \propto \sum_{w'} \delta_{q(w)=q(w')} * L_0(w'\vert u)$ \label{defs0}
-	\ex $\QLONE(w,q\vert u) \propto S_1(u\vert q,w)*P_L(w) * P_{L_Q}(q)$ \label{defl1}
+	\ex $L_0(w\vert u) \propto \llbracket u \rrbracket (w)\cdot P_L(w)$ \label{defl0}
+	\ex $S_1(u\vert w,q) \propto \sum_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$ \label{defs0}
+	\ex $\QLONE(w,q\vert u) \propto S_1(u\vert q,w)\cdot P_L(w)\cdot P_{L_Q}(q)$ \label{defl1}
 	\end{exe}
 
-	\subsubsection{The literal listener} $L_0$ represents a model of an agent that, given an utterance $u\in U$ updates their belief about the world $w\in W$ strictly in accordance with the semantics $\llbracket\cdot\rrbracket$. This semantics, typically a function $U\to(W\to\{True, False\})$, represents the conventional association between states $w$ and utterances $u$ which the speaker and listener take as given. 
+	\subsubsection{The literal listener} $L_0$ represents a model of a listener that, given an utterance $u\in U$ updates their belief about the world $w\in W$ in accordance with the semantics $\llbracket\cdot\rrbracket$ and their prior $P_L$. This semantics, usually a function $U\to(W\to\{0, 1\})$, represents the conventional association between states $w$ and utterances $u$ which the speaker and listener take as given. 
 
 
 
@@ -266,7 +268,7 @@
 	% \item $W = \{ \{\textrm{vicious}, \textrm{non-human} \}, \{\textrm{vicious} \}, \{\textrm{non-human} \}, \{\},   \}$
 	\item $U = \{\textrm{\emph{shark}}, \textrm{\emph{silence}}\}$
 	% \item $\llbracket\cdot\rrbracket$
-	\item $Q = \{q_{vicious} (\lambda (x,y):x), q_{non-human} (\lambda (x,y):y) \}$ 
+	\item $Q = \{q_{vicious} (\lambda (x,y):x),\quad q_{non-human} (\lambda (x,y):y) \}$ 
 	\end{itemize}
 
 	We assume a semantics $\llbracket\cdot\rrbracket$ in which \emph{shark} is compatible only with $(\textrm{vicious}, \textrm{non-human})$, and \emph{silence} is compatible with every state. Note that the projections map each tuple to its value at a single property. 
@@ -275,9 +277,9 @@
 	The results of $\QLONE$ hearing \emph{shark} are shown in figure \ref{fig:l1barplot}.
 	The key fact to note is that the prior belief that John is not literally an animal leads $\QLONE$ to conclude that the speaker cares about conveying the viciousness dimension (i.e. projection $q_{vicious}$), and that John is vicious.
 
-	Importantly, $\QLONE$ can do more than simply using prior knowledge to interpret literally false statements in a flexible way. It is also capable of reasoning about alternative utterances: for instance, suppose we add a third property, \emph{quickness}, so that \emph{shark} is compatible only with $(\textrm{vicious}=T,\textrm{non-human}=T, \textrm{quick}=T)$, and also add a third utterance, \emph{hummingbird}, compatible with only $(\textrm{vicious}=F,\textrm{non-human}=T, \textrm{quick}=T)$.
+	Importantly, $\QLONE$ can do more than simply using prior knowledge to interpret literally false statements in a flexible way. It is also capable of reasoning about alternative utterances: for instance, suppose we add a third property, \emph{quickness}, so that \emph{shark} is compatible only with $(\textrm{vicious}=T, \textrm{non-human}=T, \textrm{quick}=T)$, and also add a third utterance, \emph{hummingbird}, compatible with only $(\textrm{vicious}=F, \textrm{non-human}=T, \textrm{quick}=T)$.
 	
-	In this second example, when $\QLONE$ hears \emph{shark}, it infers that John is more likely vicious than quick, even though both are equally probable under $P_L$. This is because, had the speaker wanted to communicate John's quickness, \emph{hummingbird} would have been a more informative utterance.
+	In this second example, when $\QLONE$ hears \emph{shark}, it infers that John is more likely vicious than quick, even when both are equally probable under $P_L$. This is because, had the speaker wanted to communicate John's quickness, \emph{hummingbird} would have been a more informative utterance.
 
 	% todo: note on getting realistic predictions by using large experimentally collected data
 	
@@ -289,7 +291,7 @@
 	% In order to elicit human-like behavior from the model, \citet{kao} use a set of $\sim$100 animals as alternative utterances $u\in U$, and assemble a property set $P$ experimentally. However, the semantics, relating adjectives to properties 
 	% 	TODO finish: the semantics doesn't require hand-specification really. just slow to collect.
 	
-	$\QLONE$ can also model AN metaphors (the subject of our experiment) in a similar way. For instance, for a phrase like \emph{fiery temper}, we say that the goal of a listener is to decide what is true of the temper in question given that the speaker has modified it with \emph{fiery}.
+	$\QLONE$ can also model AN metaphors in a similar way. For instance, for a phrase like \emph{fiery temper}, we say that the goal of a listener is to decide what is true of the temper in question given that the speaker has modified it with \emph{fiery}.
 
 	% choose an adjective $u$, out of some set $U$, which communicates some modification of the noun (e.g. \emph{temper}).
 
@@ -527,7 +529,8 @@
 	% The work closest to this, to our knowledge, is \cite{kintsch}, which proposes a single scheme for literal and metaphorical predication.	
 \section{Bayesian pragmatics with a distributional semantics} \label{bayesdist}
 
-	The set-theoretic interpretation of $\QLONE$ takes states $w \in W$ to be sets of properties describing the source of the given metaphor, projections to be surjective functions out of $W$, and a semantics to be a function $U\to(W\to\{True, False\})$.
+	The set-theoretic interpretation of $\QLONE$ takes states $w \in W$ to be sets of properties describing the source of the given metaphor, and a semantics to be a function $U\to(W\to\{0, 1\})$.
+	% , projections to be surjective functions out of $W$
 	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
 	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space determined by a word embedding $E : U\to W$, so that elements $\overrightarrow{w}\in W$ are vectors.\footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} As before, $U$ is a set of adjectives. 
@@ -584,7 +587,7 @@
 		
 
 
-		The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean of the prior as $E$(\emph{source}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model.
+		The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean of the prior as $E$(\emph{target}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model.
 
 			% , e.g. $\overrightarrow{\text{temper}}$ for the metaphor \emph{fiery temper}. The points in the distribution represent meanings of \emph{temper} that might not be encoded in its vector. For instance, some points in the distribution might be closer to $\overrightarrow{\text{intense}}$ or $\overrightarrow{\text{unstable}}$. 
 
@@ -601,21 +604,20 @@
 
 		A word embedding space has no explicit representation of truth. That is to say, while we can compare the similarity of a noun and an adjective according to a variety of metrics, we do not have a means of categorically determining the compatibility of that adjective and noun.
 
-		Mathematically speaking, this is not a problem, since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
+		As far as our model is concerned, this is not a problem since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
+		\vspace{-1.5em}
+		\begin{exe}
+		\ex $\llbracket u\rrbracket(w) = P_{\mathcal{N}}(w\vert\mu=E(\textrm{\emph{source}}),\sigma=\sigma_2)$ \label{vect:sem}
+		% \overrightarrow{\mathit{predicate_u}}
+		\end{exe}
 
 		% However, despite the ``softness'' of a distributional meaning, will find that it is possible to use it to obtain a semantics capable of underlying $\QLONE$, 
 
 		% since the $L_0$ requires only that the semantics be real-valued.
 
 
-		\begin{exe}
-		\vspace{-1em}
-		\ex $\llbracket u\rrbracket(w) = P_{\mathcal{N}}(w\vert\mu=E(\textrm{\emph{source}}),\sigma=\sigma_2)$ \label{vect:sem}
-		% \overrightarrow{\mathit{predicate_u}}
-		\end{exe}
 
 		The result of this definition is that the value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
-
 		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions, which allows for a closed form solution of $L_0$. 
 		% As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
@@ -623,7 +625,7 @@
 
 		\begin{figure}
 		\centering
-			\includegraphics[height=6.5cm]{images/diagram2.png}
+			\includegraphics[height=5.5cm]{images/diagram2.png}
 			\caption{In this hand-constructed 2D example, vectors for $\protect\overrightarrow{soldier}$ and $\protect\overrightarrow{predator}$ are mapped onto subspaces given by $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$.}
 			% In this 2D example, the vectors for \emph{endurance} and \emph{ruthlessness} each parametrize a projection mapping all the points in the space (such as \emph{Jane} and \emph{John}) to new points. These new points can be thought of as the positions of \emph{John}, \emph{Jane} and so on in a new space which cares only about the position of the points with respect to $\protect\overrightarrow{endurance}$ or $\protect\overrightarrow{ruthlessness}$.
 			\label{fig:1}
@@ -716,6 +718,10 @@
 				% we condition on the likelihood of the $S_1$ world state being drawn from the $L_0$ posterior after having heard any given possible utterance.
 \section{Inference} \label{technicaloverview}
 
+
+	% Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. 
+	Because $P_L(w)$ is a continuous distribution in the vectorial interpretation of $\QLONE$, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm.\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.} We describe this algorithm in parts, working up from the $L_0$.
+
 	\begin{figure}[htbp]
 	\centering
 	% \hspace*{-2.5cm}                                                           
@@ -724,10 +730,6 @@
 	  \caption{2D depiction of vectorial $L\protect_0$, for $\protect\overrightarrow{man}$ = (0,0) and $\protect\overrightarrow{shark}$ = (1,1).}
 	  \label{fig:2d}
 	\end{figure}
-
-	% Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. 
-	Because $P_L(w)$ is a continuous distribution in the vectorial interpretation of $\QLONE$, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm.\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.} We describe this algorithm in parts, working up from the $L_0$.
-
 	% While the general format of our model is analogous to previous models in the RSA paradigm, the vectorial setting produces a number of challenges which require novel solutions.
 
 	% Moreover, previous implementations of RSA have employed prior distributions for both the speaker and listener with finite support. As a result, it is possible in standard RSA to perform exact inference for the $L_0$, $S_1$ and $L_1$. By contrast, our prior is a Gaussian and as such cannot be computed via exact inference, due to the need to calculate a normalizing term which sums (or rather integrates) over an infinite set. 
@@ -910,15 +912,18 @@
 	= \frac{1}{K}P(q) \int_{w}P(w)S_1(u|w,q)  \\
 	&= \frac{1}{K}P(q) \int_{w}P(w_q, w^\bot)S_1(u|w_q,q) 
 	= \frac{1}{K}P(q) \int_{w}P(w_q) P(w^\bot)S_1(u|w_q,q) \\
-	&= \frac{1}{K}P(q) \int_{w^\bot \in Q^\bot}P(w^\bot)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q)
-	= \frac{1}{K}P(q)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) \nonumber
+	&= \frac{1}{K}P(q) \int_{w^\bot \in Q^\bot}P(w^\bot)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) \\
+	&= \frac{1}{K}P(q)  \int_{w_q \in Q}P(w_q) S_1(u|w_q,q) \nonumber
 	\end{split}
 	 \end{align}
 	
 
 
 
-	Here $K = \sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')$. $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation . The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example used for the set-theoretic example in figure \ref{fig:l1barplot}.
+	Here $K = \sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')$. $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. 
+	The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. 
+
+	Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example used for the set-theoretic example in figure \ref{fig:l1barplot}.
 
 
 		% To compute the joint posterior over $W$ and $Q$, we first compute the conditional posterior $P(w|q,u)$ for each $q\in Q$, and then determine the marginal posterior on $Q$, $P(Q)$  HOW THO? 
@@ -948,9 +953,11 @@
 	% The advantage of the Categorical $L_1$ is that we can choose a particular set of QUDs, for instance, the vectors corresponding to a given set of words, and weight this prior according to the frequency of these words. This allows us to supply our model with a set of possible QUDs, and have it return a categorical distribution over them, as the $L_1$ QUD posterior.
 
 	% The Non-Categorical model, on the other hand, has the contrasting benefit that no set of possible QUDs need be provided to the model. Furthermore, the use of Hamiltonian dynamics for performing the joint inference results in much faster performance. However, the Non-Categorical model yields significantly less stable results, and as such, we use only the Categorical model in our experimentation.
+% \vspace{2em}
 \subsection{Interpreting results from $\protect\QLONE$}
 
-	We now have an algorithm for approximating the posterior distribution of $\QLONE$ after hearing a metaphor $u$. One way of converting this into an interpretable prediction is to examine the marginal distribution over $Q$, and take adjectives $q$ which have high probability under this distribution to be interpretations of the metaphor $u$ that the model considers likely. 
+	We now have an algorithm for approximating the posterior distribution of $\QLONE$ after hearing a metaphor $u$. We convert this into an interpretable prediction by selecting the adjectives $q\in Q$ which have high probability under the marginal posterior distribution over $Q$ as interpretations of the metaphor.
+	 % $u$ that the model considers likely. 
 
 	% This completes the specification of the vectorial interpretation of $\QLONE$. In this setting, $\QLONE$ receives an utterance $u$ (e.g. \emph{Time is a river.}) and returns a joint distribution, assigning a probability to each pair $(q,w)\in QxW$. 
 
@@ -1120,7 +1127,7 @@
 
 		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. As such, a natural baseline model to compare against is a model with a distributional semantics that does not make use of the pragmatic reasoning process inherent in $\QLONE$.
 
-		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the \emph{a} and \emph{n} (or noun and adjective). The two nearest adjectives $q$ to this mean are our baseline interpretations for the metaphor. We use the mean (a weighted sum) in light of the effectiveness of vector addition in deriving representations of phrasal and sentence meanings from constituent words, see \citep{mitchell2010composition,grefenstette2013category,socher2013recursive}. Cosine distance is a standard metric of similarity used for word embeddings \citep{pennington2014glove}.
+		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the adjective \emph{a} and noun \emph{n}. The two nearest adjectives $q$ to this mean are our baseline interpretations for the metaphor. We use the mean (a weighted sum) in light of the effectiveness of vector addition in deriving representations of phrasal and sentence meanings from constituent words, see \citep{mitchell2010composition,grefenstette2013category,socher2013recursive}. Cosine distance is a standard metric of similarity used for word embeddings \citep{pennington2014glove}.
 
 
 
@@ -1151,7 +1158,8 @@
 
 		Similarly, we select a set $Q$ of projections corresponding to the hundred closest adjectives to the mean of the subject and predicate (the method of adjective choice in the baseline model), and take $P_{L_Q}$ to be a uniform distribution over $Q$. 
 
-		By tuning on a validation set of hand-selected metaphors, we choose $\sigma_1=\sigma_2=0.1$ (the variances of the Gaussians used in the prior and semantics respectively). We select the adjectives corresponding to the two projections with highest marginal posterior mass under $\QLONE$ as the interpretations provided from our model in the experiment.
+		By tuning on a validation set of hand-selected metaphors, we choose $\sigma_1=\sigma_2=0.1$. We select the adjectives corresponding to the two projections with highest marginal posterior mass under $\QLONE$ as the interpretations provided from our model in the experiment.
+		% (the variances of the Gaussians used in the prior and semantics respectively). 
 
 	\subsubsection{Analysis}
 

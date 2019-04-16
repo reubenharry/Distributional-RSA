@@ -14,45 +14,45 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: metaphor.bib.bib
 apacite.bst [2013/07/21 v6.03 APA bibliography style]
 Warning--No address in radford2018improving
-You've used 21 entries,
+You've used 20 entries,
             6951 wiz_defined-function locations,
-            1382 strings with 14230 characters,
-and the built_in function-call counts, 41758 in all, are:
-= -- 5260
-> -- 406
-< -- 1841
-+ -- 1887
-- -- 42
-* -- 2551
-:= -- 7182
-add.period$ -- 99
-call.type$ -- 21
-change.case$ -- 364
+            1377 strings with 14066 characters,
+and the built_in function-call counts, 39784 in all, are:
+= -- 5016
+> -- 392
+< -- 1737
++ -- 1783
+- -- 40
+* -- 2416
+:= -- 6797
+add.period$ -- 95
+call.type$ -- 20
+change.case$ -- 347
 chr.to.int$ -- 0
-cite$ -- 43
-duplicate$ -- 1167
-empty$ -- 1652
-format.name$ -- 648
-if$ -- 8136
+cite$ -- 41
+duplicate$ -- 1119
+empty$ -- 1580
+format.name$ -- 624
+if$ -- 7768
 int.to.chr$ -- 0
-int.to.str$ -- 63
+int.to.str$ -- 60
 missing$ -- 0
-newline$ -- 540
-num.names$ -- 168
-pop$ -- 846
+newline$ -- 515
+num.names$ -- 160
+pop$ -- 821
 preamble$ -- 1
-purify$ -- 84
+purify$ -- 80
 quote$ -- 0
-skip$ -- 2832
+skip$ -- 2710
 stack$ -- 0
-substring$ -- 2115
-swap$ -- 673
-text.length$ -- 87
+substring$ -- 2002
+swap$ -- 643
+text.length$ -- 85
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 2128
+type$ -- 2048
 warning$ -- 1
-while$ -- 226
+while$ -- 219
 width$ -- 0
-write$ -- 694
+write$ -- 663
 (There was 1 warning)
