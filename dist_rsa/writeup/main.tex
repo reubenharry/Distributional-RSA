@@ -740,9 +740,9 @@
 
 	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of the point corresponding to the received utterance. To calculate $L_0$ analytically, we make use of Gaussian conjugacy. When the prior $P_L$ is defined as in Equation \ref{vect:prior}, and the semantic interpretation is defined as in Equation \ref{vect:sem}, then conjugacy implies that the listener posterior is given by:
 
-	 \begin{equation} \label{eq:L0-inference}
-	L_0(w|u) = P_{\mathcal{N}}(w\vert\mu=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}\cdot(\frac{{\textrm{\emph{E(target)}}}}{\sigma_1^2}+\frac{{\textrm{\emph{E(source)}}}}{\sigma_2^2}), \sigma=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})
-	 \end{equation}
+	 \begin{exe}
+	\ex $L_0(w|u) = P_{\mathcal{N}}(w\vert\mu=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}\cdot(\frac{{\textrm{\emph{E(target)}}}}{\sigma_1^2}+\frac{{\textrm{\emph{E(source)}}}}{\sigma_2^2}), \sigma=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})$  \label{eq:L0-inference}
+	 \end{exe}
 
 
 
@@ -769,9 +769,9 @@
 	% 	 citation?
 \subsubsection{S\textsubscript{1} Inference}
 		The speaker is defined by Equation \ref{defs0}, which in the continuous case can be rewritten as:
-		\begin{equation}
-		S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)
-		\end{equation}
+		\begin{exe}
+		\ex $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
+		\end{exe}
 		This integral is computing the marginal probability of $w_q$, the projection of world $w$ onto QUD vector $q$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable is also normally distributed, providing a closed-form solution to $S_1$.
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
@@ -785,7 +785,7 @@
 		% \ex S$_1(u\vert w,q) \propto e^{U(u,w,q)}$
 
 		% \end{exe}
-\subsubsection{L\textsubscript{1} Definition}
+\subsubsection{L\textsubscript{1} Inference}
 
 
 
