@@ -291,6 +291,29 @@ Kao, J\BPBI T.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Kintsch%
+}{%
+Kintsch%
+}{%
+{\protect \APACyear {2000}}%
+}]{%
+kintsch2000metaphor}
+\APACinsertmetastar {%
+kintsch2000metaphor}%
+\begin{APACrefauthors}%
+Kintsch, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2000}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Metaphor comprehension: A computational theory}
+  {Metaphor comprehension: A computational theory}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Psychonomic bulletin \& review}{7}{2}{257--266}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Lakoff%
 \ \BBA {} Johnson%
 }{%
