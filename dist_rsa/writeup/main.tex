@@ -55,34 +55,42 @@
 
 \title{Open-Domain Metaphor Interpretation}
 \subtitle{Distributional Semantics for Bayesian Pragmatics} %% Optional subtitle
-\author[]
-	{Reuben Cohn-Gordon^1 and Leon Bergen^2}
 
-	\affiliation{1}{Stanford University, Department of Linguistics}
+	\author[]
+	{}
 
-	%ie.
-	%\affiliation{1}{Gatsby Computational Neuroscience Unit, University
-	%College London, London, United Kingdom} 
+	\affiliation{Anonymized}{}
 
-	\affiliation{2}{UCSD, Department of Linguistics and Hal?c?o?lu Data Science Institute}
+	\correspondingauthor{Anonymized}{}
 
-	%ie
-	%\affiliation{2}{Center for Studies in
-	%Behavioral Neurobiology, Concordia University, Montreal, Quebec,
-	%Canada}
+	% \author[]
+	% {Reuben Cohn-Gordon^1 and Leon Bergen^2}
 
-\correspondingauthor{Leon Bergen}{LBergen@ucsd.edu}
+	% \affiliation{1}{Stanford University, Department of Linguistics}
+
+	% ie.
+	% \affiliation{1}{Gatsby Computational Neuroscience Unit, University
+	% College London, London, United Kingdom} 
+
+	% \affiliation{2}{UCSD, Department of Linguistics and Hal?c?o?lu Data Science Institute}
+
+	% ie
+	% \affiliation{2}{Center for Studies in
+	% Behavioral Neurobiology, Concordia University, Montreal, Quebec,
+	% Canada}
+	% \correspondingauthor{Leon Bergen}{LBergen@ucsd.edu}
+
 \keywords{metaphor, informativity, Bayesian pragmatics, distributional semantics}
 \begin{abstract}
 
-	Humans interpret metaphors, like \emph{Life is a journey} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{journey, shark}) are true of the subject (\emph{life, my lawyer}). One theory of the process underlying metaphor interpretation, proposed by \citet{grice}, is that a listener reasons about an informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the relevant dimensional of meaning.
+	Humans interpret metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). One theory of the process underlying metaphor interpretation, proposed by \citet{grice}, is that a listener reasons about an informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the relevant dimensional of meaning.
 
 	% and by doing so interprets a predicative metaphor (of the form ``A is a B''), by identifying the properties of B that are relevant to A. 
 	This reasoning process can be modeled probabilistically in the \emph{Rational Speech Acts framework} \citep{frank2012predicting}.
 	% as a nested inference, where listeners and speakers are Bayesian agents who make inferences about the state of the world and the optimal utterance, respectively.
 	However, previous instantiations of these models have required a hand-specified semantics, restricting the generality of the model and the scope of empirical investigation into the effectiveness of pragmatic reasoning for metaphor interpretation.
 
-	We present a method to combine empirically learned word embeddings with a Rational Speech Acts model of metaphor. This allows us to interpret arbitrary predicative and adjectival metaphors without manually stipulating the denotations of the words they contain. We find a significant preference in human judgments for our model over a comparable word embedding model without explicit pragmatic reasoning.
+	We present a method to combine empirically learned word embeddings with a Rational Speech Acts model of metaphor. This allows us to interpret open domain predicative and adjectival metaphors without manually stipulating the denotations of the words they contain. We find a significant preference in human judgments for our model over a comparable word embedding model without explicit pragmatic reasoning.
 
 	% as compelling evidence for the Gricean view of metaphor interpretation.
 
@@ -107,7 +115,7 @@
 		% Our goal is to provide evidence towards this view, by 
 
 	\paragraph{Modeling metaphor}
-	Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of Gricean reasoning, the \emph{Rational Speech Acts} framework \citep{frank2012predicting}. This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
+	Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of Gricean reasoning, the \emph{Rational Speech Acts} (RSA) framework \citep{frank2012predicting}. This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
 	% Pragmatic accounts of metaphor, stemming from \citep{davidson} and \citep{grice}, attempt to derive metaphorical meaning as the inference of a language user reasoning about an expression heard in a given context. For instance, on hearing (\ref{met:1}), a listener infers 
 
 	% Grice suggests that a listener infers that an expression they hear is metaphorical on account of the unlikelihood of its literal interpretation being true, and further infers which elements of the 
@@ -139,13 +147,19 @@
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
 
-	\subsubsection{Our contribution} We adapt $\QLONE$ to a setting where the denotations of words are points in an abstract, and empirically determined, vector space. Such \emph{word embedding} spaces are a core NLP tool, and have been shown to represent various notions of semantic similarity via the geometry of the space \citep{pennington2014glove}.
-	This adaption requires a new semantics, as well as a generalization of projection functions to the vectorial setting, and an inference algorithm to calculate the now continuous posterior distribution of $\QLONE$.
+	\subsubsection{Our contribution} By adapting an RSA model of non-literal meaning to a word embedding (distributional) semantics, we obtain a system capable of interpreting open domain predicative and adjectival metaphors, without the need for hand-specified word meanings. 
+	This adaption requires a generalization of projection functions to a vector space setting, and a novel inference algorithm to calculate the now continuous posterior distribution of $\QLONE$.
+	This permits what is to our knowledge the first open domain evaluation of an RSA model of pragmatic reasoning.
+	We show that our model of metaphor interpretation significantly outperforms a baseline which uses a word embedding semantics without explicit pragmatic reasoning.
+
+	% We conduct the first open domain evaluation of 
+
+	% We adapt $\QLONE$ to a setting where the denotations of words are points in an abstract, and empirically determined, vector space. Such \emph{word embedding} spaces are a core NLP tool, and have been shown to represent various notions of semantic similarity via the geometry of the space \citep{pennington2014glove}.
 		
 
 	% Adapting the $\QLONE$ model to allow for denotations of this kind requires us to introduce a new semantics, to generalize the notion of a projection to a vector space, where it amounts to a linear projection, and to develop an approximate inference algorithm to calculate the now  
 
-	By doing so, we obtain a model capable of interpreting arbitrary predicative and adjectival metaphors, without the need for a hand-specified semantics. We show that our model significantly outperforms a baseline which uses a distributional semantics without explicit pragmatic reasoning.
+	% By doing so, we obtain a model capable of interpreting arbitrary predicative and adjectival metaphors, without the need for a hand-specified semantics. 
 	% This allows us to assess to efficacy of the Gricean view of metaphor (as formalized in $\QLONE$), by evaluating our model on human judgments. In particular, w
 			% We take this to be evidence that the Gricean account of metaphor, formalizes as a joint inference over state of the world and 
 			% 	blah
@@ -1175,7 +1189,7 @@
 			% As can be seen in Figure \ref{resultsbar}, there is a lot of variation in the average quality of proposed adjectives across both models, between metaphors. For the baseline model, we note that there is a subset of metaphors for which the baseline will perform well, as discussed in section (\ref{task1id}). These are metaphors where good projections $q$ are such that the subject and predicate are close when projected along $q$. In these cases, averaging the subject and predicate will generally give rise to a good interpretation. 
 \section{Discussion} \label{conc} 
 
-	We have shown that it is possible to scale Bayesian pragmatic reasoning to open-domain interpretation of metaphors, using distributional semantics. Our results indicate that the principles of pragmatic reasoning continue to operate at this scale, and are key to obtaining human-like interpretations of metaphors. We see this as an important step towards an open-domain model of general language interpretation and production.
+	We have shown that it is possible to scale Bayesian pragmatic reasoning to a distributional semantics and by so doing to obtain a model of metaphor interpretation. Our evaluation, the first such open domain test of an RSA model of interpretation, indicates that the principles of pragmatic reasoning continue to operate at this scale, and are key to obtaining human-like interpretations of metaphors. We see this as an important step towards a cognitively accurate and computationally tractable model of pragmatic language interpretation and production in general.
 
 	%The significant improvement of $\QLONE$ over a model with the same semantics but no pragmatic reasoning provides evidence that this reasoning is key to obtaining human-like interpretations of metaphors.
 

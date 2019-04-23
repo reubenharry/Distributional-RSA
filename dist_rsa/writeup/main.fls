@@ -246,8 +246,11 @@ INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
 INPUT /usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/adobe/helvetic/phvb.vf
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/adobe/palatino/pplr7t.vf
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/public/mathpazo/zplmr7m.vf
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/fplmri.tfm
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplr8r.tfm
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplri8r.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/adobe/palatino/pplb7t.vf
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplb8r.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/adobe/palatino/pplr7t.vf
@@ -352,10 +355,6 @@ INPUT ./images/diagram2.png
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/fplmbb.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/fplmbb.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/fplmbb.tfm
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/public/mathpazo/zplmr7t.vf
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/public/mathpazo/zplmr7y.vf
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT images/diagram1.png
 INPUT ./images/diagram1.png
 INPUT ./images/diagram1.png
@@ -371,6 +370,10 @@ INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/zplmb7y.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/zplmb7t.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/zplmb7t.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/zplmb7t.tfm
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/public/mathpazo/zplmr7t.vf
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/public/mathpazo/zplmr7y.vf
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT images/bothheatmaps.png
 INPUT ./images/bothheatmaps.png
 INPUT ./images/bothheatmaps.png
@@ -392,10 +395,7 @@ INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplb8r.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplbi8r.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/adobe/palatino/pplb7t.vf
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/public/mathpazo/zplmr7m.vf
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/mathpazo/fplmri.tfm
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplri8r.tfm
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/adobe/palatino/pplr7t.vf
 INPUT main.bbl
 INPUT main.bbl
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/palatino/pplri7t.tfm

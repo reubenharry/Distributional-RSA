@@ -1,13 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1555527098 "main.aux" "main.bbl" "main" 1555527100
+["bibtex main"] 1555972863 "main.aux" "main.bbl" "main" 1555982634
   "/usr/local/texlive/2015/texmf-dist/bibtex/bst/apacite/apacite.bst" 1374530685 141073 9d7b79dbf9d91133318126032cff8c27 ""
-  "main.aux" 1555527099 10066 bd2560ba912467ff2836f482f8a56a3c ""
+  "main.aux" 1555982634 10024 eaf08dbae4bad30c1c99fdf3304d0201 ""
   "main.bcf" 0 -1 0 ""
   "metaphor.bib" 1553297682 12937 2961b9d711f20fdc47e3215275e35195 ""
   (generated)
-  "main.blg"
   "main.bbl"
-["pdflatex"] 1555527098 "main.tex" "main.pdf" "main" 1555527100
+["pdflatex"] 1555982631 "main.tex" "main.pdf" "main" 1555982634
   "./CrossMark.pdf" 1453775604 14029 b44f7a8b3e3d05c541c6383c5e991959 ""
   "./OPMI_logo.jpg" 1455944166 108722 9ec3a6d338cc752d7016631074d8a89d ""
   "./colophon.pdf" 1453022494 18784 e183866da23e4c1ccb64ec43e0ebff19 ""
@@ -186,12 +185,12 @@
   "images/l1posteriorquality.png" 1555377237 43379 e4adbe28f801bc9a691ee9bd9326a682 ""
   "images/resultsbarplot.png" 1553452585 45298 f6e246f28143817a1ebb7b9835d5be54 ""
   "images/slide.png" 1552453584 43349 28c8a373c1b9bfae93460446fabd99bb ""
-  "main.aux" 1555527099 10066 bd2560ba912467ff2836f482f8a56a3c ""
-  "main.bbl" 1555527098 13052 7e78eff9d7be2fa438207c2f274d231e "bibtex main"
-  "main.tex" 1555527093 96660 6c45454bd3ec755605f548f9cf20558e ""
+  "main.aux" 1555982634 10024 eaf08dbae4bad30c1c99fdf3304d0201 ""
+  "main.bbl" 1555972863 13052 7e78eff9d7be2fa438207c2f274d231e "bibtex main"
+  "main.tex" 1555982629 97816 5fcf388a755f19f323f289f0110ca4a2 ""
   "openaccess3.pdf" 1453079610 24111 5ba4890b9a5a84e513860edb65d560b1 ""
   "stjour.cls" 1460172382 73189 bf9ebd09ddbb7711f54b611fcafb165c ""
   (generated)
   "main.pdf"
-  "main.aux"
   "main.log"
+  "main.aux"
