@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+The style file: pnas-new.bst
+Database file #1: metaphor.bib
+You've used 21 entries,
+            1837 wiz_defined-function locations,
+            590 strings with 7206 characters,
+and the built_in function-call counts, 5396 in all, are:
+= -- 496
+> -- 230
+< -- 9
++ -- 70
+- -- 49
+* -- 356
+:= -- 742
+add.period$ -- 40
+call.type$ -- 21
+change.case$ -- 21
+chr.to.int$ -- 0
+cite$ -- 21
+duplicate$ -- 308
+empty$ -- 519
+format.name$ -- 49
+if$ -- 1266
+int.to.chr$ -- 0
+int.to.str$ -- 21
+missing$ -- 21
+newline$ -- 85
+num.names$ -- 21
+pop$ -- 91
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 204
+stack$ -- 0
+substring$ -- 354
+swap$ -- 115
+text.length$ -- 9
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 50
+width$ -- 23
+write$ -- 204

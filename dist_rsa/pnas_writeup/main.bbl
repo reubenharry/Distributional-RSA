@@ -1,0 +1,103 @@
+\begin{thebibliography}{10}
+
+\bibitem{grice}
+Grice HP (1975) Logic and conversation.
+\newblock {\em 1975} pp. 41--58.
+
+\bibitem{frank2012predicting}
+Frank MC, Goodman ND (2012) Predicting pragmatic reasoning in language games.
+\newblock {\em Science} 336(6084):998--998.
+
+\bibitem{kao}
+Kao JT, Bergen L, Goodman N (2014) Formalizing the pragmatics of metaphor
+  understanding. in {\em CogSci}.
+
+\bibitem{lakoff1980metaphors}
+Lakoff G, Johnson M (1980) Metaphors we live by.
+\newblock {\em Chicago, IL: University of}.
+
+\bibitem{pennington2014glove}
+Pennington J, Socher R, Manning CD (2014) Glove: Global vectors for word
+  representation. in {\em EMNLP}.
+\newblock Vol.{}~14, pp. 1532--1543.
+
+\bibitem{mikolov2013distributed}
+Mikolov T, Sutskever I, Chen K, Corrado GS, Dean J (2013) Distributed
+  representations of words and phrases and their compositionality in {\em
+  Advances in neural information processing systems}.
+\newblock pp. 3111--3119.
+
+\bibitem{peters2018deep}
+Peters ME, et~al. (2018) Deep contextualized word representations.
+\newblock {\em arXiv preprint arXiv:1802.05365}.
+
+\bibitem{devlin2018bert}
+Devlin J, Chang MW, Lee K, Toutanova K (2018) Bert: Pre-training of deep
+  bidirectional transformers for language understanding.
+\newblock {\em arXiv preprint arXiv:1810.04805}.
+
+\bibitem{dai2015semi}
+Dai AM, Le QV (2015) Semi-supervised sequence learning in {\em Advances in
+  neural information processing systems}.
+\newblock pp. 3079--3087.
+
+\bibitem{radford2018improving}
+Radford A, Narasimhan K, Salimans T, Sutskever I (2018) Improving language
+  understanding with unsupervised learning, (Technical report, OpenAI),
+  Technical report.
+
+\bibitem{socher2013recursive}
+Socher R, et~al. (2013) Recursive deep models for semantic compositionality
+  over a sentiment treebank in {\em Proceedings of the 2013 conference on
+  empirical methods in natural language processing}.
+\newblock pp. 1631--1642.
+
+\bibitem{coecke2010mathematical}
+Coecke B, Sadrzadeh M, Clark S (2010) Mathematical foundations for a
+  compositional distributional model of meaning.
+\newblock {\em arXiv preprint arXiv:1003.4394}.
+
+\bibitem{shutova2016design}
+Shutova E (2016) Design and evaluation of metaphor processing systems.
+\newblock {\em Computational Linguistics}.
+
+\bibitem{golland2010game}
+Golland D, Liang P, Klein D (2010) A game-theoretic approach to generating
+  spatial descriptions in {\em Proceedings of the 2010 conference on empirical
+  methods in natural language processing}.
+\newblock (Association for Computational Linguistics), pp. 410--419.
+
+\bibitem{gardenfors2004conceptual}
+G{\"a}rdenfors P (2004) {\em Conceptual spaces: The geometry of thought}.
+\newblock (MIT press).
+
+\bibitem{kintsch2000metaphor}
+Kintsch W (2000) Metaphor comprehension: A computational theory.
+\newblock {\em Psychonomic bulletin \& review} 7(2):257--266.
+
+\bibitem{tsvetkov2014metaphor}
+Tsvetkov Y, Boytsov L, Gershman A, Nyberg E, Dyer C (2014) Metaphor detection
+  with cross-lingual model transfer in {\em Proceedings of the 52nd Annual
+  Meeting of the Association for Computational Linguistics (Volume 1: Long
+  Papers)}.
+\newblock Vol.{}~1, pp. 248--258.
+
+\bibitem{davies2011word}
+Davies M (2011) Word frequency data: Corpus of contemporary american english.
+\newblock {\em Provo, UT: COCA}.
+
+\bibitem{mitchell2010composition}
+Mitchell J, Lapata M (2010) Composition in distributional models of semantics.
+\newblock {\em Cognitive science} 34(8):1388--1429.
+
+\bibitem{grefenstette2013category}
+Grefenstette E (2013) Category-theoretic quantitative compositional
+  distributional models of natural language semantics.
+\newblock {\em arXiv preprint arXiv:1311.1539}.
+
+\bibitem{brysbaert2014concreteness}
+Brysbaert M, Warriner AB, Kuperman V (2014) Concreteness ratings for 40
+  thousand generally known english word lemmas.
+\newblock {\em Behavior research methods} 46(3):904--911.
+
+\end{thebibliography}
