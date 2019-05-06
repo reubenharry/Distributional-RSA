@@ -1,18 +1,8 @@
-\BOOKMARK [3][-]{subsubsection.0.0.1}{Our contribution}{}% 1
-\BOOKMARK [1][-]{section.1}{Overview of metaphor}{}% 2
-\BOOKMARK [1][-]{section.2}{A Bayesian model of metaphor interpretation}{}% 3
-\BOOKMARK [2][-]{subsubsection.2.0.1}{The literal listener}{section.2}% 4
-\BOOKMARK [3][-]{subsubsection.2.0.2}{Projections}{subsubsection.2.0.1}% 5
-\BOOKMARK [3][-]{subsubsection.2.0.3}{The informative speaker}{subsubsection.2.0.1}% 6
-\BOOKMARK [3][-]{subsubsection.2.0.4}{The pragmatic listener}{subsubsection.2.0.1}% 7
-\BOOKMARK [1][-]{section.3}{Distributional Semantics}{}% 8
-\BOOKMARK [1][-]{section.4}{Bayesian pragmatics with a distributional semantics}{}% 9
-\BOOKMARK [2][-]{subsubsection.4.0.1}{The listener's prior}{section.4}% 10
-\BOOKMARK [3][-]{subsubsection.4.0.2}{The semantics}{subsubsection.4.0.1}% 11
-\BOOKMARK [3][-]{subsubsection.4.0.3}{Projections}{subsubsection.4.0.1}% 12
-\BOOKMARK [1][-]{section.5}{Inference}{}% 13
-\BOOKMARK [2][-]{subsection.5.1}{Interpreting results from L1Q}{section.5}% 14
-\BOOKMARK [1][-]{section.6}{Experimental Evaluation}{}% 15
-\BOOKMARK [2][-]{subsection.6.1}{Experimental Design}{section.6}% 16
-\BOOKMARK [2][-]{subsection.6.2}{Baseline model}{section.6}% 17
-\BOOKMARK [1][-]{section.7}{Discussion}{}% 18
+\BOOKMARK [1][-]{section.1}{Overview of metaphor}{}% 1
+\BOOKMARK [1][-]{section.2}{A Bayesian model of metaphor interpretation}{}% 2
+\BOOKMARK [1][-]{section.3}{Distributional Semantics}{}% 3
+\BOOKMARK [1][-]{section.4}{Bayesian pragmatics with a distributional semantics}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Interpreting results from L1Q}{section.4}% 5
+\BOOKMARK [1][-]{section.5}{Experimental Evaluation}{}% 6
+\BOOKMARK [1][-]{section.6}{Discussion}{}% 7
+\BOOKMARK [0][-]{matmethods@section.1}{Materials and Methods}{}% 8

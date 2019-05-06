@@ -53,7 +53,7 @@ test_metaphors = {("pain","thorn"):"Pain is a thorn",
 	("hope","drug"):"Hope is a drug"
 	}
 
-twitter_vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.twitter.27B.mean_vecs25",'rb'))
+# twitter_vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.twitter.27B.mean_vecs25",'rb'))
 
 metaphors = [x for x in metaphors if x[0] in twitter_vecs and x[1] in twitter_vecs]
 metaphors = sorted(metaphors,key=lambda x:scipy.spatial.distance.cosine(twitter_vecs[x[0]],twitter_vecs[x[1]]) ,reverse=True)

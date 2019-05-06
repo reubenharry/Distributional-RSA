@@ -75,17 +75,6 @@ G{\"a}rdenfors P (2004) {\em Conceptual spaces: The geometry of thought}.
 Kintsch W (2000) Metaphor comprehension: A computational theory.
 \newblock {\em Psychonomic bulletin \& review} 7(2):257--266.
 
-\bibitem{tsvetkov2014metaphor}
-Tsvetkov Y, Boytsov L, Gershman A, Nyberg E, Dyer C (2014) Metaphor detection
-  with cross-lingual model transfer in {\em Proceedings of the 52nd Annual
-  Meeting of the Association for Computational Linguistics (Volume 1: Long
-  Papers)}.
-\newblock Vol.{}~1, pp. 248--258.
-
-\bibitem{davies2011word}
-Davies M (2011) Word frequency data: Corpus of contemporary american english.
-\newblock {\em Provo, UT: COCA}.
-
 \bibitem{mitchell2010composition}
 Mitchell J, Lapata M (2010) Composition in distributional models of semantics.
 \newblock {\em Cognitive science} 34(8):1388--1429.
@@ -99,5 +88,16 @@ Grefenstette E (2013) Category-theoretic quantitative compositional
 Brysbaert M, Warriner AB, Kuperman V (2014) Concreteness ratings for 40
   thousand generally known english word lemmas.
 \newblock {\em Behavior research methods} 46(3):904--911.
+
+\bibitem{tsvetkov2014metaphor}
+Tsvetkov Y, Boytsov L, Gershman A, Nyberg E, Dyer C (2014) Metaphor detection
+  with cross-lingual model transfer in {\em Proceedings of the 52nd Annual
+  Meeting of the Association for Computational Linguistics (Volume 1: Long
+  Papers)}.
+\newblock Vol.{}~1, pp. 248--258.
+
+\bibitem{davies2011word}
+Davies M (2011) Word frequency data: Corpus of contemporary american english.
+\newblock {\em Provo, UT: COCA}.
 
 \end{thebibliography}

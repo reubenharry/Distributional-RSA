@@ -9,8 +9,8 @@
 \title{Evaluating Linguistic Creativity:\\ Pragmatic Reasoning with a Distributional Semantics}
 
 % Use letters for affiliations, numbers to show equal authorship (if applicable) and to indicate the corresponding author
-\author[a,c,1]{Reuben Cohn-Gordon}
-\author[b,1,2]{Leon Bergen} 
+\author[a]{Reuben Cohn-Gordon}
+\author[b]{Leon Bergen} 
 % \author[a]{Author Three}
 
 \affil[a]{Stanford University}
@@ -24,19 +24,26 @@
 \significancestatement{
 % Authors must submit a 120-word maximum statement about the significance of their research paper written at a level understandable to an undergraduate educated scientist outside their field of speciality. The primary goal of the Significance Statement is to explain the relevance of the work in broad context to a broad readership. The Significance Statement appears in the paper itself and is required for all research papers.
 
-Humans easily interpret previously unseen metaphorical language, by TODO etc
+% Linguistic creativity --- the ability to combine existing representations to create new meanings --- is a distinctive trait of human cognition. Metaphor provides a general vehicle for this creativity: it allows people communicate about one domain, using representations from another. Here, we develop a system for open-domain interpretation of metaphors. Our system integrates world knowledge automatically induced from large text corpora, with reasoning about the social goals of the speaker. The approach provides a general architecture for composing domain-specific knowledge with social reasoning, providing insight into the origins of linguistic creativity.
 
-By incorporating a computationally BLAH TODO
+Linguistic creativity --- the ability to combine existing representations to create new meanings --- is a distinctive trait of human cognition. Metaphor provides a general vehicle for this creativity: it allows people to communicate about one domain, using concepts from another. Here, we develop a system for open-domain interpretation of metaphor. Our system integrates world knowledge automatically induced from large text corpora, with reasoning about the social goals of the speaker. The approach provides a general architecture for composing domain-specific knowledge with social reasoning, providing insight into the origins of linguistic creativity.
 
-we construct a system capable of providing interpretations to unseen metaphors. We show that this system outperforms a comparable baseline which uses similar word-level information, but no explicit reasoning TODO
+% TODO: leon: i worry a bit that linguistic creativity is a poor substitute for terms like compositionality, productivity, etc, but this is cog sci not linguistics, so maybe okay?
+
 
 }
+
+% todos:
+	
+% 	many many more citations:
+% 		nlp metaphor literature
+% 		cog sci: see kao paper
 
 % Please include corresponding author, author contribution and author declaration information
 \authorcontributions{Please provide details of author contributions here.}
 \authordeclaration{Please declare any conflict of interest here.}
 \equalauthors{\textsuperscript{1}A.O.(Author One) and A.T. (Author Two) contributed equally to this work (remove if not applicable).}
-\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: author.two\@email.com}
+\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: reubencg@stanford..edu}
 
 % Keywords are not mandatory, but authors are strongly encouraged to provide them. If provided, please include two to five keywords, separated by the pipe symbol, e.g:
 \keywords{metaphor $|$ informativity $|$ Bayesian pragmatics $|$ distributional semantics}
@@ -67,6 +74,8 @@ We present a method to combine empirically learned word embeddings with a Ration
 \thispagestyle{firststyle}
 \ifthenelse{\boolean{shortarticle}}{\ifthenelse{\boolean{singlecolumn}}{\abscontentformatted}{\abscontent}}{}
 
+TODO: ensure that it's 6 pages
+
 % Note: please start your introduction without including the word ``Introduction'' as a section heading (except for math articles in the Physical Sciences section); this heading is implied in the first paragraphs. 
 Metaphor presents a compelling theoretical challenge for the understanding of meaning in natural language. On hearing (\ref{met:1}) in a context where the subject, Jane, is known to be a consultant, a listener might infer that Jane is not literally a soldier, but rather that she shares certain attributes with soldiers (perhaps determination, endurance, or ruthlessness). 
 	% Similarly, on hearing a temper described as \emph{fiery}, a listener might infer that 
@@ -80,7 +89,7 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 % Our goal is to evaluate the accuracy of the Gricean view as a model of human cognition, regarding metaphor interpretation. To do so, we construct a model of metaphor which relies on pragmatic reasoning of this form, and elicit human judgments comparing its predictions to a non-pragmatic baseline. 
 		% Our goal is to provide evidence towards this view, by 
 
-	\paragraph{Modeling metaphor}
+	\paragraph{Interpreting figurative language}
 	Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of Gricean reasoning, the \emph{Rational Speech Acts} (RSA) framework \cite{frank2012predicting}. This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
 	% Pragmatic accounts of metaphor, stemming from \cite{davidson} and \cite{grice}, attempt to derive metaphorical meaning as the inference of a language user reasoning about an expression heard in a given context. For instance, on hearing (\ref{met:1}), a listener infers 
 
@@ -106,14 +115,13 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 
 	% This precludes a fair test of whether the model succeeds, because of the need for a stipulated (and therefore potentially biased) semantics.
 	
-
-
+% 
 	% However, applications of this model have been restricted to cases with a hand-constructed semantics, where the meanings of the predicates in question has to be stipulated.
 
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
 
-	\subsubsection{Our contribution} By adapting an RSA model of non-literal meaning to a word embedding (distributional) semantics, we obtain a system capable of interpreting open domain predicative and adjectival metaphors, without the need for hand-specified word meanings. 
+	\paragraph{Our contribution} By adapting an RSA model of non-literal meaning to a word embedding (distributional) semantics, we obtain a system capable of interpreting open domain predicative and adjectival metaphors, without the need for hand-specified word meanings. 
 	This adaption requires a generalization of projection functions to a vector space setting, and a novel inference algorithm to calculate the now continuous posterior distribution of $\QLONE$.
 	This permits what is to our knowledge the first open domain evaluation of an RSA model of pragmatic reasoning.
 	We show that our model of metaphor interpretation significantly outperforms a baseline which uses a word embedding semantics without explicit pragmatic reasoning.
@@ -187,7 +195,7 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 
 	In this framework, listeners and speakers are represented as conditional probability distributions. Speakers are distributions $P(U\vert W)$ over possible utterances given worlds, and listeners distributions  $P(W\vert U)$ over possible worlds given utterances, where $W$ is the set of possible states, and $U$ is the set of utterances available to a speaker.
 	% Thus, speakers are distributions over possible utterances given worlds, and listeners are distributions over possible worlds given utterances.
-	The most basic version of RSA \cite{frank2012predicting} is incapable of interpreting metaphors, due to the strict assumption that the speaker's utterances are literally true. To address this, Kao et al. \cite{kao} propose a model $\QLONE$, defined in (\ref{defl1}). 
+	The most basic version of RSA \cite{frank2012predicting} is incapable of interpreting metaphors, due to the strict assumption that the speaker's utterances are literally true. To address this, Kao et al. \cite{kao} propose a model $\QLONE$, shown in (\ref{defl1}), which in turn is defined in terms of $S_1$ (\ref{defs0}) and $L_0$ (\ref{defl0}).
 
 	% RSA works by defining successive levels of speaker and listener recursively. For instance, an informative speaker $S_1$ given a state $w$ chooses the utterance $u$ which maximizes the probability that $L_0$, a listener who interprets utterances literally according only to a semantics,  infers $w$. A pragmatic listener, on hearing some $u$, can then reason about what state $w$ a speaker must have had in mind in order to have said $u$.
 
@@ -215,21 +223,26 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 	\item $\QLONE(w,q\vert u) \propto S_1(u\vert q,w)\cdot P_L(w)\cdot P_{L_Q}(q)$ \label{defl1}
 	\end{examples}
 
-	\subsubsection{The literal listener} $L_0$ represents a model of a listener that, given an utterance $u\in U$ updates their belief about the world $w\in W$ in accordance with the semantics $\llbracket\cdot\rrbracket$ and their prior $P_L$. This semantics, usually a function $U\to(W\to\{0, 1\})$, represents the conventional association between states $w$ and utterances $u$ which the speaker and listener take as given. 
+
+	\paragraph{The literal listener} $L_0$ represents a model of a listener that, given an utterance $u\in U$ updates their belief about the world $w\in W$ in accordance with the semantics $\llbracket\cdot\rrbracket$ and their prior $P_L$. This semantics, usually a function $U\to(W\to\{0, 1\})$, represents the conventional association between states $w$ and utterances $u$ which the speaker and listener take as given. 
 
 
-
-	\subsubsection{Projections} 
+	\paragraph{Projections} 
 	Functions $q\in Q$ formalize the notion of picking a particular \emph{aspect} or \emph{dimension} of $w$. Formally, they are surjective functions out of $W$.
 	% A simple example is as follows: suppose that $W=AxB$, where $A = \{\textrm{Jane is hardworking}, \textrm{Jane is lazy}\}$ and $B = \{\textrm{Jane owns a gun}, \textrm{Jane doesn't own a gun}\}$, so that each $w\in W$ is a tuple $(a,b)$ for $a\in A, b\in B$. Then the two projections, which we could call $q_{\mathit{work-ethic}}$ and $q_{\mathit{gun-ownership}}$, are defined as $\lambda (x,y): x$ and $\lambda (x,y): y$ respectively. A third trivial projection is simply the identity function.
 	
 
-	\subsubsection{The informative speaker} $S_1$ has a state $w$ they want to communicate, and reasons about $L_0$, preferring utterances $u$ which maximize the $L_0$ posterior probability on $w$, up to the aspect of $w$ specified by $q$. $\delta_{a=b}$ is the delta function. If $q$ is the identity function, $S_1(u|w) \propto L_0(w|u)$, and is thus a model of a speaker who prefers to choose the most informative utterance available. 
+	\paragraph{The informative speaker} $S_1$ has a state $w$ they want to communicate, and reasons about $L_0$, preferring utterances $u$ which maximize the $L_0$ posterior probability on $w$, up to the aspect of $w$ specified by $q$. $\delta_{a=b}$ is the delta function. If $q$ is the identity function, $S_1(u|w) \propto L_0(w|u)$, and is thus a model of a speaker who prefers to choose the most informative utterance available. 
 	% For example, if trying to communicate state $w$, $S_1$ will prefer an utterance $u$ which is compatible under the semantics with only $w$, over an utterance $u'$ which is compatible with both $w$ and $w'$. 
 	
-	\subsubsection{The pragmatic listener} $\QLONE$ jointly infers values for $w$ and $q$. The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$) but where $u$ conveys some aspect of $w$ as determined by $q$. 
-	
-	We can view $\QLONE$ as a model of metaphor interpretation as follows, using the example in (\ref{johnshark}). The goal of the speaker is to communicate a state $w$ along dimension $q$, representing what John is like along a certain dimension. To this end, they choose a predicate $u$, here \emph{shark}. The goal of the listener on hearing (\ref{johnshark}) is to infer $w$ as well as the \emph{dimension} of $w$ that the speaker cares about.
+	\paragraph{The pragmatic listener} The full model, $\QLONE$, jointly infers values for $w$ and $q$ by reasoning about $S_1$. The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$) but where $u$ conveys some aspect of $w$ as determined by $q$. 
+
+	$\QLONE$ functions as a model of metaphor interpretation. For instance, using the metaphor in (\ref{johnshark}), the goal of the speaker is to communicate a state $w$ (representing what John is like) along $q$ (representing some \emph{feature} of this state).
+
+	As an example in a totally hand-constructed setting, we could take John to be fully characterized by two features, whether he is vicious, and whether he is aquatic, so that a state $w$ is a value (true or false) for both of these predicates. The projections $q\in Q$ are then the functions mapping a state to its value on viciousness ($q_{vicious}$) or aquaticness ($q_{aquatic}$) respectively. Further, we assume that \emph{shark} is compatible only with the state in which John is both vicious and aquatic.
+
+
+	% To this end, they choose a predicate $u$, here \emph{shark}. The goal of the listener on hearing (\ref{johnshark}) is to infer $w$ as well as the \emph{dimension} of $w$ that the speaker cares about.
 
 	\begin{examples}
 	\item John is a shark. \label{johnshark}
@@ -238,31 +251,23 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 	% AN metaphor interpretation, the focus of our experiment in section \ref{exp}, in the following way.\footnote{Note that an account for predicative metaphors, with a more conventional truth-conditional semantics can be provided in a similar fashion.} 
 	% Suppose that the goal of a speaker is to choose an adjective $u$, out of some set $U$, which communicates some modification of the noun (e.g. \emph{temper}). The goal of the listener is then to infer the desired modification of this noun, on hearing an adjective, like \emph{fiery}.
 	
-	To make this precise, and derive predictions from $\QLONE$, five things must be provided: a set $W$ of states, a set $U$ of utterances, a set $Q$ of projections, a prior $P_L$ representing the listener's uncertainty over $W$, and a semantics $\llbracket\cdot\rrbracket$. (We assume throughout that the prior $P_{L_Q}$ over $Q$ is uniform.) Jointly, we say that these determine an \emph{interpretation} of $\QLONE$. 
 
-	One possible interpretation, similar to what is provided by \cite{kao}, treats points in the state space $W$ as n-tuples of truth values, corresponding to Boolean properties $w\subset P$.
-	% with a function $E:U\to \mathcal{P}(P)$ mapping utterances to sets of properties. 
-	We refer to this as a \emph{set theoretic} interpretation of $\QLONE$. We give a very simple example below, for $P = \{\textrm{vicious}, \textrm{non-human} \}$:
 
-	\begin{itemize}
-	% \item $W = \{(\textrm{vicious}=T,\textrm{non-human}=T), \\ (\textrm{vicious}=T,\textrm{non-human}=F),\\ (\textrm{vicious}=F,\textrm{non-human}=T),\\ (\textrm{vicious}=F,\textrm{non-human}=F) \}$
-	% \item $W = \{ \{\textrm{vicious}, \textrm{non-human}\}, \{\textrm{vicious}\}, \{\textrm{non-human}\}, \{\},   \}$
-	\item $P_L = \{(\textrm{vicious}=T,\textrm{non-human}=T) : 0.075, \\(\textrm{vicious}=T,\textrm{non-human}=F) : 0.675,\\ (\textrm{vicious}=F,\textrm{non-human}=T) : 0.025, \\(\textrm{vicious}=F,\textrm{non-human}=F): 0.225\}$
-	% \item $W = \{ \{\textrm{vicious}, \textrm{non-human} \}, \{\textrm{vicious} \}, \{\textrm{non-human} \}, \{\},   \}$
-	\item $U = \{\textrm{\emph{shark}}, \textrm{\emph{silence}}\}$
-	% \item $\llbracket\cdot\rrbracket$
-	\item $Q = \{q_{vicious} = \lambda (x,y):x, \quad q_{non-human} = \lambda (x,y):y) $ 
-	\end{itemize}
+	% TODO: add simple model description
 
-	We assume a semantics $\llbracket\cdot\rrbracket$ in which \emph{shark} is compatible only with $(\textrm{vicious}, \textrm{non-human})$, and \emph{silence} is compatible with every state. Note that the projections map each tuple to its value at a single property. 
+		% Suppose that John can be represented by two Boolean values, and that there are two projections, $q_{vicious}$ and $q_{aquatic}$.
+
+		
 	% In theory, for larger n-tuples of properties, a projection could map to multiple properties, representing a speaker who wishes to communicate multiple aspects of the state $w$. We return to this point in our concluding discussion.
 	
-	The results of $\QLONE$ hearing \emph{shark} are shown in figure \ref{fig:l1barplot}.
-	The key fact to note is that the prior belief that John is not literally an animal leads $\QLONE$ to conclude that the speaker cares about conveying the viciousness dimension (i.e. projection $q_{vicious}$), and that John is vicious.
+	% The results of $\QLONE$ hearing \emph{shark} are shown in figure \ref{fig:l1barplot}.
+	The key property of $\QLONE$ is that, on hearing (\ref{johnshark}), the prior belief that John is not literally an aquatic animal leads $\QLONE$ to conclude that the speaker cares about conveying the viciousness dimension (i.e. has projection $q_{vicious}$), and that John is vicious. See \emph{Materials and Methods} for quantitative details.
 
-	Importantly, $\QLONE$ can do more than simply using prior knowledge to interpret literally false statements in a flexible way. It is also capable of reasoning about alternative utterances: for instance, suppose we add a third property, \emph{quickness}, so that \emph{shark} is compatible only with $(\textrm{vicious}=T, \textrm{non-human}=T, \textrm{quick}=T)$, and also add a third utterance, \emph{hummingbird}, compatible with only $(\textrm{vicious}=F, \textrm{non-human}=T, \textrm{quick}=T)$.
+	Importantly, $\QLONE$ can do more than simply using prior knowledge to interpret literally false statements in a flexible way. It is also capable of reasoning about alternative utterances: for instance, suppose we add a third property, \emph{quickness}, so that \emph{shark} is compatible only with the state in which John is quick, aquatic and vicious, and also add a third utterance, \emph{goldfish}, compatible only with John being quick, aquatic and \emph{not} vicious.
+
+	% $(\textrm{vicious}=F, \textrm{non-human}=T, \textrm{quick}=T)$.
 	
-	In this second example, when $\QLONE$ hears \emph{shark}, it infers that John is more likely vicious than quick. This is because a speaker who wanted to communicate that John is vicious would only be able to use the utterance \emph{shark}, whereas a speaker who wanted to communicate that John is quick would be able to choose between either \emph{shark} or \emph{hummingbird}. The utterance \emph{shark} is therefore more likely to have been produced by the speaker trying to communicate John's viciousness.
+	In this second example, when $\QLONE$ hears \emph{shark}, it infers that John is more likely vicious than quick. This is because a speaker who wanted to communicate that John is vicious would only be able to use the utterance \emph{shark}, whereas a speaker who wanted to communicate that John is quick would be able to choose between either \emph{shark} or \emph{goldfish}. The utterance \emph{shark} is therefore more likely to have been produced by the speaker trying to communicate John's viciousness.
 
 	% todo: note on getting realistic predictions by using large experimentally collected data
 	
@@ -274,20 +279,21 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 	% In order to elicit human-like behavior from the model, \citet{kao} use a set of $\sim$100 animals as alternative utterances $u\in U$, and assemble a property set $P$ experimentally. However, the semantics, relating adjectives to properties 
 	% 	TODO finish: the semantics doesn't require hand-specification really. just slow to collect.
 	
-	$\QLONE$ can also model AN metaphors in a similar way. For instance, for a phrase like \emph{fiery temper}, we say that the goal of a listener is to decide what is true of the temper in question given that the speaker has modified it with \emph{fiery}.
+		% CONSIDER REMOVING: TODO
+	$\QLONE$ can model AN metaphors in a similar way. For a phrase like \emph{fiery temper}, we say that the goal of a listener is to decide what is true of the temper in question given that the speaker has modified it with \emph{fiery}.
 
-	\begin{figure}
-	\centering
-	\includegraphics[width=0.4\textwidth]{images/l1posteriorquality.png}
-	% \begin{subfigure}{0.5\textwidth}
-	% % \centering
-	% \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
-	% % \centering
-	% \includegraphics[width=\textwidth]{images/l1posteriorquantity.png}
-	% \end{subfigure}
-	\caption{Figure showing the posterior distribution of $\protect\QLONE$ on hearing \emph{shark}. $v$ and $n$ abbreviate the Boolean variables \emph{vicious} and \emph{non-human} respectively.}
-	\label{fig:l1barplot}
-	\end{figure}
+	% \begin{figure}
+	% \centering
+	% \includegraphics[width=0.4\textwidth]{images/l1posteriorquality.png}
+	% % \begin{subfigure}{0.5\textwidth}
+	% % % \centering
+	% % \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
+	% % % \centering
+	% % \includegraphics[width=\textwidth]{images/l1posteriorquantity.png}
+	% % \end{subfigure}
+	% \caption{Figure showing the posterior distribution of $\protect\QLONE$ on hearing \emph{shark}. $v$ and $n$ abbreviate the Boolean variables \emph{vicious} and \emph{non-human} respectively.}
+	% \label{fig:l1barplot}
+	% \end{figure}
 
 	\section{Distributional Semantics} \label{distmods}
 
@@ -309,7 +315,7 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 
 	\section{Bayesian pragmatics with a distributional semantics} \label{bayesdist}
 
-	The set-theoretic interpretation of $\QLONE$ takes states $w \in W$ to be sets of properties describing the source of the given metaphor, and a semantics to be a function $U\to(W\to\{0, 1\})$.
+	% T$\QLONE$ takes states $w \in W$ to be sets of properties describing the source of the given metaphor, and a semantics to be a function $U\to(W\to\{0, 1\})$.
 	% , projections to be surjective functions out of $W$
 	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
@@ -347,9 +353,9 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 
 
 
-	\subsubsection{The listener's prior} 
+	\paragraph{The listener's prior} 
 
-		In the set-theoretic interpretation of $L_1^Q$, with finite $W$, a discrete prior $P_L$ over $W$ sufficed. In the present case, where $W$ is necessarily infinite (ranging over all real-valued vectors), we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). We define the prior over projections $P_{L_Q}$ to be uniform.
+		In a setting with a finite set $W$, a discrete prior $P_L$ over $W$ sufficed. In the present case, where $W$ is necessarily infinite (ranging over real-valued vectors), we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). We define the prior over projections $P_{L_Q}$ to be uniform.
 
 		\begin{examples}
 		
@@ -367,8 +373,17 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 		
 		
 
+			TODO: reinclude
+		% The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean of the prior as $E$(\emph{target}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model.
 
-		The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean of the prior as $E$(\emph{target}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model.
+		\begin{figure}[htbp]
+		\centering
+		% \hspace*{-2.5cm}                                                           
+		\includegraphics[height=4.5cm]{images/diagram1.png}
+		   
+		  \caption{2D depiction of vectorial $L\protect_0$, for $\protect\overrightarrow{man}$ = (0,0) and $\protect\overrightarrow{shark}$ = (1,1).}
+		  \label{fig:2d}
+		\end{figure}
 
 			% , e.g. $\overrightarrow{\text{temper}}$ for the metaphor \emph{fiery temper}. The points in the distribution represent meanings of \emph{temper} that might not be encoded in its vector. For instance, some points in the distribution might be closer to $\overrightarrow{\text{intense}}$ or $\overrightarrow{\text{unstable}}$. 
 
@@ -378,7 +393,7 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 
 			% Updating one's prior on what time is like, namely the Gaussian centered on $\overrightarrow{\text{time}}$ so that these points have more weight, represents in this model an update regarding one's knowledge about time.
 
-	\subsubsection{The semantics}
+	\paragraph{The semantics}
 
 
 			% This is unsurprisingly, given that the relational interpretation of $\QLONE$ amounts to the vectorial interpretation, but for a vector space  over the Boolean field, rather than the real field.
@@ -403,11 +418,11 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions, which allows for a closed form solution of $L_0$. 
 		% As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
-	\subsubsection{Projections} 
+	\paragraph{Projections} 
 
 		\begin{figure}
 		\centering
-			\includegraphics[height=5.5cm]{images/diagram2.png}
+			\includegraphics[height=4.5cm]{images/diagram2.png}
 			\caption{In this hand-constructed 2D example, vectors for $\protect\overrightarrow{soldier}$ and $\protect\overrightarrow{predator}$ are mapped onto subspaces given by $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$.}
 			% In this 2D example, the vectors for \emph{endurance} and \emph{ruthlessness} each parametrize a projection mapping all the points in the space (such as \emph{Jane} and \emph{John}) to new points. These new points can be thought of as the positions of \emph{John}, \emph{Jane} and so on in a new space which cares only about the position of the points with respect to $\protect\overrightarrow{endurance}$ or $\protect\overrightarrow{ruthlessness}$.
 			\label{fig:1}
@@ -431,268 +446,9 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 		To obtain a set $Q$ of projections, we first note that since the denotations of words are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as parameterizing a \emph{viciousness} projection, which measures how far the denotations of all other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
 		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun $n$ onto $\overrightarrow{v}$ amounts to asking: to what extent is $n$ $v$? 
 
-
-\section{Inference} \label{technicaloverview}
-
-
-	% Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. 
-	Because $P_L(w)$ is a continuous distribution in the vectorial interpretation of $\QLONE$, inference by enumeration is no longer possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm.\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.} We describe this algorithm in parts, working up from the $L_0$.
-
-	\begin{figure}[htbp]
-	\centering
-	% \hspace*{-2.5cm}                                                           
-	\includegraphics[height=6.5cm]{images/diagram1.png}
-	   
-	  \caption{2D depiction of vectorial $L\protect_0$, for $\protect\overrightarrow{man}$ = (0,0) and $\protect\overrightarrow{shark}$ = (1,1).}
-	  \label{fig:2d}
-	\end{figure}
-	% While the general format of our model is analogous to previous models in the RSA paradigm, the vectorial setting produces a number of challenges which require novel solutions.
-
-	% Moreover, previous implementations of RSA have employed prior distributions for both the speaker and listener with finite support. As a result, it is possible in standard RSA to perform exact inference for the $L_0$, $S_1$ and $L_1$. By contrast, our prior is a Gaussian and as such cannot be computed via exact inference, due to the need to calculate a normalizing term which sums (or rather integrates) over an infinite set. 
-	% Furthermore, nesting causes approximate inference in the form of Markov Chain Monte Carlo to be unstable (see \cite{rainforth2016pitfalls}).
-	% We therefore compute the $L_0$ and $S_1$ posteriors analytically, and use perform appromixate inference only at the $L_1$ level. We now describe how each of $L_0$, $S_1$ and $L_1$ is computed.
-% \subsubsection{L\textsubscript{0} Inference}
-
-	\paragraph{$\mathbf{L_0}$ Inference}
-	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of the point corresponding to the received utterance. To calculate $L_0$ analytically, we make use of Gaussian conjugacy. When the prior $P_L$ is defined as in Equation \ref{vect:prior}, and the semantic interpretation is defined as in Equation \ref{vect:sem}, then conjugacy implies that the listener posterior is given by:
-
-	 \begin{examples}
-	\item $L_0(w|u) = P_{\mathcal{N}}(w\vert\mu=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}\cdot(\frac{{\textrm{\emph{E(target)}}}}{\sigma_1^2}+\frac{{\textrm{\emph{E(source)}}}}{\sigma_2^2}), \sigma=\frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})$  \label{eq:L0-inference}
-	 \end{examples}
-
-
-
-
-
-	% This is the property that a distribution of the form $P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)P_{\mathcal{N}}(w\vert\mu=u,\sigma=\sigma_2)$
-
-
-
-	% Recall that $L_0$ is defined as follows, where \emph{subject} is the word being predicated (e.g. ``lawyer'' in ``The lawyer is a shark''):
-
-
-
-	% \begin{examples}
-
-	% \item $L_0(w\vert u) \propto P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)P_{\mathcal{N}}(w\vert\mu=u,\sigma=\sigma_2)$ \label{term}
-
-	% e^f$ * e$^\mu$ \label{term}
-
-	% \end{examples}
-
-	% The left hand term represents the prior on the world state, and the right hand term represents the observation. By the self conjugacy of Gaussians, (\ref{term}) can be reduced analytically to a single Gaussian.
-
-	% 	 citation?
-% \subsubsection{S\textsubscript{1} Inference}
-\paragraph{$\mathbf{S_1}$ Inference}
-		The speaker is defined by Equation \ref{defs0}, which in the continuous case can be rewritten as:
-		\begin{examples}
-		\item $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
-		\end{examples}
-		This integral is computing the marginal probability of $w_q$, the projection of world $w$ onto QUD vector $q$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
-
-		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
-
-
-
-		% \begin{examples}
-
-		% \item U(u,w,q) = $\log(\int_{w'} \delta_{q(w)=q(w')} * L_0(w'\vert u))$
-
-		% \item S$_1(u\vert w,q) \propto e^{U(u,w,q)}$
-
-		% \end{examples}
-% \subsubsection{L\textsubscript{1} Inference}
-\paragraph{$\mathbf{\QLONE}$ Inference}
-
-
-
-
-
+	% \boolean{singlecolumn}
 	\begin{figure}
-
-	\centering
-
-	\includegraphics[width=\textwidth]{images/bothheatmaps.png}
-
-	% \begin{subfigure}{0.5\textwidth}
-
-	% \centering
-
-	% \includegraphics[width=0.85\textwidth]{images/denotations.png}
-
-	% \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
-
-	% \centering
-
-	% \includegraphics[width=\textwidth]{images/discretel1heatmap.png}
-
-	% \end{subfigure}
-
-	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over worlds given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$.}
-
-	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
-
-	\label{l1heatmaps}
-
-	\end{figure}
-
-
-
-	% \begin{figure}
-
-	% \centering
-
-	% \begin{subfigure}{0.5\textwidth}
-
-	% % \centering
-
-	% \includegraphics[width=\textwidth]{images/coolmixturel1heatmap.png}
-
-	% \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
-
-	% % \centering
-
-	% \includegraphics[width=\textwidth]{images/cooldiscretel1heatmap.png}
-
-	% \end{subfigure}
-
-	% \caption{ Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).}
-
-	% \label{l1heatmaps}
-
-	% \end{figure}
-
-
-
-	% caption: 
-
-	% 	heatmaps showing...
-
-	% 	an example of the difference between the $\protect\QLONE$ posterior under our inference algorithm and under the true posterior, in a two dimensional case where a (discretized) exact posterior can be computed exactly.
-
-	% 	this compares our inference algorithm (left) to an exact (discretized) inference in a tractable 2 dimensional case, for the metaphor: BLAH 
-
-	% 	with the following hand-specified word embeddings.
-
-
-
-
-
-	% caption:
-
-	% 	heatmaps showing the l1 inference. 
-
-	% 		scalar implicature means that...
-
-	% We devise the following approximate inference algorithm.
-
-
-
-	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. 
-	% Unlike $L_0$, we are unable to use conjugacy to compute it analytically.
-	Because of the linear structure of the problem, we are able to devise a near-exact inference algorithm for the marginal distribution over QUDs in $Q$, derived as follows:
-
-
-
-	%\footnote{We verify the correctness of this algorithm in the 2 dimensional case by comparison to the exact posterior, which is calculable (up to discretization of the prior) in 2 dimensions.}
-
-
-
-		% Moreover, we find that Mean Field Variational Inference  CITATION is not well suited
-
-		% 	since the posterior is non-Gaussian (see figure \ref{l1heatmaps}).
-
-
-
-	% \begin{align}
-
-	% L_1(w,q | u) &= \frac{P(w)P(q)S_1(u|w,q)}{\sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')} \\
-
-	% &= \frac{P(w)P(q)S_1(u|w,q)}{K} 
-
-	% \end{align}
-
-
-
-
-
-
-
-
-
-	% To compute the marginal distribution over QUDs:
-
-
-
-	 \begin{align}
-	 \begin{split}
-	&L_1(q | u) = \int_{\mathbb{R}^n}L_1(w,q | u) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w)S_1(u|w,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q, w^\bot)S_1(u|w_q,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q) P_L(w^\bot)S_1(u|w_q,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{Q^\bot}P_L(w^\bot) dw^\bot \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q \\
-	&= \frac{1}{K}P_{L_Q}(q)  \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q\nonumber
-	\end{split}
-	 \end{align}
-	
-
-
-
-	Here $K$ is a normalizing constant, $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. 
-	The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation.\footnote{We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional QUDs.} The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$. 
-
-	Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example used for the set-theoretic example in figure \ref{fig:l1barplot}.
-
-
-		% To compute the joint posterior over $W$ and $Q$, we first compute the conditional posterior $P(w|q,u)$ for each $q\in Q$, and then determine the marginal posterior on $Q$, $P(Q)$  HOW THO? 
-
-		
-
-		% fixing a particular projection $q$, we can compute the conditional probability of $w$ 
-			% for an orthonomal basis of $W$ including $q$, the mean and variance of this posterior is the same as the prior in every dimension except $q$. 
-			% 	In the single dimension of interest, we approximate the conditional posterior by performing gradient descent to find the mean of the posterior, and discretizing the now one-dimensional prior. 
-
-
-
-
-
-	% $L_1$ is defined as follows, where P$_{QUD}$ represents the prior on QUDs. As discussed below, we can either have this be a continuous distribution over hyperplanes corresponding to projection functions, or a discrete distribution of hyperplanes corresponding to a set of n-tuples of words. In either case, we assume it is a uniform distribution:
-	% \begin{examples}
-	% \item $L_1(w,q\vert u) \propto S_1(u\vert w,q) P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)*P_{QUD}(q)$
-	% \end{examples}
-	% While we were able to use analytic methods to derive the $L_0$ and $S_1$ posteriors, we cannot do so for the $L_1$. Instead, we must use an approximate inference method. We try two different inference algorithms, Hamiltonian Monte Carlo (\cite{neal2011mcmc}), a brand of Markov Chain Monte Carlo inference algorithm which makes use of gradient information to move from one sample to the next, and Variational Mean Field inference (see \cite{blei2017variational}), an optimization based inference algorithm. In our first experiment we use the former, while we make use of the latter in our second, on account of its speed.
-
-	% Variational Inference (VI) greatly increases efficiency over other inference methods, at the cost of requiring gradients for the $S_1$ and the functions the $S_1$ calls. Fortunately, it is possible for us to calculate these gradients, using automatic differentiation.
-
-	% $L_1$ performs joint inference over QUDs and worlds. While the nature of the prior over worlds has already been discussed, two variants of $L_1$ are possible, as regards to prior on QUDs. The first is to have a categorical distribution over a set of projection hyperplanes (QUDs), for example those corresponding to n-tuples of words, according to the pretrained embedding. The output of our inference then gives us a categorical distribution over QUDs, corresponding to words (as well as a continuous distribution over worlds). 
-
-	% The second variant is to have the QUD be a continuous variable. As a result of the way the projection is defined, only the angle and not the magnitude of the projection hyperplane matters. As such, we can have a uniform prior over unit hyperplanes. We will refer to these as two models as the Categorical and Non-Categorical $L_1$, respectively.
-
-	% The advantage of the Categorical $L_1$ is that we can choose a particular set of QUDs, for instance, the vectors corresponding to a given set of words, and weight this prior according to the frequency of these words. This allows us to supply our model with a set of possible QUDs, and have it return a categorical distribution over them, as the $L_1$ QUD posterior.
-
-	% The Non-Categorical model, on the other hand, has the contrasting benefit that no set of possible QUDs need be provided to the model. Furthermore, the use of Hamiltonian dynamics for performing the joint inference results in much faster performance. However, the Non-Categorical model yields significantly less stable results, and as such, we use only the Categorical model in our experimentation.
-% \vspace{2em}
-\subsection{Interpreting results from $\protect\QLONE$}
-
-	We now have an algorithm for approximating the posterior distribution of $\QLONE$ after hearing a metaphor $u$. We convert this into an interpretable prediction by selecting the adjectives $q\in Q$ which have high probability under the marginal posterior distribution over $Q$ as interpretations of the metaphor.
-
-	TODO: comment on use of marginal over Q
-
-\section{Experimental Evaluation} \label{exp}
-
-	In order to test our model on human judgments, we design an experiment which compares the $\QLONE$ interpretations of metaphors to a baseline model which uses word embeddings but no pragmatic reasoning.
-
-
-	\subsection{Experimental Design}
-
-		\begin{figure}
-		\includegraphics[width=0.5\textwidth]{images/slide.png}
-		\caption{An item in the experiment. Item order, and in-item order of the 4 adjectives from $\protect\QLONE$ and baseline models is randomized.}
-		\label{fig:slide}
-		\end{figure}
-
-		\begin{figure}
+		\hspace{4em}
 		\begin{subfigure}{0.3\textwidth}
 			\begin{center}
 
@@ -817,24 +573,335 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 			\end{center}
 		\end{subfigure}\begin{subfigure}{0.5\textwidth}
 			% \includegraphics[width=4.5cm]{images/top.png}\\ 
-			\vspace*{-1.5cm}\hspace{6em}\includegraphics[width=19.1cm,height=6.5cm,angle=270]{images/resultsbarplot.png}
+			\vspace*{-1.3cm}\hspace{6em}\includegraphics[width=18.9cm,height=6.5cm,angle=270]{images/resultsbarplot.png}
 		\end{subfigure}
-			\caption{The 109 metaphors used in the experiment, and baseline and $\protect\QLONE$ interpretations. Bar positions right of center indicate a preference for the pragmatic model. TODO: add more here
-			% This shows that for roughly 75\% of the metaphors, the $\protect\QLONE$ interpretation is preferred.
+			\caption{The 109 metaphors used in the experiment, and baseline and $\protect\QLONE$ interpretations. Bar positions indicate difference between judgments of $\QLONE$ and baseline proposals, averaged across participants and across both proposals of each model. Bars right of center indicate a preference for the pragmatic model, showing that for roughly 75\% of the metaphors, the $\protect\QLONE$ interpretation is preferred.
 			}
 			\label{fig:barplot}
 		\end{figure}
-		% todo: fix alignment stuff
 
-		Tsvetkov et al. \cite{tsvetkov2014metaphor} provide a corpus of $\sim$800 AN metaphors, gathered by human annotators, from which we select $\sim$100 of the least frequent by bigram count\footnote{N-gram data from the Corpus of Contemporary American English \cite{davies2011word}.} for our experiment, in order to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
 
-		In our experiment, each participant is shown a series of 12 metaphors, selected randomly from the total 109. For each metaphor, they are asked to rate on a slider four adjectives representing interpretations of the metaphor, of which two are selected by $\QLONE$ and two from a baseline model (details below). An example is shown in figure \ref{fig:slide}.
+ 
+
+	Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example discussed in section \ref{rsa}.
+
+
+		% To compute the joint posterior over $W$ and $Q$, we first compute the conditional posterior $P(w|q,u)$ for each $q\in Q$, and then determine the marginal posterior on $Q$, $P(Q)$  HOW THO? 
+
+		
+
+		% fixing a particular projection $q$, we can compute the conditional probability of $w$ 
+			% for an orthonomal basis of $W$ including $q$, the mean and variance of this posterior is the same as the prior in every dimension except $q$. 
+			% 	In the single dimension of interest, we approximate the conditional posterior by performing gradient descent to find the mean of the posterior, and discretizing the now one-dimensional prior. 
+
+
+
+
+
+	% $L_1$ is defined as follows, where P$_{QUD}$ represents the prior on QUDs. As discussed below, we can either have this be a continuous distribution over hyperplanes corresponding to projection functions, or a discrete distribution of hyperplanes corresponding to a set of n-tuples of words. In either case, we assume it is a uniform distribution:
+	% \begin{examples}
+	% \item $L_1(w,q\vert u) \propto S_1(u\vert w,q) P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)*P_{QUD}(q)$
+	% \end{examples}
+	% While we were able to use analytic methods to derive the $L_0$ and $S_1$ posteriors, we cannot do so for the $L_1$. Instead, we must use an approximate inference method. We try two different inference algorithms, Hamiltonian Monte Carlo (\cite{neal2011mcmc}), a brand of Markov Chain Monte Carlo inference algorithm which makes use of gradient information to move from one sample to the next, and Variational Mean Field inference (see \cite{blei2017variational}), an optimization based inference algorithm. In our first experiment we use the former, while we make use of the latter in our second, on account of its speed.
+
+	% Variational Inference (VI) greatly increases efficiency over other inference methods, at the cost of requiring gradients for the $S_1$ and the functions the $S_1$ calls. Fortunately, it is possible for us to calculate these gradients, using automatic differentiation.
+
+	% $L_1$ performs joint inference over QUDs and worlds. While the nature of the prior over worlds has already been discussed, two variants of $L_1$ are possible, as regards to prior on QUDs. The first is to have a categorical distribution over a set of projection hyperplanes (QUDs), for example those corresponding to n-tuples of words, according to the pretrained embedding. The output of our inference then gives us a categorical distribution over QUDs, corresponding to words (as well as a continuous distribution over worlds). 
+
+	% The second variant is to have the QUD be a continuous variable. As a result of the way the projection is defined, only the angle and not the magnitude of the projection hyperplane matters. As such, we can have a uniform prior over unit hyperplanes. We will refer to these as two models as the Categorical and Non-Categorical $L_1$, respectively.
+
+	% The advantage of the Categorical $L_1$ is that we can choose a particular set of QUDs, for instance, the vectors corresponding to a given set of words, and weight this prior according to the frequency of these words. This allows us to supply our model with a set of possible QUDs, and have it return a categorical distribution over them, as the $L_1$ QUD posterior.
+
+	% The Non-Categorical model, on the other hand, has the contrasting benefit that no set of possible QUDs need be provided to the model. Furthermore, the use of Hamiltonian dynamics for performing the joint inference results in much faster performance. However, the Non-Categorical model yields significantly less stable results, and as such, we use only the Categorical model in our experimentation.
+% \vspace{2em}
+\subsection{Interpreting results from $\protect\QLONE$}
+
+	We now have an algorithm for approximating the joint posterior distribution of $\QLONE$ over $W$ and $Q$ after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
+		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
+	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. For instance, the top two $\QLONE$ marginal posterior projections $q$ for each metaphor used in our experiment is shown in figure \ref{fig:barplot}.
+
+	TODO: leon, should we mention that the posterior is not unimodal?
+
+	% We convert this into an interpretable prediction by selecting the adjectives $q\in Q$ which have high probability under the marginal posterior distribution over $Q$ as interpretations of the metaphor.
+
+	TODO: comment on use of marginal over Q
+
+
+
+\section{Experimental Evaluation} \label{exp}
+
+	In order to test our model on human judgments, we design an experiment which compares the $\QLONE$ interpretations of metaphors to a baseline model which uses word embeddings but no pragmatic reasoning.
+
+
+	\subsection*{Experimental Design}
+
+		In our experiment, each participant is shown a series of 12 metaphors, selected randomly from a total 109. For each metaphor, they are asked to rate on a slider four adjectives representing interpretations of the metaphor, of which two are selected by $\QLONE$ and two from a baseline model (details below). An example is shown in figure \ref{fig:slide}.
 
 			TODO: explain the task setup more
 
-		The experiment was run on Mechanical Turk, with 99 participants, all of whom are native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants (analyses remain significant if all participants are included).
 	
-	\subsection{Baseline model}
+	
+		% (the variances of the Gaussians used in the prior and semantics respectively). 
+
+	\subsection*{Analysis}
+	% \paragraph{Analysis}
+
+		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<$0.001).
+
+
+		
+		% We ran a linear mixed effects model, predicting slider rating from baseline vs. $L_1$ metaphor, with by-metaphor and by-participant random intercepts. We find a significant correlation
+
+			% As can be seen in Figure \ref{resultsbar}, there is a lot of variation in the average quality of proposed adjectives across both models, between metaphors. For the baseline model, we note that there is a subset of metaphors for which the baseline will perform well, as discussed in section (\ref{task1id}). These are metaphors where good projections $q$ are such that the subject and predicate are close when projected along $q$. In these cases, averaging the subject and predicate will generally give rise to a good interpretation. 
+\section{Discussion} \label{conc} 
+
+	We have shown that it is possible to scale Bayesian pragmatic reasoning to a distributional semantics and by so doing to obtain a model of metaphor interpretation. Our evaluation, the first such open domain test of an RSA model of interpretation, indicates that the principles of pragmatic reasoning continue to operate at this scale, and are key to obtaining human-like interpretations of metaphors. We see this as an important step towards a cognitively accurate and computationally tractable model of pragmatic language interpretation and production in general.
+
+% \section*{Guide to using this template on Overleaf}
+
+
+% If you have a question while using this template on Overleaf, please use the help menu (``?'') on the top bar to search for \href{https://www.overleaf.com/help}{help and tutorials}. You can also \href{https://www.overleaf.com/contact}{contact the Overleaf support team} at any time with specific questions about your manuscript or feedback on the template.
+
+
+
+
+% \paragraph*{3D Figures}
+
+% Supply a composable U3D or PRC file so that it may be edited and composed. Authors may submit a PDF file but please note it will be published in raw format and will not be edited or composed.
+
+
+\matmethods{
+% Please describe your materials and methods here. This can be more than one paragraph, and may contain subsections and equations as required. Authors should include a statement in the methods section describing how readers will be able to access the data in the paper. 
+
+\paragraph{$\mathbf{\QLONE}$ Model}
+
+To derive predictions from $\QLONE$, five things must be provided: a set $W$ of states, a set $U$ of utterances, a set $Q$ of projections, a prior $P_L$ representing the listener's uncertainty over $W$, and a semantics $\llbracket\cdot\rrbracket$. (We assume throughout that the prior $P_{L_Q}$ over $Q$ is uniform.) Jointly, we say that these determine an \emph{interpretation} of $\QLONE$. 
+
+		One possible interpretation, similar to what is provided by \cite{kao}, treats points in the state space $W$ as n-tuples of truth values, corresponding to Boolean properties $w\subset P$.
+		% with a function $E:U\to \mathcal{P}(P)$ mapping utterances to sets of properties. 
+		% We refer to this as a \emph{set theoretic} interpretation of $\QLONE$. 
+		We give a very simple example below, for $P = \{\textrm{vicious}, \textrm{non-human} \}$:
+
+		\begin{itemize}
+		% \item $W = \{(\textrm{vicious}=T,\textrm{non-human}=T), \\ (\textrm{vicious}=T,\textrm{non-human}=F),\\ (\textrm{vicious}=F,\textrm{non-human}=T),\\ (\textrm{vicious}=F,\textrm{non-human}=F) \}$
+		% \item $W = \{ \{\textrm{vicious}, \textrm{non-human}\}, \{\textrm{vicious}\}, \{\textrm{non-human}\}, \{\},   \}$
+		\item $P_L = \{(\textrm{vicious}=T,\textrm{non-human}=T) : 0.075, \\(\textrm{vicious}=T,\textrm{non-human}=F) : 0.675,\\ (\textrm{vicious}=F,\textrm{non-human}=T) : 0.025, \\(\textrm{vicious}=F,\textrm{non-human}=F): 0.225\}$
+		% \item $W = \{ \{\textrm{vicious}, \textrm{non-human} \}, \{\textrm{vicious} \}, \{\textrm{non-human} \}, \{\},   \}$
+		\item $U = \{\textrm{\emph{shark}}, \textrm{\emph{silence}}\}$
+		% \item $\llbracket\cdot\rrbracket$
+		\item $Q = \{q_{vicious} = \lambda (x,y):x, \quad q_{non-human} = \lambda (x,y):y) $ 
+		\end{itemize}
+
+		We assume a semantics $\llbracket\cdot\rrbracket$ in which \emph{shark} is compatible only with $(\textrm{vicious}, \textrm{non-human})$, and \emph{silence} is compatible with every state. Note that the projections map each tuple to its value at a single property. 
+
+		TODO: add results!!!!!
+
+\subsection*{Inference in vectorial setting} \label{technicaloverview}
+
+
+	% Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. 
+	Because $P_L(w)$ is a continuous distribution in the vectorial interpretation of $\QLONE$, inference by enumeration is not possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm.\footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.} We describe this algorithm in parts, working up from the $L_0$.
+
+	% While the general format of our model is analogous to previous models in the RSA paradigm, the vectorial setting produces a number of challenges which require novel solutions.
+
+	% Moreover, previous implementations of RSA have employed prior distributions for both the speaker and listener with finite support. As a result, it is possible in standard RSA to perform exact inference for the $L_0$, $S_1$ and $L_1$. By contrast, our prior is a Gaussian and as such cannot be computed via exact inference, due to the need to calculate a normalizing term which sums (or rather integrates) over an infinite set. 
+	% Furthermore, nesting causes approximate inference in the form of Markov Chain Monte Carlo to be unstable (see \cite{rainforth2016pitfalls}).
+	% We therefore compute the $L_0$ and $S_1$ posteriors analytically, and use perform appromixate inference only at the $L_1$ level. We now describe how each of $L_0$, $S_1$ and $L_1$ is computed.
+% \paragraph{L\textsubscript{0} Inference}
+
+	\paragraph{$\mathbf{L_0}$ Inference}
+	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of the point corresponding to the received utterance. To calculate $L_0$ analytically, we make use of Gaussian conjugacy. When the prior $P_L$ is defined as in Equation \ref{vect:prior}, and the semantic interpretation is defined as in Equation \ref{vect:sem}, then conjugacy implies that the listener posterior is given by:
+
+	 \begin{examples}
+	\item $L_0(w|u)=P_{\mathcal{N}}(w\vert\mu\! \! =\! \! \frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}(\frac{{\textrm{\emph{E(target)}}}}{\sigma_1^2}+\frac{{\textrm{\emph{E(source)}}}}{\sigma_2^2}), \sigma \! \!=\! \! \frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})$  \label{eq:L0-inference}
+	 \end{examples}
+
+
+
+
+
+	% This is the property that a distribution of the form $P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)P_{\mathcal{N}}(w\vert\mu=u,\sigma=\sigma_2)$
+
+
+
+	% Recall that $L_0$ is defined as follows, where \emph{subject} is the word being predicated (e.g. ``lawyer'' in ``The lawyer is a shark''):
+
+
+
+	% \begin{examples}
+
+	% \item $L_0(w\vert u) \propto P_{\mathcal{N}}(w\vert\mu=subject,\sigma=\sigma_1)P_{\mathcal{N}}(w\vert\mu=u,\sigma=\sigma_2)$ \label{term}
+
+	% e^f$ * e$^\mu$ \label{term}
+
+	% \end{examples}
+
+	% The left hand term represents the prior on the world state, and the right hand term represents the observation. By the self conjugacy of Gaussians, (\ref{term}) can be reduced analytically to a single Gaussian.
+
+	% 	 citation?
+% \paragraph{S\textsubscript{1} Inference}
+\paragraph{$\mathbf{S_1}$ Inference}
+		The speaker is defined by Equation \ref{defs0}, which in the continuous case can be rewritten as:
+		\begin{examples}
+		\item $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
+		\end{examples}
+		This integral is computing the marginal probability of $w_q$, the projection of world $w$ onto QUD vector $q$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
+
+		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
+
+
+
+		% \begin{examples}
+
+		% \item U(u,w,q) = $\log(\int_{w'} \delta_{q(w)=q(w')} * L_0(w'\vert u))$
+
+		% \item S$_1(u\vert w,q) \propto e^{U(u,w,q)}$
+
+		% \end{examples}
+% \paragraph{L\textsubscript{1} Inference}
+\paragraph{$\mathbf{\QLONE}$ Inference}
+
+
+
+
+
+	\begin{figure*}
+
+	\centering
+
+	\includegraphics[width=\textwidth]{images/bothheatmaps.png}
+
+	% \begin{subfigure}{0.5\textwidth}
+
+	% \centering
+
+	% \includegraphics[width=0.85\textwidth]{images/denotations.png}
+
+	% \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
+
+	% \centering
+
+	% \includegraphics[width=\textwidth]{images/discretel1heatmap.png}
+
+	% \end{subfigure}
+
+	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over worlds given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$.}
+
+	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
+
+	\label{l1heatmaps}
+
+	\end{figure*}
+
+
+
+	% \begin{figure}
+
+	% \centering
+
+	% \begin{subfigure}{0.5\textwidth}
+
+	% % \centering
+
+	% \includegraphics[width=\textwidth]{images/coolmixturel1heatmap.png}
+
+	% \end{subfigure}\hfill\begin{subfigure}{0.5\textwidth}
+
+	% % \centering
+
+	% \includegraphics[width=\textwidth]{images/cooldiscretel1heatmap.png}
+
+	% \end{subfigure}
+
+	% \caption{ Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).}
+
+	% \label{l1heatmaps}
+
+	% \end{figure}
+
+
+
+	% caption: 
+
+	% 	heatmaps showing...
+
+	% 	an example of the difference between the $\protect\QLONE$ posterior under our inference algorithm and under the true posterior, in a two dimensional case where a (discretized) exact posterior can be computed exactly.
+
+	% 	this compares our inference algorithm (left) to an exact (discretized) inference in a tractable 2 dimensional case, for the metaphor: BLAH 
+
+	% 	with the following hand-specified word embeddings.
+
+
+
+
+
+	% caption:
+
+	% 	heatmaps showing the l1 inference. 
+
+	% 		scalar implicature means that...
+
+	% We devise the following approximate inference algorithm.
+
+
+
+	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. 
+	% Unlike $L_0$, we are unable to use conjugacy to compute it analytically.
+	Because of the linear structure of the problem, we are able to devise a near-exact inference algorithm for the marginal distribution over QUDs in $Q$, derived as follows:
+
+
+
+	%\footnote{We verify the correctness of this algorithm in the 2 dimensional case by comparison to the exact posterior, which is calculable (up to discretization of the prior) in 2 dimensions.}
+
+
+
+		% Moreover, we find that Mean Field Variational Inference  CITATION is not well suited
+
+		% 	since the posterior is non-Gaussian (see figure \ref{l1heatmaps}).
+
+
+
+	% \begin{align}
+
+	% L_1(w,q | u) &= \frac{P(w)P(q)S_1(u|w,q)}{\sum_{q'} \int_{w'} P(w')P(q')S_1(u|w',q')} \\
+
+	% &= \frac{P(w)P(q)S_1(u|w,q)}{K} 
+
+	% \end{align}
+
+
+
+
+
+
+
+
+
+	% To compute the marginal distribution over QUDs:
+
+
+
+	 \begin{align}
+	 \begin{split}
+	&L_1(q | u) = \int_{\mathbb{R}^n}L_1(w,q | u) dw \\
+	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w)S_1(u|w,q) dw \\
+	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q, w^\bot)S_1(u|w_q,q) dw \\
+	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q) P_L(w^\bot)S_1(u|w_q,q) dw \\
+	&= \frac{1}{K}P_{L_Q}(q) \int_{Q^\bot}P_L(w^\bot) dw^\bot \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q \\
+	&= \frac{1}{K}P_{L_Q}(q)  \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q\nonumber
+	\end{split}
+	 \end{align}
+	
+
+
+
+	Here $K$ is a normalizing constant, $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. 
+	The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation.\footnote{We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional QUDs.} The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
+
+% \subsection*{Subsection for Method}
+% Example text for subsection.
+
+\subsection*{Baseline model}
 
 		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. As such, a natural baseline model to compare against is a model with a distributional semantics that does not make use of the pragmatic reasoning process inherent in $\QLONE$.
 
@@ -861,7 +928,7 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 	% 	\includegraphics[height=5cm,angle=270,origin=c]{images/comparison2}	
 	% \end{figure}
 
-	% \subsubsection{$\protect\QLONE$ hyperparameters}
+	% \paragraph{$\protect\QLONE$ hyperparameters}
 	\paragraph{$\mathbf{\QLONE}$ hyperparameters}
 
 		We use the largest available (300 dimensional) GloVe vectors, as our word embedding $E$. For each AN metaphor $(a$ $n)$, we specify $U$ as a set of 101 alternative utterances, consisting of $a$ and 100 of the nearest adjectives (by cosine distance) to $n$. These adjectives are chosen from the set of the 1425 adjectives with concreteness ranking $>3.0$ in the concreteness corpus of \cite{brysbaert2014concreteness}, to exclude abstract nouns.
@@ -869,41 +936,23 @@ The \emph{Gricean} view of metaphor takes the meaning conveyed by (\ref{met:1}) 
 		Similarly, we select a set $Q$ of projections corresponding to the hundred closest adjectives to the mean of the subject and predicate (the method of adjective choice in the baseline model), and take $P_{L_Q}$ to be a uniform distribution over $Q$. 
 
 		By tuning on an independent validation set of hand-selected metaphors, we choose $\sigma_1=\sigma_2=0.1$. We select the adjectives corresponding to the two projections with highest marginal posterior mass under $\QLONE$ as the interpretations provided from our model in the experiment.
-		% (the variances of the Gaussians used in the prior and semantics respectively). 
 
-	% \subsubsection{Analysis}
-	\paragraph{Analysis}
+\subsection*{Experimental Methods}
 
-		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<$0.001).
-
+\begin{figure}
+\includegraphics[width=0.5\textwidth]{images/slide.png}
+\caption{An item in the experiment. Item order, and in-item order of the 4 adjectives from $\protect\QLONE$ and baseline models is randomized.}
+\label{fig:slide}
+\end{figure}
 
 		
-		% We ran a linear mixed effects model, predicting slider rating from baseline vs. $L_1$ metaphor, with by-metaphor and by-participant random intercepts. We find a significant correlation
+		Tsvetkov et al. \cite{tsvetkov2014metaphor} provide a corpus of $\sim$800 AN metaphors, gathered by human annotators, from which we select $\sim$100 of the least frequent by bigram count\footnote{N-gram data from the Corpus of Contemporary American English \cite{davies2011word}.} for our experiment, in order to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
+		
+		The experiment was run on Mechanical Turk, with 99 participants, all of whom are native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants (analyses remain significant if all participants are included).
 
-			% As can be seen in Figure \ref{resultsbar}, there is a lot of variation in the average quality of proposed adjectives across both models, between metaphors. For the baseline model, we note that there is a subset of metaphors for which the baseline will perform well, as discussed in section (\ref{task1id}). These are metaphors where good projections $q$ are such that the subject and predicate are close when projected along $q$. In these cases, averaging the subject and predicate will generally give rise to a good interpretation. 
-\section{Discussion} \label{conc} 
+}
 
-	We have shown that it is possible to scale Bayesian pragmatic reasoning to a distributional semantics and by so doing to obtain a model of metaphor interpretation. Our evaluation, the first such open domain test of an RSA model of interpretation, indicates that the principles of pragmatic reasoning continue to operate at this scale, and are key to obtaining human-like interpretations of metaphors. We see this as an important step towards a cognitively accurate and computationally tractable model of pragmatic language interpretation and production in general.
-
-% \section*{Guide to using this template on Overleaf}
-
-
-% If you have a question while using this template on Overleaf, please use the help menu (``?'') on the top bar to search for \href{https://www.overleaf.com/help}{help and tutorials}. You can also \href{https://www.overleaf.com/contact}{contact the Overleaf support team} at any time with specific questions about your manuscript or feedback on the template.
-
-
-
-
-% \subsubsection*{3D Figures}
-
-% Supply a composable U3D or PRC file so that it may be edited and composed. Authors may submit a PDF file but please note it will be published in raw format and will not be edited or composed.
-
-
-\matmethods{Please describe your materials and methods here. This can be more than one paragraph, and may contain subsections and equations as required. Authors should include a statement in the methods section describing how readers will be able to access the data in the paper. 
-
-\subsection*{Subsection for Method}
-Example text for subsection.}
-
-% \showmatmethods{} % Display the Materials and Methods section
+\showmatmethods{} % Display the Materials and Methods section
 
 \acknow{Please include your acknowledgments here, set in a single paragraph. Please do not include any acknowledgments in the Supporting Information, or anywhere else in the manuscript.}
 
