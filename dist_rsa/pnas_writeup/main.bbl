@@ -12,20 +12,20 @@ Frank MC, Goodman ND (2012) Predicting pragmatic reasoning in language games.
 Kao JT, Bergen L, Goodman N (2014) Formalizing the pragmatics of metaphor
   understanding. in {\em CogSci}.
 
-\bibitem{lakoff1980metaphors}
-Lakoff G, Johnson M (1980) Metaphors we live by.
-\newblock {\em Chicago, IL: University of}.
+\bibitem{mikolov2013distributed}
+Mikolov T, Sutskever I, Chen K, Corrado GS, Dean J (2013) Distributed
+  representations of words and phrases and their compositionality in {\em
+  Advances in neural information processing systems}.
+\newblock pp. 3111--3119.
 
 \bibitem{pennington2014glove}
 Pennington J, Socher R, Manning CD (2014) Glove: Global vectors for word
   representation. in {\em EMNLP}.
 \newblock Vol.{}~14, pp. 1532--1543.
 
-\bibitem{mikolov2013distributed}
-Mikolov T, Sutskever I, Chen K, Corrado GS, Dean J (2013) Distributed
-  representations of words and phrases and their compositionality in {\em
-  Advances in neural information processing systems}.
-\newblock pp. 3111--3119.
+\bibitem{lakoff1980metaphors}
+Lakoff G, Johnson M (1980) Metaphors we live by.
+\newblock {\em Chicago, IL: University of}.
 
 \bibitem{peters2018deep}
 Peters ME, et~al. (2018) Deep contextualized word representations.
@@ -56,6 +56,10 @@ Socher R, et~al. (2013) Recursive deep models for semantic compositionality
 Coecke B, Sadrzadeh M, Clark S (2010) Mathematical foundations for a
   compositional distributional model of meaning.
 \newblock {\em arXiv preprint arXiv:1003.4394}.
+
+\bibitem{linzen2016issues}
+Linzen T (2016) Issues in evaluating semantic spaces using word analogies.
+\newblock {\em arXiv preprint arXiv:1606.07736}.
 
 \bibitem{shutova2016design}
 Shutova E (2016) Design and evaluation of metaphor processing systems.

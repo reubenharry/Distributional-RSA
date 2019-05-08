@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main.aux
 The style file: pnas-new.bst
 Database file #1: metaphor.bib
-You've used 21 entries,
+You've used 22 entries,
             1837 wiz_defined-function locations,
-            590 strings with 7206 characters,
-and the built_in function-call counts, 5396 in all, are:
-= -- 496
-> -- 230
+            594 strings with 7321 characters,
+and the built_in function-call counts, 5526 in all, are:
+= -- 505
+> -- 235
 < -- 9
-+ -- 70
-- -- 49
-* -- 356
-:= -- 742
-add.period$ -- 40
-call.type$ -- 21
-change.case$ -- 21
++ -- 72
+- -- 50
+* -- 362
+:= -- 764
+add.period$ -- 42
+call.type$ -- 22
+change.case$ -- 22
 chr.to.int$ -- 0
-cite$ -- 21
-duplicate$ -- 308
-empty$ -- 519
-format.name$ -- 49
-if$ -- 1266
+cite$ -- 22
+duplicate$ -- 317
+empty$ -- 534
+format.name$ -- 50
+if$ -- 1294
 int.to.chr$ -- 0
-int.to.str$ -- 21
-missing$ -- 21
-newline$ -- 85
-num.names$ -- 21
-pop$ -- 91
+int.to.str$ -- 22
+missing$ -- 22
+newline$ -- 89
+num.names$ -- 22
+pop$ -- 94
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 204
+skip$ -- 208
 stack$ -- 0
 substring$ -- 354
-swap$ -- 115
+swap$ -- 117
 text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 50
-width$ -- 23
-write$ -- 204
+while$ -- 51
+width$ -- 24
+write$ -- 213
