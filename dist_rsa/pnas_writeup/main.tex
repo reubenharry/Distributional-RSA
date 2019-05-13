@@ -181,7 +181,7 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 		% The goal of a speaker is to produce an utterance which informs their interlocutor of the speaker's position in this space, to which end they may employ metaphorical language. For instance, if John is a ruthless businessman, then the sentence ``John is a shark.'' should enable the listener to infer John's position in the space.
 \section{Overview of metaphor}
 
-	Metaphor exists in many syntactic forms. TODO: CITATIONS HERE
+	Metaphor exists in many syntactic forms \cite{black1954metaphor}.
 	% , and generally eludes easy definition. 
 	For present purposes, we focus on copular predicates (e.g. \emph{Jane is a soldier}) and AN noun phrases (e.g. \emph{fiery temper}). We refer to the predicated or modified noun (\emph{Jane}, \emph{temper}) as the \emph{target} of the metaphor and the predicate or adjective (\emph{soldier}, \emph{fiery}) as the \emph{source} (see \cite{lakoff1980metaphors} for the more general sense of these terms).
 
@@ -245,7 +245,7 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 	% A simple example is as follows: suppose that $W=AxB$, where $A = \{\textrm{Jane is hardworking}, \textrm{Jane is lazy}\}$ and $B = \{\textrm{Jane owns a gun}, \textrm{Jane doesn't own a gun}\}$, so that each $w\in W$ is a tuple $(a,b)$ for $a\in A, b\in B$. Then the two projections, which we could call $q_{\mathit{work-ethic}}$ and $q_{\mathit{gun-ownership}}$, are defined as $\lambda (x,y): x$ and $\lambda (x,y): y$ respectively. A third trivial projection is simply the identity function.
 	
 
-	\paragraph{The informative speaker} $S_1$ has a state $w$ they want to communicate, and reasons about $L_0$, preferring utterances $u$ which maximize the $L_0$ posterior probability on $w$, up to the aspect of $w$ specified by $q$. $\delta_{a=b}$ is the delta function. If $q$ is the identity function, $S_1(u|w) \propto L_0(w|u)$, and is thus a model of a speaker who prefers to choose the most informative utterance available. 
+	\paragraph{The informative speaker} $S_1$ has a state $w$ they want to communicate, and reasons about $L_0$, preferring utterances $u$ which maximize the $L_0$ posterior probability on $w$, up to the aspect of $w$ specified by $q$. $\delta_{a=b}$ is the delta function, and is equal to 1 if and only if $a=b$ . If $q$ is the identity function, $S_1(u|w) \propto L_0(w|u)$, and is thus a model of a speaker who prefers to choose the most informative utterance available. 
 	% For example, if trying to communicate state $w$, $S_1$ will prefer an utterance $u$ which is compatible under the semantics with only $w$, over an utterance $u'$ which is compatible with both $w$ and $w'$. 
 	
 	\paragraph{The pragmatic listener} The full model, $\QLONE$, jointly infers values for $w$ and $q$ by reasoning about $S_1$. The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$) but where $u$ conveys some aspect of $w$ as determined by $q$. 
@@ -313,7 +313,7 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 			% word embeddings appear to encode syntactic and semantic information (\cite{mikolov2013linguistic}, and as such, are useful element in many NLP tasks such as sentiment analysis \cite{socher2013recursive}.
 
 	% (\cite{pennington2014glove}) argues that GloVe vectors exhibit a degree of linear structure, in the sense that for various quadruples of words (A,B,C,D), such that A is to B as C is to D, the corresponding pretrained vectors approximately satisfy the equation $\overrightarrow{\text{A}} - \overrightarrow{\text{B}} = \overrightarrow{\text{C}} - \overrightarrow{\text{D}}$, where $\overrightarrow{\text{A}}$ is the word vector corresponding to the word A. For instance, the nearest word vector by cosine distance to the point ($\overrightarrow{\text{king}}-\overrightarrow{\text{man}}+\overrightarrow{\text{woman}}$) in the Word2Vec embedding space is $\overrightarrow{\text{queen}}$.
-		TODO: include somewhere with discussion of linearity: The degree to which word embedding spaces do indeed display this linearity is however a topic of debate \cite{linzen2016issues}.
+	
 
 		
 
@@ -442,7 +442,7 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 		% \footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} 
 		along a vector (or hyperplane) $\overrightarrow{v}$ 
 		% This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, 
-		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}.
+		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}. These linear projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, although see \cite{linzen2016issues,finley2017analogies} for a discussion of the degree of this linearity.
 
 			% Alternatively, note that 
 				% Put another way, the definition of a projection on an object $X$ as an idempotent morphism $X\to X$, generalizes both cases. 
@@ -455,6 +455,8 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 		% However, we no longer have an obvious set of projections $Q$, corresponding to an explicit set of properties $P$. This is because the basis vectors of a word embedding space such as GloVe or Word2Vec do not correspond to easily interpretable attributes of the words in the space.
 		To obtain a set $Q$ of projections, we first note that since the denotations of words are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as parameterizing a \emph{viciousness} projection, which measures how far the denotations of all other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
 		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun $n$ onto $\overrightarrow{v}$ amounts to asking: to what extent is $n$ $v$? 
+		Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example discussed in section \ref{rsa}.
+
 
 	% \boolean{singlecolumn}
 	\begin{figure}
@@ -611,7 +613,7 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 
 	% \end{subfigure}
 
-	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over worlds given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$.}
+	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over states in a simple 2D case given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$.}
 
 	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
 
@@ -620,7 +622,6 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 	\end{figure*}
  
 
-	Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example discussed in section \ref{rsa}.
 
 
 
@@ -657,9 +658,7 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 
 	We now have an algorithm for approximating the joint posterior distribution of $\QLONE$ over $W$ and $Q$ after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
 		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
-	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. For instance, the top two $\QLONE$ marginal posterior projections $q$ for each metaphor used in our experiment is shown in figure \ref{fig:barplot}.
-
-	TODO: leon, should we mention that the posterior is not unimodal?
+	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. For instance, the top two $\QLONE$ marginal posterior projections $q$ for each metaphor, which we use in our experiment, are shown in figure \ref{fig:barplot}. 
 
 	% We convert this into an interpretable prediction by selecting the adjectives $q\in Q$ which have high probability under the marginal posterior distribution over $Q$ as interpretations of the metaphor.
 
@@ -673,7 +672,7 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 
 	\subsection*{Experimental Design}
 
-		In our experiment, each participant is shown a series of 12 metaphors, selected randomly from a total 109. For each metaphor, they are asked to rate on a slider four adjectives representing interpretations of the metaphor, of which two are selected by $\QLONE$ and two from a baseline model (see \emph{Materials and Methods}). An example is shown in figure \ref{fig:slide}.
+		In our experiment, each participant is shown a series of 12 metaphors, selected randomly from a total 109. For each metaphor, they are asked to rate on a slider four adjectives representing interpretations of the metaphor, which are the best and second best adjective generated by $\QLONE$, and from a baseline model which selects adjectives by their distance in the word embedding space to the mean of the target and source (see \emph{Materials and Methods}). An example is shown in figure \ref{fig:slide}.
 
 
 	
@@ -684,6 +683,8 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 	% \paragraph{Analysis}
 
 		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<$0.001).
+
+		% Using the same mixed-effects model, we further find a significant preference for the $\QLONE$ best adjective over the second best adjective, indicating that TODO
 
 
 		
@@ -783,7 +784,7 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 		\begin{examples}
 		\item $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
 		\end{examples}
-		This integral is computing the marginal probability of $w_q$, the projection of world $w$ onto QUD vector $q$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
+		This integral is computing the marginal probability of $w_q$, the projection of state $w$ onto QUD vector $q$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
 
@@ -947,10 +948,9 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 	\paragraph{$\mathbf{\QLONE}$ hyperparameters}
 
 		We use the largest available (300 dimensional) GloVe vectors, as our word embedding $E$. For each AN metaphor $(a$ $n)$, we specify $U$ as a set of 101 alternative utterances, consisting of $a$ and 100 of the nearest adjectives (by cosine distance) to $n$. These adjectives are chosen from the set of the 1425 adjectives with concreteness ranking $>3.0$ in the concreteness corpus of \cite{brysbaert2014concreteness}, to exclude abstract nouns.
-
 		Similarly, we select a set $Q$ of projections corresponding to the hundred closest adjectives to the mean of the subject and predicate (the method of adjective choice in the baseline model), and take $P_{L_Q}$ to be a uniform distribution over $Q$. 
 
-		By tuning on an independent validation set of hand-selected metaphors, we choose $\sigma_1=\sigma_2=0.1$. We select the adjectives corresponding to the two projections with highest marginal posterior mass under $\QLONE$ as the interpretations provided from our model in the experiment.
+		By tuning on an independent validation set of hand-selected metaphors, we choose $\sigma_1=\sigma_2=0.1$. We select the adjectives corresponding to the two projections with highest marginal posterior mass under $\QLONE$ as the interpretations provided from our model in the experiment. We choose two rather than one since the model tends to distribute most of its marginal posterior mass over $Q$ to at least two projections, intuitively reflecting the fact that there is usually more than one good interpretation of a metaphor.
 
 \paragraph{Experimental Methods}
 
@@ -962,13 +962,9 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 
 		
 		Tsvetkov et al. \cite{tsvetkov2014metaphor} provide a corpus of $\sim$800 AN metaphors, gathered by human annotators, from which we select $\sim$100 of the least frequent by bigram count, with n-gram data from the Corpus of Contemporary American English \cite{davies2011word}, in order to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
-		
 		The experiment was run on Mechanical Turk, with 99 participants, all of whom are native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants (analyses remain significant if all participants are included).
+		In the experiment, participants are shown a metaphor, as in figure \ref{fig:slide} and asked to judge how relevant each proposed adjective (here, \emph{debilitating}, \emph{pervasive}, \emph{corporate}, \emph{addictive}) is to the metaphorical meaning of the AN phrase. In an example, they are told to rate \emph{intense} as relevant to \emph{fiery temper} ``because a fiery temper is an intense temper'' but \emph{warm} as irrelevant.
 
-
-		In the experiment, participants are shown a metaphor, as in figure \ref{fig:slide} and asked to judge how relevant each proposed adjective (here, \emph{debilitating}, \emph{pervasive}, \emph{corporate}, \emph{addictive}) is to the metaphorical meaning of the AN phrase.
-
-		TODO: explain the task setup more
 }
 
 \showmatmethods{} % Display the Materials and Methods section

@@ -3,44 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main.aux
 The style file: pnas-new.bst
 Database file #1: metaphor.bib
-You've used 22 entries,
+Warning--empty journal in black1954metaphor
+You've used 24 entries,
             1837 wiz_defined-function locations,
-            594 strings with 7321 characters,
-and the built_in function-call counts, 5526 in all, are:
-= -- 505
-> -- 235
-< -- 9
-+ -- 72
-- -- 50
-* -- 362
-:= -- 764
-add.period$ -- 42
-call.type$ -- 22
-change.case$ -- 22
+            604 strings with 7605 characters,
+and the built_in function-call counts, 5972 in all, are:
+= -- 542
+> -- 254
+< -- 10
++ -- 78
+- -- 54
+* -- 389
+:= -- 824
+add.period$ -- 45
+call.type$ -- 24
+change.case$ -- 24
 chr.to.int$ -- 0
-cite$ -- 22
-duplicate$ -- 317
-empty$ -- 534
-format.name$ -- 50
-if$ -- 1294
+cite$ -- 25
+duplicate$ -- 346
+empty$ -- 581
+format.name$ -- 54
+if$ -- 1399
 int.to.chr$ -- 0
-int.to.str$ -- 22
-missing$ -- 22
-newline$ -- 89
-num.names$ -- 22
-pop$ -- 94
+int.to.str$ -- 24
+missing$ -- 24
+newline$ -- 96
+num.names$ -- 24
+pop$ -- 107
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 208
+skip$ -- 226
 stack$ -- 0
-substring$ -- 354
-swap$ -- 117
-text.length$ -- 9
+substring$ -- 373
+swap$ -- 125
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 51
-width$ -- 24
-write$ -- 213
+warning$ -- 1
+while$ -- 56
+width$ -- 26
+write$ -- 230
+(There was 1 warning)
