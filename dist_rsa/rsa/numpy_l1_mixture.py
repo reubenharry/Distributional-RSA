@@ -88,6 +88,7 @@ def np_l1(inference_params):
 		if optimize:
 
 			discrete_worlds_along_qud = np.asarray([np.transpose(qud_matrix[qi])*((amount*x)+approximate_mean) for x in range(-size,size+1)])
+			# SHOULDN'T I TAKE LOG PDF??
 			discrete_worlds_along_qud_prior = np.asarray([np.log(full_space_prior.pdf(w)) for w in discrete_worlds_along_qud])
 			inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
 			t1 = time.time()
