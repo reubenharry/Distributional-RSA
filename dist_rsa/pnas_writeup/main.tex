@@ -49,9 +49,7 @@ Linguistic creativity --- the ability to combine existing representations to cre
 
 
 \begin{abstract}
-Humans create and interpret novel metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). An intuitive theory of the process underlying metaphor interpretation is that a listener reasons about an informative speaker (who in turn reasons about the listener) to update their beliefs about the subject and the relevant dimensional of meaning.
-
-We present a Bayesian model of this reasoning process in which empirically learned \emph{word embeddings} are used to provide an underlying representation of word meaning. This allows us to interpret open domain predicative and adjectival metaphors without manually stipulating the meanings of the words they contain. We find a significant preference in human judgments for our model over a system which uses word embeddings without a explicit representation of inter-agent reasoning, suggesting that this reasoning about an informative and relevant speaker is key to understanding non-literal language.
+Humans create and interpret novel metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). Here we present a computational theory of metaphor interpretation, according to which metaphorical interpretations arise from joint, cooperative reasoning between a speaker and listener. We describe a Bayesian model of this reasoning process in which empirically learned \emph{word embeddings} are used to provide an underlying representation of word meaning. This allows for open-domain interpretation of predicative and adjectival metaphors. We find a significant preference in human judgments for our model over a system which uses word embeddings without a explicit representation of inter-agent reasoning, providing evidence that reasoning about an informative and relevant speaker is key to understanding non-literal language.
 
 
 % and by doing so interprets a predicative metaphor (of the form ``A is a B''), by identifying the properties of B that are relevant to A. 
@@ -79,14 +77,14 @@ We present a Bayesian model of this reasoning process in which empirically learn
 
 % Note: please start your introduction without including the word ``Introduction'' as a section heading (except for math articles in the Physical Sciences section); this heading is implied in the first paragraphs. 
 	% Metaphor is a central case of linguistic creativity, where the combination of words produces a novel meaning, in a context dependent fashion. As such, it... 
-Metaphor presents a compelling theoretical challenge for the understanding of meaning in natural language. On hearing (\ref{met:1}) in a context where the subject, Jane, is known to be a consultant, a listener might infer that Jane is not literally a soldier, but rather that she shares certain attributes with soldiers (perhaps determination, endurance, or ruthlessness). 
+Metaphor presents a compelling theoretical challenge for the understanding of meaning in natural language. On hearing (\ref{met:1}) in a context where the subject, Jane, is known to be a journalist, a listener might infer that Jane is not literally a soldier, but rather that she shares certain attributes with soldiers (perhaps determination, endurance, or ruthlessness). 
 	% Similarly, on hearing a temper described as \emph{fiery}, a listener might infer that 
 	\begin{examples}
 	% % \vspace{-1.0em}
 	\item Jane is a soldier \label{met:1}
 	\end{examples}
 
-The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the meaning conveyed by sentence (\ref{met:1}) in a given context to be the result of a process of reasoning by a listener, about a speaker who is trying to communicate truthfully, informatively, and relevantly. That is, the listener attempts to jointly deduce what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker who wants to successfully communicate some aspect of Jane would have chosen the predicate \emph{soldier} over other alternatives.
+The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the meaning conveyed by sentence (\ref{met:1}) to be the result of joint, cooperative reasoning between a speaker and listener. That is, the listener attempts to jointly infer what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker who wants to successfully communicate some aspect of Jane would have chosen the predicate \emph{soldier} over other alternatives.
 
 
 
@@ -94,11 +92,11 @@ The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the
 		% Our goal is to provide evidence towards this view, by 
 
 \paragraph{Interpreting figurative language}
-Previous work in linguistics and cognitive science has modeled language interpretation in context as the product of back and forth reasoning between Bayesian agents \cite{frank2012predicting}. In models of this variety, language production corresponds to a speaker, whose goal is to communicate a state $w$ by choosing an utterance $u$, and language interpretation to a listener, whose goal is to infer $w$ having heard $u$. Agents of this sort are then nested, so that, for example, the listener can reason about its own model of the speaker who in turn reasons about its model of the listener.
+Previous work in linguistics and cognitive science has modeled language interpretation in context as the product of joint reasoning between rational agents \cite{frank2012predicting}. In this work, there is a speaker whose goal is to communicate a particular state, and chooses an utterance in order to satisfy this goal. Listeners interpret an utterance by inferring the communicative goal which would have led the speaker to choose this utterance. 
 
 	% This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
 
-$\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies on the mechanism of \emph{projection functions} which dictate the dimension of the world that the speaker cares about communicating. $\QLONE$ jointly determines the state of the world (e.g. what Jane is like) and a projection, corresponding to the aspect of the world the speaker cares to communicate (e.g. Jane's determination). As before, this listener assumes an informative speaker: one whose choice of utterance maximizes the probability of communicating the world $w$ to the speaker's model of the listener, but now only up to a projection $q$ which dictates the relevant dimension.
+We build on a previous model of metaphor interpretation developed in this framework \cite{kao}, which uses \emph{projection functions} to determine the dimension of the world that the speaker cares about communicating. The listener jointly reasons about the state of the world (e.g. what Jane is like) and a projection function, corresponding to the aspect of the world the speaker cares to communicate (e.g. Jane's determination). As before, this listener assumes an informative speaker: one whose choice of utterance maximizes the probability of communicating the state of the world, but now only up to a projection $q$ which dictates the relevant dimension of the world.
 
 % Kao et al. \citep{kao} extend the framework by introducing a new model, $\QLONE$, which is able to interpret metaphors. 
 % Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of pragmatic reasoning, the \emph{Rational Speech Acts} (RSA) framework \cite{frank2012predicting}. 
@@ -129,15 +127,15 @@ $\QLONE$, a model of metaphor interpretation in this framework \cite{kao} relies
 
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
-	$\QLONE$ provides an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to provide a semantics, specifying which utterances $u$ and states $w$ are compatible. Hand-constructing a semantics is possible, but restricts the model's scalability, and its evaluability on previously unseen metaphors.
+	This provides an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to provide a semantics, specifying the literal meaning of each utterance (for example, that ``soldier" literally describes an individual who serves in a military). Previous work has hand-constructed these literal interpretations, restricting the scalability of these models, and their application to previously unseen metaphors.
 
 	\paragraph{Our contribution} 
 
 
-	By adapting $\QLONE$, a Bayesian model of non-literal meaning, to incorporate a word embedding semantics where words correspond to points in an abstract vector space \cite{mikolov2013distributed,pennington2014glove}, we obtain a system capable of interpreting open domain predicative and adjectival metaphors without the need for hand-specified word meanings. 
-	This adaptation requires a generalization of projection functions to linear projections in a vector space, and a novel inference algorithm to calculate the now continuous posterior distribution of $\QLONE$.
-	Constructing this system permits what is to our knowledge the first open domain evaluation of a Bayesian model of pragmatic reasoning.
-	We show that our model of metaphor interpretation significantly outperforms a baseline which uses a word embedding semantics without explicit pragmatic reasoning. This suggests that the information in word embeddings alone is not sufficient to capture the creativity of metaphorical language, but that an explicit model of pragmatic reasoning is also key.
+	We develop a model of pragmatic reasoning which uses empirically learned word-embeddings \cite{mikolov2013distributed,pennington2014glove} to represent word meanings, obtaining a system capable of interpreting open-domain predicative and adjectival metaphors without the need for hand-specified semantics. 
+	This adaptation requires a generalization of projection functions to linear projections in a vector space, and a novel inference algorithm to calculate metaphor interpretations.
+	Constructing this system permits what is to our knowledge the first open-domain evaluation of a Bayesian model of pragmatic reasoning.
+	The proposed model of metaphor interpretation significantly outperforms a baseline which uses a word embedding semantics without explicit pragmatic reasoning. This suggests that the information in word embeddings alone is not sufficient to capture the creativity of metaphorical language, but that an explicit model of pragmatic reasoning is also key.
 
 	% We conduct the first open domain evaluation of 
 
