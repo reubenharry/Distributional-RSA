@@ -1,19 +1,19 @@
 # Fdb version 3
-["bibtex main"] 1557771948 "main.aux" "main.bbl" "main" 1557943738
+["bibtex main"] 1558245309 "main.aux" "main.bbl" "main" 1558245313
   "./pnas-new.bst" 1556051607 17443 f4cae81468d1d89557fc8e3d071edc7b ""
-  "main.aux" 1557943737 15106 8ab82365f842d9f50844e8671598cacf ""
+  "main.aux" 1558245313 15119 0ff904a567fcfc846b76e57edcdc8add ""
   "main.bcf" 0 -1 0 ""
   "metaphor.bib" 1557771229 14673 0491cd50f53a1636ccf7867187a07418 ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1557943734 "main.tex" "main.pdf" "main" 1557943738
+["pdflatex"] 1558245310 "main.tex" "main.pdf" "main" 1558245313
   "./images/bothheatmaps.png" 1556836412 156555 ef2aa5261554fb974d5c43509667948c ""
   "./images/diagram1.png" 1556836301 155623 5612a64155542d9ec5695bf4256ff6c0 ""
   "./images/diagram2.png" 1556052644 93624 d263490e369f6d2ce2a6f6221ae83c83 ""
   "./images/resultsbarplot.png" 1556052644 45298 f6e246f28143817a1ebb7b9835d5be54 ""
   "./images/slide.png" 1556052644 43349 28c8a373c1b9bfae93460446fabd99bb ""
-  "./main.out" 1557943737 526 b28c7127d8a8f25e9d617f6f889799b9 ""
+  "./main.out" 1558245313 526 b28c7127d8a8f25e9d617f6f889799b9 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
@@ -312,15 +312,15 @@
   "images/diagram2.png" 1556052644 93624 d263490e369f6d2ce2a6f6221ae83c83 ""
   "images/resultsbarplot.png" 1556052644 45298 f6e246f28143817a1ebb7b9835d5be54 ""
   "images/slide.png" 1556052644 43349 28c8a373c1b9bfae93460446fabd99bb ""
-  "main.aux" 1557943737 15106 8ab82365f842d9f50844e8671598cacf ""
-  "main.bbl" 1557771948 4374 dc0ab417b30364d0d249e7d85641fe00 "bibtex main"
-  "main.out" 1557943737 526 b28c7127d8a8f25e9d617f6f889799b9 ""
-  "main.tex" 1557943733 78445 9ba467dde80466115bc9328fdc6bc923 ""
+  "main.aux" 1558245313 15119 0ff904a567fcfc846b76e57edcdc8add ""
+  "main.bbl" 1558245310 4374 dc0ab417b30364d0d249e7d85641fe00 "bibtex main"
+  "main.out" 1558245313 526 b28c7127d8a8f25e9d617f6f889799b9 ""
+  "main.tex" 1558245282 78413 9cf1c689fa624f6b4f44a64c7c45114e ""
   "pnas-new.bst" 1556051607 17443 f4cae81468d1d89557fc8e3d071edc7b ""
   "pnas-new.cls" 1556926409 14868 81673225d36a814e1bc32af6eb787f70 ""
   "pnasresearcharticle.sty" 1556051633 1275 7aec1205c12893a1c87d36790c959b86 ""
   (generated)
-  "main.aux"
-  "main.log"
   "main.pdf"
+  "main.log"
+  "main.aux"
   "main.out"
