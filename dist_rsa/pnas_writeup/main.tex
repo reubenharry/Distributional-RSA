@@ -96,7 +96,7 @@ Previous work in linguistics and cognitive science has modeled language interpre
 
 	% This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
 
-We build on a previous model of metaphor interpretation developed in this framework \cite{kao}, which uses \emph{projection functions} to determine the dimension of the world that the speaker cares about communicating. The listener jointly reasons about the state of the world (e.g. what Jane is like) and a projection function, corresponding to the aspect of the world the speaker cares to communicate (e.g. Jane's determination). As before, this listener assumes an informative speaker: one whose choice of utterance maximizes the probability of communicating the state of the world, but now only up to a projection $q$ which dictates the relevant dimension of the world.
+We build on a previous model of metaphor interpretation developed in this framework \cite{kao}, which uses \emph{projection functions} to determine the dimension of the world that the speaker cares about communicating. The listener jointly reasons about the state of the world (e.g. what Jane is like) and a projection function, corresponding to the aspect of the world the speaker cares to communicate (e.g. Jane's determination). As before, this listener assumes an informative speaker: one whose choice of utterance maximizes the probability of communicating the state of the world, but now only up to a projection which dictates the relevant dimension of the world.
 
 % Kao et al. \citep{kao} extend the framework by introducing a new model, $\QLONE$, which is able to interpret metaphors. 
 % Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of pragmatic reasoning, the \emph{Rational Speech Acts} (RSA) framework \cite{frank2012predicting}. 
@@ -201,10 +201,9 @@ We build on a previous model of metaphor interpretation developed in this framew
 	% The first example above is one of literal predication: the granite really is a rock. 
 \section{A Bayesian model of metaphor interpretation} \label{rsa}
 	
-	The Rational Speech Acts framework (RSA) provides an elegant and practical way of formalizing pragmatic reasoning as nested Bayesian inference \cite{frank2012predicting}.
+	The Rational Speech Acts framework (RSA) provides an elegant and practical way of formalizing pragmatic reasoning \cite{frank2012predicting}.
 	% \footnote{For an interactive introduction, we recommend \url{http://gscontras.github.io/ESSLLI-2016/chapters/1-introduction.html}.}
-
-	In this framework, listeners and speakers are represented as conditional probability distributions. Speakers are distributions $P(U\vert W)$ over possible utterances given worlds, and listeners distributions  $P(W\vert U)$ over possible worlds given utterances, where $W$ is the set of possible states, and $U$ is the set of utterances available to a speaker.
+	In this framework, listeners and speakers are represented as conditional probability distributions. Speakers are represented as distributions over possible utterances given worlds, and listeners as distributions over possible worlds given utterances.
 	% Thus, speakers are distributions over possible utterances given worlds, and listeners are distributions over possible worlds given utterances.
 	The most basic version of RSA \cite{frank2012predicting} is incapable of interpreting metaphors, due to the strict assumption that the speaker's utterances are literally true. To address this, Kao et al. \cite{kao} propose a model $\QLONE$, shown in (\ref{defl1}), which in turn is defined in terms of $S_1$ (\ref{defs0}) and $L_0$ (\ref{defl0}).
 
@@ -235,18 +234,18 @@ We build on a previous model of metaphor interpretation developed in this framew
 	\end{examples}
 
 
-	\paragraph{The literal listener} $L_0$ represents a model of a listener that, given an utterance $u\in U$ updates their belief about the world $w\in W$ in accordance with the semantics $\llbracket\cdot\rrbracket$ and their prior $P_L$. This semantics, usually a function $U\to(W\to\{0, 1\})$, represents the conventional association between states $w$ and utterances $u$ which the speaker and listener take as given. 
+	\paragraph{The literal listener} $L_0$ represents a model of a listener that, given an utterance $u\in U$, updates their belief about the world $w\in W$ by filtering out all worlds that are semantically incompatible with $u$. The term $\llbracket\cdot\rrbracket$ is a function $U\to(W\to\{0, 1\})$, representing the semantics of the language. $P_L(w)$ is the prior probability of world $w$. 
 
 
 	\paragraph{Projections} 
-	Functions $q\in Q$ formalize the notion of picking a particular \emph{aspect} or \emph{dimension} of $w$. Formally, they are surjective functions out of $W$.
+	Functions $q\in Q$ formalize the notion of picking a particular \emph{aspect} or \emph{dimension} of $w$. Formally, they are functions $W \to D$, for some set $D$.
 	% A simple example is as follows: suppose that $W=AxB$, where $A = \{\textrm{Jane is hardworking}, \textrm{Jane is lazy}\}$ and $B = \{\textrm{Jane owns a gun}, \textrm{Jane doesn't own a gun}\}$, so that each $w\in W$ is a tuple $(a,b)$ for $a\in A, b\in B$. Then the two projections, which we could call $q_{\mathit{work-ethic}}$ and $q_{\mathit{gun-ownership}}$, are defined as $\lambda (x,y): x$ and $\lambda (x,y): y$ respectively. A third trivial projection is simply the identity function.
 	
 
-	\paragraph{The informative speaker} $S_1$ has a state $w$ they want to communicate, and reasons about $L_0$, preferring utterances $u$ which maximize the $L_0$ posterior probability on $w$, up to the aspect of $w$ specified by $q$. $\delta_{a=b}$ is the delta function, and is equal to 1 if and only if $a=b$ . If $q$ is the identity function, $S_1(u|w) \propto L_0(w|u)$, and is thus a model of a speaker who prefers to choose the most informative utterance available. 
+	\paragraph{The informative speaker} $S_1$ has a state $w$ they want to communicate to the listener $L_0$, preferring utterances $u$ which maximize the probability that $L_0$ assigns to $w$, up to the dimension of       $w$ specified by $q$. $\delta_{a=b}$ is the delta function, and is equal to 1 if $a=b$, and equal to 0 otherwise. If $q$ is the identity function, then $S_1(u|w) \propto L_0(w|u)$, and $S_1$ is thus a model of a speaker who prefers to choose the most informative utterance available. 
 	% For example, if trying to communicate state $w$, $S_1$ will prefer an utterance $u$ which is compatible under the semantics with only $w$, over an utterance $u'$ which is compatible with both $w$ and $w'$. 
 	
-	\paragraph{The pragmatic listener} The full model, $\QLONE$, jointly infers values for $w$ and $q$ by reasoning about $S_1$. The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$) but where $u$ conveys some aspect of $w$ as determined by $q$. 
+	\paragraph{The pragmatic listener} The full model, $\QLONE$, hears an utterance $u$, and jointly infers values for $w$ and $q$ by reasoning about $S_1$. The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$); this will occur when $u$ effectively conveys some feature of world $w$ as determined by $q$. 
 
 	$\QLONE$ functions as a model of metaphor interpretation. For instance, using the metaphor in (\ref{johnshark}), the goal of the speaker is to communicate a state $w$ (representing what John is like) along $q$ (representing some \emph{feature} of this state).
 
