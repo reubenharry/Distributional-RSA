@@ -6,7 +6,7 @@
 % {pnasmathematics} %= Template for a one-column mathematics article
 % {pnasinvited} %= Template for a PNAS invited submission
 
-\title{Evaluating Linguistic Creativity:\\ Pragmatic Reasoning with a Distributional Semantics}
+\title{Evaluating Linguistic Creativity:\\ Pragmatic Reasoning with Distributional Semantics}
 
 % Use letters for affiliations, numbers to show equal authorship (if applicable) and to indicate the corresponding author
 \author[a]{Reuben Cohn-Gordon}
@@ -303,9 +303,9 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	\section{Distributional Semantics} \label{distmods}
 
-	From a linguistic corpus, it is possible to obtain a mapping from words to points in a high-dimensional vector space that has the property that semantic similarity of a pair of words $a$ and $b$ corresponds to a metric, such as cosine distance, between the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$.
+	%From a linguistic corpus, it is possible to obtain a mapping from words to points in a high-dimensional vector space that has the property that semantic similarity of a pair of words $a$ and $b$ corresponds to a metric, such as cosine distance, between the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$.
 
-	Mappings of this sort, commonly referred to as \emph{word embeddings} or \emph{distributional models of word meaning}, can be obtained either by dimensionality reduction of a co-occurrence matrix \cite{pennington2014glove}, or by extracting the weights of a statistical model \cite{mikolov2013distributed,peters2018deep,devlin2018bert} trained on a separate task. In either case, word embeddings provide a way to empirically obtain fine grained connotations of lexical items \cite{mikolov2013distributed}, and have been used effectively in a number of NLP tasks \cite{dai2015semi,radford2018improving}. They have also been used to compute vectorial representations of phrases and sentences \cite{socher2013recursive, coecke2010mathematical}.
+	\emph{Word embeddings}, or \emph{distributional semantic models}, provide a representation of word meanings that can be learned from large corpora of language data. In these models, word meanings are mapped to points in a high-dimensional vector space, such that words with similar meanings are mapped to nearby points in the space. The embeddings can be obtained either by dimensionality reduction of a word co-occurrence matrix \cite{pennington2014glove} estimated from a corpus, or by extracting the weights of a statistical model \cite{mikolov2013distributed,peters2018deep,devlin2018bert} trained on a separate task. In both cases, word embeddings provide a way to empirically obtain fine grained connotations of lexical items \cite{mikolov2013distributed}, and have been used effectively in a number of NLP tasks \cite{dai2015semi,radford2018improving}. They have also been used to compute vectorial representations of phrases and sentences \cite{socher2013recursive, coecke2010mathematical}.
 
 			% word embeddings appear to encode syntactic and semantic information (\cite{mikolov2013linguistic}, and as such, are useful element in many NLP tasks such as sentiment analysis \cite{socher2013recursive}.
 
@@ -314,12 +314,12 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 		
 
-	Metaphor is an obvious candidate for approaches that use distributional semantics: a wide variety of attempts have been made to leverage the information inherent in pre-trained word vectors for the detection, interpretation and paraphrase of metaphor (see \cite{shutova2016design} for an overview of proposed systems.).
+	Metaphor is an obvious candidate for approaches that use distributional semantics: a wide variety of attempts have been made to leverage the information inherent in pre-trained word vectors for the detection, interpretation and paraphrase of metaphor (see \cite{shutova2016design} for an overview of proposed systems).
 		% TODO: needs your own citations
 
-	Our hypothesis is that, while the information in high quality word embeddings captures important aspects of meaning, a cognitively realistic model of metaphor interpretation should also incorporate pragmatic reasoning, of the sort formalized in the RSA framework. We now explain how $\QLONE$ can be combined with a distributional model of word meaning.
+	We hypothesize that, while the information in high quality word embeddings captures important aspects of meaning, a cognitively realistic model of metaphor interpretation should also incorporate pragmatic reasoning, of the sort formalized in the RSA framework. We now explain how the $\QLONE$ model described above can be combined with a distributional model of word meaning.
 
-	\section{Bayesian pragmatics with a distributional semantics} \label{bayesdist}
+	\section{Bayesian pragmatics with distributional semantics} \label{bayesdist}
 
 	% T$\QLONE$ takes states $w \in W$ to be sets of properties describing the source of the given metaphor, and a semantics to be a function $U\to(W\to\{0, 1\})$.
 	% , projections to be surjective functions out of $W$
@@ -327,7 +327,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space determined by a word embedding $E : U\to W$, so that elements $\overrightarrow{w}\in W$ are vectors.
 	% \footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} 
-	For our application of the model, we assume $U$ is a set of adjectives. 
+	For our application of the model, we assume the set of utterances $U$ is a set of adjectives. 
 
 	% given a basis set of properties $P=P_0...P_n$, a vector of $n$ 0s and 1s, with 1s corresponding to present properties and 0s corresponding to absent ones, is equivalent to a subset of $P$, i.e. the denotation of a word.} 
 		
@@ -363,7 +363,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	\paragraph{The listener's prior} 
 
-		In a setting with a finite set $W$, a discrete prior $P_L$ over $W$ sufficed. In the present case, where $W$ is necessarily infinite (ranging over real-valued vectors), we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). We define the prior over projections $P_{L_Q}$ to be uniform.
+		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
 
 		\begin{examples}
 		
@@ -651,9 +651,9 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	% The Non-Categorical model, on the other hand, has the contrasting benefit that no set of possible QUDs need be provided to the model. Furthermore, the use of Hamiltonian dynamics for performing the joint inference results in much faster performance. However, the Non-Categorical model yields significantly less stable results, and as such, we use only the Categorical model in our experimentation.
 % \vspace{2em}
-\subsection{Interpreting results from $\protect\QLONE$}
+\subsection{Decoding from $\protect\QLONE$}
 
-	We now have an algorithm for approximating the joint posterior distribution of $\QLONE$ over $W$ and $Q$ after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
+	We now have an algorithm which approximates the joint posterior distribution of $\QLONE$ over $W$ and $Q$ after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
 		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
 	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. For instance, the top two $\QLONE$ marginal posterior projections $q$ for each metaphor, which we use in our experiment, are shown in figure \ref{fig:barplot}. 
 
