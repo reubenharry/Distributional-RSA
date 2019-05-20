@@ -40,9 +40,9 @@ Linguistic creativity --- the ability to combine existing representations to cre
 
 % Please include corresponding author, author contribution and author declaration information
 \authorcontributions{Please provide details of author contributions here.}
-\authordeclaration{Please declare any conflict of interest here.}
-\equalauthors{\textsuperscript{1}A.O.(Author One) and A.T. (Author Two) contributed equally to this work (remove if not applicable).}
-\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: reubencg@stanford..edu}
+% \authordeclaration{Please declare any conflict of interest here.}
+% \equalauthors{\textsuperscript{1}A.O.(Author One) and A.T. (Author Two) contributed equally to this work (remove if not applicable).}
+\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: reubencg@stanford.edu}
 
 % Keywords are not mandatory, but authors are strongly encouraged to provide them. If provided, please include two to five keywords, separated by the pipe symbol, e.g:
 \keywords{metaphor $|$ informativity $|$ Bayesian pragmatics $|$ distributional semantics}
@@ -179,9 +179,10 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% The goal of a speaker is to produce an utterance which informs their interlocutor of the speaker's position in this space, to which end they may employ metaphorical language. For instance, if John is a ruthless businessman, then the sentence ``John is a shark.'' should enable the listener to infer John's position in the space.
 \section{Overview of metaphor}
 
-	Metaphor exists in many syntactic forms \cite{black1954metaphor}.
+	Metaphor exists in many syntactic forms \cite{black1954metaphor}, and has been the focus of study in cognitive science \cite{tourangeau1981aptness,roberts1994people,camp2006metaphor}, linguistics \cite{glucksberg1993metaphors,lakoff1993contemporary} and other disciplines \cite{martin1990computational,davidson}.
+
 	% , and generally eludes easy definition. 
-	For present purposes, we focus on copular predicates (e.g. \emph{Jane is a soldier}) and AN noun phrases (e.g. \emph{fiery temper}). We refer to the predicated or modified noun (\emph{Jane}, \emph{temper}) as the \emph{target} of the metaphor and the predicate or adjective (\emph{soldier}, \emph{fiery}) as the \emph{source} (see \cite{lakoff1980metaphors} for the more general sense of these terms).
+	For present purposes, we focus on metaphors involving copular predicates (e.g. \emph{Jane is a soldier}) and AN noun phrases (e.g. \emph{fiery temper}). We refer to the predicated or modified noun (\emph{Jane}, \emph{temper}) as the \emph{target} of the metaphor and the predicate or adjective (\emph{soldier}, \emph{fiery}) as the \emph{source} (see \cite{lakoff1980metaphors} for the more general sense of these terms).
 
 	% We focus on predicative metaphors of the form ``A is a B'' (e.g. ``John is a shark.''), as well as metaphorical modification, e.g ``fiery temper'' or ``golden opportunity''. We further consider the possibility that the meaning of metaphorical phrases such as these can be interpreted as the posterior position of the head noun, after the model observes the modifying adjective.
 
@@ -464,7 +465,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 			\setlength\extrarowheight{-10pt}
 			\renewcommand{\arraystretch}{0.1}
 			\begin{tabular}{ c | c | c  }
-			 \tiny $\protect\QLONE$ adjectives & \tiny BASELINE adjectives & \tiny metaphor \\ 
+			 \tiny $\protect\QLONE$ adjectives & \tiny BASELINE adjectives & \tiny Metaphor \\ 
 			\hline
 			 % cell4 & cell5 & cell6 \\ 
 			 % $\protect\QLONE$ adjectives & BASELINE adjectives & metaphor \\
@@ -679,7 +680,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	\subsection*{Analysis}
 	% \paragraph{Analysis}
 
-		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<$0.001). The same model is significant when comparing the best model prediction and baseline prediction ($\beta$=16.4, $t$=4.8, p$<$0.001) as well as the second best of each ($\beta$=11.1, $t$=3.2, p$<$0.001). Comparison between the best and second best predictions of the metaphor model was not significant.
+		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<$1e-07). The same model is significant when comparing the best model prediction and baseline prediction ($\beta$=16.4, $t$=4.8, p$<$1e-05) as well as the second best of each ($\beta$=11.1, $t$=3.2, p$<$0.005). Comparison between the best and second best predictions of the metaphor model was not significant.
 
 		% Using the same mixed-effects model, we further find a significant preference for the $\QLONE$ best adjective over the second best adjective ($\beta$=, $t$=, p$<$), indicating that TODO
 
@@ -728,7 +729,6 @@ We build on a previous model of metaphor interpretation developed in this framew
 % 		\end{itemize}
 
 % 		We assume a semantics $\llbracket\cdot\rrbracket$ in which \emph{shark} is compatible only with $(\textrm{vicious}, \textrm{non-human})$, and \emph{silence} is compatible with every state. Note that the projections map each tuple to its value at a single property. 
-
 
 \subsection*{Inference in vectorial setting} \label{technicaloverview}
 
@@ -915,10 +915,10 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 \subsection*{Experiment}
 
-		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. As such, a natural baseline model to compare against is a model with a distributional semantics that does not make use of the pragmatic reasoning process inherent in $\QLONE$.
+		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. As such, a natural baseline model to compare against is one with a distributional semantics that does not make use of the pragmatic reasoning process inherent in $\QLONE$.
 
 		\paragraph{Baseline model}
-		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the adjective \emph{a} and noun \emph{n}. The two nearest (measured by cosine distance) adjectives $q$ to this mean are our baseline interpretations for the metaphor. We use the mean (a weighted sum) in light of the effectiveness of vector addition in deriving representations of phrasal and sentence meanings from constituent words \cite{mitchell2010composition,grefenstette2013category,socher2013recursive}. Cosine distance is a standard metric of similarity used for word embeddings \cite{pennington2014glove}.
+		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the adjective \emph{a} and noun \emph{n}. The two nearest (measured by cosine distance) adjectives $q$ to this mean are our baseline interpretations for the metaphor. We use the mean (a weighted sum) in light of the effectiveness of vector addition in deriving representations of phrasal and sentence meanings from constituent words \cite{mitchell2010composition,grefenstette2013category,socher2013recursive}. Cosine distance is a standard metric for word embeddings \cite{pennington2014glove}.
 
 
 
@@ -952,15 +952,16 @@ We build on a previous model of metaphor interpretation developed in this framew
 \paragraph{Experimental Methods}
 
 \begin{figure}
-\includegraphics[width=0.5\textwidth]{images/slide.png}
+\centering
+\includegraphics[width=0.35\textwidth]{images/slide.png}
 \caption{An item in the experiment. Item order, and in-item order of the 4 adjectives from $\protect\QLONE$ and baseline models is randomized.}
 \label{fig:slide}
 \end{figure}
 
 		
-		Tsvetkov et al. \cite{tsvetkov2014metaphor} provide a corpus of $\sim$800 AN metaphors, gathered by human annotators, from which we select $\sim$100 of the least frequent by bigram count, with n-gram data from the Corpus of Contemporary American English \cite{davies2011word}, in order to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
-		The experiment was run on Mechanical Turk, with 99 participants, all of whom are native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants (analyses remain significant if all participants are included).
-		In the experiment, participants are shown a metaphor, as in figure \ref{fig:slide} and asked to judge how relevant each proposed adjective (here, \emph{debilitating}, \emph{pervasive}, \emph{corporate}, \emph{addictive}) is to the metaphorical meaning of the AN phrase. In an example, they are told to rate \emph{intense} as relevant to \emph{fiery temper} ``because a fiery temper is an intense temper'' but \emph{warm} as irrelevant.
+		Tsvetkov et al. \cite{tsvetkov2014metaphor} provide a corpus of $\sim$800 AN metaphors, gathered by human annotators, from which we select the least frequent by bigram count (n-gram data from the Corpus of Contemporary American English \cite{davies2011word}) to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
+		The experiment was run on Mechanical Turk, with 99 native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants (analyses remain significant with all participants included).
+		Participants are shown a metaphor, as in figure \ref{fig:slide} and asked to judge how relevant each proposed adjective (here, \emph{debilitating}, \emph{pervasive}, \emph{corporate}, \emph{addictive}) is to the metaphorical meaning of the AN phrase. In an example, they are told to rate \emph{intense} as relevant to \emph{fiery temper} ``because a fiery temper is an intense temper'' but \emph{warm} as irrelevant.
 
 }
 

@@ -4,45 +4,47 @@ The top-level auxiliary file: main.aux
 The style file: pnas-new.bst
 Database file #1: metaphor.bib
 Warning--empty journal in black1954metaphor
-You've used 24 entries,
+Warning--empty journal in glucksberg1993metaphors
+Warning--empty journal in lakoff1993contemporary
+You've used 31 entries,
             1837 wiz_defined-function locations,
-            604 strings with 7605 characters,
-and the built_in function-call counts, 5972 in all, are:
-= -- 542
-> -- 254
+            646 strings with 8398 characters,
+and the built_in function-call counts, 7282 in all, are:
+= -- 652
+> -- 304
 < -- 10
-+ -- 78
-- -- 54
-* -- 389
-:= -- 824
-add.period$ -- 45
-call.type$ -- 24
-change.case$ -- 24
++ -- 95
+- -- 64
+* -- 494
+:= -- 1019
+add.period$ -- 57
+call.type$ -- 31
+change.case$ -- 30
 chr.to.int$ -- 0
-cite$ -- 25
-duplicate$ -- 346
-empty$ -- 581
-format.name$ -- 54
-if$ -- 1399
+cite$ -- 34
+duplicate$ -- 415
+empty$ -- 722
+format.name$ -- 64
+if$ -- 1683
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 24
-newline$ -- 96
-num.names$ -- 24
-pop$ -- 107
+int.to.str$ -- 31
+missing$ -- 32
+newline$ -- 122
+num.names$ -- 31
+pop$ -- 127
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 226
+skip$ -- 255
 stack$ -- 0
-substring$ -- 373
-swap$ -- 125
+substring$ -- 461
+swap$ -- 138
 text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 56
-width$ -- 26
-write$ -- 230
-(There was 1 warning)
+warning$ -- 3
+while$ -- 71
+width$ -- 33
+write$ -- 293
+(There were 3 warnings)
