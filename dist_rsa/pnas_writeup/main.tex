@@ -364,7 +364,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	\paragraph{The listener's prior} 
 
-		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
+		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the covariance matrix is assumed to be $\sigma I$). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
 
 		\begin{examples}
 		
@@ -372,17 +372,17 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% \overrightarrow{\mathit{source}}
 		\end{examples}
 
-		We can view $P_L$ as representing uncertainty over the position of the entity or concept that the target noun (e.g. \emph{man} in ``The man is a shark'') represents.
+		We can view the prior $P_L$ as representing uncertainty over the position of the entity or concept that the target noun (e.g. \emph{man} in ``The man is a shark'') represents.
 		% \footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} 
 		The goal of the speaker is to convey a position in the space 
 		% (which they think represents the nature of the source noun's denotation) 
-		to the listener, and the goal of the listener is to infer what this position is. In this sense, a spatial reference game is being played  \cite{golland2010game}, in an abstract word embedding space. Our vectorial semantics bears comparison to the \emph{conceptual space} semantics of \cite{gardenfors2004conceptual}, as well as the proposal for metaphor comprehension of \cite{kintsch2000metaphor}.
+		to the listener, and the goal of the listener is to infer what this position is. In this sense, the speaker and listener are playing a spatial reference game  \cite{golland2010game}, in an abstract word embedding space. Our vectorial semantics bears comparison to the \emph{conceptual space} semantics of \cite{gardenfors2004conceptual}, as well as the proposal for metaphor comprehension of \cite{kintsch2000metaphor}.
 
 				% are near $\llbracket\mathit{time}\rrbracket$
 		
 		
 
-		The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean of the prior as $E$(\emph{target}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model.
+		The prior distribution places more probability mass on points closer to its mean. By setting the mean of the prior as $E$(\emph{target}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter which determines the extent of the listener's prior uncertainty.
 
 		\begin{figure}[htbp]
 		\centering
@@ -406,7 +406,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 			% This is unsurprisingly, given that the relational interpretation of $\QLONE$ amounts to the vectorial interpretation, but for a vector space  over the Boolean field, rather than the real field.
 
-		A word embedding space has no explicit representation of truth. That is to say, while we can compare the similarity of a noun and an adjective according to a variety of metrics, we do not have a means of categorically determining the compatibility of that adjective and noun. As far as our model is concerned, this is not a problem since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
+		Word embedding spaces allow us to compare the similarity of words (e.g., a noun and an adjective) according to different measures of distance in the space. However, we do not have a means of categorically determining the compatibility of that adjective and noun. As far as our model is concerned, this is not a problem since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
 		% \vspace{-1.5em}
 		\begin{examples}
 		
@@ -680,7 +680,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	\subsection*{Analysis}
 	% \paragraph{Analysis}
 
-		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<$1e-07). The same model is significant when comparing the best model prediction and baseline prediction ($\beta$=16.4, $t$=4.8, p$<$1e-05) as well as the second best of each ($\beta$=11.1, $t$=3.2, p$<$0.005). Comparison between the best and second best predictions of the metaphor model was not significant.
+		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<10^{-7}$). The same model is significant when comparing the best model prediction and baseline prediction ($\beta$=16.4, $t$=4.8, p$<10^{-5}$) as well as the second best of each ($\beta$=11.1, $t$=3.2, p$<$0.005). Comparison between the best and second best predictions of the metaphor model was not significant.
 
 		% Using the same mixed-effects model, we further find a significant preference for the $\QLONE$ best adjective over the second best adjective ($\beta$=, $t$=, p$<$), indicating that TODO
 
