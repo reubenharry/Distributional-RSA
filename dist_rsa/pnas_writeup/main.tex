@@ -421,7 +421,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 
 		The value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
-		The advantage of defining the semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}), and the likelihood, in (\ref{vect:sem}), are Gaussian distributions, which allows for a closed form solution of $L_0$, described in Materials and Methods. 
+		The advantage of defining the semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}), and the likelihood, in (\ref{vect:sem}), are Gaussian distributions, which allows for a closed form solution of $L_0$, described in \emph{Materials and Methods}. 
 		% As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
 	\paragraph{Projections} 
@@ -654,7 +654,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 % \vspace{2em}
 \paragraph{Interpreting the output of $\protect\QLONE$}
 
-	The Materials and Methods describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute the $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
+	The \emph{Materials and Methods} describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute the $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
 		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
 	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. The top two $\QLONE$ marginal posterior projections $q$ for each metaphor, which we use in our experiment, are shown in the leftmost column of Figure \ref{fig:barplot}. 
 
@@ -680,7 +680,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	\subsection*{Analysis}
 	% \paragraph{Analysis}
 
-		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<10^{-7}$). The same model is significant when comparing the best model prediction and baseline prediction ($\beta$=16.4, $t$=4.8, p$<10^{-5}$) as well as the second best of each ($\beta$=11.1, $t$=3.2, p$<$0.005). Comparison between the best and second best predictions of the metaphor model was not significant.
+		The results, shown in Figure \ref{fig:barplot}, were analyzed using mixed-effects models with random slopes and intercepts for items and participants. Participants rated four interpretations for each metaphor: the best and second-best interpretations, as output by each of the target and baseline models. Participants rated the target interpretations significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<10^{-7}$) in a combined analysis. The results were similar when the best target interpretations were compared to the best baseline interpretations ($\beta$=16.4, $t$=4.8, p$<10^{-5}$) and when the second-best interpretations were compared ($\beta$=11.1, $t$=3.2, p$<$0.005).
 
 		% Using the same mixed-effects model, we further find a significant preference for the $\QLONE$ best adjective over the second best adjective ($\beta$=, $t$=, p$<$), indicating that TODO
 
@@ -691,7 +691,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 			% As can be seen in Figure \ref{resultsbar}, there is a lot of variation in the average quality of proposed adjectives across both models, between metaphors. For the baseline model, we note that there is a subset of metaphors for which the baseline will perform well, as discussed in section (\ref{task1id}). These are metaphors where good projections $q$ are such that the subject and predicate are close when projected along $q$. In these cases, averaging the subject and predicate will generally give rise to a good interpretation. 
 \section{Discussion} \label{conc} 
 
-	We have shown that it is possible to scale Bayesian pragmatic reasoning to a distributional semantics and by so doing to obtain a model of metaphor interpretation. Our evaluation, the first such open domain test of a Bayesian model of pragmatic language interpretation, indicates that the principles of pragmatic reasoning continue to operate at this scale, and are key to obtaining human-like interpretations of metaphors. We see this as an important step towards a cognitively accurate and computationally tractable model of pragmatic language interpretation and production in general.
+	We have shown that it is possible to scale Bayesian pragmatic reasoning to distributional semantics, and using this to obtain a model of metaphor interpretation. Our evaluation, the first open-domain evaluation of a Bayesian model of pragmatic language interpretation, indicates that the principles of pragmatic reasoning continue to operate at this scale, and are key to obtaining human-like interpretations of metaphors. We see this as an important step towards a cognitively accurate and computationally tractable model of pragmatic language interpretation and production in general.
 
 % \section*{Guide to using this template on Overleaf}
 
