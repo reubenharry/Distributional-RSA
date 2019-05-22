@@ -406,7 +406,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 			% This is unsurprisingly, given that the relational interpretation of $\QLONE$ amounts to the vectorial interpretation, but for a vector space  over the Boolean field, rather than the real field.
 
-		Word embedding spaces allow us to compare the similarity of words (e.g., a noun and an adjective) according to different measures of distance in the space. However, we do not have a means of categorically determining the compatibility of that adjective and noun. As far as our model is concerned, this is not a problem since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
+		Word embedding spaces allow us to compare the similarity of words (e.g., a noun and an adjective) according to different measures of distance in the space. However, they do not provide a means of categorically determining the compatibility of that adjective and noun, as previous pragmatic models have required (described in Section \ref{rsa}). We observe, however, that the definition of $L_0$ in (\ref{defl0}) only mathematically requires that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
 		% \vspace{-1.5em}
 		\begin{examples}
 		
@@ -420,8 +420,8 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 
 
-		The result of this definition is that the value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
-		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions, which allows for a closed form solution of $L_0$. 
+		The value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
+		The advantage of defining the semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}), and the likelihood, in (\ref{vect:sem}), are Gaussian distributions, which allows for a closed form solution of $L_0$. 
 		% As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
 	\paragraph{Projections} 
@@ -652,7 +652,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	% The Non-Categorical model, on the other hand, has the contrasting benefit that no set of possible QUDs need be provided to the model. Furthermore, the use of Hamiltonian dynamics for performing the joint inference results in much faster performance. However, the Non-Categorical model yields significantly less stable results, and as such, we use only the Categorical model in our experimentation.
 % \vspace{2em}
-\subsection{Decoding from $\protect\QLONE$}
+\subsection{Interpreting the output of $\protect\QLONE$}
 
 	We now have an algorithm which approximates the joint posterior distribution of $\QLONE$ over $W$ and $Q$ after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
 		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
