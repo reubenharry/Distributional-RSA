@@ -326,7 +326,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	% , projections to be surjective functions out of $W$
 	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
-	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space determined by a word embedding $E : U\to W$, so that elements $\overrightarrow{w}\in W$ are vectors.
+	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. Word embeddings map words to vectors ($E : U\to W$).
 	% \footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} 
 	For our application of the model, we assume the set of utterances $U$ is a set of adjectives. 
 
@@ -421,7 +421,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 
 		The value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
-		The advantage of defining the semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}), and the likelihood, in (\ref{vect:sem}), are Gaussian distributions, which allows for a closed form solution of $L_0$. 
+		The advantage of defining the semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}), and the likelihood, in (\ref{vect:sem}), are Gaussian distributions, which allows for a closed form solution of $L_0$, described in Materials and Methods. 
 		% As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
 	\paragraph{Projections} 
@@ -429,18 +429,18 @@ We build on a previous model of metaphor interpretation developed in this framew
 		\begin{figure}
 		\centering
 			\includegraphics[height=4.5cm]{images/diagram2.png}
-			\caption{In this hand-constructed 2D example, vectors for $\protect\overrightarrow{soldier}$ and $\protect\overrightarrow{predator}$ are mapped onto subspaces given by $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$.}
+			\caption{In this hand-constructed 2D example, vectors for $\protect\overrightarrow{soldier}$ and $\protect\overrightarrow{predator}$ are projected onto subspaces given by $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$. Soldiers have greater endurance than predators, while predators are more ruthless.}
 			% In this 2D example, the vectors for \emph{endurance} and \emph{ruthlessness} each parametrize a projection mapping all the points in the space (such as \emph{Jane} and \emph{John}) to new points. These new points can be thought of as the positions of \emph{John}, \emph{Jane} and so on in a new space which cares only about the position of the points with respect to $\protect\overrightarrow{endurance}$ or $\protect\overrightarrow{ruthlessness}$.
 			\label{fig:1}
 		\end{figure}
 		% Since, in a distributional setting, the axes of a world state vector do not neatly correspond to its attributes\footnote{If our space was formed by a basis of co-occurrence vectors, each word would be a dimension, but this is not the case in typical word embedding spaces, the dimensions of which are much fewer than the size of the vocabulary.}, our distributional  cannot simply be a projection along an axis. 
 
-		Finally, we need to supply an notion of a projection function $q$ that is defined on our vector space, and to specify a set $Q$ of such projections. 
+		Finally, we need to supply a notion of a projection function $q$ that is defined on our vector space, and to specify a set $Q$ of such projections. 
 		For this, we use linear projections
 		% \footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} 
 		along a vector (or hyperplane) $\overrightarrow{v}$ 
 		% This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, 
-		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}. These linear projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, although see \cite{linzen2016issues,finley2017analogies} for a discussion of the degree of this linearity.
+		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}. These linear projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, though see \cite{linzen2016issues,finley2017analogies} for potential caveats.
 
 			% Alternatively, note that 
 				% Put another way, the definition of a projection on an object $X$ as an idempotent morphism $X\to X$, generalizes both cases. 
@@ -451,8 +451,8 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% As in the set-theoretic interpretation, w
 		In practice, we restrict ourselves to projections along a vector, rather than a larger subspace. 
 		% However, we no longer have an obvious set of projections $Q$, corresponding to an explicit set of properties $P$. This is because the basis vectors of a word embedding space such as GloVe or Word2Vec do not correspond to easily interpretable attributes of the words in the space.
-		To obtain a set $Q$ of projections, we first note that since the denotations of words are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as parameterizing a \emph{viciousness} projection, which measures how far the denotations of all other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
-		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun $n$ onto $\overrightarrow{v}$ amounts to asking: to what extent is $n$ $v$? 
+		To obtain a set $Q$ of projections, we first note that since word meanings are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as defining a \emph{viciousness} projection, which measures how far other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
+		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun onto $\overrightarrow{v}$ amounts to asking: to what extent does the noun have property $v$? 
 		Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example discussed in section \ref{rsa}.
 
 
