@@ -915,7 +915,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 \subsection*{Experiment}
 
-		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. As such, a natural baseline model to compare against is one with a distributional semantics that does not make use of the pragmatic reasoning process inherent in $\QLONE$.
+		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. We compare against a lesioned model, with a distributional semantics that does not make use of pragmatic reasoning.
 
 		\paragraph{Baseline model}
 		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the adjective \emph{a} and noun \emph{n}. The two nearest (measured by cosine distance) adjectives $q$ to this mean are our baseline interpretations for the metaphor. We use the mean (a weighted sum) in light of the effectiveness of vector addition in deriving representations of phrasal and sentence meanings from constituent words \cite{mitchell2010composition,grefenstette2013category,socher2013recursive}. Cosine distance is a standard metric for word embeddings \cite{pennington2014glove}.
