@@ -329,7 +329,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	% , projections to be surjective functions out of $W$
 	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
-	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space determined by a word embedding $E : U\to W$, so that elements $\overrightarrow{w}\in W$ are vectors.
+	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. Word embeddings map words to vectors ($E : U\to W$).
 	% \footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} 
 	For our application of the model, we assume the set of utterances $U$ is a set of adjectives. 
 
@@ -367,7 +367,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	\paragraph{The listener's prior} 
 
-		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the value of every diagonal entry of the covariance matrix). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
+		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the covariance matrix is assumed to be $\sigma I$). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
 
 		\begin{examples}
 		
@@ -375,17 +375,17 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% \overrightarrow{\mathit{source}}
 		\end{examples}
 
-		We can view $P_L$ as representing uncertainty over the position of the entity or concept that the target noun (e.g. \emph{man} in ``The man is a shark'') represents.
+		We can view the prior $P_L$ as representing uncertainty over the position of the entity or concept that the target noun (e.g. \emph{man} in ``The man is a shark'') represents.
 		% \footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} 
 		The goal of the speaker is to convey a position in the space 
 		% (which they think represents the nature of the source noun's denotation) 
-		to the listener, and the goal of the listener is to infer what this position is. In this sense, a spatial reference game is being played  \cite{golland2010game}, in an abstract word embedding space. Our vectorial semantics bears comparison to the \emph{conceptual space} semantics of \cite{gardenfors2004conceptual}, as well as the proposal for metaphor comprehension of \cite{kintsch2000metaphor}.
+		to the listener, and the goal of the listener is to infer what this position is. In this sense, the speaker and listener are playing a spatial reference game  \cite{golland2010game}, in an abstract word embedding space. Our vectorial semantics bears comparison to the \emph{conceptual space} semantics of \cite{gardenfors2004conceptual}, as well as the proposal for metaphor comprehension of \cite{kintsch2000metaphor}.
 
 				% are near $\llbracket\mathit{time}\rrbracket$
 		
 		
 
-		The multidimensional Gaussian distribution weights most heavily those points nearest to its mean. By setting the mean of the prior as $E$(\emph{target}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter of the model.
+		The prior distribution places more probability mass on points closer to its mean. By setting the mean of the prior as $E$(\emph{target}), we encode the listener's assumption that the meaning the speaker wishes to communicate is in the neighborhood of the source noun. $\sigma_1$ is a hyperparameter which determines the extent of the listener's prior uncertainty.
 
 		\begin{figure}[htbp]
 		\centering
@@ -409,7 +409,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 			% This is unsurprisingly, given that the relational interpretation of $\QLONE$ amounts to the vectorial interpretation, but for a vector space  over the Boolean field, rather than the real field.
 
-		A word embedding space has no explicit representation of truth. That is to say, while we can compare the similarity of a noun and an adjective according to a variety of metrics, we do not have a means of categorically determining the compatibility of that adjective and noun. As far as our model is concerned, this is not a problem since the definition of $L_0$ in (\ref{defl0}) requires only that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
+		Word embedding spaces allow us to compare the similarity of words (e.g., a noun and an adjective) according to different measures of distance in the space. However, they do not provide a means of categorically determining the compatibility of that adjective and noun, as previous pragmatic models have required (described in Section \ref{rsa}). We observe, however, that the definition of $L_0$ in (\ref{defl0}) only mathematically requires that the semantics $\llbracket \cdot \rrbracket$ be a function $U\to (W\to \mathbb{R})$. We can define such a function as follows, with $\sigma_2$ as a hyperparameter:
 		% \vspace{-1.5em}
 		\begin{examples}
 		
@@ -423,8 +423,8 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 
 
-		The result of this definition is that the value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
-		The advantage of defining a semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}) and the likelihood, namely the semantics shown in (\ref{vect:sem}), have the form of Gaussian distributions, which allows for a closed form solution of $L_0$. 
+		The value of $\llbracket u\rrbracket(w)$ is a real number which decreases with the Euclidean distance between $u$ and $w$. 
+		The advantage of defining the semantics in this way is that both the prior of $L_0$, shown in (\ref{vect:prior}), and the likelihood, in (\ref{vect:sem}), are Gaussian distributions, which allows for a closed form solution of $L_0$, described in \emph{Materials and Methods}. 
 		% As with the definition of the prior in (\ref{vect:prior}), the semantics introduces a hyperparameter, namely $\sigma_2$.
 
 	\paragraph{Projections} 
@@ -432,18 +432,18 @@ We build on a previous model of metaphor interpretation developed in this framew
 		\begin{figure}
 		\centering
 			\includegraphics[height=4.5cm]{images/diagram2.png}
-			\caption{In this hand-constructed 2D example, vectors for $\protect\overrightarrow{soldier}$ and $\protect\overrightarrow{predator}$ are mapped onto subspaces given by $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$.}
+			\caption{In this hand-constructed 2D example, vectors for $\protect\overrightarrow{soldier}$ and $\protect\overrightarrow{predator}$ are projected onto subspaces given by $\protect\overrightarrow{endurance}$ and $\protect\overrightarrow{ruthlessness}$. Soldiers have greater endurance than predators, while predators are more ruthless.}
 			% In this 2D example, the vectors for \emph{endurance} and \emph{ruthlessness} each parametrize a projection mapping all the points in the space (such as \emph{Jane} and \emph{John}) to new points. These new points can be thought of as the positions of \emph{John}, \emph{Jane} and so on in a new space which cares only about the position of the points with respect to $\protect\overrightarrow{endurance}$ or $\protect\overrightarrow{ruthlessness}$.
 			\label{fig:1}
 		\end{figure}
 		% Since, in a distributional setting, the axes of a world state vector do not neatly correspond to its attributes\footnote{If our space was formed by a basis of co-occurrence vectors, each word would be a dimension, but this is not the case in typical word embedding spaces, the dimensions of which are much fewer than the size of the vocabulary.}, our distributional  cannot simply be a projection along an axis. 
 
-		Finally, we need to supply an notion of a projection function $q$ that is defined on our vector space, and to specify a set $Q$ of such projections. 
+		Finally, we need to supply a notion of a projection function $q$ that is defined on our vector space, and to specify a set $Q$ of such projections. 
 		For this, we use linear projections
 		% \footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} 
 		along a vector (or hyperplane) $\overrightarrow{v}$ 
 		% This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, 
-		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}. These linear projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, although see \cite{linzen2016issues,finley2017analogies} for a discussion of the degree of this linearity.
+		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}. These linear projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, though see \cite{linzen2016issues,finley2017analogies} for potential caveats.
 
 			% Alternatively, note that 
 				% Put another way, the definition of a projection on an object $X$ as an idempotent morphism $X\to X$, generalizes both cases. 
@@ -454,8 +454,8 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% As in the set-theoretic interpretation, w
 		In practice, we restrict ourselves to projections along a vector, rather than a larger subspace. 
 		% However, we no longer have an obvious set of projections $Q$, corresponding to an explicit set of properties $P$. This is because the basis vectors of a word embedding space such as GloVe or Word2Vec do not correspond to easily interpretable attributes of the words in the space.
-		To obtain a set $Q$ of projections, we first note that since the denotations of words are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as parameterizing a \emph{viciousness} projection, which measures how far the denotations of all other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
-		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun $n$ onto $\overrightarrow{v}$ amounts to asking: to what extent is $n$ $v$? 
+		To obtain a set $Q$ of projections, we first note that since word meanings are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as defining a \emph{viciousness} projection, which measures how far other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
+		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun onto $\overrightarrow{v}$ amounts to asking: to what extent does the noun have property $v$? 
 		Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example discussed in section \ref{rsa}.
 
 
@@ -655,11 +655,11 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	% The Non-Categorical model, on the other hand, has the contrasting benefit that no set of possible QUDs need be provided to the model. Furthermore, the use of Hamiltonian dynamics for performing the joint inference results in much faster performance. However, the Non-Categorical model yields significantly less stable results, and as such, we use only the Categorical model in our experimentation.
 % \vspace{2em}
-\subsection{Decoding from $\protect\QLONE$}
+\paragraph{Interpreting the output of $\protect\QLONE$}
 
-	We now have an algorithm which approximates the joint posterior distribution of $\QLONE$ over $W$ and $Q$ after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
+	The \emph{Materials and Methods} describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute the $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
 		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
-	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. For instance, the top two $\QLONE$ marginal posterior projections $q$ for each metaphor, which we use in our experiment, are shown in figure \ref{fig:barplot}. 
+	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. The top two $\QLONE$ marginal posterior projections $q$ for each metaphor, which we use in our experiment, are shown in the leftmost column of Figure \ref{fig:barplot}. 
 
 	% We convert this into an interpretable prediction by selecting the adjectives $q\in Q$ which have high probability under the marginal posterior distribution over $Q$ as interpretations of the metaphor.
 
@@ -668,12 +668,12 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 \section{Experimental Evaluation} \label{exp}
 
-	In order to test our model on human judgments, we design an experiment which compares the $\QLONE$ interpretations of metaphors to a baseline model which uses word embeddings but no pragmatic reasoning.
+	In order to evaluate whether pragmatic reasoning results in metaphor interpretations that better capture human judgments, we designed an experiment which compares the $\QLONE$ interpretations of metaphors to a baseline model which uses word embeddings but no pragmatic reasoning.
 
 
 	\subsection*{Experimental Design}
 
-		In our experiment, each participant is shown a series of 12 metaphors, selected randomly from a total 109. For each metaphor, they are asked to rate on a slider four adjectives representing interpretations of the metaphor, which are the best and second best adjective generated by $\QLONE$, and from a baseline model which selects adjectives by their distance in the word embedding space to the mean of the target and source (see \emph{Materials and Methods}). An example is shown in figure \ref{fig:slide}.
+		In the experiment, each participant was shown a series of 12 metaphors, selected randomly from a total 109. For each metaphor, they were asked to rate four candidate interpretations of the metaphor on a slider bar. These four candidate interpretations consist of the best and second best adjective generated by $\QLONE$, and similarly for a baseline model. The baseline model selects adjectives without pragmatic reasoning, using a standard procedure from the word embeddings literature (see \emph{Materials and Methods}). An example is shown in Figure \ref{fig:slide}.
 
 
 	
@@ -683,7 +683,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	\subsection*{Analysis}
 	% \paragraph{Analysis}
 
-		The results, shown in figure \ref{fig:barplot}, were analyzed using a mixed-effects model with random slopes and intercepts for items and participants. The target interpretations were rated significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<$1e-07). The same model is significant when comparing the best model prediction and baseline prediction ($\beta$=16.4, $t$=4.8, p$<$1e-05) as well as the second best of each ($\beta$=11.1, $t$=3.2, p$<$0.005). Comparison between the best and second best predictions of the metaphor model was not significant.
+		The results, shown in Figure \ref{fig:barplot}, were analyzed using mixed-effects models with random slopes and intercepts for items and participants. Participants rated four interpretations for each metaphor: the best and second-best interpretations, as output by each of the target and baseline models. Participants rated the target interpretations significantly higher than the baseline interpretations ($\beta$=13.8, $t$=5.3, p$<10^{-7}$) in a combined analysis. The results were similar when the best target interpretations were compared to the best baseline interpretations ($\beta$=16.4, $t$=4.8, p$<10^{-5}$) and when the second-best interpretations were compared ($\beta$=11.1, $t$=3.2, p$<$0.005).
 
 		% Using the same mixed-effects model, we further find a significant preference for the $\QLONE$ best adjective over the second best adjective ($\beta$=, $t$=, p$<$), indicating that TODO
 
@@ -694,7 +694,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 			% As can be seen in Figure \ref{resultsbar}, there is a lot of variation in the average quality of proposed adjectives across both models, between metaphors. For the baseline model, we note that there is a subset of metaphors for which the baseline will perform well, as discussed in section (\ref{task1id}). These are metaphors where good projections $q$ are such that the subject and predicate are close when projected along $q$. In these cases, averaging the subject and predicate will generally give rise to a good interpretation. 
 \section{Discussion} \label{conc} 
 
-	We have shown that it is possible to scale Bayesian pragmatic reasoning to a distributional semantics and by so doing to obtain a model of metaphor interpretation. Our evaluation, the first such open domain test of a Bayesian model of pragmatic language interpretation, indicates that the principles of pragmatic reasoning continue to operate at this scale, and are key to obtaining human-like interpretations of metaphors. We see this as an important step towards a cognitively accurate and computationally tractable model of pragmatic language interpretation and production in general.
+	We have shown that it is possible to scale Bayesian pragmatic reasoning to distributional semantics, and using this to obtain a model of metaphor interpretation. Our evaluation, the first open-domain evaluation of a Bayesian model of pragmatic language interpretation, indicates that the principles of pragmatic reasoning continue to operate at this scale, and are key to obtaining human-like interpretations of metaphors. We see this as an important step towards a cognitively accurate and computationally tractable model of pragmatic language interpretation and production in general.
 
 % \section*{Guide to using this template on Overleaf}
 
@@ -918,7 +918,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 \subsection*{Experiment}
 
-		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. As such, a natural baseline model to compare against is one with a distributional semantics that does not make use of the pragmatic reasoning process inherent in $\QLONE$.
+		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. We compare against a lesioned model, with a distributional semantics that does not make use of pragmatic reasoning.
 
 		\paragraph{Baseline model}
 		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the adjective \emph{a} and noun \emph{n}. The two nearest (measured by cosine distance) adjectives $q$ to this mean are our baseline interpretations for the metaphor. We use the mean (a weighted sum) in light of the effectiveness of vector addition in deriving representations of phrasal and sentence meanings from constituent words \cite{mitchell2010composition,grefenstette2013category,socher2013recursive}. Cosine distance is a standard metric for word embeddings \cite{pennington2014glove}.
