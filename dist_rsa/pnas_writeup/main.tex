@@ -453,7 +453,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% However, we no longer have an obvious set of projections $Q$, corresponding to an explicit set of properties $P$. This is because the basis vectors of a word embedding space such as GloVe or Word2Vec do not correspond to easily interpretable attributes of the words in the space.
 		To obtain a set $Q$ of projections, we first note that since word meanings are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as defining a \emph{viciousness} projection, which measures how far other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
 		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun onto $\overrightarrow{v}$ amounts to asking: to what extent does the noun have property $v$? 
-		Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple 2D case corresponding to the example discussed in section \ref{rsa}.
+		Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple two-dimensional case corresponding to the example discussed in section \ref{rsa}.
 
 
 	% \boolean{singlecolumn}
@@ -611,7 +611,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	% \end{subfigure}
 
-	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over states in a simple 2D case given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$.}
+	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over states in a two-dimensional case given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$.}
 
 	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
 
