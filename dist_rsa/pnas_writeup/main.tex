@@ -330,7 +330,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 	% , projections to be surjective functions out of $W$
 	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
-	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. A word embedding maps words to vectors ($E : U\to W$).
+	We now introduce a \emph{vector} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. A word embedding maps words to vectors ($E : U\to W$).
 	% \footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} 
 	For our application of the model, we assume the set of utterances $U$ is a set of adjectives. 
 
@@ -368,7 +368,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 	\paragraph{The listener's prior} 
 
-		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the covariance matrix is assumed to be $\sigma I$). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
+		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution $P_{\mathcal{N}}$, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the covariance matrix is assumed to be $\sigma I$). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
 
 		\begin{examples}
 		
@@ -380,7 +380,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		% \footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} 
 		The goal of the speaker is to convey a position in the space 
 		% (which they think represents the nature of the source noun's denotation) 
-		to the listener, and the goal of the listener is to infer what this position is. In this sense, the speaker and listener are playing a spatial reference game  \cite{golland2010game}, in an abstract word embedding space. Our vectorial semantics bears comparison to the \emph{conceptual space} semantics of \cite{gardenfors2004conceptual}, as well as the proposal for metaphor comprehension of \cite{kintsch2000metaphor}.
+		to the listener, and the goal of the listener is to infer what this position is. In this sense, the speaker and listener are playing a spatial reference game  \cite{golland2010game}, in an abstract word embedding space. Our vector semantics bears comparison to the \emph{conceptual space} semantics of \cite{gardenfors2004conceptual}, as well as the proposal for metaphor comprehension of \cite{kintsch2000metaphor}.
 
 				% are near $\llbracket\mathit{time}\rrbracket$
 		
@@ -785,7 +785,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		\begin{examples}
 		\item $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
 		\end{examples}
-		This integral is computing the marginal probability of $\overrightarrow{w_q}$, the projection of state $\overrightarrow{w}$ onto projection vector $\overrightarrow{q}$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
+		Here $q(w)$ is the projection of state $\overrightarrow{w}$ onto the subspace spanned by projection vector $\overrightarrow{q}$. This integral computes the marginal probability of all states that are projected to the same location as $\overrightarrow{w}$ along $\overrightarrow{q}$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore the projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
 
@@ -900,16 +900,16 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 	&L_1(q | u) = \int_{\mathbb{R}^n}L_1(w,q | u) dw = \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w)S_1(u|w,q) dw \\
 	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q, w_\bot)S_1(u|w_q,q) dw \\
 	% &= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q) P_L(w_\bot)S_1(u|w_q,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{Q^\bot}P_L(w_\bot) dw_\bot \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q \\
-	&= \frac{1}{K}P_{L_Q}(q)  \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q\nonumber
+	&= \frac{1}{K}P_{L_Q}(q) \int_{D^\bot}P_L(w_\bot) dw_\bot \int_{D}P_L(w_q) S_1(u|w_q,q) dw_q \\
+	&= \frac{1}{K}P_{L_Q}(q)  \int_{D}P_L(w_q) S_1(u|w_q,q) dw_q\nonumber
 	\end{split}
 	 \end{align}
 	
 
 
 
-	Here $K$ is a normalizing constant, $\overrightarrow{w}, \overrightarrow{q}\in \mathbb{R}^n$, and $\overrightarrow{w_q}$ is the projection of $\overrightarrow{w}$ onto the vector $\overrightarrow{q}$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $\overrightarrow{q}$, and $Q^\bot$ is the orthogonal complement of $Q$. 
-	The vector $\overrightarrow{w_\bot}$ is the projection of vector $\overrightarrow{w}$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional projections. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
+	Here $K$ is a normalizing constant, $\overrightarrow{w}, \overrightarrow{q}\in \mathbb{R}^n$, and $\overrightarrow{w_q}$ is the projection of $\overrightarrow{w}$ onto the vector $\overrightarrow{q}$. $D$ is the subspace of $\mathbb{R}^n$ spanned by the vector $\overrightarrow{q}$, and $D^\bot$ is the orthogonal complement of $D$. 
+	The vector $\overrightarrow{w_\bot}$ is the projection of vector $\overrightarrow{w}$ onto the subspace $D^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional projections. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
 
 % \subsection*{Subsection for Method}
 % Example text for subsection.
