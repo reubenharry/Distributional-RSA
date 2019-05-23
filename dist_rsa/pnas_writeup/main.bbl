@@ -4,6 +4,10 @@
 Grice HP (1975) Logic and conversation.
 \newblock {\em 1975} pp. 41--58.
 
+\bibitem{frank2012predicting}
+Frank MC, Goodman ND (2012) Predicting pragmatic reasoning in language games.
+\newblock {\em Science} 336(6084):998--998.
+
 \bibitem{kao}
 Kao JT, Bergen L, Goodman N (2014) Formalizing the pragmatics of metaphor
   understanding. in {\em CogSci}.
@@ -51,10 +55,6 @@ Davidson D (1978) What metaphors mean.
 \bibitem{lakoff1980metaphors}
 Lakoff G, Johnson M (1980) Metaphors we live by.
 \newblock {\em Chicago, IL: University of}.
-
-\bibitem{frank2012predicting}
-Frank MC, Goodman ND (2012) Predicting pragmatic reasoning in language games.
-\newblock {\em Science} 336(6084):998--998.
 
 \bibitem{peters2018deep}
 Peters ME, et~al. (2018) Deep contextualized word representations.
