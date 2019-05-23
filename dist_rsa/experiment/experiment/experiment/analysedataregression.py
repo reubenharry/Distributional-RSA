@@ -150,6 +150,7 @@ for i in range(len(data)-amount_of_data,len(data)):
 
 	result = trial_to_values(d)
 	if result is None:
+	# if False:
 		failures+=1
 		continue
 	print("thing")

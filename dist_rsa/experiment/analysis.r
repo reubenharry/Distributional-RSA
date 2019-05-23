@@ -1,4 +1,3 @@
-
 library(lmerTest)
 
 df = read.table(file="/Users/reuben/Dropbox/Reuben/Research/Distributional-RSA/dist_rsa/experiment/experiment/experiment/data.csv",sep=",")
@@ -8,6 +7,12 @@ df1 = read.table(file="dist_rsa/experiment/experiment/experiment/data1.csv",sep=
 df2 = read.table(file="dist_rsa/experiment/experiment/experiment/data2.csv",sep=",")
 
 dfJustMets = read.table(file="/Users/reuben/Dropbox/Reuben/Research/Distributional-RSA/dist_rsa/experiment/experiment/experiment/dataJustMets.csv",sep=",")
+
+df1001 = read.table(file="dist_rsa/experiment/experiment/experiment/data100-1.csv",sep=",")
+
+df1002 = read.table(file="dist_rsa/experiment/experiment/experiment/data100-2.csv",sep=",")
+
+df100JustMets = read.table(file="/Users/reuben/Dropbox/Reuben/Research/Distributional-RSA/dist_rsa/experiment/experiment/experiment/data100JustMets.csv",sep=",")
 
 analysis <- lmer(V4 ~ V3 + (1+V3|V2)+(1+V3|V1), data=df)
 summary(analysis)
