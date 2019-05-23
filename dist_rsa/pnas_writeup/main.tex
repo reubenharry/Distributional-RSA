@@ -49,7 +49,7 @@ Linguistic creativity --- the ability to combine existing representations to cre
 
 
 \begin{abstract}
-Humans create and interpret novel metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). Here we present a computational theory of metaphor interpretation, according to which metaphorical interpretations arise from joint, cooperative reasoning between a speaker and listener. We describe a Bayesian model of this reasoning process in which empirically learned \emph{word embeddings} are used to provide an underlying representation of word meaning. This allows for open-domain interpretation of predicative and adjectival metaphors. We find a significant preference in human judgments for our model over a system which uses word embeddings without a explicit representation of inter-agent reasoning, providing evidence that reasoning about an informative and relevant speaker is key to understanding non-literal language.
+Humans create and interpret novel metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). Here we present a computational theory of metaphor interpretation, according to which metaphorical interpretations arise from joint, cooperative reasoning between a speaker and listener. We combine a Bayesian model of this reasoning process with empirically learned \emph{word embeddings} which are used to provide an underlying representation of word meaning. This allows for open-domain interpretation of predicative and adjectival metaphors. We find a significant preference in human judgments for our model over a system which uses word embeddings without a explicit representation of inter-agent reasoning, providing evidence that reasoning about an informative and relevant speaker is key to understanding non-literal language.
 
 
 % and by doing so interprets a predicative metaphor (of the form ``A is a B''), by identifying the properties of B that are relevant to A. 
@@ -84,7 +84,7 @@ Metaphor presents a compelling theoretical challenge for the understanding of me
 	\item Jane is a soldier \label{met:1}
 	\end{examples}
 
-The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the meaning conveyed by sentence (\ref{met:1}) to be the result of joint, cooperative reasoning between a speaker and listener. That is, the listener attempts to jointly infer what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker who wants to successfully communicate some aspect of Jane would have chosen the predicate \emph{soldier} over other alternatives.
+The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the meaning conveyed by sentence (\ref{met:1}) to be the result of joint, cooperative reasoning between a speaker and listener. That is, the listener attempts to jointly infer what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker who wants to successfully communicate about this aspect of Jane would have chosen the predicate \emph{soldier} over other alternatives.
 
 
 
@@ -92,7 +92,10 @@ The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the
 		% Our goal is to provide evidence towards this view, by 
 
 \paragraph{Interpreting figurative language}
-Previous work in linguistics and cognitive science has modeled language interpretation in context as the product of joint reasoning between rational agents \cite{frank2012predicting}. In this work, there is a speaker whose goal is to communicate a particular state, and chooses an utterance in order to satisfy this goal. Listeners interpret an utterance by inferring the communicative goal which would have led the speaker to choose this utterance. 
+Previous work in linguistics and cognitive science has modeled this type of pragmatic reasoning with nested probabilistic agents.
+In this work, there is a speaker whose goal is to communicate a particular state, and chooses an utterance in order to satisfy this goal. A listener then interprets an utterance by inferring the communicative goal which would have led the speaker to choose this utterance. 
+
+% language interpretation in context as the product of joint reasoning between rational agents \cite{frank2012predicting}. 
 
 	% This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
 
@@ -127,7 +130,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
-	This provides an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to provide a semantics, specifying the literal meaning of each utterance (for example, that ``soldier" literally describes an individual who serves in a military). Previous work has hand-constructed these literal interpretations, restricting the scalability of these models, and their application to previously unseen metaphors.
+	This can be used to give an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to provide a semantics, specifying the literal meaning of each utterance (for example, that ``soldier" literally describes an individual who serves in a military). Previous work has hand-constructed these literal interpretations, restricting the scalability of these models, and their application to previously unseen metaphors.
 
 	\paragraph{Our contribution} 
 
