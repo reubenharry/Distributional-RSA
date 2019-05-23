@@ -4,13 +4,13 @@
 Grice HP (1975) Logic and conversation.
 \newblock {\em 1975} pp. 41--58.
 
-\bibitem{frank2012predicting}
-Frank MC, Goodman ND (2012) Predicting pragmatic reasoning in language games.
-\newblock {\em Science} 336(6084):998--998.
-
 \bibitem{kao}
 Kao JT, Bergen L, Goodman N (2014) Formalizing the pragmatics of metaphor
   understanding. in {\em CogSci}.
+
+\bibitem{frank2012predicting}
+Frank MC, Goodman ND (2012) Predicting pragmatic reasoning in language games.
+\newblock {\em Science} 336(6084):998--998.
 
 \bibitem{mikolov2013distributed}
 Mikolov T, Sutskever I, Chen K, Corrado GS, Dean J (2013) Distributed
@@ -80,11 +80,6 @@ Socher R, et~al. (2013) Recursive deep models for semantic compositionality
   over a sentiment treebank in {\em Proceedings of the 2013 conference on
   empirical methods in natural language processing}.
 \newblock pp. 1631--1642.
-
-\bibitem{coecke2010mathematical}
-Coecke B, Sadrzadeh M, Clark S (2010) Mathematical foundations for a
-  compositional distributional model of meaning.
-\newblock {\em arXiv preprint arXiv:1003.4394}.
 
 \bibitem{shutova2016design}
 Shutova E (2016) Design and evaluation of metaphor processing systems.

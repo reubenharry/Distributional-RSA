@@ -49,7 +49,7 @@ Linguistic creativity --- the ability to combine existing representations to cre
 
 
 \begin{abstract}
-Humans create and interpret novel metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). Here we present a computational theory of metaphor interpretation, according to which metaphorical interpretations arise from joint, cooperative reasoning between a speaker and listener. We combine a Bayesian model of this reasoning process with empirically learned \emph{word embeddings} which are used to provide an underlying representation of word meaning. This allows for open-domain interpretation of predicative and adjectival metaphors. We find a significant preference in human judgments for our model over a system which uses word embeddings without a explicit representation of inter-agent reasoning, providing evidence that reasoning about an informative and relevant speaker is key to understanding non-literal language.
+Humans create and interpret novel metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). Here we present a computational theory of metaphor, according to which metaphorical interpretations arise from joint, cooperative reasoning between a speaker and listener. We combine a Bayesian model of this reasoning process with empirically learned \emph{word embeddings} which are used to provide an underlying representation of word meaning. This allows for open-domain interpretation of predicative and adjectival metaphors. We find a significant preference in human judgments for our model over a system which uses word embeddings without a explicit representation of inter-agent reasoning, providing evidence that reasoning about an informative and relevant speaker is key to understanding non-literal language.
 
 
 % and by doing so interprets a predicative metaphor (of the form ``A is a B''), by identifying the properties of B that are relevant to A. 
@@ -92,14 +92,14 @@ The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the
 		% Our goal is to provide evidence towards this view, by 
 
 \paragraph{Interpreting figurative language}
-Previous work in linguistics and cognitive science has modeled this type of pragmatic reasoning in a probabilistic framework \cite{frank2012predicting}.
-In this work, there is a speaker whose goal is to communicate a particular state and who chooses an utterance in order to satisfy this goal, with the listener in mind. A listener then interprets an utterance by inferring the communicative goal which would have led the speaker to choose this utterance. 
+% Previous work in linguistics and cognitive science has modeled this type of pragmatic reasoning in a probabilistic framework \cite{frank2012predicting}.
+% In this work, there is a speaker whose goal is to communicate a particular state and who chooses an utterance in order to satisfy this goal, with the listener in mind. A listener then interprets an utterance by inferring the communicative goal which would have led the speaker to choose this utterance. 
 
 % language interpretation in context as the product of joint reasoning between rational agents \cite{frank2012predicting}. 
 
 	% This framework models pragmatic interpretation and production of language via probabilistic models of speakers and listeners, who reason about each other in a nested fashion, with the assumption of cooperativity and a shared semantics.
 
-We build on a previous model of metaphor interpretation developed in this framework \cite{kao}, which uses \emph{projection functions} to determine the dimension of the world that the speaker cares about communicating. The listener jointly reasons about the state of the world (e.g. what Jane is like) and a projection function, corresponding to the aspect of the world the speaker cares to communicate (e.g. Jane's determination). As before, this listener assumes an informative speaker - one whose choice of utterance maximizes the probability of communicating the state of the world - but now only up to a projection which dictates the relevant dimension of the world.
+We build on a previous model of metaphor interpretation \cite{kao}, developed as part of a probabilistic framework for pragmatic reasoning \cite{frank2012predicting}, which uses \emph{projection functions} to determine the dimension of the world that the speaker cares about communicating. In this model, a listener jointly reasons about the state of the world (e.g. what Jane is like) and a projection function, corresponding to the aspect of the world the speaker cares to communicate (e.g. Jane's determination). This listener assumes an informative speaker - one whose choice of utterance maximizes the probability of communicating the state of the world - but only up to a projection which dictates the relevant dimension of the world.
 
 % Kao et al. \citep{kao} extend the framework by introducing a new model, $\QLONE$, which is able to interpret metaphors. 
 % Obtaining metaphorical interpretations for utterances like (\ref{met:1}) is within the scope of a formalization of pragmatic reasoning, the \emph{Rational Speech Acts} (RSA) framework \cite{frank2012predicting}. 
@@ -130,7 +130,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
-	This can be used to give an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to provide a semantics, specifying the literal meaning of each utterance (for example, that ``soldier" literally describes an individual who serves in a military). Previous work has hand-constructed these literal interpretations, restricting the scalability of these models, and their application to previously unseen metaphors.
+	This can be used to give an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to provide a semantics, specifying the literal meaning of each utterance (for example, that ``soldier" literally describes an individual who serves in a military). Previous work has hand-constructed these literal interpretations, restricting the scalability of the models, and their applicability to previously unseen metaphors.
 
 	\paragraph{Our contribution} 
 
@@ -138,7 +138,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	We develop a model of pragmatic reasoning which uses empirically learned word-embeddings \cite{mikolov2013distributed,pennington2014glove} to represent word meanings, obtaining a system capable of interpreting open-domain predicative and adjectival metaphors without the need for hand-specified semantics. 
 	This adaptation requires a generalization of projection functions to linear projections in a vector space, and a novel inference algorithm to calculate metaphor interpretations.
 	Constructing this system permits what is to our knowledge the first open-domain evaluation of a Bayesian model of pragmatic reasoning.
-	The proposed model of metaphor interpretation significantly outperforms a baseline which uses a word embedding semantics without explicit pragmatic reasoning. This suggests that the information in word embeddings alone is not sufficient to capture the creativity of metaphorical language, but that an explicit model of pragmatic reasoning is also key.
+	Evaluated on human judgments, our model significantly outperforms a baseline which uses a word embedding semantics without explicit pragmatic reasoning. This suggests that the information in word embeddings alone is not sufficient to capture the creativity of metaphorical language, but that an explicit model of pragmatic reasoning is also key.
 
 	% We conduct the first open domain evaluation of 
 
@@ -249,7 +249,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	\paragraph{The informative speaker} $S_1$ has a state $w$ they want to communicate to the listener $L_0$, and prefers utterances $u$ which maximize the probability that $L_0$ assigns to $w$, up to the dimension of $w$ specified by $q$. $\delta_{a=b}$ is an indicator function, and is equal to 1 if $a=b$, and equal to 0 otherwise. If $q$ is the identity function, then $S_1(u|w) \propto L_0(w|u)$, and $S_1$ is thus a model of a speaker who prefers to choose the most informative utterance available. 
 	% For example, if trying to communicate state $w$, $S_1$ will prefer an utterance $u$ which is compatible under the semantics with only $w$, over an utterance $u'$ which is compatible with both $w$ and $w'$. 
 	
-	\paragraph{The pragmatic listener} The full model, $\QLONE$, hears an utterance $u$, and jointly infers values for $w$ and $q$ by reasoning about $S_1$. The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$); this will occur when $u$ effectively conveys some feature of world $w$ as determined by $q$. $P_{L_Q}(q)$ is the prior probability of projection $q$.
+	\paragraph{The pragmatic listener} The full model, $\QLONE$, hears an utterance $u$, and jointly infers values for $w$ and $q$ by reasoning about $S_1$. The key dynamic is that the listener may hear an utterance $u$ and infer a pair $(w,q)$ where $u$ is semantically incompatible with $w$ (i.e. $\llbracket u\rrbracket(w)=0$); this will occur when $u$ conveys effectively some feature of world $w$ as determined by $q$. $P_{L_Q}(q)$ is the prior probability of projection $q$.
 
 	$\QLONE$ functions as a model of metaphor interpretation. For instance, using the metaphor in (\ref{johnshark}), the listener infers both a state $w$ (representing what John is like) and a feature $q$ (representing which aspects of John are relevant).
 
@@ -290,7 +290,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 
 	% In order to elicit human-like behavior from the model, \citet{kao} use a set of $\sim$100 animals as alternative utterances $u\in U$, and assemble a property set $P$ experimentally. However, the semantics, relating adjectives to properties 
-	$\QLONE$ can model AN metaphors in a similar way. For a phrase like \emph{John's fiery temper}, the listener tries to infer the features of John's temper that would explain why the speaker modified it with \emph{fiery}.
+	$\QLONE$ can model AN metaphors in a similar way. For a phrase like \emph{John's fiery temper}, the listener infers the features of John's temper that would explain why the speaker modified it with \emph{fiery}.
 
 	% \begin{figure}
 	% \centering
@@ -309,7 +309,8 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	%From a linguistic corpus, it is possible to obtain a mapping from words to points in a high-dimensional vector space that has the property that semantic similarity of a pair of words $a$ and $b$ corresponds to a metric, such as cosine distance, between the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$.
 
-	\emph{Word embeddings}, or \emph{distributional semantic models}, provide a representation of word meanings that can be learned from large corpora of language data. In these models, word meanings are mapped to points in a high-dimensional vector space, such that words with similar meanings are mapped to nearby points in the space. The embeddings can be obtained either by dimensionality reduction of a word co-occurrence matrix \cite{pennington2014glove} estimated from a corpus, or by extracting the weights of a statistical model \cite{mikolov2013distributed,peters2018deep,devlin2018bert} trained on a separate task. In both cases, word embeddings provide a way to empirically obtain fine grained connotations of lexical items \cite{mikolov2013distributed}, and have been used effectively in a number of NLP tasks \cite{dai2015semi,radford2018improving}. They have also been used to compute vectorial representations of phrases and sentences \cite{socher2013recursive, coecke2010mathematical}.
+	\emph{Word embeddings}, or \emph{distributional semantic models}, provide a representation of word meanings that can be learned from large corpora of language data. In these models, word meanings are mapped to points in a high-dimensional vector space, such that words with similar meanings are mapped to nearby points in the space. The embeddings can be obtained either by dimensionality reduction of a word co-occurrence matrix \cite{pennington2014glove} estimated from a corpus, or by extracting the weights of a statistical model \cite{mikolov2013distributed,peters2018deep,devlin2018bert} trained on a separate task. In both cases, word embeddings provide a way to empirically obtain fine grained connotations of lexical items \cite{mikolov2013distributed}, and have been used effectively in a number of NLP tasks \cite{dai2015semi,radford2018improving,socher2013recursive}. 
+	% They have also been used to compute vectorial representations of phrases and sentences \cite{socher2013recursive, coecke2010mathematical}.
 
 			% word embeddings appear to encode syntactic and semantic information (\cite{mikolov2013linguistic}, and as such, are useful element in many NLP tasks such as sentiment analysis \cite{socher2013recursive}.
 
@@ -329,7 +330,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 	% , projections to be surjective functions out of $W$
 	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
-	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. Word embeddings map words to vectors ($E : U\to W$).
+	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. A word embedding maps words to vectors ($E : U\to W$).
 	% \footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} 
 	For our application of the model, we assume the set of utterances $U$ is a set of adjectives. 
 
@@ -392,7 +393,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% \hspace*{-2.5cm}                                                           
 		\includegraphics[height=4.5cm]{images/diagram1.png}
 		   
-		  \caption{Illustration of literal listener $L\protect_0$ after hearing ``The man is a shark," with $\protect\overrightarrow{man}$ = (0,0) and $\protect\overrightarrow{shark}$ = (1,1). The listener's prior is centered at $\protect\overrightarrow{man}$, and is updated in the direction of $\protect\overrightarrow{shark}$.}
+		  \caption{Illustration of literal listener $L\protect_0$ given \emph{The man is a shark}, with $\protect\overrightarrow{man}$ = (0,0) and $\protect\overrightarrow{shark}$ = (1,1). $L\protect_0$'s prior is centered at $\protect\overrightarrow{man}$, and is updated towards $\protect\overrightarrow{shark}$.}
 		  \label{fig:2d}
 		\end{figure}
 
@@ -443,7 +444,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% \footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} 
 		along a vector (or hyperplane) $\overrightarrow{v}$ 
 		% This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, 
-		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, it can be thought of as dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}. These linear projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, though see \cite{linzen2016issues,finley2017analogies} for potential caveats.
+		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, this amounts to dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}. These projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, though see \cite{linzen2016issues,finley2017analogies} for potential caveats.
 
 			% Alternatively, note that 
 				% Put another way, the definition of a projection on an object $X$ as an idempotent morphism $X\to X$, generalizes both cases. 
@@ -614,7 +615,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	% \end{subfigure}
 
-	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over states in a two-dimensional case given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$.}
+	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over states in a two-dimensional case given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$. $Q$ consists of two projections, one along the x-axis (\emph{aquatic}) and one along the y-axis (\emph{vicious}).}
 
 	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
 
@@ -657,7 +658,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 % \vspace{2em}
 \paragraph{Interpreting the output of $\protect\QLONE$}
 
-	The \emph{Materials and Methods} describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute the $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $\overrightarrow{w}\in W$, projections $\overrightarrow{q}\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
+	The \emph{Materials and Methods} describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $\overrightarrow{w}\in W$, projections $\overrightarrow{q}\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
 		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
 	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. The top two $\QLONE$ marginal posterior projections $\overrightarrow{q}$ for each metaphor, which we use in our experiment, are shown in the leftmost column of Figure \ref{fig:barplot}. 
 
@@ -668,12 +669,12 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 \section{Experimental Evaluation} \label{exp}
 
-	In order to evaluate whether pragmatic reasoning results in metaphor interpretations that better capture human judgments, we designed an experiment which compares the $\QLONE$ interpretations of metaphors to a baseline model which uses word embeddings but no pragmatic reasoning.
+	In order to evaluate whether pragmatic reasoning results in metaphor interpretations that better capture human judgments, we designed an experiment comparing $\QLONE$ interpretations of metaphors to a baseline model which uses word embeddings but no pragmatic reasoning.
 
 
 	\subsection*{Experimental Design}
 
-		In the experiment, each participant was shown a series of 12 metaphors, selected randomly from a total 109. For each metaphor, they were asked to rate four candidate interpretations of the metaphor on a slider bar. These four candidate interpretations consist of the best and second best adjective generated by $\QLONE$, and similarly for a baseline model. The baseline model selects adjectives without pragmatic reasoning, using a standard procedure from the word embeddings literature (see \emph{Materials and Methods}). An example is shown in Figure \ref{fig:slide}.
+		In the experiment, each participant was shown a series of 12 adjectival metaphors, selected randomly from a total 109. For each metaphor, they were asked to rate four candidate interpretations of the metaphor on a slider bar. These four candidate interpretations consist of the best and second best adjective generated by $\QLONE$, and similarly for a baseline model. The baseline model selects adjectives without pragmatic reasoning, using a standard procedure from the word embeddings literature (see \emph{Materials and Methods}). An example is shown in Figure \ref{fig:slide}.
 
 
 	
@@ -784,7 +785,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 		\begin{examples}
 		\item $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
 		\end{examples}
-		This integral is computing the marginal probability of $\overrightarrow{w_q}$, the projection of state $\overrightarrow{w}$ onto QUD vector $\overrightarrow{q}$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
+		This integral is computing the marginal probability of $\overrightarrow{w_q}$, the projection of state $\overrightarrow{w}$ onto projection vector $\overrightarrow{q}$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
 
@@ -860,7 +861,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	The $L_1$ posterior is a joint distribution over one continuous and one discrete random variable. 
 	% Unlike $L_0$, we are unable to use conjugacy to compute it analytically.
-	Because of the linear structure of the problem, we are able to devise a near-exact inference algorithm for the marginal distribution over QUDs in $Q$, derived as follows:
+	Because of the linear structure of the problem, we are able to devise a near-exact inference algorithm for the marginal distribution over projections in $Q$, derived as follows:
 
 
 
@@ -896,10 +897,9 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 	 \begin{align}
 	 \begin{split}
-	&L_1(q | u) = \int_{\mathbb{R}^n}L_1(w,q | u) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w)S_1(u|w,q) dw \\
+	&L_1(q | u) = \int_{\mathbb{R}^n}L_1(w,q | u) dw = \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w)S_1(u|w,q) dw \\
 	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q, w_\bot)S_1(u|w_q,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q) P_L(w_\bot)S_1(u|w_q,q) dw \\
+	% &= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q) P_L(w_\bot)S_1(u|w_q,q) dw \\
 	&= \frac{1}{K}P_{L_Q}(q) \int_{Q^\bot}P_L(w_\bot) dw_\bot \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q \\
 	&= \frac{1}{K}P_{L_Q}(q)  \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q\nonumber
 	\end{split}
@@ -909,7 +909,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 
 	Here $K$ is a normalizing constant, $\overrightarrow{w}, \overrightarrow{q}\in \mathbb{R}^n$, and $\overrightarrow{w_q}$ is the projection of $\overrightarrow{w}$ onto the vector $\overrightarrow{q}$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $\overrightarrow{q}$, and $Q^\bot$ is the orthogonal complement of $Q$. 
-	The vector $\overrightarrow{w_\bot}$ is the projection of vector $\overrightarrow{w}$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional QUDs. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
+	The vector $\overrightarrow{w_\bot}$ is the projection of vector $\overrightarrow{w}$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional projections. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
 
 % \subsection*{Subsection for Method}
 % Example text for subsection.
@@ -921,7 +921,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 		The aim of our experiment is to determine whether pragmatic reasoning results in better interpretations of metaphors, according to human judgments. We compare against a lesioned model, with a distributional semantics that does not make use of pragmatic reasoning.
 
 		\paragraph{Baseline model}
-		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the adjective word embedding $E(a)$ and the noun word embedding $E(n)$. The two nearest (measured by cosine distance) adjectives $q$ to this mean are the baseline interpretations for the metaphor. Taking the mean of word vectors is a standard technique for computing phrase and sentence meanings from constituent words. \cite{mitchell2010composition,grefenstette2013category,socher2013recursive}, and cosine distance is used to find words with the most similar meaning \cite{pennington2014glove}.
+		Our baseline model is defined as follows: for a given metaphor of the form $(a$ $n)$, we take the mean of the adjective word embedding $E(a)$ and the noun word embedding $E(n)$. The two nearest adjectives $q$ to this mean (measured by cosine distance) are the baseline interpretations for the metaphor. Taking the mean of word vectors is a standard technique for computing phrase and sentence meanings from constituent words \cite{mitchell2010composition,grefenstette2013category,socher2013recursive}, while cosine distance is commonly used to find words with the most similar meaning \cite{pennington2014glove}.
 
 
 
@@ -956,7 +956,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 \begin{figure}
 \centering
-\includegraphics[width=0.35\textwidth]{images/slide.png}
+\includegraphics[width=0.45\textwidth]{images/slide.png}
 \caption{An item in the experiment. Item order, and in-item order of the 4 adjectives from $\protect\QLONE$ and baseline models is randomized.}
 \label{fig:slide}
 \end{figure}
