@@ -6,7 +6,7 @@
 % {pnasmathematics} %= Template for a one-column mathematics article
 % {pnasinvited} %= Template for a PNAS invited submission
 
-\title{Evaluating Linguistic Creativity:\\ Pragmatic Reasoning with Distributional Semantics}
+\title{Metaphor and Linguistic Creativity:\\ Pragmatic Reasoning with Distributional Semantics}
 
 % Use letters for affiliations, numbers to show equal authorship (if applicable) and to indicate the corresponding author
 \author[a]{Reuben Cohn-Gordon}
@@ -39,7 +39,7 @@ Linguistic creativity --- the ability to combine existing representations to cre
 % 		cog sci: see kao paper
 
 % Please include corresponding author, author contribution and author declaration information
-\authorcontributions{Please provide details of author contributions here.}
+\authorcontributions{R.C.G. and L.B. designed the model, planned the experiment, performed analyses, and wrote the manuscript. R.C.G. carried out the experiment.}
 % \authordeclaration{Please declare any conflict of interest here.}
 % \equalauthors{\textsuperscript{1}A.O.(Author One) and A.T. (Author Two) contributed equally to this work (remove if not applicable).}
 \correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: reubencg@stanford.edu}
@@ -389,7 +389,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 		% \hspace*{-2.5cm}                                                           
 		\includegraphics[height=4.5cm]{images/diagram1.png}
 		   
-		  \caption{2D depiction of vectorial $L\protect_0$, for $\protect\overrightarrow{man}$ = (0,0) and $\protect\overrightarrow{shark}$ = (1,1).}
+		  \caption{Illustration of literal listener $L\protect_0$ after hearing ``The man is a shark," with $\protect\overrightarrow{man}$ = (0,0) and $\protect\overrightarrow{shark}$ = (1,1). The listener's prior is centered at $\protect\overrightarrow{man}$, and is updated in the direction of $\protect\overrightarrow{shark}$.}
 		  \label{fig:2d}
 		\end{figure}
 
@@ -654,9 +654,9 @@ We build on a previous model of metaphor interpretation developed in this framew
 % \vspace{2em}
 \paragraph{Interpreting the output of $\protect\QLONE$}
 
-	The \emph{Materials and Methods} describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute the $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
+	The \emph{Materials and Methods} describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute the $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $\overrightarrow{w}\in W$, projections $\overrightarrow{q}\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
 		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
-	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. The top two $\QLONE$ marginal posterior projections $q$ for each metaphor, which we use in our experiment, are shown in the leftmost column of Figure \ref{fig:barplot}. 
+	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. The top two $\QLONE$ marginal posterior projections $\overrightarrow{q}$ for each metaphor, which we use in our experiment, are shown in the leftmost column of Figure \ref{fig:barplot}. 
 
 	% We convert this into an interpretable prediction by selecting the adjectives $q\in Q$ which have high probability under the marginal posterior distribution over $Q$ as interpretations of the metaphor.
 
@@ -730,13 +730,13 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 % 		We assume a semantics $\llbracket\cdot\rrbracket$ in which \emph{shark} is compatible only with $(\textrm{vicious}, \textrm{non-human})$, and \emph{silence} is compatible with every state. Note that the projections map each tuple to its value at a single property. 
 
-\subsection*{Inference in vectorial setting} \label{technicaloverview}
+\subsection*{Model inference} \label{technicaloverview}
 
 
 	% Calculating the posterior of $\QLONE$ given an utterance $u$ is far more difficult in the vectorial interpretation than the set-theoretic one. 
-	Because $P_L(w)$ is a continuous distribution in the vectorial interpretation of $\QLONE$, inference by enumeration is not possible, and either analytic or approximate methods are required. We employ a mix of the two; the $L_0$ and $S_1$ posteriors can be calculated analytically, while $\QLONE$ requires us to develop an approximate inference algorithm.
+	We employ a mix of analytic and approximate methods to compute the $\QLONE$ distribution. We first present the approach for computing $L_0$ and $S_1$ posteriors, which can be done analytically, and then present the approximate inference algorithm for $\QLONE$.
 	% \footnote{Inference for all our models is implemented in Tensorflow, and will be made publicly available.} 
-	We describe this algorithm in parts, working up from the $L_0$. Implementations, written in Tensorflow will be made publicly available.
+	The implementation, written in TensorFlow, will be made publicly available.
 
 	% While the general format of our model is analogous to previous models in the RSA paradigm, the vectorial setting produces a number of challenges which require novel solutions.
 
@@ -746,7 +746,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 % \paragraph{L\textsubscript{0} Inference}
 
 	\paragraph{$\mathbf{L_0}$ Inference}
-	Intuitively, the vectorial interpretation of $L_0$ amounts to the process shown in figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of the point corresponding to the received utterance. To calculate $L_0$ analytically, we make use of Gaussian conjugacy. When the prior $P_L$ is defined as in Equation \ref{vect:prior}, and the semantic interpretation is defined as in Equation \ref{vect:sem}, then conjugacy implies that the listener posterior is given by:
+	The vector interpretation of $L_0$ is illustrated in Figure \ref{fig:2d}, where a ball, corresponding to the prior, is moved in the direction of the point corresponding to the perceived utterance. To calculate $L_0$ analytically, we make use of Gaussian conjugacy. When the prior $P_L$ is defined as in Equation \ref{vect:prior}, and the semantic interpretation is defined as in Equation \ref{vect:sem}, then conjugacy implies that the listener posterior is given by:
 
 	 \begin{examples}
 	\item $L_0(w|u)=P_{\mathcal{N}}(w\vert\mu\! \! =\! \! \frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}(\frac{{\textrm{\emph{E(target)}}}}{\sigma_1^2}+\frac{{\textrm{\emph{E(source)}}}}{\sigma_2^2}), \sigma \! \!=\! \! \frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2})$  \label{eq:L0-inference}
@@ -781,7 +781,7 @@ We build on a previous model of metaphor interpretation developed in this framew
 		\begin{examples}
 		\item $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
 		\end{examples}
-		This integral is computing the marginal probability of $w_q$, the projection of state $w$ onto QUD vector $q$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
+		This integral is computing the marginal probability of $\overrightarrow{w_q}$, the projection of state $\overrightarrow{w}$ onto QUD vector $\overrightarrow{q}$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
 
@@ -895,9 +895,9 @@ We build on a previous model of metaphor interpretation developed in this framew
 	 \begin{split}
 	&L_1(q | u) = \int_{\mathbb{R}^n}L_1(w,q | u) dw \\
 	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w)S_1(u|w,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q, w^\bot)S_1(u|w_q,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q) P_L(w^\bot)S_1(u|w_q,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{Q^\bot}P_L(w^\bot) dw^\bot \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q \\
+	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q, w_\bot)S_1(u|w_q,q) dw \\
+	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q) P_L(w_\bot)S_1(u|w_q,q) dw \\
+	&= \frac{1}{K}P_{L_Q}(q) \int_{Q^\bot}P_L(w_\bot) dw_\bot \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q \\
 	&= \frac{1}{K}P_{L_Q}(q)  \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q\nonumber
 	\end{split}
 	 \end{align}
@@ -905,8 +905,8 @@ We build on a previous model of metaphor interpretation developed in this framew
 
 
 
-	Here $K$ is a normalizing constant, $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $Q^\bot$ is the orthogonal complement of $Q$. 
-	The vector $w^\bot$ is the projection of vector $w$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional QUDs. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
+	Here $K$ is a normalizing constant, $\overrightarrow{w}, \overrightarrow{q}\in \mathbb{R}^n$, and $\overrightarrow{w_q}$ is the projection of $\overrightarrow{w}$ onto the vector $\overrightarrow{q}$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $\overrightarrow{q}$, and $Q^\bot$ is the orthogonal complement of $Q$. 
+	The vector $\overrightarrow{w_\bot}$ is the projection of vector $\overrightarrow{w}$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional QUDs. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
 
 % \subsection*{Subsection for Method}
 % Example text for subsection.
