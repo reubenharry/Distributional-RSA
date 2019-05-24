@@ -493,10 +493,10 @@ INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/lm/ec-lmri8.tfm
 INPUT images/slide.png
 INPUT ./images/slide.png
 INPUT ./images/slide.png
-INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/lm/rm-lmbx7.tfm
 INPUT main.bbl
 INPUT main.bbl
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/helvetic/phvro8t.tfm
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/lm/rm-lmbx7.tfm
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/vf/adobe/helvetic/phvro8t.vf
 INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/helvetic/phvro8r.tfm
 INPUT main.aux
