@@ -84,7 +84,7 @@ Metaphor presents a compelling theoretical challenge for the understanding of me
 	\item Jane is a soldier \label{met:1}
 	\end{examples}
 
-The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the meaning conveyed by sentence (\ref{met:1}) to be the result of joint, cooperative reasoning between a speaker and listener. That is, the listener attempts to jointly infer what Jane must be like and what aspect of Jane is plausibly relevant, such that the speaker who wants to successfully communicate about this aspect of Jane would have chosen the predicate \emph{soldier} over other alternatives.
+The \emph{pragmatic} view of metaphor, proposed by Grice \cite{grice}, takes the meaning conveyed by sentence (\ref{met:1}) to be the result of joint, cooperative reasoning between a speaker and listener. That is, the speaker has some information about Jane, and wants to communicate some aspects of this information to the listener using the predicate \emph{soldier}. The listener, in turn, jointly infers what Jane must be like and what aspects of Jane are relevant for the speaker. 
 
 
 
@@ -130,7 +130,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 	% While still a useful proof of concept, 
 	% The question therefore remains of whether the central theoretical assumption of the model, that a Gricean process of reasoning about relevance and informativity is a good model of human behavior, as regards metaphor interpretation. 
-	This can be used to give an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to provide a semantics, specifying the literal meaning of each utterance (for example, that ``soldier" literally describes an individual who serves in a military). Previous work has hand-constructed these literal interpretations, restricting the scalability of the models, and their applicability to previously unseen metaphors.
+	This can be used to give an account of predicative metaphors (those of the form \emph{A is a B}) and adjective-noun (AN) metaphors (like \emph{fiery temper}). However, in order to generate predictions from the model, it is necessary to provide a semantics, specifying the literal meaning of each utterance (for example, that \emph{soldier} literally describes an individual who serves in a military). Previous work has hand-constructed these literal interpretations, restricting the scalability of the models, and their applicability to previously unseen metaphors.
 
 	\paragraph{Our contribution} 
 
@@ -182,7 +182,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		% The goal of a speaker is to produce an utterance which informs their interlocutor of the speaker's position in this space, to which end they may employ metaphorical language. For instance, if John is a ruthless businessman, then the sentence ``John is a shark.'' should enable the listener to infer John's position in the space.
 \section{Overview of metaphor}
 
-	Metaphor exists in many syntactic forms \cite{black1954metaphor}, and has been the focus of study in cognitive science \cite{tourangeau1981aptness,roberts1994people,camp2006metaphor}, linguistics \cite{glucksberg1993metaphors,lakoff1993contemporary} and other disciplines \cite{martin1990computational,davidson}.
+	Metaphor exists in many syntactic forms \cite{black1954metaphor}, and has been extensively studied in cognitive science \cite{tourangeau1981aptness,roberts1994people,camp2006metaphor}, linguistics \cite{glucksberg1993metaphors,lakoff1993contemporary} and other disciplines \cite{martin1990computational,davidson}.
 
 	% , and generally eludes easy definition. 
 	For present purposes, we focus on metaphors involving copular predicates (e.g. \emph{Jane is a soldier}) and AN noun phrases (e.g. \emph{fiery temper}). We refer to the predicated or modified noun (\emph{Jane}, \emph{temper}) as the \emph{target} of the metaphor and the predicate or adjective (\emph{soldier}, \emph{fiery}) as the \emph{source} (see \cite{lakoff1980metaphors} for the more general sense of these terms).
@@ -330,7 +330,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 	% , projections to be surjective functions out of $W$
 	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
-	We now introduce a \emph{vectorial} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. A word embedding maps words to vectors ($E : U\to W$).
+	We now introduce a \emph{vector} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. A word embedding maps words to vectors ($E : U\to W$).
 	% \footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} 
 	For our application of the model, we assume the set of utterances $U$ is a set of adjectives. 
 
@@ -368,7 +368,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 	\paragraph{The listener's prior} 
 
-		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the covariance matrix is assumed to be $\sigma I$). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
+		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution $P_{\mathcal{N}}$, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the covariance matrix is assumed to be $\sigma^2 I$). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
 
 		\begin{examples}
 		
@@ -380,7 +380,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		% \footnote{Note that this prior does not represent lexical uncertainty over the meaning of the subject word, but rather uncertainty over what the entity or concept that the subject denotes is like.} 
 		The goal of the speaker is to convey a position in the space 
 		% (which they think represents the nature of the source noun's denotation) 
-		to the listener, and the goal of the listener is to infer what this position is. In this sense, the speaker and listener are playing a spatial reference game  \cite{golland2010game}, in an abstract word embedding space. Our vectorial semantics bears comparison to the \emph{conceptual space} semantics of \cite{gardenfors2004conceptual}, as well as the proposal for metaphor comprehension of \cite{kintsch2000metaphor}.
+		to the listener, and the goal of the listener is to infer what this position is. In this sense, the speaker and listener are playing a spatial reference game  \cite{golland2010game}, in an abstract word embedding space. Our vector semantics bears comparison to the \emph{conceptual space} semantics of \cite{gardenfors2004conceptual}, as well as the proposal for metaphor comprehension of \cite{kintsch2000metaphor}.
 
 				% are near $\llbracket\mathit{time}\rrbracket$
 		
@@ -615,7 +615,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 	% \end{subfigure}
 
-	\caption{Heatmaps visualizing the inferred $\protect\QLONE$ marginal posterior over states in a two-dimensional case given \emph{fish} (left) and \emph{shark} (right), with $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$, hand-chosen denotations overlaid, and $\protect\sigma\protect_1=5.0, \protect\sigma\protect_2=0.5$. $Q$ consists of two projections, one along the x-axis (\emph{aquatic}) and one along the y-axis (\emph{vicious}).}
+	\caption{Heatmaps visualizing the $\protect\QLONE$ marginal posterior over states in a hand-constructed, two-dimensional case. The listener hears \emph{The man is a fish} in the left panel, and \emph{The man is a shark} in the right. The set of utterances $U = \{$\emph{man}, \emph{shark}, \emph{fish}$\}$. For simplicity, the set of QUDs $Q$ consists of orthogonal vectors, one along the x-axis (\emph{aquatic}) and one along the y-axis (\emph{vicious}). After hearing \emph{fish}, the listener has lower uncertainty along the aquatic dimension, and higher uncertainty along the vicious dimension (left panel); after hearing \emph{shark}, the situation is reversed (right panel).} 
 
 	% Comparison between the $\protect\QLONE$ posterior under our inference algorithm (left) and under the true posterior (right), which is calculable in this two dimensional case (up to discretization of the space).
 
@@ -674,7 +674,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 	\subsection*{Experimental Design}
 
-		In the experiment, each participant was shown a series of 12 adjectival metaphors, selected randomly from a total 109. For each metaphor, they were asked to rate four candidate interpretations of the metaphor on a slider bar. These four candidate interpretations consist of the best and second best adjective generated by $\QLONE$, and similarly for a baseline model. The baseline model selects adjectives without pragmatic reasoning, using a standard procedure from the word embeddings literature (see \emph{Materials and Methods}). An example is shown in Figure \ref{fig:slide}.
+		In the experiment, each participant was shown a series of 12 adjectival metaphors, selected randomly from a total of 109. For each metaphor, they were asked to rate four candidate interpretations of the metaphor on a slider bar. These four candidate interpretations consist of the best and second best adjective generated by $\QLONE$, and similarly for a baseline model. The baseline model selects adjectives without pragmatic reasoning, using a standard procedure from the word embeddings literature (see \emph{Materials and Methods}). An example is shown in Figure \ref{fig:slide}.
 
 
 	
@@ -785,7 +785,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		\begin{examples}
 		\item $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
 		\end{examples}
-		This integral is computing the marginal probability of $\overrightarrow{w_q}$, the projection of state $\overrightarrow{w}$ onto projection vector $\overrightarrow{q}$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
+		Here $q(w)$ is the projection of state $\overrightarrow{w}$ onto the subspace spanned by projection vector $\overrightarrow{q}$. This integral computes the marginal probability of all states that are projected to the same location as $\overrightarrow{w}$ along $\overrightarrow{q}$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore the projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
 
@@ -900,16 +900,16 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 	&L_1(q | u) = \int_{\mathbb{R}^n}L_1(w,q | u) dw = \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w)S_1(u|w,q) dw \\
 	&= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q, w_\bot)S_1(u|w_q,q) dw \\
 	% &= \frac{1}{K}P_{L_Q}(q) \int_{\mathbb{R}^n}P_L(w_q) P_L(w_\bot)S_1(u|w_q,q) dw \\
-	&= \frac{1}{K}P_{L_Q}(q) \int_{Q^\bot}P_L(w_\bot) dw_\bot \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q \\
-	&= \frac{1}{K}P_{L_Q}(q)  \int_{Q}P_L(w_q) S_1(u|w_q,q) dw_q\nonumber
+	&= \frac{1}{K}P_{L_Q}(q) \int_{D^\bot}P_L(w_\bot) dw_\bot \int_{D}P_L(w_q) S_1(u|w_q,q) dw_q \\
+	&= \frac{1}{K}P_{L_Q}(q)  \int_{D}P_L(w_q) S_1(u|w_q,q) dw_q\nonumber
 	\end{split}
 	 \end{align}
 	
 
 
 
-	Here $K$ is a normalizing constant, $\overrightarrow{w}, \overrightarrow{q}\in \mathbb{R}^n$, and $\overrightarrow{w_q}$ is the projection of $\overrightarrow{w}$ onto the vector $\overrightarrow{q}$. $Q$ is the subspace of $\mathbb{R}^n$ spanned by the vector $\overrightarrow{q}$, and $Q^\bot$ is the orthogonal complement of $Q$. 
-	The vector $\overrightarrow{w_\bot}$ is the projection of vector $\overrightarrow{w}$ onto the subspace $Q^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional projections. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
+	Here $K$ is a normalizing constant, $\overrightarrow{w}, \overrightarrow{q}\in \mathbb{R}^n$, and $\overrightarrow{w_q}$ is the projection of $\overrightarrow{w}$ onto the vector $\overrightarrow{q}$. $D$ is the subspace of $\mathbb{R}^n$ spanned by the vector $\overrightarrow{q}$, and $D^\bot$ is the orthogonal complement of $D$. 
+	The vector $\overrightarrow{w_\bot}$ is the projection of vector $\overrightarrow{w}$ onto the subspace $D^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional projections. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
 
 % \subsection*{Subsection for Method}
 % Example text for subsection.
