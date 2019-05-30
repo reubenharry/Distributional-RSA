@@ -297,7 +297,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 
 	% In order to elicit human-like behavior from the model, \citet{kao} use a set of $\sim$100 animals as alternative utterances $u\in U$, and assemble a property set $P$ experimentally. However, the semantics, relating adjectives to properties 
-	$\QLONE$ can model AN metaphors in a similar way. For a phrase like \emph{John's fiery temper}, the listener infers the features of John's temper that would explain why the speaker modified it with \emph{fiery}.
+	$\QLONE$ can model AN metaphors in a similar way. For a phrase like \emph{John's fiery temper}, the listener infers the features of John's temper that would explain why the speaker described it with \emph{fiery}.
 
 	% \begin{figure}
 	% \centering
@@ -451,7 +451,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		% \footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} 
 		along a vector (or hyperplane) $v$ 
 		% This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, 
-		capturing the degree to which each $w$ extends along $v$, ignoring orthogonal dimensions. Geometrically, this amounts to dropping a line from an input vector $w$ at a right angle onto $v$, as depicted in figure \ref{fig:1}. These projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, though see \cite{linzen2016issues,finley2017analogies} for potential caveats.
+		capturing the degree to which each $w$ extends along $v$, ignoring orthogonal dimensions. Geometrically, this amounts to dropping a line from an input vector $w$ at a right angle onto $v$, as depicted in figure \ref{fig:1}. These projections exploit the linear structure of the embedding space \cite{pennington2014glove}, which is documented more extensively in the setting of word vectors than sentence vectors \cite{peters2018deep,devlin2018bert}, though see \cite{linzen2016issues,finley2017analogies} for potential caveats.
 
 			% Alternatively, note that 
 				% Put another way, the definition of a projection on an object $X$ as an idempotent morphism $X\to X$, generalizes both cases. 
@@ -462,7 +462,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		% As in the set-theoretic interpretation, w
 		In practice, we restrict ourselves to projections along a vector, rather than a larger subspace. 
 		% However, we no longer have an obvious set of projections $Q$, corresponding to an explicit set of properties $P$. This is because the basis vectors of a word embedding space such as GloVe or Word2Vec do not correspond to easily interpretable attributes of the words in the space.
-		To obtain a set $Q$ of projections, we first note that since word meanings are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as defining a \emph{viciousness} projection, which measures how far other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
+		To obtain a set $Q$ of projections, we note that since word meanings are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as defining a \emph{viciousness} projection, which measures how far other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
 		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun onto $v$ amounts to asking: to what extent does the noun have property $v$? 
 		Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple two-dimensional case corresponding to the example discussed in section \ref{rsa}.
 
