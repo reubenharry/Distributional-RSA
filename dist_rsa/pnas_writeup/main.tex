@@ -49,7 +49,7 @@ Linguistic creativity --- the ability to combine existing representations to cre
 
 
 \begin{abstract}
-Humans create and interpret novel metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating contextual knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). Here we present a computational theory of metaphor, according to which metaphorical interpretations arise from joint, cooperative reasoning between a speaker and listener. We combine a Bayesian model of this reasoning process with empirically learned \emph{word embeddings} which are used to provide an underlying representation of word meaning. This allows for open-domain interpretation of predicative and adjectival metaphors. We find a significant preference in human judgments for our model over a system which uses word embeddings without a explicit representation of inter-agent reasoning, providing evidence that reasoning about an informative and relevant speaker is key to understanding non-literal language.
+Humans create and interpret novel metaphors, like \emph{Time is a thief} or \emph{My lawyer is a shark}, with relative ease, incorporating world knowledge to determine which aspects of the predicate (\emph{thief, shark}) are true of the subject (\emph{time, my lawyer}). Here we present a computational theory of metaphor, according to which metaphorical interpretations arise from joint, cooperative reasoning between a speaker and listener. We combine a Bayesian model of this reasoning process with empirically learned \emph{word embeddings} which are used to provide an underlying representation of word meaning. This allows for open-domain interpretation of predicative and adjectival metaphors. We find a significant preference in human judgments for our model over a system which uses word embeddings without a explicit representation of inter-agent reasoning, providing evidence that reasoning about an informative and relevant speaker is key to understanding non-literal language.
 
 
 % and by doing so interprets a predicative metaphor (of the form ``A is a B''), by identifying the properties of B that are relevant to A. 
@@ -189,7 +189,9 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 	% We focus on predicative metaphors of the form ``A is a B'' (e.g. ``John is a shark.''), as well as metaphorical modification, e.g ``fiery temper'' or ``golden opportunity''. We further consider the possibility that the meaning of metaphorical phrases such as these can be interpreted as the posterior position of the head noun, after the model observes the modifying adjective.
 
-	For a given metaphor, only certain properties of the target are described by the source, and which these are depend on the metaphor and the context. For instance, (\ref{dog}), said of a sleeping dog, could convey that it is unresponsive, but said of a large alert dog, could convey that it is heavy.
+	For a given metaphor, only certain properties of the target are described by the source.
+	% , and which these are depend on the metaphor and the context. 
+	For instance, (\ref{dog}), said of a sleeping dog, could convey that it is unresponsive, but said of a large alert dog, could convey that it is heavy.
 
 	% For instance, (\ref{bread}) likely conveys that the bread is like a rock with respect to hardness, while (\ref{dog}) likely conveys that the sleeping dog is like a rock with respect to its responsiveness. However, we could also imagine a context in which the dog is very heavy, so that a more natural inference is that it is like a rock with respect to its weight.
 
@@ -198,7 +200,9 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 	\item The dog is a rock. \label{dog}
 	\end{examples}
 
-	While certain metaphors are conventional - comparing someone to a lion tends to connote bravery - examples like (\ref{dog}) suggest that the interpretation of a metaphor is contextually dependent. The benefit of the pragmatic view of metaphor is the ability to explain this dependence on context, in a way which takes into account an underlying semantics (e.g. the conventional meanings of \emph{dog} and \emph{rock}).
+	Examples like (\ref{dog}), and more generally the ability to interpret novel metaphors, suggest that metaphors cannot be explained merely as fixed conventional phrase meanings. The benefit of the pragmatic view of metaphor is the ability to explain the interpretation of novel metaphors in a way which takes into account an underlying semantics (e.g. the conventional meanings of \emph{dog} and \emph{rock}).
+
+	% While certain metaphors are conventional - comparing someone to a lion tends to connote bravery - examples like (\ref{dog}) suggest that novel interpretations . 
 	% requires the listener to reason about the context. It is this contextuality which makes the Gricean account appealing.	
 	% Parallel to metaphorical predication, one also finds cases of modification where an adjective modifies a noun in certain regards and not others. Thus, a \emph{fiery temper} shares with fire different properties to a \emph{fiery dish}, and in turn, both differs from a more literal usage, as with a \emph{fiery stove}.
 	
@@ -330,7 +334,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 	% , projections to be surjective functions out of $W$
 	% . The semantics maps utterances to functions from worlds to Boolean values, or equivalently, maps a pair $(u,w)$ to $1$ if they are compatible, and $0$ otherwise.
 
-	We now introduce a \emph{vector} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $\overrightarrow{w}\in W$ are vectors. A word embedding maps words to vectors ($E : U\to W$).
+	We now introduce a \emph{vector} interpretation of $\QLONE$. Importantly, this requires no modification to equations (\ref{defl0}-\ref{defl1}). The crucial difference is that our state space $W$ is now not just a set, but a vector space, so that elements $w\in W$ are vectors. A word embedding maps words to vectors ($E : U\to W$).
 	% \footnote{We note that this generalization is natural, since the set-theoretic interpretation of $\QLONE$ can be viewed as a special case of the vectorial interpretation, for a vector space over the Boolean field (rather than the real field). That is, consider an n-tuple of Booleans $w$ as a vector of $0$s and $1$s, with $P$ providing the basis of the space.} 
 	For our application of the model, we assume the set of utterances $U$ is a set of adjectives. 
 
@@ -368,7 +372,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 	\paragraph{The listener's prior} 
 
-		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution $P_{\mathcal{N}}$, which can be parametrized by a vector $\overrightarrow{\mu}$ for the mean and a single scalar $\sigma$ (the covariance matrix is assumed to be $\sigma^2 I$). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
+		To define a prior distribution $P_L$ over the vector space $W$, we use a multivariate spherical Gaussian distribution $P_{\mathcal{N}}$, which can be parametrized by a vector $\mu$ for the mean and a single scalar $\sigma$ (the covariance matrix is assumed to be $\sigma^2 I$). We define the prior over projections $P_{L_Q}$ to be uniform (the set of projections is discussed below).
 
 		\begin{examples}
 		
@@ -442,9 +446,9 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		Finally, we need to supply a notion of a projection function $q$ that is defined on our vector space, and to specify a set $Q$ of such projections. 
 		For this, we use linear projections
 		% \footnote{To see why this is the natural analogue of the projection functions used in the set-theoretic interpretation of $\QLONE$, note that when viewed as vectors in a vector space over the Boolean field, projection functions are precisely linear projections. Alternatively, note that in either case, projections $q$ are idempotent maps $(W\to W)$.} 
-		along a vector (or hyperplane) $\overrightarrow{v}$ 
+		along a vector (or hyperplane) $v$ 
 		% This is a linear transformation from $W$ to the subspace given by $\overrightarrow{v}$, 
-		capturing the degree to which each $\overrightarrow{w}$ extends along $\overrightarrow{v}$, ignoring orthogonal dimensions. Geometrically, this amounts to dropping a line from an input vector $\overrightarrow{w}$ at a right angle onto $\overrightarrow{u}$, as depicted in figure \ref{fig:1}. These projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, though see \cite{linzen2016issues,finley2017analogies} for potential caveats.
+		capturing the degree to which each $w$ extends along $v$, ignoring orthogonal dimensions. Geometrically, this amounts to dropping a line from an input vector $w$ at a right angle onto $v$, as depicted in figure \ref{fig:1}. These projections exploit the linear structure of the word embedding space \cite{pennington2014glove}, though see \cite{linzen2016issues,finley2017analogies} for potential caveats.
 
 			% Alternatively, note that 
 				% Put another way, the definition of a projection on an object $X$ as an idempotent morphism $X\to X$, generalizes both cases. 
@@ -456,7 +460,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		In practice, we restrict ourselves to projections along a vector, rather than a larger subspace. 
 		% However, we no longer have an obvious set of projections $Q$, corresponding to an explicit set of properties $P$. This is because the basis vectors of a word embedding space such as GloVe or Word2Vec do not correspond to easily interpretable attributes of the words in the space.
 		To obtain a set $Q$ of projections, we first note that since word meanings are vectors in $W$, any word parametrizes a linear projection $q$. For instance, we can think of the word \emph{vicious} as defining a \emph{viciousness} projection, which measures how far other points in the space fall along $\overrightarrow{\mathit{vicious}}$. 
-		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun onto $\overrightarrow{v}$ amounts to asking: to what extent does the noun have property $v$? 
+		We choose $Q$ as a set of gradable adjectives, so that the projection of a noun onto $v$ amounts to asking: to what extent does the noun have property $v$? 
 		Figure \ref{l1heatmaps} provides a visualization of the $\QLONE$ posterior in a simple two-dimensional case corresponding to the example discussed in section \ref{rsa}.
 
 
@@ -658,9 +662,9 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 % \vspace{2em}
 \paragraph{Interpreting the output of $\protect\QLONE$}
 
-	The \emph{Materials and Methods} describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $\overrightarrow{w}\in W$, projections $\overrightarrow{q}\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
+	The \emph{Materials and Methods} describes how to calculate the interpretation of a metaphor $u$ given these assumptions. In particular, it shows how to compute $\QLONE(w,q|u)$, the joint distribution over states and projections after hearing a metaphor $u$. Unlike points $w\in W$, projections $q\in Q$ are readily interpretable, since they correspond to adjectives, describing the aspect of the metaphorical adjective or predicate that is inferred to be relevant.
 		% Each $q\in Q$ corresponds to an adjective, describing the aspect of the metaphorical adjective or predicate that the speaker considers relevant. 
-	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. The top two $\QLONE$ marginal posterior projections $\overrightarrow{q}$ for each metaphor, which we use in our experiment, are shown in the leftmost column of Figure \ref{fig:barplot}. 
+	For this reason, we use the marginal posterior over $Q$ to generate predictions from the model. The top two $\QLONE$ marginal posterior projections $q$ for each metaphor, which we use in our experiment, are shown in the leftmost column of Figure \ref{fig:barplot}. 
 
 	% We convert this into an interpretable prediction by selecting the adjectives $q\in Q$ which have high probability under the marginal posterior distribution over $Q$ as interpretations of the metaphor.
 
@@ -785,7 +789,7 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 		\begin{examples}
 		\item $S_1(u\vert w,q) \propto \int_{w'} \delta_{q(w)=q(w')} \cdot L_0(w'\vert u)$
 		\end{examples}
-		Here $q(w)$ is the projection of state $\overrightarrow{w}$ onto the subspace spanned by projection vector $\overrightarrow{q}$. This integral computes the marginal probability of all states that are projected to the same location as $\overrightarrow{w}$ along $\overrightarrow{q}$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore the projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
+		Here $q(w)$ is the projection of state $w$ onto the subspace spanned by projection vector $q$. This integral computes the marginal probability of all states that are projected to the same location as $w$ along $q$. From Equation \ref{eq:L0-inference}, $L_0(\cdot \vert u)$ is a normally distributed random variable, and therefore the projection of this random variable onto a linear subspace is also normally distributed, providing a closed-form solution to $S_1$.
 
 		% We refer to the hyperplane which parametrizes the QUD projection as $\overrightarrow{\text{q}}$, and abuse notation by having q(v) denote the vector resulting from a projection of v along q. Note that q(v) could either be represented in the dimensionality of the original space or the projection subspace. We will assume the former, so that if v $\in$ {\rm I\!R}$^n$, q(v) $\in$ {\rm I\!R}$^n$. Then our $S_1$ is almost identical to the plain QUD RSA model:
 
@@ -908,8 +912,8 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 
 
 
-	Here $K$ is a normalizing constant, $\overrightarrow{w}, \overrightarrow{q}\in \mathbb{R}^n$, and $\overrightarrow{w_q}$ is the projection of $\overrightarrow{w}$ onto the vector $\overrightarrow{q}$. $D$ is the subspace of $\mathbb{R}^n$ spanned by the vector $\overrightarrow{q}$, and $D^\bot$ is the orthogonal complement of $D$. 
-	The vector $\overrightarrow{w_\bot}$ is the projection of vector $\overrightarrow{w}$ onto the subspace $D^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional projections. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
+	Here $K$ is a normalizing constant, $w, q\in \mathbb{R}^n$, and $w_q$ is the projection of $w$ onto the vector $q$. $D$ is the subspace of $\mathbb{R}^n$ spanned by the vector $q$, and $D^\bot$ is the orthogonal complement of $D$. 
+	The vector $w_\bot$ is the projection of vector $w$ onto the subspace $D^\bot$. The final equation is a one-dimensional integral, and can be computed using a discrete approximation. We use a Gaussian approximation, which easily generalizes to the setting of multi-dimensional projections. The constant $K$ can be found from the constraint $\sum_q L_1(q|u) = 1$.
 
 % \subsection*{Subsection for Method}
 % Example text for subsection.
@@ -962,9 +966,9 @@ We build on a previous model of metaphor interpretation \cite{kao}, developed as
 \end{figure}
 
 		
-		Tsvetkov et al. \cite{tsvetkov2014metaphor} provide a corpus of $\sim$800 AN metaphors, gathered by human annotators, from which we select the least frequent by bigram count (n-gram data from the Corpus of Contemporary American English \cite{davies2011word}) to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}.
-		The experiment was run on Mechanical Turk, with 99 native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants (analyses remain significant with all participants included).
-		Participants are shown a metaphor, as in figure \ref{fig:slide} and asked to judge how relevant each proposed adjective (here, \emph{debilitating}, \emph{pervasive}, \emph{corporate}, \emph{addictive}) is to the metaphorical meaning of the AN phrase. In a test example, they are told to rate \emph{intense} as relevant to \emph{fiery temper} ``because a fiery temper is an intense temper'' but rate \emph{warm} as irrelevant.
+Tsvetkov et al. \cite{tsvetkov2014metaphor} provide a corpus of $\sim$800 AN metaphors, gathered by human annotators, from which we select the least frequent by bigram count (n-gram data from the Corpus of Contemporary American English \cite{davies2011word}) to filter out conventionalized metaphors. Our full set of 109 metaphors is shown in figure \ref{fig:barplot}. The data will be made available online. 
+The experiment was run on Mechanical Turk, with 99 native English speakers. Participants who failed to follow instructions on a test item were excluded, leaving 60 participants (analyses remain significant with all participants included).
+Participants are shown a metaphor, as in figure \ref{fig:slide} and asked to judge how relevant each proposed adjective (here, \emph{debilitating}, \emph{pervasive}, \emph{corporate}, \emph{addictive}) is to the metaphorical meaning of the AN phrase. In a test example, they are told to rate \emph{intense} as relevant to \emph{fiery temper} ``because a fiery temper is an intense temper'' but rate \emph{warm} as irrelevant.
 
 }
 
