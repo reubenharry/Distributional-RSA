@@ -46,8 +46,8 @@ def l1_model(subj,pred,hyperparams):
     quds = [val for pair in zip(quds_near_subj, quds_near_pred) for val in pair]
     
 
-    possible_utterances = sorted(possible_utterances[:50])
-    quds = sorted(list(set(quds[:50])))
+    possible_utterances = sorted(possible_utterances[:5])
+    quds = sorted(list(set(quds[:5])))
 
     if pred in quds:
         quds.remove(pred)
