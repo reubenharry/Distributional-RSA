@@ -4,6 +4,7 @@ import numpy as np
 import pickle
 import itertools
 import nltk
+import os
 # from dist_rsa.rsa.tensorflow_l1 import tf_l1
 from dist_rsa.rsa.tensorflow_l1_mixture import tf_l1 as tf_l1_mixture
 from dist_rsa.rsa.numpy_l1_mixture import np_l1 as np_l1_mixture
@@ -314,9 +315,17 @@ class Results_Pickler:
         for r in self.results_dict:
             pickleable_results_dict[r]=Pickleable_Params(self.results_dict[r])
 
+        print("SAVING TO:",self.path)
         pickle.dump(pickleable_results_dict,open(self.path,'wb'))
 
     def open(self):
+        print("LOADING PATH::", self.path)
+
+        # self.path = "dist_rsa/experiment/predictions/mean_center:True;remove_top_dims:False;sig1:1.0;sig2:0.1;l1_sig1:0.1;norm_vectors:False;model_type:numpy_discrete_mixture"
+        
+# 'dist_rsa/experiment/predictions/new_metsmean_center:True;remove_top_dims:False;sig1:1.0;sig2:0.1;l1_sig1:0.1;norm_vectors:False;model_type:baseline'
+        # paths = [self.path+x for x in os.listdir("dist_rsa/experiment/predictions/")]
+        # print("STEM SEARCH",paths, self.path in paths)
         self.results_dict = pickle.load(open(self.path,'rb'))
         # for t in self.results_dict:
         #     pickle.dump(Pickleable_Params(self.results_dict[t]),open(self.path+t[0]+t[1],'wb'))

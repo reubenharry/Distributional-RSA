@@ -3,16 +3,16 @@ def tf_l1_qud_only(inference_params):
 
 	from dist_rsa.rsa.tensorflow_s1 import tf_s1
 	import numpy as np
-	import edward as ed
+#	import edward as ed
 	import scipy
 	from collections import Counter
 	import pickle
 	import tensorflow as tf
-	from edward.models import Normal,Empirical, Bernoulli, Categorical
+#	from edward.models import Normal,Empirical, Bernoulli, Categorical
 	from dist_rsa.utils.helperfunctions import projection,tensor_projection,demarginalize_product_space, weights_to_dist,\
         normalize,as_a_matrix,tensor_projection_matrix,\
         double_tensor_projection_matrix,combine_quds, lookup, s1_nonvect
-	from edward.inferences import HMC
+#	from edward.inferences import HMC
 	import itertools
 
 	listener_world = tf.cast(inference_params.subject_vector,dtype=tf.float32)

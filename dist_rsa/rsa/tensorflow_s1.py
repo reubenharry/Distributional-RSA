@@ -13,7 +13,7 @@ def tf_s1(inference_params,s1_world,world_movement=False,debug=False,NUMPY=False
 
 
 	import tensorflow as tf
-	import edward as ed
+#	import edward as ed
 	import numpy as np
 	import scipy
 	from dist_rsa.utils.helperfunctions import projection,tensor_projection,as_a_matrix,double_tensor_projection_matrix,combine_quds, lookup

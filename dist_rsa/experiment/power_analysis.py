@@ -5,13 +5,13 @@ from scipy.special import expit
 import csv
 
 # parameters
-b = 1.0
+b = 0.7
 sigma_p = 1.0
 sigma_i = 1.0
 
-NUM_PARTICIPANTS = 100
-NUM_ITEMS = 100
-NUM_TRIALS_PER_PARTICIPANT = 10
+NUM_PARTICIPANTS = 50
+NUM_ITEMS = 120
+NUM_TRIALS_PER_PARTICIPANT = 12
 
 participant_indices = list(range(NUM_PARTICIPANTS))
 item_indices = list(range(NUM_ITEMS))
@@ -42,12 +42,12 @@ def make_n_dfs(n):
 	return dfs
 
 
-dfs = make_n_dfs(10)
+dfs = make_n_dfs(1000)
 # concatenate into one
 dfs = [item for sublist in dfs for item in sublist]
 
 
-with open('dist_rsa/experiment/power.csv', 'w', newline='') as csvfile:
+with open('dist_rsa/experiment/power'+str(b)+str(sigma_p)+str(sigma_i)+'.csv', 'w', newline='') as csvfile:
     w = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     for row in dfs:
 	    w.writerow(row)

@@ -1,9 +1,10 @@
+numpy
+tqdm
 gensim
 matplotlib
 seaborn
 scipy
 tensorflow
-edward
 sklearn
 nltk
 

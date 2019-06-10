@@ -1,4 +1,5 @@
 from collections import defaultdict
+import pickle
 
 def load_AN_phrase_data(metaphor=True):
 	if metaphor:
@@ -12,18 +13,32 @@ def make_pair_dict():
 	mets = load_AN_phrase_data(metaphor=True)
 	nonmets = load_AN_phrase_data(metaphor=False)
 
+	met_freqs = pickle.load(open("dist_rsa/experiment/training_data/met_freqs.pkl",'rb'))
+
 	mets_adj_dict = defaultdict(list)
 	mets_noun_dict = defaultdict(list)
 
-	nonmets_adj_dict = defaultdict(list)
-	nonmets_noun_dict = defaultdict(list)
+	# nonmets_adj_dict = defaultdict(list)
+	# nonmets_noun_dict = defaultdict(list)
+
+	# print(met_freqs)
+	new_mets = []
+	for pair in mets:
+		if met_freqs[(pair[0],pair[1])]<1:
+			new_mets.append(pair)
+			 
+	mets = new_mets
+
+	# print(pair[0],pair[1],met_freqs[(pair[0],pair[1])],met_freqs[(pair[0],pair[1])]<2)
 
 	for pair in mets:
 		mets_adj_dict[pair[0]] += [pair[1]]
 		mets_noun_dict[pair[1]] += [pair[0]]
-	for pair in nonmets:
-		nonmets_adj_dict[pair[0]] += [pair[1]]
-		nonmets_noun_dict[pair[1]] += [pair[0]]
+	# for pair in nonmets:
+	# 	nonmets_adj_dict[pair[0]] += [pair[1]]
+	# 	nonmets_noun_dict[pair[1]] += [pair[0]]
+
+	return [(y,x) for (x,y) in mets][:120]
 
 	selected_metaphors = []
 	for pair in mets:

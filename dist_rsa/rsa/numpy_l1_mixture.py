@@ -3,7 +3,7 @@
 import time
 import tqdm
 import numpy as np
-import edward as ed
+#import edward as ed
 import scipy
 import scipy.stats
 from collections import Counter

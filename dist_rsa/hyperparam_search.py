@@ -1,26 +1,24 @@
 from dist_rsa.dbm import *
 from dist_rsa.utils.load_data import *
 from dist_rsa.models.l1 import l1_model
+import os
 
-sig1_vals = [1e0]
+sig1_vals = [0.1]
 # [1.0,5.0]
-# [1.0,5.0,10.0,20.0]
-sig2_vals = [1e-1]
+sig2_vals = [0.1]
 # [1.0,0.5,2.0]
-# [1.0,0.5,0.1,0.05]
-l1_sig1_vals = [1e-1]
+l1_sig1_vals = [0.1]
 # [1.0,5.0]
-# [1.0,5.0,10.0,20.0]
-mean_center = [True]
-remove_top_dims = [False]
-norm_vectors = [False]
+mean_center = [True,False]
+remove_top_dims = [True,False]
+norm_vectors = [True,False]
 
 path = "dist_rsa/data/results/pickles/"
 items = control_set
 # path = "dist_rsa/data/results/pickles/s2memo/"
 # items = [("man","shark"),("man","banana")]
 
-LOAD = False
+LOAD = True
 
 for h in itertools.product(mean_center,remove_top_dims,norm_vectors,sig1_vals,sig2_vals,l1_sig1_vals):
     mean_center = h[0]
@@ -30,6 +28,11 @@ for h in itertools.product(mean_center,remove_top_dims,norm_vectors,sig1_vals,si
     sig2 = h[4]
     l1_sig1 = h[5]
     hyperparams = Hyperparams(mean_center=mean_center,remove_top_dims=remove_top_dims,norm_vectors=norm_vectors,sig1=sig1,sig2=sig2,l1_sig1=l1_sig1)
+
+    # print("PATH",path+hyperparams.show()[:-33])
+    # print("PATHS",[path+x for x in os.listdir(path)])
+    # print(path+hyperparams.show()[:-33] in [path+x for x in os.listdir(path)])
+    # raise Exception
 
     if not LOAD:
 
@@ -46,7 +49,7 @@ for h in itertools.product(mean_center,remove_top_dims,norm_vectors,sig1_vals,si
     else:
         assert (items==control_set)
         try:
-            r = Results_Pickler(path=path+hyperparams.show())
+            r = Results_Pickler(path=path+hyperparams.show()[:-33])
             r.open()
             
             score = 0
@@ -73,7 +76,9 @@ for h in itertools.product(mean_center,remove_top_dims,norm_vectors,sig1_vals,si
                 # raise Exception
                 # break
 
-        except: pass  
+        except: 
+            # print("FAILED")
+            pass  
 
         # print(metaphor,sorted(list(zip(r.results_dict[metaphor].quds,r.results_dict[metaphor].qud_marginals)),key=lambda x : x[1],reverse=True)[:5])
 
