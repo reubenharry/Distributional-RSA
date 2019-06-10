@@ -1,0 +1,2 @@
+gcloud compute firewall-rules update default-allow-http --allow tcp:40-23000
+gcloud compute firewall-rules update default-allow-https --allow tcp:40-23000

@@ -53,19 +53,19 @@ test_metaphors = {("pain","thorn"):"Pain is a thorn",
 	("hope","drug"):"Hope is a drug"
 	}
 
-twitter_vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.twitter.27B.mean_vecs25",'rb'))
+# twitter_vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.twitter.27B.mean_vecs25",'rb'))
 
-metaphors = [x for x in metaphors if x[0] in twitter_vecs and x[1] in twitter_vecs]
-metaphors = sorted(metaphors,key=lambda x:scipy.spatial.distance.cosine(twitter_vecs[x[0]],twitter_vecs[x[1]]) ,reverse=True)
+# metaphors = [x for x in metaphors if x[0] in twitter_vecs and x[1] in twitter_vecs]
+# metaphors = sorted(metaphors,key=lambda x:scipy.spatial.distance.cosine(twitter_vecs[x[0]],twitter_vecs[x[1]]) ,reverse=True)
 
 sentences = ["The principal is a dictator","The room is a dungeon","Biking is a gateway","The room is a furnace",
 "Skin is a parchment","The place is a junkyard","The market is a graveyard","Pornography is a cancer",
 "The room is a wok","Sin is a sickness","The room is a matchbox",
 "The ascent is a journey","Athletics is a drug","The mother is a mosquito","The photographer is a fly"]
 
-pickle.dump({'shark':np.array([1.0,1.0]),'human':np.array([0.0,0.0]),
-	'fish':np.array([1.0,0.0]),'swims':np.array([1.0,0.0]),'predator':np.array([0.0,1.0])},
-	open("dist_rsa/data/word_vectors/"+"handmadeplain2",'wb'))
+# pickle.dump({'shark':np.array([1.0,1.0]),'human':np.array([0.0,0.0]),
+# 	'fish':np.array([1.0,0.0]),'swims':np.array([1.0,0.0]),'predator':np.array([0.0,1.0])},
+# 	open("dist_rsa/data/word_vectors/"+"handmadeplain2",'wb'))
 
 animals = ['fish', 'sheep', 'ant', 'monkey', 'bear', 'bee', 'goose', 'dog', 'horse', 'puppy', 'owl', 'frog', 'dolphin', 'tiger', 'bird', 'wolf', 'cat', 'duck', 'pig', 'rabbit', 'kangaroo', 'lion', 'penguin', 'goat', 'elephant', 'buffalo', 'ox', 'whale', 'zebra', 'human', 'bat', 'fox', 'shark', 'cow']
 animal_features = []
@@ -95,7 +95,7 @@ def get_words(with_freqs=False):
 	adjs = {}
 	words = set()
 
-	vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.6B.mean_vecs300",'rb'),encoding='latin1')
+	# vecs = pickle.load(open("dist_rsa/data/word_vectors/glove.6B.mean_vecs300",'rb'),encoding='latin1')
 
 	with open('dist_rsa/data/concreteness.csv', newline='') as csvfile:
 		r = csv.reader(csvfile, delimiter=',', quotechar='|')

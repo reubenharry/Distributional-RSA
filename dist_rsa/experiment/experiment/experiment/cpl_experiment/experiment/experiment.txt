@@ -1,0 +1,10 @@
+[PATHS]
+experiment_name = exp6_rating
+resources_path = ../static/resources/exp6_rating/
+signal_path = ../static/resources/exp6_rating/signals
+referent_path = ../static/resources/exp6_rating/referents
+
+[EXPERIMENT]
+experiment_name = exp6_rating
+feedback = yes
+

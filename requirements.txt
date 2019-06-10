@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 numpy
+=======
+>>>>>>> 80b41ffa79bc246617799c6e24abb75cf787b50d
 tqdm
 gensim
 matplotlib

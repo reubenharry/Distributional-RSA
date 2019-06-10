@@ -1,0 +1,65 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: final_metaphor.aux
+The style file: biblatex.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: final_metaphor-blx.bib
+Database file #2: metaphor.bib
+Warning--I didn't find a database entry for "andreas"
+Warning--I didn't find a database entry for "finley2017analogies"
+Warning--I didn't find a database entry for "mikolov2013linguistic"
+Biblatex version: 3.0
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+You've used 18 entries,
+            6047 wiz_defined-function locations,
+            1237 strings with 10718 characters,
+and the built_in function-call counts, 59543 in all, are:
+= -- 2590
+> -- 1968
+< -- 661
++ -- 686
+- -- 667
+* -- 4285
+:= -- 3538
+add.period$ -- 0
+call.type$ -- 18
+change.case$ -- 402
+chr.to.int$ -- 34
+cite$ -- 34
+duplicate$ -- 6591
+empty$ -- 6172
+format.name$ -- 1135
+if$ -- 13770
+int.to.chr$ -- 0
+int.to.str$ -- 44
+missing$ -- 0
+newline$ -- 460
+num.names$ -- 941
+pop$ -- 5532
+preamble$ -- 1
+purify$ -- 447
+quote$ -- 0
+skip$ -- 3641
+stack$ -- 0
+substring$ -- 1738
+swap$ -- 2223
+text.length$ -- 481
+text.prefix$ -- 17
+top$ -- 1
+type$ -- 672
+warning$ -- 0
+while$ -- 353
+width$ -- 0
+write$ -- 441
+(There were 3 warnings)

@@ -1,0 +1,444 @@
+/* Flute interface */
+
+#flute-container {
+	display: inline-block;
+    border: 0px solid lightgrey;
+    padding: 10px;
+    padding-left: 50px;
+    z-index: 0;
+}
+
+/*https://stackoverflow.com/questions/2941189/how-to-overlay-one-div-over-another-div*/
+#inactive_wrapper {
+    position: absolute;
+    margin: auto;
+    margin-top: 0px;
+    z-index: 1;
+    visibility: hidden;
+}
+
+#inactive_box {
+    position: absolute;
+    padding : 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 300px;
+    width: 215px;
+    left: -80px;
+    text-align: center;
+    font-size: 16px;
+    /*font-weight: bold;*/
+    background-color: #ef945b;
+    visibility: hidden;
+    border: 1px solid black;
+    z-index: 2;
+}
+
+#inactive_box p {
+    margin: 0;
+    padding: 0;
+}
+
+
+#piston {
+	width: 51px;
+	height: 266px;
+	background-image: url("../instrument/piston.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+#body {
+	width: 51px;
+	height: 272px;
+	background-image: url("../instrument/body.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+
+}
+
+#plunger {
+	width: 50px;
+	height: 400px;
+	background-image: url("../instrument/plunger.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+#left_container {
+	float: left;
+}
+#right_container {
+	float: left;
+}
+
+.blur #piston, .blur #plunger, .blur #body {
+    -webkit-filter: blur(2px); /* Safari 6.0 - 9.0 */
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+
+
+
+
+
+
+/* For experiment */
+
+#instruction-box {
+	float: left;
+	padding-right: 50px;
+	max-width: 550px;
+	text-align: left;
+}
+
+#instruction-wrapper {
+	max-width: 720px;
+}
+
+.bounded {
+	max-width: 700px;
+}
+
+#feedback-wrapper p {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#feedback-header {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.feedback_referent{
+	margin-top: 10px;
+}
+
+.left-text {
+	text-align: left;
+}
+
+.image-container {
+	display: inline-block;
+	margin-top: 20px;
+}
+
+.referentIMG {
+	max-width: 70px;
+	margin: 5px;
+}
+
+.referent-choice-img {
+    max-width: 170px;
+    margin: 15px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.select-referent-img {
+	max-width: 100px;
+	margin: 15px;
+}
+
+.unavailable {
+	/*https://stackoverflow.com/questions/22994810/how-do-i-desaturate-and-saturate-an-image-using-css*/
+	-webkit-filter: grayscale(1);
+	-webkit-filter: grayscale(100%);
+	filter: gray;
+	filter: grayscale(100%);
+	opacity: 0.1;
+    filter: alpha(opacity=10); /* For IE8 and earlier */
+}
+
+.warning {
+	background-color: red;
+	color: white;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 30px;
+	padding-left: 10px;
+	padding-right: 10px;
+	display:inline-block;
+}
+
+.important {
+	background-color: black;
+	color: white;
+	padding: 8px;
+}
+
+.note {
+    background-color: green;
+    color: white;
+    padding: 5px;
+}
+
+#container-instructions {
+	width: 800px;
+	padding: 20px !important;
+	border-width: 3px !important;
+}
+
+#container-instructions p {
+	font-size: 16px;
+
+}
+
+.question * {
+	float: left;
+}
+
+.question select {
+	width: 150px !important;
+}
+
+.jspsych-content {
+	/*font-size: 18px;*/
+}
+
+.question {
+	margin-bottom: 20px !important;
+}
+
+/* Form */
+.end-form-row {
+	clear: both;
+}
+
+.end-form-row label {
+	text-align: right;
+	display: block;
+	float: left;
+	width: 350px;
+	padding-right: 10px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+}
+
+.end-form-row select {
+	display: block;
+	float: left;
+	margin-top: 5px;
+}
+
+#end_experiment_button {
+	margin-top: 30px;
+}
+
+#form-header {
+	margin-bottom: 30px;
+}
+
+
+
+/* For demo interface*/
+
+#interface {
+	float: left;
+	margin-left: 10 px;
+	max-width: 270px;
+}
+
+button {
+	background-color: #D3D3D3;
+	float: none;
+	margin-bottom: 10px;
+}
+
+.clear {
+	clear: both;
+}
+
+#feedback_checkbox, #json_checkbox {
+	float: left;
+}
+
+label {
+	margin-left: 3px;
+}
+
+.input-textfield-label {
+	margin-top: 10px;
+}
+
+.label-min-width {
+	display: block;
+}
+
+.small {
+
+}
+/* SLIDER */
+/*http://danielstern.ca/range.css/#/*/
+
+#jspsych-html-slider-response-stimulus {
+	margin-bottom: 35px !important;
+}
+
+#jspsych-image-slider-response-stimulus img {
+  width: 75%;
+}
+
+#jspsych-image-slider-response-stimulus {
+  height: 130px;
+}
+
+.jspsych-image-slider-response-container {
+  max-width: 500px;
+  margin: auto;
+  margin-top: 35px;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 16.8px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #282804, 0px 0px 1px #3f3f06;
+  background: #fbfbfa;
+  border-radius: 1.3px;
+  border: 0.2px solid rgba(104, 103, 105, 0.41);
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #2f2f2b;
+  height: 42px;
+  width: 15px;
+  border-radius: 3px;
+  background: #7f807f;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -17px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ffffff;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #282804, 0px 0px 1px #3f3f06;
+  background: #fbfbfa;
+  border-radius: 1.3px;
+  border: 0.2px solid rgba(104, 103, 105, 0.41);
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #2f2f2b;
+  height: 42px;
+  width: 15px;
+  border-radius: 3px;
+  background: #7f807f;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #f0f0ec;
+  border: 0.2px solid rgba(104, 103, 105, 0.41);
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #282804, 0px 0px 1px #3f3f06;
+}
+input[type=range]::-ms-fill-upper {
+  background: #fbfbfa;
+  border: 0.2px solid rgba(104, 103, 105, 0.41);
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #282804, 0px 0px 1px #3f3f06;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #2f2f2b;
+  height: 42px;
+  width: 15px;
+  border-radius: 3px;
+  background: #7f807f;
+  cursor: pointer;
+  height: 8.4px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #fbfbfa;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #ffffff;
+}
+
+
+
+/**/
+
+#frontlayer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /*margin: 70px 140px 175px 140px;*/
+  padding : 20px;
+  margin-top: 50px;
+  width: 200px;
+  height: 50px;
+  background-color: orange;
+  visibility: hidden;
+  border: 1px solid black;
+  z-index: 1;
+}
+
+
+
+/* sortable jquery ui */
+#jspsych-row-sort-arena {
+  /*display:inline-block;*/
+  position: relative;
+  border: 0px solid #444;
+}
+
+#jspsych-row-sort-done-btn {
+  margin-top: 10px;
+}
+
+#row-text-description {
+  border-top: 1px solid black;
+}
+
+#sortable {
+  display:inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#sortable li {
+  float: left;
+}
+
+.ui-state-default {
+}
+
+.ui-sortable-helper {
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
+}
+
+.ui-state-highlight {
+  background-color: #ecffb3;
+}
+
+.jspsych-row-sort-sortable {
+  height: 70px;
+}

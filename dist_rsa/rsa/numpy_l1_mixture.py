@@ -3,14 +3,12 @@
 import time
 import tqdm
 import numpy as np
-#import edward as ed
 import scipy
 import scipy.stats
 from collections import Counter
 import pickle
 from scipy.stats import multivariate_normal
 import tensorflow as tf
-# from edward.models import Normal,Empirical, Bernoulli, Categorical
 from dist_rsa.utils.helperfunctions import projection,tensor_projection,weights_to_dist,\
     normalize,as_a_matrix,tensor_projection_matrix,\
     double_tensor_projection_matrix,combine_quds, lookup,\
@@ -90,6 +88,7 @@ def np_l1(inference_params):
 		if optimize:
 
 			discrete_worlds_along_qud = np.asarray([np.transpose(qud_matrix[qi])*((amount*x)+approximate_mean) for x in range(-size,size+1)])
+			# SHOULDN'T I TAKE LOG PDF??
 			discrete_worlds_along_qud_prior = np.asarray([np.log(full_space_prior.pdf(w)) for w in discrete_worlds_along_qud])
 			inference_params.qud_matrix = tf.expand_dims(qud_matrix[qi],0)
 			t1 = time.time()

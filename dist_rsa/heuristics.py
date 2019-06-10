@@ -7,18 +7,22 @@ import itertools
 from dist_rsa.utils.load_data import *
 from dist_rsa.utils.helperfunctions import projection
 import spacy
-nlp = spacy.load('en')
 from nltk.corpus import stopwords
 import random
 import math
 from sklearn.linear_model import Perceptron,LogisticRegression
 from nltk.stem.wordnet import WordNetLemmatizer
 
+<<<<<<< HEAD
+nlp = spacy.load('en')
+random.seed(4)
+=======
 ps = nltk.stem.PorterStemmer()
 
 # lmtzr = WordNetLemmatizer()
 
 # random.seed(4)
+>>>>>>> 83928f8975223c75ca7ebf5ecd39f6bd4350bb13
 
 stops = set(stopwords.words('english'))
 vec_size,vec_kind = 300,'glove.6B.'
