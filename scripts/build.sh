@@ -27,11 +27,8 @@ pip3 install -r requirements.txt
 
 #run refine_vectors to obtain glove_dicts
 
-
 mkdir dist_rsa/data/word_vectors
 ipython3 dist_rsa/utils/refine_vectors.py
 
-#include the concrete nouns/adjs in the repo
-#(change gitignore)
-#give up on frequencies
+
 
