@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: metaphor.aux
+The style file: biblatex.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: metaphor-blx.bib
+Database file #2: metaphor.bib
+Biblatex version: 3.0
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+You've used 26 entries,
+            6047 wiz_defined-function locations,
+            1276 strings with 11964 characters,
+and the built_in function-call counts, 88347 in all, are:
+= -- 3839
+> -- 2934
+< -- 980
++ -- 1030
+- -- 1013
+* -- 6516
+:= -- 5172
+add.period$ -- 0
+call.type$ -- 26
+change.case$ -- 601
+chr.to.int$ -- 34
+cite$ -- 50
+duplicate$ -- 9836
+empty$ -- 9118
+format.name$ -- 1737
+if$ -- 20397
+int.to.chr$ -- 0
+int.to.str$ -- 65
+missing$ -- 0
+newline$ -- 692
+num.names$ -- 1393
+pop$ -- 8144
+preamble$ -- 1
+purify$ -- 673
+quote$ -- 0
+skip$ -- 5355
+stack$ -- 0
+substring$ -- 2552
+swap$ -- 3321
+text.length$ -- 705
+text.prefix$ -- 25
+top$ -- 1
+type$ -- 976
+warning$ -- 0
+while$ -- 496
+width$ -- 0
+write$ -- 665

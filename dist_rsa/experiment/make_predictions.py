@@ -11,15 +11,18 @@ from dist_rsa.utils.helperfunctions import *
 from dist_rsa.utils.config import abstract_threshold,concrete_threshold
 import json
 
-sig1 = 1e0
-sig2 = 1e-1
-l1_sig1 = 1e-1
-mean_center = True
-remove_top_dims = False
-norm_vectors = False
 
-# path = "dist_rsa/data/results/pickles/s2memo/"
-path = "dist_rsa/data/results/pickles/s2memo_with_opt/"
+
+# sig1 = 1e0
+# sig2 = 1e-1
+# l1_sig1 = 1e-1
+# mean_center = True
+# remove_top_dims = False
+# norm_vectors = False
+
+# # path = "dist_rsa/data/results/pickles/s2memo/"
+# # path = "dist_rsa/data/results/pickles/s2memo_with_opt"
+# path = "dist_rsa/data/results/pickles/s2memo/withopt_newmets"
 # items = [("man","shark"),("man","banana")]
 vecs = load_vecs(mean=False,pca=False,vec_length=300,vec_type='glove.6B.')
 word_selection_vecs = vecs
@@ -49,6 +52,8 @@ def predict(LOAD,metaphors,path,hyperparams):
         results_dict={}
     # #     for subj,pred in [("woman","rose"),("rose","woman")]:
         for subj,pred in metaphors:
+
+            if subj not in word_selection_vecs or pred not in word_selection_vecs: continue
 
             nouns,adjs = get_words(with_freqs=False)
 
@@ -110,6 +115,7 @@ def predict(LOAD,metaphors,path,hyperparams):
 
 
             r = Results_Pickler(results_dict=results_dict,path=path+hyperparams.show())
+            print("SAVING")
             r.save()
 
     r = Results_Pickler(path=path+hyperparams.show())
@@ -149,19 +155,18 @@ def predict(LOAD,metaphors,path,hyperparams):
 #     hyperparams=hyperparams)
 
 # print(out)
-
 def results_to_json(metaphors,LOAD):
 
     type_to_label = {"numpy_discrete_mixture":"l1","qud_only":"simple_l1","baseline":"baseline"}
 
     type_to_predictions = defaultdict(dict)
 
-    for model_type in ["qud_only","numpy_discrete_mixture","baseline"]:
+    for model_type in ["numpy_discrete_mixture","baseline"]:
 
         mean_center = True
         remove_top_dims = False
         norm_vectors = False
-        sig1 = 1e-1
+        sig1 = 1e0
         sig2 = 1e-1
         l1_sig1 = 1e-1
         hyperparams = Hyperparams(mean_center=mean_center,remove_top_dims=remove_top_dims,norm_vectors=norm_vectors,sig1=sig1,sig2=sig2,l1_sig1=l1_sig1,model_type=model_type)
@@ -169,8 +174,11 @@ def results_to_json(metaphors,LOAD):
         r = predict(
             LOAD=LOAD,
             metaphors=metaphors,
-            path="dist_rsa/experiment/predictions/",
+            path="dist_rsa/experiment/",
             hyperparams=hyperparams)
+
+        print(r)
+        raise Exception
 
         # print(r.results_dict[metaphors[0]].qud_marginals)
         # raise Exception
@@ -193,11 +201,12 @@ def results_to_json(metaphors,LOAD):
     # count12 = 0
     # count13 = 0
     # count23 = 0
-    for i,metaphor in enumerate(metaphors):
+    # for i,metaphor in enumerate(metaphors):
+    for i,metaphor in enumerate(r.results_dict):
 
 
 
-
+        if 'numpy_discrete_mixture' not in type_to_predictions[metaphor] or "baseline" not in type_to_predictions[metaphor]: continue
 
         l1_predictions = type_to_predictions[metaphor]["numpy_discrete_mixture"]
         # qud_only_predictions = type_to_predictions[metaphor]["qud_only"]
@@ -294,12 +303,18 @@ def results_to_json(metaphors,LOAD):
     predictions.write(json.dumps(output))
     predictions.close()
 
-AN_corpus = make_pair_dict()[:]
+AN_corpus = make_pair_dict()[:135]
+
+# print(len(AN_corpus),AN_corpus)
+# raise Exception
 
 def join_list(l):
     return [item for sublist in l for item in sublist]
 
-metaphors = join_list(AN_corpus)
+# metaphors = join_list(AN_corpus)
+
+metaphors = AN_corpus
+print(metaphors,len(metaphors))
 
 results_to_json(metaphors=metaphors,LOAD=True)
 

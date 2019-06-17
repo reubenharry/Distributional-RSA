@@ -4,21 +4,22 @@ import numpy as np
 import pickle
 import itertools
 import nltk
-# from dist_rsa.rsa.tensorflow_l1 import tf_l1
+import os
 from dist_rsa.rsa.tensorflow_l1_mixture import tf_l1 as tf_l1_mixture
 from dist_rsa.rsa.numpy_l1_mixture import np_l1 as np_l1_mixture
 from dist_rsa.rsa.tensorflow_s2 import tf_s2
 from dist_rsa.rsa.tensorflow_s2_qud_only import tf_s2_qud_only
 from dist_rsa.rsa.tensorflow_s2_mixture import tf_s2_mixture
+from dist_rsa.rsa.tensorflow_l1_qud_only import tf_l1_qud_only
+from dist_rsa.rsa.tensorflow_l1_discrete import tf_l1_discrete
+from dist_rsa.utils.refine_vectors import h_dict,processVecMatrix
+from dist_rsa.utils.helperfunctions import *
+# from dist_rsa.utils.load_data import 
+# from dist_rsa.rsa.tensorflow_l1_discrete_only_trivial import tf_l1_discrete_only_trivial
+# from dist_rsa.rsa.tensorflow_l1_noncat import tf_l1_noncat
+# from dist_rsa.rsa.tensorflow_l1 import tf_l1
 # from dist_rsa.rsa.tensorflow_l1_with_trivial import tf_l1_with_trivial
 # from dist_rsa.rsa.tensorflow_l1_only_trivial import tf_l1_only_trivial
-from dist_rsa.rsa.tensorflow_l1_qud_only import tf_l1_qud_only
-# from dist_rsa.rsa.tensorflow_l1_noncat import tf_l1_noncat
-from dist_rsa.rsa.tensorflow_l1_discrete import tf_l1_discrete
-# from dist_rsa.rsa.tensorflow_l1_discrete_only_trivial import tf_l1_discrete_only_trivial
-from dist_rsa.utils.refine_vectors import h_dict,processVecMatrix
-# from dist_rsa.utils.load_data import 
-from dist_rsa.utils.helperfunctions import *
 
 class Resolution:
     def __init__(
@@ -166,7 +167,7 @@ class Dist_RSA_Inference:
             print("results",self.tf_results)
 
         elif self.inference_params.model_type=="baseline":
-            print("RUNNING NUMPY DISCRETE MIXTURE MODEL")
+            print("RUNNING BASELINE MODEL")
             from dist_rsa.utils.load_data import get_words
             vecs = self.inference_params.vecs
             subj = self.inference_params.subject
@@ -183,19 +184,6 @@ class Dist_RSA_Inference:
 
             self.tf_results = None
             print("results",self.tf_results)
-
-
-        # else:
-        #         print("RUNNING CAT WITHOUT TRIVIAL MODEL")
-        #         tf_results = tf_l1(self.inference_params)
-    
-
-
-        # elif self.inference_params.model_type=='non-categorical':
-        #     print("RUNNING NONCAT WITHOUT TRIVIAL MODEL")
-        #     tf_results = tf_l1_noncat(self.inference_params)
-            
-        # self.qud_samples,self.world_samples = tf_results
 
     def compute_s1(self,s1_world,world_movement=False,debug=False,vectorization=1):
         from dist_rsa.rsa.tensorflow_s1 import tf_s1
@@ -218,7 +206,7 @@ class Dist_RSA_Inference:
         # import edward as ed
         # print("triple vec results",ed.get_session().run(tv))
         
-        #NB ACTUALLY VECTORIZATION 1 and 2 are both 2, i think
+        #NB ACTUALLY VECTORIZATION 1 and 2 are both 2, i think: ???
         if vectorization==1: self.s1_results=tf_s1_old(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
         elif vectorization==2: self.s1_results=tf_s1(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
         elif vectorization==3: self.s1_results=tf_s1_triple_vec(self.inference_params,s1_world=s1_world,world_movement=world_movement,debug=debug)
@@ -277,10 +265,6 @@ class Dist_RSA_Inference:
        
     def qud_results(self,comparanda=None):
 
-        # new_vecs = defaultdict(lambda x : np.zeros(self.inference_params.vec_length))
-        # for x in self.inference_params.vecs:
-        #     new_vecs[x] = self.inference_params.vecs[x]
-
         if self.inference_params.model_type=="categorical":
             if self.inference_params.trivial_qud_prior:
                 for i,result in enumerate(self.qud_samples):
@@ -297,11 +281,6 @@ class Dist_RSA_Inference:
 
             else:
                 return self.qud_samples
-        # elif self.inference_params.model_type=="non-categorical":
-        #     if comparanda==None:
-        #         comparanda=self.inference_params.quds
-        #     nearest = nearest_neighbours(support=comparanda,comp_point=np.expand_dims(np.mean(self.qud_samples,axis=0),0),vecs=new_vecs)
-        #     return list(zip(*nearest))[:20]
 
 class Results_Pickler:
     def __init__(self,path,results_dict=None):
@@ -314,16 +293,13 @@ class Results_Pickler:
         for r in self.results_dict:
             pickleable_results_dict[r]=Pickleable_Params(self.results_dict[r])
 
+        print("SAVING TO:",self.path)
         pickle.dump(pickleable_results_dict,open(self.path,'wb'))
 
     def open(self):
-        self.results_dict = pickle.load(open(self.path,'rb'))
-        # for t in self.results_dict:
-        #     pickle.dump(Pickleable_Params(self.results_dict[t]),open(self.path+t[0]+t[1],'wb'))
-        
-    # def retrieve(self,t):
-    #     return pickle.load(open(self.path+t[0]+t[1],'rb'))
+        print("LOADING PATH::", self.path)
 
+        self.results_dict = pickle.load(open(self.path,'rb'))
 
 class Pickleable_Params:
     def __init__(self,d):
